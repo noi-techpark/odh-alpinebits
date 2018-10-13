@@ -16,7 +16,7 @@ import java.util.Optional;
  * thus be used for data exchange between the middlewares.
  * <p>
  * The context implements the {@link ExceptionHandler} interface.
- * Context implementations should handleContext exceptions that occur while
+ * Context implementations should handle context exceptions that occur while
  * the middlewares are executed. This way, the exception handling
  * is part of the context and can be specialized if needed.
  */
@@ -35,7 +35,23 @@ public interface Context extends ExceptionHandler {
      *         i.e. the found value's type is not the same as {@code clazz}, not a superclass and
      *         not a superinterface
      */
-    <T> Optional<T> get(String key, Class<T> clazz);
+    <T> Optional<T> get(String key, Class<T> clazz) throws ClassCastException;
+
+    /**
+     * Get the value for the given key from the context. If the key is undefined, a
+     * {@link RequiredContextKeyMissingException} is thrown.
+     *
+     * @param key   identifier used to retrieve the value of the associated key
+     * @param clazz type expected to be returned. If a value was found for the given key,
+     *              but the expected {@code clazz} is not assignable from the value's type, a
+     *              {@link ClassCastException} should be thrown (fail fast)
+     * @return the value referenced by the given key
+     * @throws RequiredContextKeyMissingException if the {@code key} is undefined
+     * @throws ClassCastException if {@code clazz} is not assignable from the found value's type,
+     *         i.e. the found value's type is not the same as {@code clazz}, not a superclass and
+     *         not a superinterface
+     */
+    <T> T getOrThrow(String key, Class<T> clazz) throws RequiredContextKeyMissingException, ClassCastException;
 
     /**
      * Set the value for the given key in this context.

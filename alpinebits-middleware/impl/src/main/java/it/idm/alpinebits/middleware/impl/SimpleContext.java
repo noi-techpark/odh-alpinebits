@@ -7,6 +7,7 @@
 package it.idm.alpinebits.middleware.impl;
 
 import it.idm.alpinebits.middleware.Context;
+import it.idm.alpinebits.middleware.RequiredContextKeyMissingException;
 
 import java.util.Map;
 import java.util.Optional;
@@ -21,7 +22,7 @@ public class SimpleContext implements Context {
     private final Map<String, Object> state = new ConcurrentHashMap<>();
 
     @Override
-    public <T> Optional<T> get(String key, Class<T> clazz) {
+    public <T> Optional<T> get(String key, Class<T> clazz) throws ClassCastException {
         if (!this.state.containsKey(key)) {
             return Optional.empty();
         }
@@ -29,11 +30,23 @@ public class SimpleContext implements Context {
         Object result = this.state.get(key);
 
         if (clazz.isAssignableFrom(result.getClass())) {
-            return Optional.of((T) result);
+            // Suppressing the "unchecked" warning is ok, since an assignability check is done
+            @SuppressWarnings("unchecked")
+            Optional<T> castedResult = Optional.of((T) result);
+            return castedResult;
         }
 
         throw new ClassCastException(result.getClass() + " cannot be cast to " + clazz);
 
+    }
+
+    @Override
+    public <T> T getOrThrow(String key, Class<T> clazz) throws RequiredContextKeyMissingException, ClassCastException {
+        if (!this.state.containsKey(key)) {
+            throw new RequiredContextKeyMissingException("The required key " + key + " is missing in the context");
+        }
+
+        return this.get(key, clazz).get();
     }
 
     @Override
