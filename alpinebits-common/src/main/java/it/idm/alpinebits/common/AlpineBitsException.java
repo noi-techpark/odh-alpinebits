@@ -4,14 +4,26 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package it.idm.alpinebits.server;
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+package it.idm.alpinebits.common;
 
 /**
  * Base class for all AlpineBits exceptions.
  */
 public class AlpineBitsException extends RuntimeException {
 
-    protected int code;
+    private int code;
 
     /**
      * Constructs an {@code AlpineBitsException} with the specified message, code and root
@@ -37,6 +49,8 @@ public class AlpineBitsException extends RuntimeException {
         super(msg);
         this.code = code;
     }
+
+
 
     public int getCode() {
         return code;

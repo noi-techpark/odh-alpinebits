@@ -12,6 +12,7 @@
     <name>IDM AlpineBits</name>
 
     <modules>
+        <module>alpinebits-common</module>
         <module>alpinebits-middleware</module>
         <module>alpinebits-server</module>
         <module>build-tools</module>
@@ -115,6 +116,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.idm.alpinebits</groupId>
+                <artifactId>alpinebits-common</artifactId>
+                <version>0.0.1</version>
+            </dependency>
             <dependency>
                 <groupId>com.idm.alpinebits</groupId>
                 <artifactId>alpinebits-middleware-api</artifactId>
