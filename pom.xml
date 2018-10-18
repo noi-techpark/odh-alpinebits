@@ -13,6 +13,7 @@
 
     <modules>
         <module>alpinebits-common</module>
+        <module>alpinebits-http</module>
         <module>alpinebits-middleware</module>
         <module>alpinebits-server</module>
         <module>build-tools</module>
@@ -32,10 +33,13 @@
         <versions-maven-plugin.version>2.5</versions-maven-plugin.version>
         <dependency-check-maven.version>3.1.1</dependency-check-maven.version>
 
+        <servlet.version>3.0.1</servlet.version>
+
         <testng.version>6.14.3</testng.version>
         <mockito.version>2.22.0</mockito.version>
         <arquillian.version>1.4.0.Final</arquillian.version>
         <tomcat-embedded.version>8.0.53</tomcat-embedded.version>
+        <rest-assured.version>3.1.1</rest-assured.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -67,7 +71,7 @@
 
     <profiles>
         <profile>
-            <id>tomcat-embedded</id>
+            <id>integration-test</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -90,27 +94,34 @@
                     <version>${tomcat-embedded.version}</version>
                     <scope>provided</scope>
                 </dependency>
-                <dependency>
-                    <groupId>org.apache.tomcat.embed</groupId>
-                    <artifactId>tomcat-embed-logging-juli</artifactId>
-                    <version>${tomcat-embedded.version}</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.eclipse.jdt.core.compiler</groupId>
-                    <artifactId>ecj</artifactId>
-                    <version>3.7</version>
-                    <scope>test</scope>
-                </dependency>
-
-                <!-- Weld servlet for testing CDI injections -->
-                <!--<dependency>-->
-                    <!--<groupId>org.jboss.weld.servlet</groupId>-->
-                    <!--<artifactId>weld-servlet</artifactId>-->
-                    <!--<version>1.1.5-Final</version>-->
-                    <!--<scope>test</scope>-->
-                <!--</dependency>-->
             </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>${maven-failsafe-plugin.version}</version>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>integration-test</id>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>verify</id>
+                                <goals>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
@@ -119,6 +130,16 @@
             <dependency>
                 <groupId>com.idm.alpinebits</groupId>
                 <artifactId>alpinebits-common</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.idm.alpinebits</groupId>
+                <artifactId>alpinebits-http-api</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.idm.alpinebits</groupId>
+                <artifactId>alpinebits-http-impl</artifactId>
                 <version>0.0.1</version>
             </dependency>
             <dependency>
@@ -175,11 +196,22 @@
                 <type>pom</type>
             </dependency>
             <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-7.0</artifactId>
-                <version>1.0.3.Final</version>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${servlet.version}</version>
                 <scope>provided</scope>
-                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>rest-assured</artifactId>
+                <version>${rest-assured.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>xml-path</artifactId>
+                <version>${rest-assured.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

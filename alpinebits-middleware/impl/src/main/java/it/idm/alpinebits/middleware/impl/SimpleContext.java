@@ -22,7 +22,7 @@ public class SimpleContext implements Context {
     private final Map<String, Object> state = new ConcurrentHashMap<>();
 
     @Override
-    public <T> Optional<T> get(String key, Class<T> clazz) throws ClassCastException {
+    public <T> Optional<T> get(String key, Class<T> clazz) {
         if (!this.state.containsKey(key)) {
             return Optional.empty();
         }
@@ -41,7 +41,7 @@ public class SimpleContext implements Context {
     }
 
     @Override
-    public <T> T getOrThrow(String key, Class<T> clazz) throws RequiredContextKeyMissingException, ClassCastException {
+    public <T> T getOrThrow(String key, Class<T> clazz) {
         if (!this.state.containsKey(key)) {
             throw new RequiredContextKeyMissingException("The required key " + key + " is missing in the context");
         }
