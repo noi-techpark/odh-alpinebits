@@ -27,6 +27,7 @@
         <maven-enforcer-plugin.version>3.0.0-M2</maven-enforcer-plugin.version>
         <maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>2.20</maven-failsafe-plugin.version>
+        <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
         <checkstyle-maven.version>2.17</checkstyle-maven.version>
         <checkstyle.version>8.5</checkstyle.version>
         <maven-pmd-plugin.version>3.10.0</maven-pmd-plugin.version>
@@ -444,6 +445,20 @@
                         <failBuildOnCVSS>8</failBuildOnCVSS>
                         <cveValidForHours>24</cveValidForHours>
                         <skipProvidedScope>true</skipProvidedScope>
+                    </configuration>
+                </plugin>
+
+                <!-- Generate Javadoc -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
+                    <configuration>
+                        <sourceFileExcludes>
+                            <!--Exclude tests-->
+                            <exclude>**/**Test.java</exclude>
+                            <exclude>**/**IT.java</exclude>
+                        </sourceFileExcludes>
                     </configuration>
                 </plugin>
             </plugins>
