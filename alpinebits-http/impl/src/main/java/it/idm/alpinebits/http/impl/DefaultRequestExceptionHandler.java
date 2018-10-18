@@ -18,7 +18,9 @@ import java.io.IOException;
 
 /**
  * This default {@link RequestExceptionHandler} implementation logs the given exception and
- * sets the response body to "ERROR: " + {@link Exception#getMessage()}. The status depends on the exception type:
+ * sets the response body to "ERROR: " + {@link AlpineBitsException#getResponseMessage()} if
+ * it is a {@link AlpineBitsException} and {@link Exception#getMessage()} otherwise. The
+ * status depends on the exception type:
  * <ul>
  *     <li>
  *        for an {@link AlpineBitsException}, the value provided by {@link AlpineBitsException#getCode()}
