@@ -42,11 +42,12 @@ public class SimpleContext implements Context {
 
     @Override
     public <T> T getOrThrow(String key, Class<T> clazz) {
-        if (!this.state.containsKey(key)) {
+        Optional<T> value = this.get(key, clazz);
+        if (!value.isPresent()) {
             throw new RequiredContextKeyMissingException("The required key " + key + " is missing in the context");
         }
 
-        return this.get(key, clazz).get();
+        return value.get();
     }
 
     @Override
