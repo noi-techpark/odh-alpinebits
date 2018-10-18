@@ -22,7 +22,7 @@ public class UndefinedActionException extends AlpineBitsException {
      * @param msg the detail message
      */
     public UndefinedActionException(String msg) {
-        super(msg, STATUS);
+        super(msg, STATUS, "unknown or missing action");
     }
 
 }

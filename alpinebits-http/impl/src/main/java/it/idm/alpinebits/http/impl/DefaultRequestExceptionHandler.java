@@ -53,7 +53,9 @@ public class DefaultRequestExceptionHandler implements RequestExceptionHandler {
     }
 
     public String getErrorMessage(Exception e) {
-        return "ERROR:" + e.getMessage();
+        return e instanceof AlpineBitsException
+                ? "ERROR:" + ((AlpineBitsException)e).getResponseMessage()
+                : "ERROR:" + e.getMessage();
     }
 
     private int getStatus(AlpineBitsException e) {
