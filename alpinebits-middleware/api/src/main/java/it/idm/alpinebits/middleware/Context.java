@@ -35,7 +35,7 @@ public interface Context extends ExceptionHandler {
      *         i.e. the found value's type is not the same as {@code clazz}, not a superclass and
      *         not a superinterface
      */
-    <T> Optional<T> get(String key, Class<T> clazz) throws ClassCastException;
+    <T> Optional<T> get(String key, Class<T> clazz);
 
     /**
      * Get the value for the given key from the context. If the key is undefined, a
@@ -51,7 +51,7 @@ public interface Context extends ExceptionHandler {
      *         i.e. the found value's type is not the same as {@code clazz}, not a superclass and
      *         not a superinterface
      */
-    <T> T getOrThrow(String key, Class<T> clazz) throws RequiredContextKeyMissingException, ClassCastException;
+    <T> T getOrThrow(String key, Class<T> clazz);
 
     /**
      * Set the value for the given key in this context.
