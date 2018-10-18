@@ -31,6 +31,8 @@
         <checkstyle.version>8.5</checkstyle.version>
         <maven-pmd-plugin.version>3.10.0</maven-pmd-plugin.version>
         <sonar-maven-plugin.version>3.4.0.905</sonar-maven-plugin.version>
+        <jacoco.version>0.8.2</jacoco.version>
+
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
         <dependency-check-maven.version>3.1.1</dependency-check-maven.version>
         <gitflow-maven-plugin.version>1.10.0</gitflow-maven-plugin.version>
@@ -96,6 +98,28 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>report</id>
+            <properties>
+                <sonar.exclusions>**/Q**Entity.java</sonar.exclusions>
+                <!-- exclude *Entity.java from code duplication reports -->
+                <sonar.cpd.exclusions>**/*Entity.java</sonar.cpd.exclusions>
+                <!-- force sonarqube to show 0% coverage for modules without tests -->
+                <sonar.jacoco.reportMissing.force.zero>true</sonar.jacoco.reportMissing.force.zero>
+                <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <configuration>
+                            <skip>${skipTests}</skip>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
@@ -342,6 +366,43 @@
                     <version>${sonar-maven-plugin.version}</version>
                 </plugin>
 
+                <!-- Code coverage -->
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco.version}</version>
+                    <configuration>
+                        <append>true</append>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>default-prepare-agent</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>default-report</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>default-prepare-agent-integration</id>
+                            <goals>
+                                <goal>prepare-agent-integration</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>default-report-integration</id>
+                            <goals>
+                                <goal>report-integration</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
                 <!-- Check deployed version -->
                 <plugin>
                     <groupId>pl.project13.maven</groupId>
@@ -360,7 +421,7 @@
                     </configuration>
                 </plugin>
 
-                <!-- supports various Git workflows -->
+                <!-- Support various Git workflows -->
                 <plugin>
                     <groupId>com.amashchenko.maven.plugin</groupId>
                     <artifactId>gitflow-maven-plugin</artifactId>
