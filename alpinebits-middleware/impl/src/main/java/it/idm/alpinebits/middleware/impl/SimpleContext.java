@@ -67,6 +67,9 @@ public class SimpleContext implements Context {
     }
 
     @Override
+    // Suppress warning "Generic exceptions should never be thrown", since in this place
+    // a generic runtime exception should be thrown
+    @SuppressWarnings("squid:S00112")
     public void handleException(Exception e) {
         throw new RuntimeException(e);
     }
