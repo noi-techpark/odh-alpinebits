@@ -6,7 +6,7 @@
 
     <groupId>com.idm.alpinebits</groupId>
     <artifactId>alpinebits-root</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
 
     <packaging>pom</packaging>
     <name>IDM AlpineBits</name>
@@ -35,7 +35,7 @@
         <testng.version>6.14.3</testng.version>
         <mockito.version>2.22.0</mockito.version>
         <arquillian.version>1.4.0.Final</arquillian.version>
-        <tomcat-embedded.version>8.0.42</tomcat-embedded.version>
+        <tomcat-embedded.version>8.0.53</tomcat-embedded.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
