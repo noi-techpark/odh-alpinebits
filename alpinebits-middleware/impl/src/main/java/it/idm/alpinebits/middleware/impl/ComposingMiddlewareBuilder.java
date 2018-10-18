@@ -19,11 +19,15 @@ import java.util.function.Consumer;
 /**
  * Builder to compose a list of {@link Middleware} into one middleware.
  */
-public class ComposingMiddlewareBuilder {
+public final class ComposingMiddlewareBuilder {
 
     public static final String COMPOSING_MIDDLEWARE_NAME = "composing middleware";
 
     private static final Logger LOG = LoggerFactory.getLogger(ComposingMiddlewareBuilder.class);
+
+    private ComposingMiddlewareBuilder() {
+        // Empty
+    }
 
     /**
      * Compose a list of {@link Middleware} objects into a single middleware.
