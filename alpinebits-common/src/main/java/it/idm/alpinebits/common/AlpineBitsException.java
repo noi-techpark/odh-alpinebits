@@ -11,7 +11,7 @@ package it.idm.alpinebits.common;
  */
 public class AlpineBitsException extends RuntimeException {
 
-    private int code;
+    private final int code;
 
     /**
      * Constructs an {@code AlpineBitsException} with the specified message, code and root
