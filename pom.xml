@@ -6,7 +6,7 @@
 
     <groupId>com.idm.alpinebits</groupId>
     <artifactId>alpinebits-root</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
 
     <packaging>pom</packaging>
     <name>IDM AlpineBits</name>
@@ -107,37 +107,37 @@
             <dependency>
                 <groupId>com.idm.alpinebits</groupId>
                 <artifactId>alpinebits-common</artifactId>
-                <version>0.0.3</version>
+                <version>0.0.4</version>
             </dependency>
             <dependency>
                 <groupId>com.idm.alpinebits</groupId>
                 <artifactId>alpinebits-http-api</artifactId>
-                <version>0.0.3</version>
+                <version>0.0.4</version>
             </dependency>
             <dependency>
                 <groupId>com.idm.alpinebits</groupId>
                 <artifactId>alpinebits-http-impl</artifactId>
-                <version>0.0.3</version>
+                <version>0.0.4</version>
             </dependency>
             <dependency>
                 <groupId>com.idm.alpinebits</groupId>
                 <artifactId>alpinebits-middleware-api</artifactId>
-                <version>0.0.3</version>
+                <version>0.0.4</version>
             </dependency>
             <dependency>
                 <groupId>com.idm.alpinebits</groupId>
                 <artifactId>alpinebits-middleware-impl</artifactId>
-                <version>0.0.3</version>
+                <version>0.0.4</version>
             </dependency>
             <dependency>
                 <groupId>com.idm.alpinebits</groupId>
                 <artifactId>alpinebits-server-api</artifactId>
-                <version>0.0.3</version>
+                <version>0.0.4</version>
             </dependency>
             <dependency>
                 <groupId>com.idm.alpinebits</groupId>
                 <artifactId>alpinebits-server-impl</artifactId>
-                <version>0.0.3</version>
+                <version>0.0.4</version>
             </dependency>
 
             <dependency>
