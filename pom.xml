@@ -13,6 +13,7 @@
 
     <modules>
         <module>alpinebits-common</module>
+        <module>alpinebits-http</module>
         <module>alpinebits-middleware</module>
         <module>alpinebits-server</module>
         <module>build-tools</module>
