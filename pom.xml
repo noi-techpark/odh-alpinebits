@@ -6,14 +6,13 @@
 
     <groupId>com.idm.alpinebits</groupId>
     <artifactId>alpinebits-root</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
 
     <packaging>pom</packaging>
     <name>IDM AlpineBits</name>
 
     <modules>
         <module>alpinebits-common</module>
-        <module>alpinebits-http</module>
         <module>alpinebits-middleware</module>
         <module>alpinebits-server</module>
         <module>build-tools</module>
@@ -24,14 +23,16 @@
         <log4j-slf4j-impl.version>2.11.1</log4j-slf4j-impl.version>
 
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <maven-enforcer-plugin.version>3.0.0-M2</maven-enforcer-plugin.version>
         <maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>2.20</maven-failsafe-plugin.version>
         <checkstyle-maven.version>2.17</checkstyle-maven.version>
         <checkstyle.version>8.5</checkstyle.version>
         <maven-pmd-plugin.version>3.10.0</maven-pmd-plugin.version>
         <sonar-maven-plugin.version>3.4.0.905</sonar-maven-plugin.version>
-        <versions-maven-plugin.version>2.5</versions-maven-plugin.version>
+        <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
         <dependency-check-maven.version>3.1.1</dependency-check-maven.version>
+        <gitflow-maven-plugin.version>1.10.0</gitflow-maven-plugin.version>
 
         <servlet.version>3.0.1</servlet.version>
 
@@ -71,54 +72,29 @@
 
     <profiles>
         <profile>
-            <id>integration-test</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+            <!-- Execute this profile to run integration tests -->
+            <id>it</id>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
                     <artifactId>arquillian-tomcat-embedded-8</artifactId>
-                    <version>1.1.0.Final</version>
-                    <scope>test</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.tomcat.embed</groupId>
                     <artifactId>tomcat-embed-core</artifactId>
-                    <version>${tomcat-embedded.version}</version>
-                    <scope>provided</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.tomcat.embed</groupId>
                     <artifactId>tomcat-embed-jasper</artifactId>
-                    <version>${tomcat-embedded.version}</version>
-                    <scope>provided</scope>
                 </dependency>
             </dependencies>
 
             <build>
                 <plugins>
+                    <!-- Integration tests -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${maven-failsafe-plugin.version}</version>
-                        <configuration>
-                            <encoding>UTF-8</encoding>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>integration-test</id>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>verify</id>
-                                <goals>
-                                    <goal>verify</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
                 </plugins>
             </build>
@@ -130,37 +106,37 @@
             <dependency>
                 <groupId>com.idm.alpinebits</groupId>
                 <artifactId>alpinebits-common</artifactId>
-                <version>0.0.1</version>
+                <version>0.0.3</version>
             </dependency>
             <dependency>
                 <groupId>com.idm.alpinebits</groupId>
                 <artifactId>alpinebits-http-api</artifactId>
-                <version>0.0.1</version>
+                <version>0.0.3</version>
             </dependency>
             <dependency>
                 <groupId>com.idm.alpinebits</groupId>
                 <artifactId>alpinebits-http-impl</artifactId>
-                <version>0.0.1</version>
+                <version>0.0.3</version>
             </dependency>
             <dependency>
                 <groupId>com.idm.alpinebits</groupId>
                 <artifactId>alpinebits-middleware-api</artifactId>
-                <version>0.0.1</version>
+                <version>0.0.3</version>
             </dependency>
             <dependency>
                 <groupId>com.idm.alpinebits</groupId>
                 <artifactId>alpinebits-middleware-impl</artifactId>
-                <version>0.0.1</version>
+                <version>0.0.3</version>
             </dependency>
             <dependency>
                 <groupId>com.idm.alpinebits</groupId>
                 <artifactId>alpinebits-server-api</artifactId>
-                <version>0.0.1</version>
+                <version>0.0.3</version>
             </dependency>
             <dependency>
                 <groupId>com.idm.alpinebits</groupId>
                 <artifactId>alpinebits-server-impl</artifactId>
-                <version>0.0.1</version>
+                <version>0.0.3</version>
             </dependency>
 
             <dependency>
@@ -168,8 +144,14 @@
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${servlet.version}</version>
+                <scope>provided</scope>
+            </dependency>
 
-            <!-- testing -->
+            <!-- Test dependencies -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-nop</artifactId>
@@ -189,19 +171,6 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-bom</artifactId>
-                <version>${arquillian.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>javax.servlet-api</artifactId>
-                <version>${servlet.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
                 <groupId>io.rest-assured</groupId>
                 <artifactId>rest-assured</artifactId>
                 <version>${rest-assured.version}</version>
@@ -213,12 +182,39 @@
                 <version>${rest-assured.version}</version>
                 <scope>test</scope>
             </dependency>
+
+            <!-- Integration test dependencies -->
+            <dependency>
+                <groupId>org.jboss.arquillian.testng</groupId>
+                <artifactId>arquillian-testng-container</artifactId>
+                <version>1.4.0.Final</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-tomcat-embedded-8</artifactId>
+                <version>1.1.0.Final</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>${tomcat-embedded.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-jasper</artifactId>
+                <version>${tomcat-embedded.version}</version>
+                <scope>provided</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
         <pluginManagement>
             <plugins>
+                <!-- Compile sources -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -229,10 +225,11 @@
                     </configuration>
                 </plugin>
 
+                <!-- Control environmental constraints -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>1.4.1</version>
+                    <version>${maven-enforcer-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>enforce-java</id>
@@ -253,6 +250,7 @@
                     </executions>
                 </plugin>
 
+                <!-- Check code style -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
@@ -285,6 +283,7 @@
                     </dependencies>
                 </plugin>
 
+                <!-- Unit tests -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
@@ -295,6 +294,7 @@
                     </configuration>
                 </plugin>
 
+                <!-- Integration tests -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
@@ -318,6 +318,7 @@
                     </executions>
                 </plugin>
 
+                <!-- Static source code analyzer -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-pmd-plugin</artifactId>
@@ -333,12 +334,14 @@
                     </configuration>
                 </plugin>
 
+                <!-- Inspection of code quality -->
                 <plugin>
                     <groupId>org.sonarsource.scanner.maven</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
                     <version>${sonar-maven-plugin.version}</version>
                 </plugin>
 
+                <!-- Check deployed version -->
                 <plugin>
                     <groupId>pl.project13.maven</groupId>
                     <artifactId>git-commit-id-plugin</artifactId>
@@ -356,17 +359,21 @@
                     </configuration>
                 </plugin>
 
+                <!-- supports various Git workflows -->
                 <plugin>
                     <groupId>com.amashchenko.maven.plugin</groupId>
                     <artifactId>gitflow-maven-plugin</artifactId>
                     <version>${gitflow-maven-plugin.version}</version>
                 </plugin>
 
+                <!-- Manage artifact versions -->
                 <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>${versions-maven-plugin.version}</version>
                 </plugin>
 
+                <!-- Check dependencies for vulnerabilities -->
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
