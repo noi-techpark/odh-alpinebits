@@ -4,10 +4,10 @@
     http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <servlet>
         <servlet-name>AlpineBits Servlet</servlet-name>
-        <servlet-class>it.idm.alpinebits.http.impl.AlpineBitsServlet</servlet-class>
+        <servlet-class>com.idm.alpinebits.http.impl.AlpineBitsServlet</servlet-class>
         <init-param>
             <param-name>MIDDLEWARE_CLASSNAME</param-name>
-            <param-value>it.idm.alpinebits.http.middleware.MultipartFormDataParserMiddleware</param-value>
+            <param-value>com.idm.alpinebits.http.middleware.MultipartFormDataParserMiddleware</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
