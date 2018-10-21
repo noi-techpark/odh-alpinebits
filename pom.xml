@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.idm.alpinebits</groupId>
+    <groupId>it.bz.idm.alpinebits</groupId>
     <artifactId>alpinebits-root</artifactId>
     <version>0.0.5</version>
 
@@ -131,37 +131,37 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.idm.alpinebits</groupId>
+                <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-common</artifactId>
                 <version>0.0.5</version>
             </dependency>
             <dependency>
-                <groupId>com.idm.alpinebits</groupId>
+                <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-http-api</artifactId>
                 <version>0.0.5</version>
             </dependency>
             <dependency>
-                <groupId>com.idm.alpinebits</groupId>
+                <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-http-impl</artifactId>
                 <version>0.0.5</version>
             </dependency>
             <dependency>
-                <groupId>com.idm.alpinebits</groupId>
+                <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-middleware-api</artifactId>
                 <version>0.0.5</version>
             </dependency>
             <dependency>
-                <groupId>com.idm.alpinebits</groupId>
+                <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-middleware-impl</artifactId>
                 <version>0.0.5</version>
             </dependency>
             <dependency>
-                <groupId>com.idm.alpinebits</groupId>
+                <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-server-api</artifactId>
                 <version>0.0.5</version>
             </dependency>
             <dependency>
-                <groupId>com.idm.alpinebits</groupId>
+                <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-server-impl</artifactId>
                 <version>0.0.5</version>
             </dependency>

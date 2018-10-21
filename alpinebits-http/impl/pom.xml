@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.idm.alpinebits</groupId>
+        <groupId>it.bz.idm.alpinebits</groupId>
         <artifactId>alpinebits-http</artifactId>
         <version>0.0.5</version>
         <relativePath>../pom.xml</relativePath>
@@ -22,11 +22,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.idm.alpinebits</groupId>
+            <groupId>it.bz.idm.alpinebits</groupId>
             <artifactId>alpinebits-http-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.idm.alpinebits</groupId>
+            <groupId>it.bz.idm.alpinebits</groupId>
             <artifactId>alpinebits-middleware-impl</artifactId>
         </dependency>
         <dependency>
