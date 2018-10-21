@@ -10,7 +10,7 @@ import java.util.Optional;
 
 /**
  * Each {@link Middleware#handleContext(Context, MiddlewareChain)} method is
- * provided with a context object that is shared by the middlewares.
+ * provided with a {@link Context} object that is shared by the middlewares.
  * <p>
  * The context provides methods to store and retrieve data and can
  * thus be used for data exchange between the middlewares.
@@ -23,58 +23,66 @@ import java.util.Optional;
 public interface Context extends ExceptionHandler {
 
     /**
-     * Get the value for the given key from the context.
+     * Returns the value wrapped inside an {@link Optional} to which the specified
+     * {@link Key} is mapped, or an empty Optional if this {@link Context}
+     * contains no mapping for the key.
      *
-     * @param key   identifier used to retrieve the value of the associated key
-     * @param clazz type expected to be returned. If a value was found for the given key,
-     *              but the expected {@code clazz} is not assignable from the value's type, a
-     *              {@link ClassCastException} should be thrown (fail fast)
-     * @return {@link Optional} containing the value referenced by the given key, or an
-     *         empty Optional if the key could not be found
-     * @throws ClassCastException if {@code clazz} is not assignable from the found value's type,
-     *         i.e. the found value's type is not the same as {@code clazz}, not a superclass and
-     *         not a superinterface
+     * @param key the key whose associated value is to be returned
+     * @return {@link Optional} containing the value for the given {@link Key},
+     * or an empty Optional if no value was found
      */
-    <T> Optional<T> get(String key, Class<T> clazz);
+    <T> Optional<T> get(Key<T> key);
 
     /**
-     * Get the value for the given key from the context. If the key is undefined, a
-     * {@link RequiredContextKeyMissingException} is thrown.
+     * Returns the value to which the specified {@link Key} is mapped, or
+     * throws a {@link RequiredContextKeyMissingException} if this {@link Context}
+     * contains no mapping for the key.
      *
-     * @param key   identifier used to retrieve the value of the associated key
-     * @param clazz type expected to be returned. If a value was found for the given key,
-     *              but the expected {@code clazz} is not assignable from the value's type, a
-     *              {@link ClassCastException} should be thrown (fail fast)
-     * @return the value referenced by the given key
-     * @throws RequiredContextKeyMissingException if the {@code key} is undefined
-     * @throws ClassCastException if {@code clazz} is not assignable from the found value's type,
-     *         i.e. the found value's type is not the same as {@code clazz}, not a superclass and
-     *         not a superinterface
+     * @param key the key whose associated value is to be returned
+     * @return the value for the given {@link Key}
+     * @throws RequiredContextKeyMissingException if no value was found for the
+     *                                            given {@link Key}
      */
-    <T> T getOrThrow(String key, Class<T> clazz);
+    <T> T getOrThrow(Key<T> key);
 
     /**
-     * Set the value for the given key in this context.
+     * Associates the specified value with the specified {@link Key}
+     * in this {@link Context}. If the context previously contained a mapping
+     * for the key, the old value is replaced by the specified value.
      *
-     * @param key identifier used for the given value
-     * @return the current context
+     * @param key {@link Key} with which the specified value
+     *                   is to be associated
+     * @return the previous value associated with {@link Key}, or
+     * <code>null</code> if there was no mapping for key
      */
-    Context set(String key, Object value);
+    <T> T put(Key<T> key, T value);
 
     /**
-     * Remove the value referenced by the given key.
+     * Removes the mapping for a {@link Key} from this {@link Context}
+     * if it is present.
+     * <p>
+     * Returns the value to which this context previously associated the key,
+     * or <code>null</code> if the context contained no mapping for the key.
+     * <p>
+     * <p>The context will not contain a mapping for the specified key once the
+     * call returns.
      *
-     * @param key identifier referencing the value, that should be removed
-     * @return the value referenced by the given key
+     * @param key {@link Key} whose mapping is to be removed
+     *                   from the {@link Context}
+     * @return the previous value associated with {@link Key}, or
+     * <code>null</code> if there was no mapping for key
      */
-    Object remove(String key);
+    <T> T remove(Key<T> key);
 
     /**
-     * Check if the given key is part of this context.
+     * Returns <code>true</code> if this {@link Context} contains a mapping
+     * for the specified key and <code>false</code> otherwise.
      *
-     * @param key check if the context contains the given key
-     * @return true if the key was found in the context, false otherwise
+     * @param key {@link Key} whose presence in this
+     *                   {@link Context} is to be tested
+     * @return <code>true</code> if this map contains a mapping for the
+     * specified key
      */
-    boolean contains(String key);
+    <T> boolean contains(Key<T> key);
 
 }

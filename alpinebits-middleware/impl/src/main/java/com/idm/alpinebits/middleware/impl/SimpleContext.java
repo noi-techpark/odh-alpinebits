@@ -6,64 +6,56 @@
 
 package com.idm.alpinebits.middleware.impl;
 
-import com.idm.alpinebits.middleware.RequiredContextKeyMissingException;
 import com.idm.alpinebits.middleware.Context;
+import com.idm.alpinebits.middleware.Key;
+import com.idm.alpinebits.middleware.RequiredContextKeyMissingException;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Simple {@link Context} implementation, that uses a {@link ConcurrentHashMap}
- * to handleContext the context state.
+ * Simple {@link Context} implementation, that uses a
+ * {@link ConcurrentHashMap} to store the context values.
  */
 public class SimpleContext implements Context {
 
-    private final Map<String, Object> state = new ConcurrentHashMap<>();
+    private final Map<Key<?>, Object> map = new ConcurrentHashMap<>();
 
     @Override
-    public <T> Optional<T> get(String key, Class<T> clazz) {
-        if (!this.state.containsKey(key)) {
-            return Optional.empty();
+    public <T> Optional<T> get(Key<T> key) {
+        T value = key.getType().cast(this.map.get(key));
+        return Optional.ofNullable(value);
+    }
+
+    @Override
+    public <T> T getOrThrow(Key<T> key) {
+        Optional<T> value = this.get(key);
+
+        if (value.isPresent()) {
+            return value.get();
         }
 
-        Object result = this.state.get(key);
-
-        if (clazz.isAssignableFrom(result.getClass())) {
-            // Suppressing the "unchecked" warning is ok, since an assignability check is done
-            @SuppressWarnings("unchecked")
-            Optional<T> castedResult = Optional.of((T) result);
-            return castedResult;
-        }
-
-        throw new ClassCastException(result.getClass() + " cannot be cast to " + clazz);
-
+        throw new RequiredContextKeyMissingException(
+                "The required key " + key + " is missing in the context"
+        );
     }
 
     @Override
-    public <T> T getOrThrow(String key, Class<T> clazz) {
-        Optional<T> value = this.get(key, clazz);
-        if (!value.isPresent()) {
-            throw new RequiredContextKeyMissingException("The required key " + key + " is missing in the context");
-        }
-
-        return value.get();
+    public <T> T put(Key<T> key, T value) {
+        Object previousValue = this.map.put(key, value);
+        return key.getType().cast(previousValue);
     }
 
     @Override
-    public Context set(String key, Object value) {
-        this.state.put(key, value);
-        return this;
+    public <T> T remove(Key<T> key) {
+        Object removedValue = this.map.remove(key);
+        return key.getType().cast(removedValue);
     }
 
     @Override
-    public Object remove(String key) {
-        return this.state.remove(key);
-    }
-
-    @Override
-    public boolean contains(String key) {
-        return this.state.containsKey(key);
+    public <T> boolean contains(Key<T> key) {
+        return this.map.containsKey(key);
     }
 
     @Override

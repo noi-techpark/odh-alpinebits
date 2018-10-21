@@ -19,11 +19,11 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * This middleware extracts the value of the <code>X-AlpineBits-ClientProtocolVersion</code> header
- * from the HTTP request and adds it to the {@link Context} using the key
- * {@link AlpineBitsClientProtocolMiddleware#AB_CLIENT_PROTOCOL_VERSION}.
+ * from the HTTP request and adds it to the {@link Context} using the
+ * {@link HttpContextKey#ALPINE_BITS_CLIENT_PROTOCOL_VERSION} key.
  * <p>
- * The HTTP request must be present in the {@link Context}, indexed by {@link HttpContextKey#HTTP_REQUEST}.
- * Otherwise, a {@link RequiredContextKeyMissingException} is thrown.
+ * The HTTP request must be present in the {@link Context}. Otherwise, a
+ * {@link RequiredContextKeyMissingException} is thrown.
  * <p>
  * If the <code>X-AlpineBits-ClientProtocolVersion</code> header is not present, an
  * {@link AlpineBitsClientProtocolMissingException} is thrown.
@@ -31,13 +31,12 @@ import javax.servlet.http.HttpServletRequest;
 public class AlpineBitsClientProtocolMiddleware implements Middleware {
 
     public static final String CLIENT_PROTOCOL_VERSION_HEADER = "X-AlpineBits-ClientProtocolVersion";
-    public static final String AB_CLIENT_PROTOCOL_VERSION = "ab.client.protocol.version";
 
     private static final Logger LOG = LoggerFactory.getLogger(AlpineBitsClientProtocolMiddleware.class);
 
     @Override
     public void handleContext(Context ctx, MiddlewareChain chain) {
-        HttpServletRequest request = ctx.getOrThrow(HttpContextKey.HTTP_REQUEST, HttpServletRequest.class);
+        HttpServletRequest request = ctx.getOrThrow(HttpContextKey.HTTP_REQUEST);
 
         String clientProtocolVersion = request.getHeader(CLIENT_PROTOCOL_VERSION_HEADER);
         if (clientProtocolVersion == null) {
@@ -46,7 +45,7 @@ public class AlpineBitsClientProtocolMiddleware implements Middleware {
 
         LOG.debug("X-AlpineBits-ClientProtocolVersion header found: {}", clientProtocolVersion);
 
-        ctx.set(AB_CLIENT_PROTOCOL_VERSION, clientProtocolVersion);
+        ctx.put(HttpContextKey.ALPINE_BITS_CLIENT_PROTOCOL_VERSION, clientProtocolVersion);
 
         chain.next();
     }

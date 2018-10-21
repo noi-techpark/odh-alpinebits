@@ -4,9 +4,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.idm.alpinebits.middleware.impl;
+package com.idm.alpinebits.middleware.impl.utils;
 
 import com.idm.alpinebits.middleware.Context;
+import com.idm.alpinebits.middleware.Key;
 import com.idm.alpinebits.middleware.Middleware;
 import com.idm.alpinebits.middleware.MiddlewareChain;
 
@@ -16,7 +17,6 @@ import com.idm.alpinebits.middleware.MiddlewareChain;
 public class MiddlewareBuilder {
 
     public static final String EXCEPTION_MESSAGE = "FROM MIDDLEAWARE";
-    public static final String FULL_EXCEPTION_MESSAGE = "java.lang.RuntimeException: " + EXCEPTION_MESSAGE;
 
     /**
      * Build and return a {@link Middleware}, where the value is added to the
@@ -29,14 +29,11 @@ public class MiddlewareBuilder {
      * @return the {@link Middleware} with the value added to the {@link Context}
      * state
      */
-    public static Middleware buildMiddleware(String key, Object value, boolean callNext) {
-        return new Middleware() {
-            @Override
-            public void handleContext(Context ctx, MiddlewareChain chain) {
-                ctx.set(key, value);
-                if (callNext) {
-                    chain.next();
-                }
+    public static <T> Middleware buildMiddleware(Key<T> key, T value, boolean callNext) {
+        return (ctx, chain) -> {
+            ctx.put(key, value);
+            if (callNext) {
+                chain.next();
             }
         };
     }
@@ -47,11 +44,8 @@ public class MiddlewareBuilder {
      * @return the {@link Middleware} that throws a {@link RuntimeException}
      */
     public static Middleware buildThrowingMiddleware() {
-        return new Middleware() {
-            @Override
-            public void handleContext(Context ctx, MiddlewareChain chain) {
-                throw new RuntimeException(EXCEPTION_MESSAGE);
-            }
+        return (ctx, chain) -> {
+            throw new RuntimeException(EXCEPTION_MESSAGE);
         };
     }
 

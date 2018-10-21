@@ -6,8 +6,8 @@
 
 package com.idm.alpinebits.http.middleware;
 
-import com.idm.alpinebits.http.HttpContextKey;
 import com.idm.alpinebits.http.GzipUnsupportedException;
+import com.idm.alpinebits.http.HttpContextKey;
 import com.idm.alpinebits.middleware.Context;
 import com.idm.alpinebits.middleware.Middleware;
 import com.idm.alpinebits.middleware.MiddlewareChain;
@@ -24,8 +24,8 @@ import javax.servlet.http.HttpServletRequest;
  * with HTTP status code of 501, to indicate that the server doesn't support gzip
  * compressed requests.
  * <p>
- * The HTTP request must be present in the {@link Context}, indexed by {@link HttpContextKey#HTTP_REQUEST}.
- * Otherwise, a {@link RequiredContextKeyMissingException} is thrown.
+ * The HTTP request must be present in the {@link Context}. Otherwise, a
+ * {@link RequiredContextKeyMissingException} is thrown.
  */
 public class GzipUnsupportedMiddleware implements Middleware {
 
@@ -36,7 +36,7 @@ public class GzipUnsupportedMiddleware implements Middleware {
 
     @Override
     public void handleContext(Context ctx, MiddlewareChain chain) {
-        HttpServletRequest request = ctx.getOrThrow(HttpContextKey.HTTP_REQUEST, HttpServletRequest.class);
+        HttpServletRequest request = ctx.getOrThrow(HttpContextKey.HTTP_REQUEST);
 
         String contentType = request.getHeader(CONTENT_ENCODING_HEADER);
         if (GZIP.equalsIgnoreCase(contentType)) {

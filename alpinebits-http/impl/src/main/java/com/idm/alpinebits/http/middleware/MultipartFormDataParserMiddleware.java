@@ -34,14 +34,14 @@ import java.util.List;
  * This middleware extracts the <code>action</code> and <code>request</code> parts from the
  * HTTP request and adds them to the {@link Context}.
  * <p>
- * The <code>action</code> part is added as <code>String</code> using the
- * {@link MultipartFormDataParserMiddleware#AB_PART_ACTION} key.
+ * The <code>action</code> part is added as <code>String</code> using
+ * {@link HttpContextKey#ALPINE_BITS_ACTION} key.
  * <p>
  * The <code>request</code> part is added as {@link OutputStream} using the
- * {@link MultipartFormDataParserMiddleware#AB_PART_REQUEST_OUTPUTSTREAM} key.
+ * {@link HttpContextKey#ALPINE_BITS_REQUEST_CONTENT} key.
  * <p>
- * The HTTP request must be present in the {@link Context}, indexed by {@link HttpContextKey#HTTP_REQUEST}.
- * Otherwise, a {@link RequiredContextKeyMissingException} is thrown.
+ * The HTTP request must be present in the {@link Context}. Otherwise, a
+ * {@link RequiredContextKeyMissingException} is thrown.
  * <p>
  * If the requests content-type is not <code>multipart/form-data</code>, an
  * {@link InvalidRequestContentTypeException} is thrown.
@@ -52,16 +52,14 @@ import java.util.List;
  */
 public class MultipartFormDataParserMiddleware implements Middleware {
 
-    public static final String FORM_PART_ACTION = "action";
-    public static final String FORM_PART_REQUEST = "request";
-    public static final String AB_PART_ACTION = "ab.part.action";
-    public static final String AB_PART_REQUEST_OUTPUTSTREAM = "ab.part.request.inputstream";
-
     private static final Logger LOG = LoggerFactory.getLogger(MultipartFormDataParserMiddleware.class);
+
+    private static final String FORM_PART_ACTION = "action";
+    private static final String FORM_PART_REQUEST = "request";
 
     @Override
     public void handleContext(Context ctx, MiddlewareChain chain) {
-        HttpServletRequest request = ctx.getOrThrow(HttpContextKey.HTTP_REQUEST, HttpServletRequest.class);
+        HttpServletRequest request = ctx.getOrThrow(HttpContextKey.HTTP_REQUEST);
 
         this.checkIsMultipartOrThrow(request);
 
@@ -121,10 +119,10 @@ public class MultipartFormDataParserMiddleware implements Middleware {
             throw new UndefinedActionException("No action part defined in the multipart/form-data request. " + formPartsInfo);
         }
 
-        ctx.set(AB_PART_ACTION, abAction);
+        ctx.put(HttpContextKey.ALPINE_BITS_ACTION, abAction);
 
         if (abRequest != null) {
-            ctx.set(AB_PART_REQUEST_OUTPUTSTREAM, abRequest);
+            ctx.put(HttpContextKey.ALPINE_BITS_REQUEST_CONTENT, abRequest);
         }
 
         LOG.info("AlpineBits action parameter: {}, AlpineBits request parameter is present: {}", abAction, abRequest != null);
