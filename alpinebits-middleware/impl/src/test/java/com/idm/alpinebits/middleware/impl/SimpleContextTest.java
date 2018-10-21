@@ -7,13 +7,14 @@
 package com.idm.alpinebits.middleware.impl;
 
 import com.idm.alpinebits.middleware.Context;
+import com.idm.alpinebits.middleware.Key;
 import com.idm.alpinebits.middleware.RequiredContextKeyMissingException;
+import com.idm.alpinebits.middleware.impl.utils.ContextBuilder;
 import org.testng.annotations.Test;
 
 import java.util.Optional;
 
 import static org.testng.Assert.*;
-import static org.testng.Assert.assertEquals;
 
 /**
  * Test cases for {@link SimpleContext} class.
@@ -21,38 +22,38 @@ import static org.testng.Assert.assertEquals;
 public class SimpleContextTest {
 
     @Test
-    public void testGetState() {
+    public void testGetValue() {
         Context ctx = ContextBuilder.buildSimpleContext();
 
-        String intKey = "intKey";
+        Key<Integer> intKey = Key.key("intKey", Integer.class);
         int intValue = 1;
-        ctx.set(intKey, intValue);
+        ctx.put(intKey, intValue);
 
-        Optional<Integer> ctxIntValue = ctx.get(intKey, Integer.class);
+        Optional<Integer> ctxIntValue = ctx.get(intKey);
         assertTrue(ctxIntValue.isPresent());
         assertEquals(intValue, ctxIntValue.get().intValue());
 
-        String longKey = "longKey";
+        Key<Long> longKey = Key.key("longKey", Long.class);
         Long longValue = 2L;
-        ctx.set(longKey, longValue);
+        ctx.put(longKey, longValue);
 
-        Optional<Long> ctxLongValue = ctx.get(longKey, Long.class);
+        Optional<Long> ctxLongValue = ctx.get(longKey);
         assertTrue(ctxLongValue.isPresent());
         assertEquals(longValue, ctxLongValue.get());
 
-        String stringKey = "stringKey";
+        Key<String> stringKey = Key.key("stringKey", String.class);
         String stringValue = "one";
-        ctx.set(stringKey, stringValue);
+        ctx.put(stringKey, stringValue);
 
-        Optional<String> ctxStringValue = ctx.get(stringKey, String.class);
+        Optional<String> ctxStringValue = ctx.get(stringKey);
         assertTrue(ctxStringValue.isPresent());
         assertEquals(stringValue, ctxStringValue.get());
 
-        String objectKey = "objectKey";
+        Key<Object> objectKey = Key.key("objectKey", Object.class);
         Object objectValue = new Object();
-        ctx.set(objectKey, objectValue);
+        ctx.put(objectKey, objectValue);
 
-        Optional<Object> ctxObjectValue = ctx.get(objectKey, Object.class);
+        Optional<Object> ctxObjectValue = ctx.get(objectKey);
         assertTrue(ctxObjectValue.isPresent());
         assertEquals(objectValue, ctxObjectValue.get());
     }
@@ -61,32 +62,32 @@ public class SimpleContextTest {
     public void testGetOrThrow_ValuePresent() {
         Context ctx = ContextBuilder.buildSimpleContext();
 
-        String intKey = "intKey";
+        Key<Integer> intKey = Key.key("intKey", Integer.class);
         int intValue = 1;
-        ctx.set(intKey, intValue);
+        ctx.put(intKey, intValue);
 
-        Integer ctxIntValue = ctx.getOrThrow(intKey, Integer.class);
+        Integer ctxIntValue = ctx.getOrThrow(intKey);
         assertEquals(intValue, ctxIntValue.intValue());
 
-        String longKey = "longKey";
+        Key<Long> longKey = Key.key("longKey", Long.class);
         Long longValue = 2L;
-        ctx.set(longKey, longValue);
+        ctx.put(longKey, longValue);
 
-        Long ctxLongValue = ctx.getOrThrow(longKey, Long.class);
+        Long ctxLongValue = ctx.getOrThrow(longKey);
         assertEquals(longValue, ctxLongValue);
 
-        String stringKey = "stringKey";
+        Key<String> stringKey = Key.key("stringKey", String.class);
         String stringValue = "one";
-        ctx.set(stringKey, stringValue);
+        ctx.put(stringKey, stringValue);
 
-        String ctxStringValue = ctx.getOrThrow(stringKey, String.class);
+        String ctxStringValue = ctx.getOrThrow(stringKey);
         assertEquals(stringValue, ctxStringValue);
 
-        String objectKey = "objectKey";
+        Key<Object> objectKey = Key.key("objectKey", Object.class);
         Object objectValue = new Object();
-        ctx.set(objectKey, objectValue);
+        ctx.put(objectKey, objectValue);
 
-        Object ctxObjectValue = ctx.getOrThrow(objectKey, Object.class);
+        Object ctxObjectValue = ctx.getOrThrow(objectKey);
         assertEquals(objectValue, ctxObjectValue);
     }
 
@@ -94,79 +95,146 @@ public class SimpleContextTest {
     public void testGetOrThrow_ValueNotPresent() {
         Context ctx = ContextBuilder.buildSimpleContext();
 
-        String undefinedKey = "undefined key";
+        Key<Object> undefinedKey = Key.key("undefined key", Object.class);
 
-        ctx.getOrThrow(undefinedKey, Integer.class);
+        ctx.getOrThrow(undefinedKey);
     }
 
     @Test
-    public void testSetState() {
+    public void testSetValue() {
         Context ctx = ContextBuilder.buildSimpleContext();
 
-        String intKey = "intKey";
+        Key<Integer> intKey = Key.key("intKey", Integer.class);
         int intValue1 = 1;
-        ctx.set(intKey, intValue1);
+        ctx.put(intKey, intValue1);
 
-        Optional<Integer> ctxValue = ctx.get(intKey, Integer.class);
+        Optional<Integer> ctxValue = ctx.get(intKey);
         assertTrue(ctxValue.isPresent());
         assertEquals(intValue1, ctxValue.get().intValue());
 
         int intValue2 = 2;
-        ctx.set(intKey, intValue2);
+        ctx.put(intKey, intValue2);
 
-        ctxValue = ctx.get(intKey, Integer.class);
+        ctxValue = ctx.get(intKey);
         assertTrue(ctxValue.isPresent());
         assertEquals(intValue2, ctxValue.get().intValue());
     }
 
     @Test
-    public void testRemoveState() {
+    public void testRemoveValue() {
         Context ctx = ContextBuilder.buildSimpleContext();
 
-        String intKey = "intKey";
+        Key<Integer> intKey = Key.key("intKey", Integer.class);
         int intValue = 1;
-        ctx.set(intKey, intValue);
+        ctx.put(intKey, intValue);
 
-        Optional<Integer> ctxValue = ctx.get(intKey, Integer.class);
+        Optional<Integer> ctxValue = ctx.get(intKey);
         assertTrue(ctxValue.isPresent());
         assertEquals(intValue, ctxValue.get().intValue());
 
-        int removedValue = (int) ctx.remove(intKey);
+        int removedValue = ctx.remove(intKey);
 
         assertEquals(intValue, removedValue);
-        assertFalse(ctx.get(intKey, Integer.class).isPresent());
+        assertFalse(ctx.get(intKey).isPresent());
     }
 
     @Test
-    public void testStateContainsKey() {
+    public void testContextContainsKey() {
         Context ctx = ContextBuilder.buildSimpleContext();
 
-        String intKey = "intKey";
+        Key<Integer> intKey = Key.key("intKey", Integer.class);
         int intValue = 1;
-        ctx.set(intKey, intValue);
+        ctx.put(intKey, intValue);
 
         assertTrue(ctx.contains(intKey));
-        assertFalse(ctx.contains("undefined key"));
+
+        Key<Object> undefinedKey = Key.key("undefined key", Object.class);
+        assertFalse(ctx.contains(undefinedKey));
     }
 
     @Test
-    public void testStateDoesntContainKey() {
+    public void testContextDoesntContainKey() {
         Context ctx = ContextBuilder.buildSimpleContext();
 
-        String undefinedKey = "undefined key";
+        Key<Object> undefinedKey = Key.key("undefined key", Object.class);
 
         assertFalse(ctx.contains(undefinedKey));
-        assertEquals(ctx.get(undefinedKey, Object.class), Optional.empty());
+        assertEquals(ctx.get(undefinedKey), Optional.empty());
     }
 
-    @Test(expectedExceptions = ClassCastException.class)
-    public void testGetterThrowsOnIncompatibleTypes() {
+    @Test
+    public void testSameKeys_SameType() {
         Context ctx = ContextBuilder.buildSimpleContext();
 
-        String intKey = "intKey";
-        Integer intValue = 1;
-        ctx.set(intKey, intValue);
+        Key<Integer> intKey1 = Key.key("intKey", Integer.class);
+        Key<Integer> intKey2 = Key.key("intKey", Integer.class);
 
-        ctx.get(intKey, String.class);
+        int intValue1 = 1;
+        int intValue2 = 2;
+
+        ctx.put(intKey1, intValue1);
+        ctx.put(intKey2, intValue2);
+
+        int intResult1 = ctx.getOrThrow(intKey1);
+        int intResult2 = ctx.getOrThrow(intKey2);
+
+        assertEquals(intResult1, intResult2);
+    }
+
+    @Test
+    public void testSameKeys_DifferentTypes() {
+        Context ctx = ContextBuilder.buildSimpleContext();
+
+        Key<Integer> key1 = Key.key("key", Integer.class);
+        Key<String> key2 = Key.key("key", String.class);
+
+        int value1 = 1;
+        String value2 = "s";
+
+        ctx.put(key1, value1);
+        ctx.put(key2, value2);
+
+        int result1 = ctx.getOrThrow(key1);
+        String result2 = ctx.getOrThrow(key2);
+
+        assertNotEquals(result1, result2);
+    }
+
+    @Test
+    public void testDifferentKeys_SameTypes() {
+        Context ctx = ContextBuilder.buildSimpleContext();
+
+        Key<Integer> intKey1 = Key.key("intKey1", Integer.class);
+        Key<Integer> intKey2 = Key.key("intKey2", Integer.class);
+
+        int intValue1 = 1;
+        int intValue2 = 2;
+
+        ctx.put(intKey1, intValue1);
+        ctx.put(intKey2, intValue2);
+
+        int intResult1 = ctx.getOrThrow(intKey1);
+        int intResult2 = ctx.getOrThrow(intKey2);
+
+        assertNotEquals(intResult1, intResult2);
+    }
+
+    @Test
+    public void testDifferentKeys_DifferentTypes() {
+        Context ctx = ContextBuilder.buildSimpleContext();
+
+        Key<Integer> key1 = Key.key("key1", Integer.class);
+        Key<String> key2 = Key.key("key2", String.class);
+
+        int value1 = 1;
+        String value2 = "s";
+
+        ctx.put(key1, value1);
+        ctx.put(key2, value2);
+
+        int result1 = ctx.getOrThrow(key1);
+        String result2 = ctx.getOrThrow(key2);
+
+        assertNotEquals(result1, result2);
     }
 }

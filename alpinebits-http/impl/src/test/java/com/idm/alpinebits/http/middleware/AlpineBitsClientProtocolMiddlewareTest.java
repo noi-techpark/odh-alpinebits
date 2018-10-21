@@ -6,8 +6,8 @@
 
 package com.idm.alpinebits.http.middleware;
 
-import com.idm.alpinebits.http.HttpContextKey;
 import com.idm.alpinebits.http.AlpineBitsClientProtocolMissingException;
+import com.idm.alpinebits.http.HttpContextKey;
 import com.idm.alpinebits.middleware.Context;
 import com.idm.alpinebits.middleware.Middleware;
 import com.idm.alpinebits.middleware.RequiredContextKeyMissingException;
@@ -40,7 +40,7 @@ public class AlpineBitsClientProtocolMiddlewareTest {
                 .thenReturn(null);
 
         Context ctx = new SimpleContext();
-        ctx.set(HttpContextKey.HTTP_REQUEST, request);
+        ctx.put(HttpContextKey.HTTP_REQUEST, request);
 
         Middleware middleware = new AlpineBitsClientProtocolMiddleware();
         middleware.handleContext(ctx, null);
@@ -55,12 +55,12 @@ public class AlpineBitsClientProtocolMiddlewareTest {
                 .thenReturn(clientProtocolVersion);
 
         Context ctx = new SimpleContext();
-        ctx.set(HttpContextKey.HTTP_REQUEST, request);
+        ctx.put(HttpContextKey.HTTP_REQUEST, request);
 
         Middleware middleware = new AlpineBitsClientProtocolMiddleware();
         middleware.handleContext(ctx, () -> {});
 
-        String clientProtocolVersionValue = ctx.getOrThrow(AlpineBitsClientProtocolMiddleware.AB_CLIENT_PROTOCOL_VERSION, String.class);
+        String clientProtocolVersionValue = ctx.getOrThrow(HttpContextKey.ALPINE_BITS_CLIENT_PROTOCOL_VERSION);
         assertEquals(clientProtocolVersionValue, clientProtocolVersion);
     }
 }

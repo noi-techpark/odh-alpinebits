@@ -55,7 +55,7 @@ public class BasicAuthenticationMiddlewareTest {
                 .thenReturn(basicAuthentication);
 
         Context ctx = new SimpleContext();
-        ctx.set(HttpContextKey.HTTP_REQUEST, request);
+        ctx.put(HttpContextKey.HTTP_REQUEST, request);
 
         Middleware middleware = new BasicAuthenticationMiddleware();
         middleware.handleContext(ctx, null);
@@ -74,16 +74,16 @@ public class BasicAuthenticationMiddlewareTest {
                 .thenReturn(authorizationString);
 
         Context ctx = new SimpleContext();
-        ctx.set(HttpContextKey.HTTP_REQUEST, request);
+        ctx.put(HttpContextKey.HTTP_REQUEST, request);
 
         Middleware middleware = new BasicAuthenticationMiddleware();
         middleware.handleContext(ctx, () -> {
         });
 
-        String usernameValue = ctx.getOrThrow(BasicAuthenticationMiddleware.HTTP_USERNAME, String.class);
+        String usernameValue = ctx.getOrThrow(HttpContextKey.HTTP_USERNAME);
         assertEquals(usernameValue, username);
 
-        Supplier<String> passwordSupplier = ctx.getOrThrow(BasicAuthenticationMiddleware.HTTP_PASSWORD_SUPPLIER, Supplier.class);
+        Supplier<String> passwordSupplier = ctx.getOrThrow(HttpContextKey.HTTP_PASSWORD);
         String passwordValue = passwordSupplier.get();
         assertEquals(passwordValue, password);
     }

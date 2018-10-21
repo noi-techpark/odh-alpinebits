@@ -6,8 +6,8 @@
 
 package com.idm.alpinebits.http.impl;
 
-import com.idm.alpinebits.http.HttpContextKey;
 import com.idm.alpinebits.http.ContextBuilder;
+import com.idm.alpinebits.http.HttpContextKey;
 import com.idm.alpinebits.middleware.Context;
 import org.testng.annotations.Test;
 
@@ -32,13 +32,13 @@ public class DefaultContextBuilderTest {
 
         Context ctx = builder.fromRequest(request, response, requestId);
 
-        HttpServletRequest requestValue = ctx.getOrThrow(HttpContextKey.HTTP_REQUEST, HttpServletRequest.class);
+        HttpServletRequest requestValue = ctx.getOrThrow(HttpContextKey.HTTP_REQUEST);
         assertEquals(requestValue, request);
 
-        HttpServletResponse responseValue = ctx.getOrThrow(HttpContextKey.HTTP_RESPONSE, HttpServletResponse.class);
+        HttpServletResponse responseValue = ctx.getOrThrow(HttpContextKey.HTTP_RESPONSE);
         assertEquals(responseValue, response);
 
-        String requestIdValue = ctx.getOrThrow(HttpContextKey.HTTP_REQUEST_ID, String.class);
+        String requestIdValue = ctx.getOrThrow(HttpContextKey.HTTP_REQUEST_ID);
         assertEquals(requestIdValue, requestId);
     }
 }

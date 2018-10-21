@@ -4,9 +4,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.idm.alpinebits.middleware.impl;
+package com.idm.alpinebits.middleware.impl.utils;
 
 import com.idm.alpinebits.middleware.Context;
+import com.idm.alpinebits.middleware.impl.SimpleContext;
 
 /**
  * Builder for AlpineBits middleware {@link Context}.

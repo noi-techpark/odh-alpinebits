@@ -79,7 +79,7 @@ public class MultipartFormDataParserMiddlewareTest {
         HttpServletRequest request = MultipartFormDataRequestBuilder.buildRequest(s);
 
         Context ctx = this.executeMiddleware(request);
-        String action = ctx.getOrThrow(MultipartFormDataParserMiddleware.AB_PART_ACTION, String.class);
+        String action = ctx.getOrThrow(HttpContextKey.ALPINE_BITS_ACTION);
         assertEquals(action, MultipartFormDataRequestBuilder.ALPINEBITS_ACTION_PARAM);
     }
 
@@ -89,14 +89,14 @@ public class MultipartFormDataParserMiddlewareTest {
         HttpServletRequest request = MultipartFormDataRequestBuilder.buildRequest(s);
 
         Context ctx = this.executeMiddleware(request);
-        OutputStream stream = ctx.getOrThrow(MultipartFormDataParserMiddleware.AB_PART_REQUEST_OUTPUTSTREAM, OutputStream.class);
+        OutputStream stream = ctx.getOrThrow(HttpContextKey.ALPINE_BITS_REQUEST_CONTENT);
         String alpineBitsRequest = stream.toString();
         assertEquals(alpineBitsRequest, MultipartFormDataRequestBuilder.ALPINEBITS_REQUEST_PARAM);
     }
 
     private Context executeMiddleware(HttpServletRequest request) {
         Context ctx = new SimpleContext();
-        ctx.set(HttpContextKey.HTTP_REQUEST, request);
+        ctx.put(HttpContextKey.HTTP_REQUEST, request);
 
         Middleware middleware = new MultipartFormDataParserMiddleware();
         middleware.handleContext(ctx, () -> {

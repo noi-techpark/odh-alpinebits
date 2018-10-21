@@ -6,8 +6,8 @@
 
 package com.idm.alpinebits.http.middleware;
 
-import com.idm.alpinebits.http.HttpContextKey;
 import com.idm.alpinebits.http.BasicAuthenticationException;
+import com.idm.alpinebits.http.HttpContextKey;
 import com.idm.alpinebits.middleware.Context;
 import com.idm.alpinebits.middleware.Middleware;
 import com.idm.alpinebits.middleware.MiddlewareChain;
@@ -19,7 +19,6 @@ import org.slf4j.MDC;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
-import java.util.function.Supplier;
 
 /**
  * This middleware extracts the value of the <code>Authorization</code> header from the
@@ -29,16 +28,12 @@ import java.util.function.Supplier;
  * for validity. It just extracts the credentials and adds them to the {@link Context}
  * for later usage.
  * <p>
- * Given a <code>Basic Authentication</code> was found, its username is added as
- * <code>String</code> to the context using the key
- * {@link BasicAuthenticationMiddleware#HTTP_USERNAME}. Since it is a bad idea to
- * add the password as String to the context (e.g. in case the context is logged
- * somewhere), the password is added as {@link Supplier} using the key
- * {@link BasicAuthenticationMiddleware#HTTP_PASSWORD_SUPPLIER}
- * and can thus be retrieved by executing {@link Supplier#get()}.
+ * Given a <code>Basic Authentication</code> was found, the username is added to the
+ * context using the {@link HttpContextKey#HTTP_USERNAME} key, the password is added
+ * using the {@link HttpContextKey#HTTP_PASSWORD} key.
  * <p>
- * The HTTP request must be present in the {@link Context}, indexed by {@link HttpContextKey#HTTP_REQUEST}.
- * Otherwise, a {@link RequiredContextKeyMissingException} is thrown.
+ * The HTTP request must be present in the {@link Context}. Otherwise, a
+ * {@link RequiredContextKeyMissingException} is thrown.
  * <p>
  * If no <code>Basic Authentication</code> header was found, or the <code>Basic Authentication</code>
  * could not be parsed, a {@link BasicAuthenticationException} is thrown.
@@ -46,16 +41,12 @@ import java.util.function.Supplier;
 public class BasicAuthenticationMiddleware implements Middleware {
 
     public static final String BASIC_AUTHENTICATION_HEADER = "Authorization";
-    public static final String HTTP_USERNAME = "http.username";
-    // Suppress warning for squid:S2068, since the identifier PASSWORD is acceptable in this place
-    @SuppressWarnings("squid:S2068")
-    public static final String HTTP_PASSWORD_SUPPLIER = "http.password.supplier";
 
     private static final Logger LOG = LoggerFactory.getLogger(BasicAuthenticationMiddleware.class);
 
     @Override
     public void handleContext(Context ctx, MiddlewareChain chain) {
-        HttpServletRequest request = ctx.getOrThrow(HttpContextKey.HTTP_REQUEST, HttpServletRequest.class);
+        HttpServletRequest request = ctx.getOrThrow(HttpContextKey.HTTP_REQUEST);
 
         String header = request.getHeader(BASIC_AUTHENTICATION_HEADER);
         if (header == null || !header.toLowerCase().startsWith("basic ")) {
@@ -70,8 +61,9 @@ public class BasicAuthenticationMiddleware implements Middleware {
 
         LOG.debug("Basic authentication header found for user '{}'", username);
 
-        ctx.set(HTTP_USERNAME, username);
-        ctx.set(HTTP_PASSWORD_SUPPLIER, (Supplier<String>) () -> tokens[1]);
+        // Add username and password to context
+        ctx.put(HttpContextKey.HTTP_USERNAME, username);
+        ctx.put(HttpContextKey.HTTP_PASSWORD, () -> tokens[1]);
 
         chain.next();
     }

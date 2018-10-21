@@ -18,11 +18,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ResponseStatusSettingMiddleware implements Middleware {
 
-    public static final String EXCEPTION_MESSAGE = "exception message";
-
     @Override
     public void handleContext(Context ctx, MiddlewareChain chain) {
-        HttpServletResponse response = ctx.getOrThrow(HttpContextKey.HTTP_RESPONSE, HttpServletResponse.class);
+        HttpServletResponse response = ctx.getOrThrow(HttpContextKey.HTTP_RESPONSE);
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
