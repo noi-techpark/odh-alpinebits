@@ -13,7 +13,7 @@ import java.util.Objects;
  *
  * @param <T> type of the key
  */
-public class Key<T> {
+public final class Key<T> {
     private final String identifier;
     private final Class<T> type;
 
