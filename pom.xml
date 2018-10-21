@@ -106,10 +106,11 @@
         <profile>
             <id>report</id>
             <properties>
-                <sonar.exclusions>**/Q**Entity.java</sonar.exclusions>
-                <!-- exclude *Entity.java from code duplication reports -->
+                <!-- Exclude *Exception.java from code coverage reports -->
+                <sonar.coverage.exclusions>**/*Exception.java</sonar.coverage.exclusions>
+                <!-- Exclude *Entity.java from code duplication reports -->
                 <sonar.cpd.exclusions>**/*Entity.java</sonar.cpd.exclusions>
-                <!-- force sonarqube to show 0% coverage for modules without tests -->
+                <!-- Force sonarqube to show 0% coverage for modules without tests -->
                 <sonar.jacoco.reportMissing.force.zero>true</sonar.jacoco.reportMissing.force.zero>
                 <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
             </properties>
