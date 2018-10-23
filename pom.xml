@@ -15,6 +15,7 @@
         <module>alpinebits-common</module>
         <module>alpinebits-http</module>
         <module>alpinebits-middleware</module>
+        <module>alpinebits-routing</module>
         <module>alpinebits-server</module>
         <module>build-tools</module>
     </modules>
@@ -153,6 +154,16 @@
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-middleware-impl</artifactId>
+                <version>0.0.6</version>
+            </dependency>
+            <dependency>
+                <groupId>it.bz.idm.alpinebits</groupId>
+                <artifactId>alpinebits-routing-api</artifactId>
+                <version>0.0.6</version>
+            </dependency>
+            <dependency>
+                <groupId>it.bz.idm.alpinebits</groupId>
+                <artifactId>alpinebits-routing-impl</artifactId>
                 <version>0.0.6</version>
             </dependency>
             <dependency>
