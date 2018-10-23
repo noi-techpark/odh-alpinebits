@@ -6,7 +6,7 @@
 
     <groupId>it.bz.idm.alpinebits</groupId>
     <artifactId>alpinebits-root</artifactId>
-    <version>0.0.6</version>
+    <version>0.0.7</version>
 
     <packaging>pom</packaging>
     <name>IDM AlpineBits</name>
@@ -15,6 +15,7 @@
         <module>alpinebits-common</module>
         <module>alpinebits-http</module>
         <module>alpinebits-middleware</module>
+        <module>alpinebits-routing</module>
         <module>alpinebits-server</module>
         <module>build-tools</module>
     </modules>
@@ -133,37 +134,47 @@
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-common</artifactId>
-                <version>0.0.6</version>
+                <version>0.0.7</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-http-api</artifactId>
-                <version>0.0.6</version>
+                <version>0.0.7</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-http-impl</artifactId>
-                <version>0.0.6</version>
+                <version>0.0.7</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-middleware-api</artifactId>
-                <version>0.0.6</version>
+                <version>0.0.7</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-middleware-impl</artifactId>
-                <version>0.0.6</version>
+                <version>0.0.7</version>
+            </dependency>
+            <dependency>
+                <groupId>it.bz.idm.alpinebits</groupId>
+                <artifactId>alpinebits-routing-api</artifactId>
+                <version>0.0.7</version>
+            </dependency>
+            <dependency>
+                <groupId>it.bz.idm.alpinebits</groupId>
+                <artifactId>alpinebits-routing-impl</artifactId>
+                <version>0.0.7</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-server-api</artifactId>
-                <version>0.0.6</version>
+                <version>0.0.7</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-server-impl</artifactId>
-                <version>0.0.6</version>
+                <version>0.0.7</version>
             </dependency>
 
             <dependency>

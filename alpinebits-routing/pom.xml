@@ -11,8 +11,14 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>alpinebits-common</artifactId>
+    <artifactId>alpinebits-routing</artifactId>
     <version>0.0.7</version>
 
-    <name>IDM AlpineBits common</name>
+    <packaging>pom</packaging>
+    <name>IDM AlpineBits routing</name>
+
+    <modules>
+        <module>api</module>
+        <module>impl</module>
+    </modules>
 </project>
