@@ -237,4 +237,10 @@ public class SimpleContextTest {
 
         assertNotEquals(result1, result2);
     }
+
+    @Test(expectedExceptions = RuntimeException.class)
+    public void testHandleException() {
+        Context ctx = ContextBuilder.buildSimpleContext();
+        ctx.handleException(new Exception());
+    }
 }

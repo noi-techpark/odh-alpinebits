@@ -69,4 +69,11 @@ public final class Key<T> {
         return Objects.hash(identifier, type);
     }
 
+    @Override
+    public String toString() {
+        return "Key{" +
+                "identifier='" + identifier + '\'' +
+                ", type=" + type +
+                '}';
+    }
 }

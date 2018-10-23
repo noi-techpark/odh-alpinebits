@@ -15,4 +15,12 @@
     <version>0.0.7</version>
 
     <name>IDM AlpineBits middleware API</name>
+
+    <!-- testing -->
+    <dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+        </dependency>
+    </dependencies>
 </project>
