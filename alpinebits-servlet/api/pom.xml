@@ -6,18 +6,32 @@
 
     <parent>
         <groupId>it.bz.idm.alpinebits</groupId>
-        <artifactId>alpinebits-middleware</artifactId>
+        <artifactId>alpinebits-servlet</artifactId>
         <version>0.0.7</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>alpinebits-middleware-api</artifactId>
+    <artifactId>alpinebits-servlet-api</artifactId>
     <version>0.0.7</version>
 
-    <name>IDM AlpineBits middleware API</name>
+    <name>IDM AlpineBits servlet API</name>
 
-    <!-- testing -->
     <dependencies>
+        <dependency>
+            <groupId>it.bz.idm.alpinebits</groupId>
+            <artifactId>alpinebits-common-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>it.bz.idm.alpinebits</groupId>
+            <artifactId>alpinebits-middleware-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- testing -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>

@@ -13,10 +13,10 @@
 
     <modules>
         <module>alpinebits-common</module>
-        <module>alpinebits-http</module>
         <module>alpinebits-middleware</module>
         <module>alpinebits-routing</module>
         <module>alpinebits-server</module>
+        <module>alpinebits-servlet</module>
         <module>build-tools</module>
     </modules>
 
@@ -133,17 +133,12 @@
         <dependencies>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
-                <artifactId>alpinebits-common</artifactId>
+                <artifactId>alpinebits-common-api</artifactId>
                 <version>0.0.7</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
-                <artifactId>alpinebits-http-api</artifactId>
-                <version>0.0.7</version>
-            </dependency>
-            <dependency>
-                <groupId>it.bz.idm.alpinebits</groupId>
-                <artifactId>alpinebits-http-impl</artifactId>
+                <artifactId>alpinebits-common-utils</artifactId>
                 <version>0.0.7</version>
             </dependency>
             <dependency>
@@ -174,6 +169,16 @@
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-server-impl</artifactId>
+                <version>0.0.7</version>
+            </dependency>
+            <dependency>
+                <groupId>it.bz.idm.alpinebits</groupId>
+                <artifactId>alpinebits-servlet-api</artifactId>
+                <version>0.0.7</version>
+            </dependency>
+            <dependency>
+                <groupId>it.bz.idm.alpinebits</groupId>
+                <artifactId>alpinebits-servlet-impl</artifactId>
                 <version>0.0.7</version>
             </dependency>
 

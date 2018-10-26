@@ -11,14 +11,14 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>alpinebits-common</artifactId>
+    <artifactId>alpinebits-servlet</artifactId>
     <version>0.0.7</version>
 
     <packaging>pom</packaging>
-    <name>IDM AlpineBits common</name>
+    <name>IDM AlpineBits servlet</name>
 
     <modules>
         <module>api</module>
-        <module>utils</module>
+        <module>impl</module>
     </modules>
 </project>
