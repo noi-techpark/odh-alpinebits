@@ -6,7 +6,7 @@
 
 package it.bz.idm.alpinebits.routing.middleware;
 
-import it.bz.idm.alpinebits.http.HttpContextKey;
+import it.bz.idm.alpinebits.common.context.RequestContextKey;
 import it.bz.idm.alpinebits.middleware.Context;
 import it.bz.idm.alpinebits.middleware.Middleware;
 import it.bz.idm.alpinebits.middleware.MiddlewareChain;
@@ -19,11 +19,18 @@ import java.util.Optional;
 /**
  * This {@link Middleware} provides routing capabilities for AlpineBits requests.
  * <p>
- * It tries to match the version and action of the current AlpineBits request,
- * taken from the {@link Context}, to a list of configurable middlewares.
+ * It tries to match the <code>version</code> and <code>action</code> of the
+ * current AlpineBits request, taken from the {@link Context}.
+ * <p>
+ * The <code>version</code> information is read using the
+ * {@link RequestContextKey#REQUEST_VERSION} key. The <code>action</code>
+ * information is read using the {@link RequestContextKey#REQUEST_ACTION} key.
  * <p>
  * If a match was found, the corresponding middleware is invoked. A
  * {@link UndefinedRouteException} is thrown otherwise.
+ * <p>
+ * This middleware doesn't invoke {@link MiddlewareChain#next()}, i.e.
+ * no other middlewares will be invoked after this one.
  */
 public class RoutingMiddleware implements Middleware {
 
@@ -38,8 +45,8 @@ public class RoutingMiddleware implements Middleware {
 
     @Override
     public void handleContext(Context ctx, MiddlewareChain chain) {
-        String version = ctx.getOrThrow(HttpContextKey.ALPINE_BITS_CLIENT_PROTOCOL_VERSION);
-        String action = ctx.getOrThrow(HttpContextKey.ALPINE_BITS_ACTION);
+        String version = ctx.getOrThrow(RequestContextKey.REQUEST_VERSION);
+        String action = ctx.getOrThrow(RequestContextKey.REQUEST_ACTION);
 
         // Try to find a middleware for the given AlpineBits version and action
         Middleware middleware = this.findMiddleware(version, action);

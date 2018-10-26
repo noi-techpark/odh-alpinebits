@@ -10,7 +10,6 @@ import it.bz.idm.alpinebits.middleware.Context;
 import it.bz.idm.alpinebits.middleware.Key;
 import it.bz.idm.alpinebits.middleware.Middleware;
 import it.bz.idm.alpinebits.middleware.impl.SimpleContext;
-import it.bz.idm.alpinebits.routing.utils.TestMiddleware;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
@@ -65,12 +64,12 @@ public class DefaultRouterTest {
         Key<String> ctxKey = Key.key("ctxKey", String.class);
         String ctxValue = "ctxValue";
 
-        Middleware middleware = new TestMiddleware(ctxKey, ctxValue);
+        Middleware middleware = (ctx, chain) -> ctx.put(ctxKey, ctxValue);
         Router router = this.getRouter(DEFAULT_VERSION, DEFAULT_ACTION, middleware);
         Optional<Middleware> optionalMiddleware = router.findMiddleware(DEFAULT_VERSION, DEFAULT_ACTION);
 
         // Use optional value without any further test (e.g. Optional#isPresent()), because if
-        // the optional is not present, an E
+        // the optional is not present, an Exception is thrown
         Middleware resultMiddleware = optionalMiddleware.get();
 
         Context ctx = new SimpleContext();
@@ -82,14 +81,7 @@ public class DefaultRouterTest {
     }
 
     @Test
-    public void testGetConfiguredVersions_emptyIfNoVersionDefined() {
-        Router router = new DefaultRouter.Builder().build();
-        Collection<String> versions = router.getVersions();
-        assertTrue(versions.isEmpty());
-    }
-
-    @Test
-    public void testGetConfiguredVersions_listOfDefinedVersions() {
+    public void testGetVersions_listOfDefinedVersions() {
         String version1 = "2017-10";
         String version2 = "2018-10";
 
@@ -98,9 +90,29 @@ public class DefaultRouterTest {
                 .done()
                 .forVersion(version2)
                 .done()
-                .build();
+                .buildRouter();
         Collection<String> versions = router.getVersions();
         assertEquals(versions, Arrays.asList(version1, version2));
+    }
+
+    @Test
+    public void testGetVersion_returnVersionOnMatch() {
+        Router router = this.getDefaultRouter();
+        assertEquals(router.getVersion(DEFAULT_VERSION), DEFAULT_VERSION);
+    }
+
+    @Test
+    public void testGetVersion_returnHighestVersionIfNoMatch() {
+        String version1 = "2017-10";
+        String version2 = "2018-10";
+
+        Router router = new DefaultRouter.Builder()
+                .forVersion(version1)
+                .done()
+                .forVersion(version2)
+                .done()
+                .buildRouter();
+        assertEquals(router.getVersion("xxx"), version2);
     }
 
     @Test
@@ -115,11 +127,11 @@ public class DefaultRouterTest {
         Router router = new DefaultRouter.Builder()
                 .forVersion(DEFAULT_VERSION)
                 .done()
-                .build();
+                .buildRouter();
         Optional<Collection<String>> optional = router.getActionsForVersion(DEFAULT_VERSION);
 
         // Use optional value without any further test (e.g. Optional#isPresent()), because if
-        // the optional is not present, an E
+        // the optional is not present, an Exception is thrown
         Collection<String> actions = optional.get();
         assertTrue(actions.isEmpty());
     }
@@ -133,19 +145,20 @@ public class DefaultRouterTest {
     public void testGetActionsForVersion_listOfActions() {
         String action1 = "action1";
         String action2 = "action2";
-        Middleware middleware = new TestMiddleware();
+        Middleware middleware = (ctx, chain) -> {
+        };
 
         Router router = new DefaultRouter.Builder()
                 .forVersion(DEFAULT_VERSION)
                 .addMiddleware(action1, middleware)
                 .addMiddleware(action2, middleware)
                 .done()
-                .build();
+                .buildRouter();
 
         Optional<Collection<String>> optional = router.getActionsForVersion(DEFAULT_VERSION);
 
         // Use optional value without any further test (e.g. Optional#isPresent()), because if
-        // the optional is not present, an E
+        // the optional is not present, an Exception is thrown
         Collection<String> actions = optional.get();
 
         assertEquals(actions.size(), 2);
@@ -207,13 +220,14 @@ public class DefaultRouterTest {
         assertTrue(router.isVersionDefined(DEFAULT_VERSION));
     }
 
+
     private Router getDefaultRouter() {
         return this.getRouter(DEFAULT_VERSION, DEFAULT_ACTION);
     }
 
     private Router getRouter(String version, String action) {
-        Middleware middleware = this.getDefaultMiddleware();
-        return this.getRouter(version, action, middleware);
+        return this.getRouter(version, action, (ctx, chain) -> {
+        });
     }
 
     private Router getRouter(String version, String action, Middleware middleware) {
@@ -221,11 +235,7 @@ public class DefaultRouterTest {
                 .forVersion(version)
                 .addMiddleware(action, middleware)
                 .done()
-                .build();
-    }
-
-    private Middleware getDefaultMiddleware() {
-        return new TestMiddleware();
+                .buildRouter();
     }
 
 }

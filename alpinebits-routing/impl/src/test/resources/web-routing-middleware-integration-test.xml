@@ -4,10 +4,10 @@
     http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <servlet>
         <servlet-name>AlpineBits Servlet</servlet-name>
-        <servlet-class>it.bz.idm.alpinebits.http.impl.AlpineBitsServlet</servlet-class>
+        <servlet-class>it.bz.idm.alpinebits.servlet.impl.AlpineBitsServlet</servlet-class>
         <init-param>
             <param-name>MIDDLEWARE_CLASSNAME</param-name>
-            <param-value>it.bz.idm.alpinebits.routing.middleware.util.DefaultRouterMiddleware</param-value>
+            <param-value>it.bz.idm.alpinebits.routing.utils.DefaultRouterMiddleware</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>

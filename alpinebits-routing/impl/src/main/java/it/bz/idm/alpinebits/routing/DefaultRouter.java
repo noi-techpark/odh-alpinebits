@@ -8,15 +8,17 @@ package it.bz.idm.alpinebits.routing;
 
 import it.bz.idm.alpinebits.middleware.Middleware;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * This class implements the {@link Router} interface.
- *
+ * <p>
  * In addition, it provides a {@link DefaultRouter.Builder} to build new Routes.
  */
 public final class DefaultRouter implements Router {
@@ -25,8 +27,20 @@ public final class DefaultRouter implements Router {
 
     private final Map<String, Map<String, Middleware>> routes;
 
-    private DefaultRouter(Map<String, Map<String, Middleware>> routes) {
+    private final String highestSupportedVersion;
+
+    private DefaultRouter(Map<String, Map<String, Middleware>> routes, String highestSupportedVersion) {
+        if (routes == null) {
+            throw new IllegalArgumentException("The routes must not be null");
+        }
+        if (routes.isEmpty()) {
+            throw new IllegalArgumentException("No routes defined");
+        }
+        if (highestSupportedVersion == null) {
+            throw new IllegalArgumentException("The highestSupportedVersion must not be null");
+        }
         this.routes = routes;
+        this.highestSupportedVersion = highestSupportedVersion;
     }
 
     @Override
@@ -45,6 +59,15 @@ public final class DefaultRouter implements Router {
         }
 
         return Optional.ofNullable(routesForVersion.get(action));
+    }
+
+    @Override
+    public String getVersion(String requestedVersion) {
+        Collection<String> versions = this.getVersions();
+        if (versions.contains(requestedVersion)) {
+            return requestedVersion;
+        }
+        return this.highestSupportedVersion;
     }
 
     @Override
@@ -96,66 +119,39 @@ public final class DefaultRouter implements Router {
      *              .addMiddleware("action3", middleware3)
      *              .addMiddleware("action4", middleware4)
      *              .done()
-     *          .build();
+     *          .buildRouter();
      * </pre>
      */
-    public static class Builder {
-        private final Map<String, Map<String, Middleware>> buildingRoutes = new ConcurrentHashMap<>();
+    public static final class Builder {
 
         /**
-         * Begin the configuration of middlewares for the given AlpineBits
-         * <code>version</code>.
+         * Start router building by providing a version.
          * <p>
-         * This method returns a {@link ActionConfigurer.Builder} that can
-         * be used to configure action-to-middleware assignments. The router
-         * will later on base its routing decisions on this assignments.
-         * <p>
-         * Note, that all middlewares build using the returned
-         * {@link ActionConfigurer.Builder} are defined only for the given
-         * <code>version</code>.
+         * See {@link VersionRoutingBuilder} and {@link ActionRoutingBuilder}
+         * for further information
          *
-         * @param version the AlpineBits version for which to return the
-         *                {@link ActionConfigurer.Builder}
-         * @return an {@link ActionConfigurer.Builder} used to assign actions
-         * to middlewares for the given <code>version</code>
+         * @param version the (first) <code>version</code> to configure
+         *                <code>actions</code> for. Other versions with
+         *                assigned actions may be configured using the
+         *                builder.
+         * @return a {@link ActionRoutingBuilder} to configure actions
+         * for the given <code>version</code>
          */
-        public ActionConfigurer.Builder forVersion(String version) {
-            if (version == null) {
-                throw new IllegalArgumentException(VERSION_NULL_ERROR_MESSAGE);
-            }
-
-            Consumer<Map<String, Middleware>> actionMerger = this.getActionMerger(version);
-            return new ActionConfigurer.Builder(this, actionMerger);
+        public ActionRoutingBuilder forVersion(String version) {
+            return VersionRoutingBuilder.newBuilder(this.routerBuilder()).forVersion(version);
         }
 
         /**
-         * Return a {@link Router} that matches the configuration provided by
-         * this builder.
+         * Return a function that builds a {@link DefaultRouter} on invocation.
          *
-         * @return a {@link Router} that can be used to route AlpineBits request
-         * based on their <code>version</code> and <code>action</code>
+         * @return a function building a {@link DefaultRouter}
          */
-        public Router build() {
-            return new DefaultRouter(this.buildingRoutes);
-        }
-
-        /**
-         * Return a consumer that, when invoked, creates a merged map of AlpineBits
-         * actions for the given AlpineBits version.
-         *
-         * @param version merge actions for this AlpineBits version
-         * @return {@link Consumer} returning a merged map of AlpineBits actions for
-         * the given AlpineBits version
-         */
-        private Consumer<Map<String, Middleware>> getActionMerger(String version) {
-            return (Map<String, Middleware> configuredActions) -> {
-                Map<String, Middleware> configuredRoutesForVersion = this.buildingRoutes.get(version);
-                if (configuredRoutesForVersion == null) {
-                    // Put the action list If no actions are defined for this version
-                    this.buildingRoutes.put(version, configuredActions);
-                } else {
-                    configuredRoutesForVersion.putAll(configuredActions);
-                }
+        private Function<Map<String, Map<String, Middleware>>, Router> routerBuilder() {
+            return routes -> {
+                List<String> versions = new ArrayList<>(routes.keySet());
+                Collections.sort(versions);
+                String highestSupportedVersion = versions.get(versions.size() - 1);
+                return new DefaultRouter(routes, highestSupportedVersion);
             };
         }
     }

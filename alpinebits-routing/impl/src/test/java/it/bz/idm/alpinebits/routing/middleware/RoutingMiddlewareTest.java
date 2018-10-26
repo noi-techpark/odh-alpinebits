@@ -6,7 +6,7 @@
 
 package it.bz.idm.alpinebits.routing.middleware;
 
-import it.bz.idm.alpinebits.http.HttpContextKey;
+import it.bz.idm.alpinebits.common.context.RequestContextKey;
 import it.bz.idm.alpinebits.middleware.Context;
 import it.bz.idm.alpinebits.middleware.Key;
 import it.bz.idm.alpinebits.middleware.Middleware;
@@ -48,7 +48,7 @@ public class RoutingMiddlewareTest {
     public void testHandleContext_AlpineBitsActionIsNull() {
         Middleware middleware = this.getValidRoutingMiddleware();
         Context ctx = new SimpleContext();
-        ctx.put(HttpContextKey.ALPINE_BITS_CLIENT_PROTOCOL_VERSION, DEFAULT_VERSION);
+        ctx.put(RequestContextKey.REQUEST_VERSION, DEFAULT_VERSION);
         middleware.handleContext(ctx, null);
     }
 
@@ -61,7 +61,7 @@ public class RoutingMiddlewareTest {
                 .forVersion("some version")
                 .addMiddleware(DEFAULT_ACTION, (ctx, chain) -> ctx.put(testKey, testValue))
                 .done()
-                .build();
+                .buildRouter();
         Middleware middleware = new RoutingMiddleware(router);
         Context ctx = this.getValidContext();
         middleware.handleContext(ctx, null);
@@ -76,7 +76,7 @@ public class RoutingMiddlewareTest {
                 .forVersion(DEFAULT_VERSION)
                 .addMiddleware("some other action", (ctx, chain) -> ctx.put(testKey, testValue))
                 .done()
-                .build();
+                .buildRouter();
         Middleware middleware = new RoutingMiddleware(router);
         Context ctx = this.getValidContext();
         middleware.handleContext(ctx, null);
@@ -91,7 +91,7 @@ public class RoutingMiddlewareTest {
                 .forVersion(DEFAULT_VERSION)
                 .addMiddleware(DEFAULT_ACTION, (ctx, chain) -> ctx.put(testKey, testValue))
                 .done()
-                .build();
+                .buildRouter();
         Middleware middleware = new RoutingMiddleware(router);
         Context ctx = this.getValidContext();
         middleware.handleContext(ctx, null);
@@ -122,12 +122,12 @@ public class RoutingMiddlewareTest {
                     chain.next();
                 })
                 .done()
-                .build();
+                .buildRouter();
 
         Middleware middleware = new RoutingMiddleware(router);
         Context ctx = new SimpleContext();
-        ctx.put(HttpContextKey.ALPINE_BITS_CLIENT_PROTOCOL_VERSION, DEFAULT_VERSION);
-        ctx.put(HttpContextKey.ALPINE_BITS_ACTION, DEFAULT_ACTION);
+        ctx.put(RequestContextKey.REQUEST_VERSION, DEFAULT_VERSION);
+        ctx.put(RequestContextKey.REQUEST_ACTION, DEFAULT_ACTION);
 
         // The router calls the middleware,
         // specified with HttpContextKey.ALPINE_BITS_CLIENT_PROTOCOL_VERSION
@@ -166,12 +166,12 @@ public class RoutingMiddlewareTest {
                     chain.next();
                 })
                 .done()
-                .build();
+                .buildRouter();
 
         Middleware middleware = new RoutingMiddleware(router);
         Context ctx = new SimpleContext();
-        ctx.put(HttpContextKey.ALPINE_BITS_CLIENT_PROTOCOL_VERSION, DEFAULT_VERSION);
-        ctx.put(HttpContextKey.ALPINE_BITS_ACTION, DEFAULT_ACTION);
+        ctx.put(RequestContextKey.REQUEST_VERSION, DEFAULT_VERSION);
+        ctx.put(RequestContextKey.REQUEST_ACTION, DEFAULT_ACTION);
 
         // The router calls the middleware, specified with
         // HttpContextKey.ALPINE_BITS_CLIENT_PROTOCOL_VERSION
@@ -191,18 +191,20 @@ public class RoutingMiddlewareTest {
     }
 
     private Router getValidRouter() {
-        return new DefaultRouter.Builder().build();
+        return new DefaultRouter.Builder().forVersion("some version").done().buildRouter();
     }
 
     /**
      * Returns a context with <code>version</code> set to DEFAULT_VERSION
      * and <code>action</code> set to DEFAULT_ACTION.
-     * @return
+     *
+     * @return context with <code>version</code> set to DEFAULT_VERSION
+     * and <code>action</code> set to DEFAULT_ACTION
      */
     private Context getValidContext() {
         Context ctx = new SimpleContext();
-        ctx.put(HttpContextKey.ALPINE_BITS_CLIENT_PROTOCOL_VERSION, DEFAULT_VERSION);
-        ctx.put(HttpContextKey.ALPINE_BITS_ACTION, DEFAULT_ACTION);
+        ctx.put(RequestContextKey.REQUEST_VERSION, DEFAULT_VERSION);
+        ctx.put(RequestContextKey.REQUEST_ACTION, DEFAULT_ACTION);
         return ctx;
     }
 

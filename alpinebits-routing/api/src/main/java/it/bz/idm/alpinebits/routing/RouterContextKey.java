@@ -14,7 +14,7 @@ import it.bz.idm.alpinebits.middleware.Key;
 public final class RouterContextKey {
 
     /**
-     * Context key for HTTP request.
+     * Context key for AlpineBits {@link Router}.
      */
     public static final Key<Router> ALPINEBITS_ROUTER = Key.key(
             "alpinebits.router", Router.class

@@ -19,11 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>it.bz.idm.alpinebits</groupId>
-            <artifactId>alpinebits-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>it.bz.idm.alpinebits</groupId>
-            <artifactId>alpinebits-middleware-api</artifactId>
+            <artifactId>alpinebits-common-api</artifactId>
         </dependency>
 
         <!-- testing -->

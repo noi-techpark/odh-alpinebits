@@ -6,7 +6,7 @@
 
 package it.bz.idm.alpinebits.routing;
 
-import it.bz.idm.alpinebits.common.AlpineBitsException;
+import it.bz.idm.alpinebits.common.exception.AlpineBitsException;
 
 /**
  * This exception is thrown if no route could be found for an
@@ -17,7 +17,7 @@ public class UndefinedRouteException extends AlpineBitsException {
     public static final int STATUS = 400;
 
     /**
-     * Constructs a {@code UndefinedRouteException} with the specified message and no
+     * Constructs a {@code UndefinedActionException} with the specified message and no
      * root cause.
      *
      * @param msg the detail message

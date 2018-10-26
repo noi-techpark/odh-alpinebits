@@ -38,11 +38,44 @@ public interface Router {
     Optional<Middleware> findMiddleware(String version, String action);
 
     /**
+     * Return the server AlpineBits version, according to AlpineBits
+     * best practices (see AlpineBits specification, Housekeeping
+     * actions -> Implementation tips and best practices):
+     * <ul>
+     *     <li>
+     *         Client: the​ client​ queries​ the​ server​ version, sending​
+     *         a header​ with​ the​ highest​ version​ it supports.
+     *     </li>
+     *     <li>
+     *         Server: if the server supports this same version, it
+     *         answers with this version and the negotiation​ terminates
+     *         successfully; otherwise the server answers with the highest
+     *         version it supports.
+     *     </li>
+     *     <li>
+     *         Client: if the client recognizes the server version, it
+     *         starts using the server version and the negotiation terminates
+     *         successfully; otherwise no communication is possible, since
+     *         the two parties don’t share a common version.
+     *     </li>
+     * </ul>
+     * The consequence is, that the server may respond with a version, that
+     * is different from the version requested by the client.
+     * <p>
+     * A version is returned, no matter if actions are defined for that
+     * version, as long as the version itself is configured.
+     *
+     * @param requestedVersion the version requested by the client
+     * @return the server version, according to AlpineBits best practices
+     */
+    String getVersion(String requestedVersion);
+
+    /**
      * Return a list of configured AlpineBits versions.
      * <p>
-     * The result returns a list of every configured version, no matter if
-     * actions are defined for that version. That means that a version
-     * with no action is also part of the result.
+     * The result returns the configured version, no matter if actions
+     * are defined for those versions. That means that a version with
+     * no action is also part of the result.
      *
      * @return a {@link Collection} of configured versions
      */
