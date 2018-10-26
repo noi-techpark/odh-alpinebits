@@ -9,7 +9,6 @@ package it.bz.idm.alpinebits.middleware.impl;
 import it.bz.idm.alpinebits.middleware.Context;
 import it.bz.idm.alpinebits.middleware.Key;
 import it.bz.idm.alpinebits.middleware.RequiredContextKeyMissingException;
-import it.bz.idm.alpinebits.middleware.impl.utils.ContextBuilder;
 import org.testng.annotations.Test;
 
 import java.util.Optional;
@@ -23,7 +22,7 @@ public class SimpleContextTest {
 
     @Test
     public void testGetValue() {
-        Context ctx = ContextBuilder.buildSimpleContext();
+        Context ctx = this.buildSimpleContext();
 
         Key<Integer> intKey = Key.key("intKey", Integer.class);
         int intValue = 1;
@@ -60,7 +59,7 @@ public class SimpleContextTest {
 
     @Test
     public void testGetOrThrow_ValuePresent() {
-        Context ctx = ContextBuilder.buildSimpleContext();
+        Context ctx = this.buildSimpleContext();
 
         Key<Integer> intKey = Key.key("intKey", Integer.class);
         int intValue = 1;
@@ -93,7 +92,7 @@ public class SimpleContextTest {
 
     @Test(expectedExceptions = RequiredContextKeyMissingException.class)
     public void testGetOrThrow_ValueNotPresent() {
-        Context ctx = ContextBuilder.buildSimpleContext();
+        Context ctx = this.buildSimpleContext();
 
         Key<Object> undefinedKey = Key.key("undefined key", Object.class);
 
@@ -102,7 +101,7 @@ public class SimpleContextTest {
 
     @Test
     public void testSetValue() {
-        Context ctx = ContextBuilder.buildSimpleContext();
+        Context ctx = this.buildSimpleContext();
 
         Key<Integer> intKey = Key.key("intKey", Integer.class);
         int intValue1 = 1;
@@ -122,7 +121,7 @@ public class SimpleContextTest {
 
     @Test
     public void testRemoveValue() {
-        Context ctx = ContextBuilder.buildSimpleContext();
+        Context ctx = this.buildSimpleContext();
 
         Key<Integer> intKey = Key.key("intKey", Integer.class);
         int intValue = 1;
@@ -140,7 +139,7 @@ public class SimpleContextTest {
 
     @Test
     public void testContextContainsKey() {
-        Context ctx = ContextBuilder.buildSimpleContext();
+        Context ctx = this.buildSimpleContext();
 
         Key<Integer> intKey = Key.key("intKey", Integer.class);
         int intValue = 1;
@@ -154,7 +153,7 @@ public class SimpleContextTest {
 
     @Test
     public void testContextDoesntContainKey() {
-        Context ctx = ContextBuilder.buildSimpleContext();
+        Context ctx = this.buildSimpleContext();
 
         Key<Object> undefinedKey = Key.key("undefined key", Object.class);
 
@@ -164,7 +163,7 @@ public class SimpleContextTest {
 
     @Test
     public void testSameKeys_SameType() {
-        Context ctx = ContextBuilder.buildSimpleContext();
+        Context ctx = this.buildSimpleContext();
 
         Key<Integer> intKey1 = Key.key("intKey", Integer.class);
         Key<Integer> intKey2 = Key.key("intKey", Integer.class);
@@ -183,7 +182,7 @@ public class SimpleContextTest {
 
     @Test
     public void testSameKeys_DifferentTypes() {
-        Context ctx = ContextBuilder.buildSimpleContext();
+        Context ctx = this.buildSimpleContext();
 
         Key<Integer> key1 = Key.key("key", Integer.class);
         Key<String> key2 = Key.key("key", String.class);
@@ -202,7 +201,7 @@ public class SimpleContextTest {
 
     @Test
     public void testDifferentKeys_SameTypes() {
-        Context ctx = ContextBuilder.buildSimpleContext();
+        Context ctx = this.buildSimpleContext();
 
         Key<Integer> intKey1 = Key.key("intKey1", Integer.class);
         Key<Integer> intKey2 = Key.key("intKey2", Integer.class);
@@ -221,7 +220,7 @@ public class SimpleContextTest {
 
     @Test
     public void testDifferentKeys_DifferentTypes() {
-        Context ctx = ContextBuilder.buildSimpleContext();
+        Context ctx = this.buildSimpleContext();
 
         Key<Integer> key1 = Key.key("key1", Integer.class);
         Key<String> key2 = Key.key("key2", String.class);
@@ -240,7 +239,11 @@ public class SimpleContextTest {
 
     @Test(expectedExceptions = RuntimeException.class)
     public void testHandleException() {
-        Context ctx = ContextBuilder.buildSimpleContext();
+        Context ctx = this.buildSimpleContext();
         ctx.handleException(new Exception());
+    }
+
+    private Context buildSimpleContext() {
+        return new SimpleContext();
     }
 }
