@@ -23,11 +23,7 @@
         </dependency>
         <dependency>
             <groupId>it.bz.idm.alpinebits</groupId>
-            <artifactId>alpinebits-http-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>it.bz.idm.alpinebits</groupId>
-            <artifactId>alpinebits-middleware-impl</artifactId>
+            <artifactId>alpinebits-common-utils</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -37,7 +33,7 @@
         <!-- testing -->
         <dependency>
             <groupId>it.bz.idm.alpinebits</groupId>
-            <artifactId>alpinebits-http-impl</artifactId>
+            <artifactId>alpinebits-servlet-impl</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -48,11 +44,6 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

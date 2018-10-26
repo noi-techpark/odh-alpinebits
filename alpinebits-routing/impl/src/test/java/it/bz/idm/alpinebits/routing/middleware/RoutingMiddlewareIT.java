@@ -6,10 +6,10 @@
 
 package it.bz.idm.alpinebits.routing.middleware;
 
-import it.bz.idm.alpinebits.http.impl.AlpineBitsServlet;
-import it.bz.idm.alpinebits.http.middleware.AlpineBitsClientProtocolMiddleware;
-import it.bz.idm.alpinebits.http.middleware.MultipartFormDataParserMiddleware;
-import it.bz.idm.alpinebits.routing.middleware.util.DefaultRouterMiddleware;
+import it.bz.idm.alpinebits.routing.utils.DefaultRouterMiddleware;
+import it.bz.idm.alpinebits.servlet.impl.AlpineBitsServlet;
+import it.bz.idm.alpinebits.servlet.middleware.AlpineBitsClientProtocolMiddleware;
+import it.bz.idm.alpinebits.servlet.middleware.MultipartFormDataParserMiddleware;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.test.api.ArquillianResource;

@@ -15,19 +15,18 @@ import static org.testng.Assert.assertEquals;
 /**
  * Test cases for {@link ActionRoutingBuilder} class.
  */
-public class ActionRoutingBuilderBuilderTest {
+public class ActionRoutingBuilderTest {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testAddMiddleware_newBuildThrowsOnNullParentBuilder() {
+    public void testAddMiddleware_newBuilderThrowsOnNullParentBuilder() {
         ActionRoutingBuilder.newBuilder(null, null);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testAddMiddleware_addMiddlewareThrowsOnNullCallback() {
+    public void testAddMiddleware_newBuilderThrowsOnNullCallback() {
         VersionRoutingBuilder parentBuilder = VersionRoutingBuilderHelper.buildDefaultVersionRoutingBuilder();
         ActionRoutingBuilder.newBuilder(parentBuilder, null);
     }
-
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void testAddMiddleware_addMiddlewareThrowsOnNullAction() {
@@ -41,7 +40,6 @@ public class ActionRoutingBuilderBuilderTest {
         builder.addMiddleware("some_action", null);
     }
 
-
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void testDone_returnsParentBuilder() {
         VersionRoutingBuilder versionRoutingBuilder = VersionRoutingBuilderHelper.buildDefaultVersionRoutingBuilder();
@@ -50,4 +48,5 @@ public class ActionRoutingBuilderBuilderTest {
         VersionRoutingBuilder resultVersionRoutingBuilder = actionRoutingBuilder.done();
         assertEquals(versionRoutingBuilder, resultVersionRoutingBuilder);
     }
+
 }

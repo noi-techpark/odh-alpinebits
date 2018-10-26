@@ -6,8 +6,6 @@
 
 package it.bz.idm.alpinebits.routing;
 
-import it.bz.idm.alpinebits.middleware.Middleware;
-import it.bz.idm.alpinebits.routing.utils.TestMiddleware;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -25,18 +23,18 @@ public class DefaultRouterBuilderTest {
 
     @Test
     public void testForVersion_returnsActionConfigurerBuilder() {
-        ActionConfigurer.Builder builder = new DefaultRouter.Builder().forVersion("");
-        assertEquals(builder.getClass(), ActionConfigurer.Builder.class);
+        ActionRoutingBuilder builder = new DefaultRouter.Builder().forVersion("");
+        assertEquals(builder.getClass(), ActionRoutingBuilder.class);
     }
 
     @Test
     public void testBuild() {
-        Middleware middleware = new TestMiddleware();
         Router router = new DefaultRouter.Builder()
                 .forVersion("")
-                    .addMiddleware("some_action", middleware)
-                    .done()
-                .build();
+                .addMiddleware("some_action", (ctx, chain) -> {
+                })
+                .done()
+                .buildRouter();
         assertNotNull(router);
     }
 
