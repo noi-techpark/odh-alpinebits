@@ -19,6 +19,7 @@
         <module>alpinebits-server</module>
         <module>alpinebits-servlet</module>
         <module>build-tools</module>
+        <module>examples</module>
     </modules>
 
     <properties>
@@ -190,6 +191,11 @@
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-servlet-impl</artifactId>
+                <version>0.0.8</version>
+            </dependency>
+            <dependency>
+                <groupId>it.bz.idm.alpinebits</groupId>
+                <artifactId>examples-housekeeping</artifactId>
                 <version>0.0.8</version>
             </dependency>
 
