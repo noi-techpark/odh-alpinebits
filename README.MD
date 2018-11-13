@@ -14,6 +14,7 @@ of it into your existing code base.
 - [Getting started](#getting-started)
 - [Running the tests](#running-the-tests)
 - [Deployment](#deployment)
+- [Docker environment](#docker-environment)
 - [Information](#information)
 
 ## Getting started
@@ -30,23 +31,25 @@ To build the project, the following prerequisites must be met:
 - Java JDK 1.8 or higher (e.g. [OpenJDK](https://openjdk.java.net/))
 - [Maven](https://maven.apache.org/) 3.x
 
+For a ready to use Docker environment with all prerequisites already installed and prepared, you can check out the [Docker environment](#docker-environment) section.
+
 ### Installing
 
 Get a copy of the repository, e.g. by cloning it from the following location:
 
-```
+```bash
 git clone https://github.com/idm-suedtirol/odh-alpinebits.git
 ```
 
 Change directory:
 
-``` 
+```bash
 cd odh-alpinebits/
 ```
 
 Build the project:
 
-```
+```bash
 mvn clean install
 ```
 
@@ -65,13 +68,13 @@ the so called Housekeeping actions.
 Change to the `housekeeping` directory (assuming you are in the projects root
 folder):
 
-```
+```bash
 cd examples/housekeeping
 ```
 
 Run the following maven command:
 
-```
+```bash
 mvn cargo:run
 ```
 
@@ -96,22 +99,22 @@ The code in this repository provides unit and integration tests.
 
 The unit tests can be run with the following command:
 
-```
+```bash
 mvn clean verify
 ```
 
 To run the unit and integration tests, use the following command, activating the
 maven `it` profile:
 
-```
+```bash
 mvn clean verify -P it
 ```
 
 You can also integrate [sonarqube](https://www.sonarqube.org/) to check the code
 quality. Run the following command:
 
-```
-mvn clean verify sonar:sonar -P it
+```bash
+mvn clean verify sonar:sonar -P it,report
 ```
  
 ## Deployment
@@ -124,6 +127,64 @@ to use it, the following additional prerequisites must be met:
 Using the provided examples as template (see [Examples](#examples)), you should
 be able to configure your AlpineBits server and to deploy the result as a war
 onto a servlet container. 
+
+## Docker environment
+
+For the project a Docker environment is already prepared and ready to use with all necessary prerequisites.
+
+These Docker containers are the same as used by the continuous integration servers.
+
+### Installation
+
+Install [Docker](https://docs.docker.com/install/) (with Docker Compose) locally on your machine.
+
+### Start and stop the containers
+
+Before start working you have to start the Docker containers:
+
+```
+docker-compose up --build --detach
+```
+
+After finished working you can stop the Docker containers:
+
+```
+docker-compose stop
+```
+
+### Running commands inside the container
+
+When the containers are running, you can execute any command inside the environment. Just replace the dots `...` in the following example with the command you wish to execute:
+
+```bash
+docker-compose exec java /bin/bash -c "..."
+```
+
+Some examples are:
+
+```bash
+docker-compose exec java /bin/bash -c "mvn clean install"
+
+# or
+
+docker-compose exec java /bin/bash -c "mvn clean verify"
+
+# or
+
+docker-compose exec java /bin/bash -c "mvn clean verify -P it"
+```
+
+To check the code quality, you can run the following command and then visit the results at [http://localhost:9000/](http://localhost:9000/):
+
+```bash
+docker-compose exec java /bin/bash -c "mvn clean verify sonar:sonar -Dsonar.host.url=http://sonar:9000 -P it,report"
+```
+
+To server the example run the following command and then visit the website at [http://localhost:8080/examples-housekeeping/index.html](http://localhost:8080/examples-housekeeping/index.html):
+
+```bash
+docker-compose exec java /bin/bash -c "cd examples/housekeeping && mvn cargo:run"
+```
 
 ## Information
 
