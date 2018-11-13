@@ -7,7 +7,7 @@ RUN groupadd --gid $JENKINS_GROUP_ID jenkins && \
     useradd --uid $JENKINS_USER_ID --gid $JENKINS_GROUP_ID --create-home jenkins
 
 RUN apt-get update && \
-    apt-get install -y git openjdk-8-jdk=8u171-b11-1~deb9u1 openjdk-8-jdk-headless=8u171-b11-1~deb9u1 openjdk-8-jre=8u171-b11-1~deb9u1 openjdk-8-jre-headless=8u171-b11-1~deb9u1 maven
+    apt-get install -y git openjdk-8-jdk maven
 
 COPY docker/entrypoint-java.sh /entrypoint-java.sh
 
