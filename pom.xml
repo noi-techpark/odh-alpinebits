@@ -351,6 +351,14 @@
                     <configuration>
                         <parallel>true</parallel>
                         <skipTests>${skipTests}</skipTests>
+                        <!--
+                            ISSUE: org.apache.maven.surefire.booter.SurefireBooterForkException: The forked
+                                VM terminated without properly saying goodbye
+                            TEMP SOLUTION: set "useSystemClassLoader" to false
+                            See https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=911925 and
+                                https://issues.apache.org/jira/browse/SUREFIRE-1588
+                        -->
+                        <useSystemClassLoader>false</useSystemClassLoader>
                     </configuration>
                 </plugin>
 
@@ -361,6 +369,14 @@
                     <version>${maven-failsafe-plugin.version}</version>
                     <configuration>
                         <encoding>UTF-8</encoding>
+                        <!--
+                            ISSUE: org.apache.maven.surefire.booter.SurefireBooterForkException: The forked
+                                VM terminated without properly saying goodbye
+                            TEMP SOLUTION: set "useSystemClassLoader" to false
+                            See https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=911925 and
+                                https://issues.apache.org/jira/browse/SUREFIRE-1588
+                        -->
+                        <useSystemClassLoader>false</useSystemClassLoader>
                     </configuration>
                     <executions>
                         <execution>
