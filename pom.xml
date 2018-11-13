@@ -53,6 +53,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <skipTests>false</skipTests>
         <argLine>-Dfile.encoding=UTF-8</argLine>
+
+        <sonar.host.url>http://sonar:9000</sonar.host.url>
     </properties>
 
     <organization>
