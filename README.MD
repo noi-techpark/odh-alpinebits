@@ -177,7 +177,7 @@ docker-compose exec java /bin/bash -c "mvn clean verify -P it"
 To check the code quality, you can run the following command and then visit the results at [http://localhost:9000/](http://localhost:9000/):
 
 ```bash
-docker-compose exec java /bin/bash -c "mvn clean verify sonar:sonar -P it,report"
+docker-compose exec java /bin/bash -c "mvn clean verify sonar:sonar -Dsonar.host.url=http://sonar:9000 -P it,report"
 ```
 
 To server the example run the following command and then visit the website at [http://localhost:8080/examples-housekeeping/index.html](http://localhost:8080/examples-housekeeping/index.html):
