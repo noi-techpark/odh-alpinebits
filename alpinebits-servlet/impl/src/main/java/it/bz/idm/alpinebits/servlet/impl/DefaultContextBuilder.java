@@ -7,13 +7,16 @@
 package it.bz.idm.alpinebits.servlet.impl;
 
 import it.bz.idm.alpinebits.common.context.RequestContextKey;
+import it.bz.idm.alpinebits.common.context.ResponseContextKeys;
 import it.bz.idm.alpinebits.middleware.Context;
 import it.bz.idm.alpinebits.middleware.impl.SimpleContext;
 import it.bz.idm.alpinebits.servlet.ContextBuilder;
+import it.bz.idm.alpinebits.servlet.ContextBuildingException;
 import it.bz.idm.alpinebits.servlet.ServletContextKey;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * This is a default implementation for {@link ContextBuilder}.
@@ -37,6 +40,11 @@ public class DefaultContextBuilder implements ContextBuilder {
         ctx.put(ServletContextKey.SERVLET_REQUEST, request);
         ctx.put(ServletContextKey.SERVLET_RESPONSE, response);
         ctx.put(RequestContextKey.REQUEST_ID, requestId);
+        try {
+            ctx.put(ResponseContextKeys.RESPONSE_CONTENT_STREAM, response.getOutputStream());
+        } catch (IOException e) {
+            throw new ContextBuildingException("Error while building middleware context from request", e);
+        }
         return ctx;
     }
 

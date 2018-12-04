@@ -8,6 +8,7 @@ package it.bz.idm.alpinebits.common.context;
 
 import it.bz.idm.alpinebits.middleware.Key;
 
+import java.io.OutputStream;
 import java.util.Collection;
 
 /**
@@ -28,6 +29,13 @@ public final class ResponseContextKeys {
      */
     public static final Key<String> RESPONSE_VERSION = Key.key(
             "response.version", String.class
+    );
+
+    /**
+     * Context key for AlpineBits request content in its plain form, i.e. the XML.
+     */
+    public static final Key<OutputStream> RESPONSE_CONTENT_STREAM = Key.key(
+            "response.content.stream", OutputStream.class
     );
 
     private ResponseContextKeys() {

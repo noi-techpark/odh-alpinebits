@@ -8,14 +8,19 @@ package it.bz.idm.alpinebits.servlet.impl;
 
 import it.bz.idm.alpinebits.common.context.RequestContextKey;
 import it.bz.idm.alpinebits.servlet.ContextBuilder;
+import it.bz.idm.alpinebits.servlet.ContextBuildingException;
 import it.bz.idm.alpinebits.servlet.ServletContextKey;
 import it.bz.idm.alpinebits.middleware.Context;
+import it.bz.idm.alpinebits.servlet.impl.utils.ServletOutputStreamBuilder;
 import org.testng.annotations.Test;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.io.IOException;
+
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -23,12 +28,27 @@ import static org.testng.Assert.assertEquals;
  */
 public class DefaultContextBuilderTest {
 
-    @Test
-    public void testFromRequest() {
+    @Test(expectedExceptions = ContextBuildingException.class)
+    public void testFromRequest_OutputStreamError() throws Exception {
         ContextBuilder builder = new DefaultContextBuilder();
 
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
+        when(response.getOutputStream()).thenThrow(new IOException("Throwing on response#getOutputStream()"));
+
+        String requestId = "REQUEST-ID";
+
+        builder.fromRequest(request, response, requestId);
+    }
+
+    @Test
+    public void testFromRequest() throws Exception {
+        ContextBuilder builder = new DefaultContextBuilder();
+
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpServletResponse response = mock(HttpServletResponse.class);
+        when(response.getOutputStream()).thenReturn(ServletOutputStreamBuilder.getServletOutputStream(null));
+
         String requestId = "REQUEST-ID";
 
         Context ctx = builder.fromRequest(request, response, requestId);

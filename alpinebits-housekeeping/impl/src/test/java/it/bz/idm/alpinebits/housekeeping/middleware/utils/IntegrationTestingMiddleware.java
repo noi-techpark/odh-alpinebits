@@ -10,12 +10,12 @@ import it.bz.idm.alpinebits.common.context.ResponseContextKeys;
 import it.bz.idm.alpinebits.middleware.Context;
 import it.bz.idm.alpinebits.middleware.Middleware;
 import it.bz.idm.alpinebits.middleware.MiddlewareChain;
-import it.bz.idm.alpinebits.servlet.ServletContextKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -37,17 +37,17 @@ public class IntegrationTestingMiddleware implements Middleware {
     public void handleContext(Context ctx, MiddlewareChain chain) {
         this.routingMiddleware.handleContext(ctx, chain);
 
-        HttpServletResponse response = ctx.getOrThrow(ServletContextKey.SERVLET_RESPONSE);
+        OutputStream os = ctx.getOrThrow(ResponseContextKeys.RESPONSE_CONTENT_STREAM);
 
-        this.tryToAddVersionToResponse(ctx, response);
-        this.tryToAddCapabilitiesToResponse(ctx, response);
+        this.tryToAddVersionToResponse(ctx, os);
+        this.tryToAddCapabilitiesToResponse(ctx, os);
     }
 
-    private void tryToAddVersionToResponse(Context ctx, HttpServletResponse response) {
+    private void tryToAddVersionToResponse(Context ctx, OutputStream os) {
         Optional<String> versionOptional = ctx.get(ResponseContextKeys.RESPONSE_VERSION);
         versionOptional.ifPresent(version -> {
             try {
-                response.getWriter().print(version);
+                os.write(version.getBytes(Charset.forName("UTF-8")));
             } catch (IOException e) {
                 LOG.error("Could not write response", e);
             }
@@ -55,11 +55,11 @@ public class IntegrationTestingMiddleware implements Middleware {
     }
 
 
-    private void tryToAddCapabilitiesToResponse(Context ctx, HttpServletResponse response) {
+    private void tryToAddCapabilitiesToResponse(Context ctx, OutputStream os) {
         Optional<Collection> capabilitiesOptional = ctx.get(ResponseContextKeys.RESPONSE_CAPABILITIES);
         capabilitiesOptional.ifPresent(capabilities -> {
             try {
-                response.getWriter().print(String.join(",", capabilities));
+                os.write(String.join(",", capabilities).getBytes(Charset.forName("UTF-8")));
             } catch (IOException e) {
                 LOG.error("Could not write response", e);
             }
