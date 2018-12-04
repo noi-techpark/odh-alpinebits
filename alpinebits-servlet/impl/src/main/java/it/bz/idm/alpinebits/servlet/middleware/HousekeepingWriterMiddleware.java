@@ -13,12 +13,13 @@ import it.bz.idm.alpinebits.middleware.Context;
 import it.bz.idm.alpinebits.middleware.Middleware;
 import it.bz.idm.alpinebits.middleware.MiddlewareChain;
 import it.bz.idm.alpinebits.servlet.ResponseWritingException;
-import it.bz.idm.alpinebits.servlet.ServletContextKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -82,12 +83,12 @@ public class HousekeepingWriterMiddleware implements Middleware {
     }
 
     private void writeResponse(Context ctx, String message) {
-        HttpServletResponse response = ctx.getOrThrow(ServletContextKey.SERVLET_RESPONSE);
+        OutputStream os = ctx.getOrThrow(ResponseContextKeys.RESPONSE_CONTENT_STREAM);
 
         String responseMessage = "OK:" + message;
         try {
             LOG.debug("Writing AlpineBits Housekeeping action response: {}", responseMessage);
-            response.getWriter().print(responseMessage);
+            os.write(responseMessage.getBytes(Charset.forName("UTF-8")));
         } catch (IOException e) {
             throw new ResponseWritingException(
                     "Error while writing Housekeeping action response. Response message" +

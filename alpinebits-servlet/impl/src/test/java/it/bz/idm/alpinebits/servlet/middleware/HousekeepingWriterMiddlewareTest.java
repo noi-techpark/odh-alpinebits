@@ -13,17 +13,17 @@ import it.bz.idm.alpinebits.middleware.Context;
 import it.bz.idm.alpinebits.middleware.Middleware;
 import it.bz.idm.alpinebits.middleware.impl.SimpleContext;
 import it.bz.idm.alpinebits.servlet.ServletContextKey;
+import it.bz.idm.alpinebits.servlet.impl.utils.ServletOutputStreamBuilder;
 import org.testng.annotations.Test;
 
 import javax.servlet.http.HttpServletResponse;
-
-import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Collection;
 
 import static org.mockito.Mockito.*;
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 /**
  * Test cases for {@link HousekeepingWriterMiddleware} class.
@@ -39,32 +39,35 @@ public class HousekeepingWriterMiddlewareTest {
 
     @Test
     public void testHandleContext_undefinedAction() throws Exception {
-        Context ctx = this.buildDefaultContext();
+        Context ctx = new SimpleContext();
+        HttpServletResponse response = mock(HttpServletResponse.class);
+        ctx.put(ServletContextKey.SERVLET_RESPONSE, response);
+
         this.invokeHousekeepingWriterMiddleware(ctx);
 
-        HttpServletResponse response = ctx.getOrThrow(ServletContextKey.SERVLET_RESPONSE);
         verify(response, never()).getWriter();
     }
 
     @Test
     public void testHandleContext_notHousekeepingAction() throws Exception {
-        Context ctx = this.buildDefaultContext();
+        Context ctx = new SimpleContext();
+        HttpServletResponse response = mock(HttpServletResponse.class);
+        ctx.put(ServletContextKey.SERVLET_RESPONSE, response);
         ctx.put(RequestContextKey.REQUEST_ACTION, "some action");
+
         this.invokeHousekeepingWriterMiddleware(ctx);
 
-        HttpServletResponse response = ctx.getOrThrow(ServletContextKey.SERVLET_RESPONSE);
         verify(response, never()).getWriter();
     }
 
     @Test
-    public void testHandleContext_getVersionHousekeepingAction() throws Exception {
-        Context ctx = this.buildDefaultContext();
+    public void testHandleContext_getVersionHousekeepingAction() {
+        Context ctx = new SimpleContext();
         ctx.put(RequestContextKey.REQUEST_ACTION, HousekeepingActionEnum.GET_VERSION.getAction());
         ctx.put(ResponseContextKeys.RESPONSE_VERSION, DEFAULT_VERSION);
 
-        HttpServletResponse response = ctx.getOrThrow(ServletContextKey.SERVLET_RESPONSE);
         StringWriter stringWriter = new StringWriter();
-        when(response.getWriter()).thenReturn(new PrintWriter(stringWriter));
+        ctx.put(ResponseContextKeys.RESPONSE_CONTENT_STREAM, ServletOutputStreamBuilder.getServletOutputStream(stringWriter));
 
         this.invokeHousekeepingWriterMiddleware(ctx);
 
@@ -72,14 +75,13 @@ public class HousekeepingWriterMiddlewareTest {
     }
 
     @Test
-    public void testHandleContext_getCapabilitiesHousekeepingAction() throws Exception {
-        Context ctx = this.buildDefaultContext();
+    public void testHandleContext_getCapabilitiesHousekeepingAction() {
+        Context ctx = new SimpleContext();
         ctx.put(RequestContextKey.REQUEST_ACTION, HousekeepingActionEnum.GET_CAPABLILITIES.getAction());
         ctx.put(ResponseContextKeys.RESPONSE_CAPABILITIES, DEFAULT_CAPABILITIES);
 
-        HttpServletResponse response = ctx.getOrThrow(ServletContextKey.SERVLET_RESPONSE);
         StringWriter stringWriter = new StringWriter();
-        when(response.getWriter()).thenReturn(new PrintWriter(stringWriter));
+        ctx.put(ResponseContextKeys.RESPONSE_CONTENT_STREAM, ServletOutputStreamBuilder.getServletOutputStream(stringWriter));
 
         this.invokeHousekeepingWriterMiddleware(ctx);
 
@@ -89,14 +91,6 @@ public class HousekeepingWriterMiddlewareTest {
         assertTrue(result.matches("OK:([\\w]+)(,[\\w]+)*"));
         DEFAULT_CAPABILITIES.stream()
                 .forEach(capability -> assertTrue(result.contains(capability)));
-    }
-
-    private Context buildDefaultContext() {
-        HttpServletResponse response = mock(HttpServletResponse.class);
-
-        Context ctx = new SimpleContext();
-        ctx.put(ServletContextKey.SERVLET_RESPONSE, response);
-        return ctx;
     }
 
     private void invokeHousekeepingWriterMiddleware(Context ctx) {

@@ -77,7 +77,7 @@ public class DefaultRequestExceptionHandler implements RequestExceptionHandler {
      */
     private void sendError(HttpServletResponse response, int status, Exception e) throws IOException {
         response.setStatus(status);
-        response.getWriter().print(this.getErrorMessage(e));
+        response.getOutputStream().print(this.getErrorMessage(e));
     }
 
 }

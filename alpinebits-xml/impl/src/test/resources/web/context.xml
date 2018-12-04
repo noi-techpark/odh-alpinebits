@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <!--
+        Disable manifest scanning in Arquillian Tomcat, since
+        Tomcat had issues loading jing dependencies that are
+        defined in jing's manifest file
+    -->
+    <JarScanner scanManifest="false" />
+</Context>

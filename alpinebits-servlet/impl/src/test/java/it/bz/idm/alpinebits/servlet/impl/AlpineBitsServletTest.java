@@ -7,6 +7,7 @@
 package it.bz.idm.alpinebits.servlet.impl;
 
 import it.bz.idm.alpinebits.servlet.impl.utils.ResponseStatusSettingMiddleware;
+import it.bz.idm.alpinebits.servlet.impl.utils.ServletOutputStreamBuilder;
 import it.bz.idm.alpinebits.servlet.impl.utils.ThrowingMiddleware;
 import org.testng.annotations.Test;
 
@@ -14,7 +15,6 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import static org.mockito.Mockito.*;
@@ -45,7 +45,7 @@ public class AlpineBitsServletTest {
         HttpServletResponse response = mock(HttpServletResponse.class);
 
         StringWriter stringWriter = new StringWriter();
-        when(response.getWriter()).thenReturn(new PrintWriter(stringWriter));
+        when(response.getOutputStream()).thenReturn(ServletOutputStreamBuilder.getServletOutputStream(stringWriter));
 
         AlpineBitsServlet servlet = new AlpineBitsServlet();
         servlet.init(config);
@@ -67,6 +67,8 @@ public class AlpineBitsServletTest {
 
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
+
+        when(response.getOutputStream()).thenReturn(ServletOutputStreamBuilder.getServletOutputStream(null));
 
         AlpineBitsServlet servlet = new AlpineBitsServlet();
         servlet.init(config);

@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.Base64;
 
 /**
@@ -76,11 +76,7 @@ public class BasicAuthenticationMiddleware implements Middleware {
      */
     private String[] extractAndDecodeHeader(String header) {
         byte[] base64Token;
-        try {
-            base64Token = header.substring(6).getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new BasicAuthenticationException("Failed to decode basic authentication header string", e);
-        }
+        base64Token = header.substring(6).getBytes(Charset.forName("UTF-8"));
 
         byte[] decoded;
         try {
@@ -90,11 +86,7 @@ public class BasicAuthenticationMiddleware implements Middleware {
         }
 
         String token;
-        try {
-            token = new String(decoded, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new BasicAuthenticationException("Failed to build string from decoded basic authentication header string", e);
-        }
+        token = new String(decoded, Charset.forName("UTF-8"));
 
         int delim = token.indexOf(':');
 

@@ -8,12 +8,12 @@ package it.bz.idm.alpinebits.servlet.impl;
 
 import it.bz.idm.alpinebits.common.exception.AlpineBitsException;
 import it.bz.idm.alpinebits.middleware.RequiredContextKeyMissingException;
+import it.bz.idm.alpinebits.servlet.impl.utils.ServletOutputStreamBuilder;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import static org.mockito.Mockito.*;
@@ -45,7 +45,7 @@ public class DefaultRequestExceptionHandlerTest {
         HttpServletResponse response = mock(HttpServletResponse.class);
 
         StringWriter stringWriter = new StringWriter();
-        when(response.getWriter()).thenReturn(new PrintWriter(stringWriter));
+        when(response.getOutputStream()).thenReturn(ServletOutputStreamBuilder.getServletOutputStream(stringWriter));
 
         DefaultRequestExceptionHandler handler = new DefaultRequestExceptionHandler();
 

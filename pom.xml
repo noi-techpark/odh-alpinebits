@@ -6,7 +6,7 @@
 
     <groupId>it.bz.idm.alpinebits</groupId>
     <artifactId>alpinebits-root</artifactId>
-    <version>0.0.8</version>
+    <version>0.0.9</version>
 
     <packaging>pom</packaging>
     <name>IDM AlpineBits</name>
@@ -18,6 +18,7 @@
         <module>alpinebits-routing</module>
         <module>alpinebits-server</module>
         <module>alpinebits-servlet</module>
+        <module>alpinebits-xml</module>
         <module>build-tools</module>
         <module>examples</module>
     </modules>
@@ -42,6 +43,7 @@
         <gitflow-maven-plugin.version>1.10.0</gitflow-maven-plugin.version>
 
         <servlet.version>3.0.1</servlet.version>
+        <mapstruct.version>1.2.0.Final</mapstruct.version>
 
         <testng.version>6.14.3</testng.version>
         <mockito.version>2.22.0</mockito.version>
@@ -136,67 +138,77 @@
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-common-api</artifactId>
-                <version>0.0.8</version>
+                <version>0.0.9</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-common-utils</artifactId>
-                <version>0.0.8</version>
+                <version>0.0.9</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-housekeeping-api</artifactId>
-                <version>0.0.8</version>
+                <version>0.0.9</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-housekeeping-impl</artifactId>
-                <version>0.0.8</version>
+                <version>0.0.9</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-middleware-api</artifactId>
-                <version>0.0.8</version>
+                <version>0.0.9</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-middleware-impl</artifactId>
-                <version>0.0.8</version>
+                <version>0.0.9</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-routing-api</artifactId>
-                <version>0.0.8</version>
+                <version>0.0.9</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-routing-impl</artifactId>
-                <version>0.0.8</version>
+                <version>0.0.9</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-server-api</artifactId>
-                <version>0.0.8</version>
+                <version>0.0.9</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-server-impl</artifactId>
-                <version>0.0.8</version>
+                <version>0.0.9</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-servlet-api</artifactId>
-                <version>0.0.8</version>
+                <version>0.0.9</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-servlet-impl</artifactId>
-                <version>0.0.8</version>
+                <version>0.0.9</version>
+            </dependency>
+            <dependency>
+                <groupId>it.bz.idm.alpinebits</groupId>
+                <artifactId>alpinebits-xml-api</artifactId>
+                <version>0.0.9</version>
+            </dependency>
+            <dependency>
+                <groupId>it.bz.idm.alpinebits</groupId>
+                <artifactId>alpinebits-xml-impl</artifactId>
+                <version>0.0.9</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>examples-housekeeping</artifactId>
-                <version>0.0.8</version>
+                <version>0.0.9</version>
             </dependency>
 
             <dependency>
@@ -209,6 +221,11 @@
                 <artifactId>javax.servlet-api</artifactId>
                 <version>${servlet.version}</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-jdk8</artifactId>
+                <version>${mapstruct.version}</version>
             </dependency>
 
             <!-- Test dependencies -->
@@ -282,6 +299,18 @@
                     <configuration>
                         <source>1.8</source>
                         <target>1.8</target>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.mapstruct</groupId>
+                                <artifactId>mapstruct-processor</artifactId>
+                                <version>${mapstruct.version}</version>
+                            </path>
+                        </annotationProcessorPaths>
+                        <compilerArgs>
+                            <compilerArg>
+                                 -Amapstruct.unmappedTargetPolicy=ERROR
+                            </compilerArg>
+                        </compilerArgs>
                     </configuration>
                 </plugin>
 
