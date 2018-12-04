@@ -16,11 +16,12 @@ import it.bz.idm.alpinebits.servlet.MultipartFormDataParseException;
 import it.bz.idm.alpinebits.servlet.ServletContextKey;
 import it.bz.idm.alpinebits.servlet.UndefinedActionException;
 import it.bz.idm.alpinebits.servlet.impl.utils.MultipartFormDataRequestBuilder;
+import org.apache.commons.io.IOUtils;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.OutputStream;
+import java.io.InputStream;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -90,8 +91,8 @@ public class MultipartFormDataParserMiddlewareTest {
         HttpServletRequest request = MultipartFormDataRequestBuilder.buildRequest(s);
 
         Context ctx = this.executeMiddleware(request);
-        OutputStream stream = ctx.getOrThrow(RequestContextKey.REQUEST_CONTENT_STREAM);
-        String alpineBitsRequest = stream.toString();
+        InputStream stream = ctx.getOrThrow(RequestContextKey.REQUEST_CONTENT_STREAM);
+        String alpineBitsRequest = IOUtils.toString(stream);
         assertEquals(alpineBitsRequest, MultipartFormDataRequestBuilder.ALPINEBITS_REQUEST_PARAM);
     }
 

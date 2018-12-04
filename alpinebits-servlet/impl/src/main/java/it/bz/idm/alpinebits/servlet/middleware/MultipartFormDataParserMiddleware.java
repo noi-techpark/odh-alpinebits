@@ -20,11 +20,11 @@ import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -87,7 +87,7 @@ public class MultipartFormDataParserMiddleware implements Middleware {
         List<String> formParts = new ArrayList<>();
 
         String abAction = null;
-        OutputStream abRequest = null;
+        InputStream abRequest = null;
 
         // Parse the request
         try {
@@ -98,14 +98,12 @@ public class MultipartFormDataParserMiddleware implements Middleware {
                 formParts.add(name);
 
                 try (InputStream stream = item.openStream()) {
-
                     if (FORM_PART_ACTION.equalsIgnoreCase(name)) {
                         abAction = Streams.asString(stream, "UTF-8");
                     }
 
                     if (FORM_PART_REQUEST.equalsIgnoreCase(name)) {
-                        abRequest = new ByteArrayOutputStream();
-                        Streams.copy(stream, abRequest, true);
+                        abRequest = IOUtils.toBufferedInputStream(stream);
                     }
                 }
             }

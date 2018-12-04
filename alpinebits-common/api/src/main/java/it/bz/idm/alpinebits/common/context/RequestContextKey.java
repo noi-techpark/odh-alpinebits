@@ -8,7 +8,7 @@ package it.bz.idm.alpinebits.common.context;
 
 import it.bz.idm.alpinebits.middleware.Key;
 
-import java.io.OutputStream;
+import java.io.InputStream;
 import java.util.function.Supplier;
 
 /**
@@ -57,8 +57,8 @@ public final class RequestContextKey {
     /**
      * Context key for AlpineBits request content in its plain form, i.e. the XML.
      */
-    public static final Key<OutputStream> REQUEST_CONTENT_STREAM = Key.key(
-            "request.content.stream", OutputStream.class
+    public static final Key<InputStream> REQUEST_CONTENT_STREAM = Key.key(
+            "request.content.stream", InputStream.class
     );
 
     private RequestContextKey() {

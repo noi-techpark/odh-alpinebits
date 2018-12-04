@@ -8,7 +8,7 @@ package it.bz.idm.alpinebits.common.context;
 
 import org.testng.annotations.Test;
 
-import java.io.OutputStream;
+import java.io.InputStream;
 import java.util.function.Supplier;
 
 import static org.testng.Assert.assertEquals;
@@ -44,8 +44,8 @@ public class RequestContextKeyTest {
     }
 
     @Test
-    public void testContextKey_RequestOutputStream() {
-        assertEquals(RequestContextKey.REQUEST_CONTENT_STREAM.getType(), OutputStream.class);
+    public void testContextKey_RequestInputStream() {
+        assertEquals(RequestContextKey.REQUEST_CONTENT_STREAM.getType(), InputStream.class);
     }
 
 }
