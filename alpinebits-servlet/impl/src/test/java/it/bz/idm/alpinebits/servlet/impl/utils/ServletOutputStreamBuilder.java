@@ -7,7 +7,6 @@
 package it.bz.idm.alpinebits.servlet.impl.utils;
 
 import javax.servlet.ServletOutputStream;
-import java.io.IOException;
 import java.io.StringWriter;
 
 /**

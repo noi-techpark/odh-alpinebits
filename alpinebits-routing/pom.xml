@@ -7,12 +7,12 @@
     <parent>
         <groupId>it.bz.idm.alpinebits</groupId>
         <artifactId>alpinebits-root</artifactId>
-        <version>0.0.8</version>
+        <version>0.0.9</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>alpinebits-routing</artifactId>
-    <version>0.0.8</version>
+    <version>0.0.9</version>
 
     <packaging>pom</packaging>
     <name>IDM AlpineBits routing</name>

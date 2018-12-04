@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>it.bz.idm.alpinebits</groupId>
+        <artifactId>alpinebits-xml</artifactId>
+        <version>0.0.9</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>alpinebits-xml-impl</artifactId>
+    <version>0.0.9</version>
+
+    <name>IDM AlpineBits XML impl</name>
+
+    <properties>
+        <jing.version>20091111</jing.version>
+        <xmlunit.version>2.6.2</xmlunit.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>it.bz.idm.alpinebits</groupId>
+            <artifactId>alpinebits-common-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>it.bz.idm.alpinebits</groupId>
+            <artifactId>alpinebits-middleware-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>it.bz.idm.alpinebits</groupId>
+            <artifactId>alpinebits-xml-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.thaiopensource</groupId>
+            <artifactId>jing</artifactId>
+            <version>${jing.version}</version>
+        </dependency>
+
+        <!-- testing -->
+        <dependency>
+            <groupId>it.bz.idm.alpinebits</groupId>
+            <artifactId>alpinebits-middleware-impl</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>it.bz.idm.alpinebits</groupId>
+            <artifactId>alpinebits-servlet-impl</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.testng</groupId>
+            <artifactId>arquillian-testng-container</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.xmlunit</groupId>
+            <artifactId>xmlunit-core</artifactId>
+            <version>${xmlunit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.xmlunit</groupId>
+            <artifactId>xmlunit-matchers</artifactId>
+            <version>${xmlunit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!--
+            Arquilllian needs this additional dependency
+            to work in combination with jing
+        -->
+        <dependency>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>saxon-dom</artifactId>
+            <version>8.7</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
