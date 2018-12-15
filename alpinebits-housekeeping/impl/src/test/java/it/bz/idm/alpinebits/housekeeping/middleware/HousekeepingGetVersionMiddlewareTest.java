@@ -16,6 +16,9 @@ import it.bz.idm.alpinebits.middleware.impl.SimpleContext;
 import it.bz.idm.alpinebits.routing.RouterContextKey;
 import org.testng.annotations.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
+
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -41,34 +44,38 @@ public class HousekeepingGetVersionMiddlewareTest {
     }
 
     @Test
-    public void testHandleContext_ReturnSameVersionIfMatch() {
+    public void testHandleContext_ReturnSameVersionIfMatch() throws Exception {
         String version = RouterBuilder.DEFAULT_VERSION;
 
         Context ctx = new SimpleContext();
         ctx.put(RouterContextKey.ALPINEBITS_ROUTER, RouterBuilder.buildRouterForVersion(version));
         ctx.put(RequestContextKey.REQUEST_VERSION, version);
+        ctx.put(ResponseContextKeys.RESPONSE_CONTENT_STREAM, new ByteArrayOutputStream());
 
         Middleware routingMiddleware = new HousekeepingGetVersionMiddleware();
         routingMiddleware.handleContext(ctx, null);
 
-        String resultVersion = ctx.getOrThrow(ResponseContextKeys.RESPONSE_VERSION);
+        ByteArrayOutputStream responseStream = (ByteArrayOutputStream)ctx.getOrThrow(ResponseContextKeys.RESPONSE_CONTENT_STREAM);
+        String resultVersion = responseStream.toString(StandardCharsets.UTF_8.name()).substring(3);
 
         assertEquals(resultVersion, version);
     }
 
     @Test
-    public void testHandleContext_ReturnHighestVersionIfNoMatch() {
+    public void testHandleContext_ReturnHighestVersionIfNoMatch() throws Exception {
         String version = RouterBuilder.DEFAULT_VERSION;
         String otherVersion = version + "1";
 
         Context ctx = new SimpleContext();
         ctx.put(RouterContextKey.ALPINEBITS_ROUTER, RouterBuilder.buildRouterForVersion(version));
         ctx.put(RequestContextKey.REQUEST_VERSION, otherVersion);
+        ctx.put(ResponseContextKeys.RESPONSE_CONTENT_STREAM, new ByteArrayOutputStream());
 
         Middleware routingMiddleware = new HousekeepingGetVersionMiddleware();
         routingMiddleware.handleContext(ctx, null);
 
-        String resultVersion = ctx.getOrThrow(ResponseContextKeys.RESPONSE_VERSION);
+        ByteArrayOutputStream responseStream = (ByteArrayOutputStream)ctx.getOrThrow(ResponseContextKeys.RESPONSE_CONTENT_STREAM);
+        String resultVersion = responseStream.toString(StandardCharsets.UTF_8.name()).substring(3);
 
         assertEquals(resultVersion, version);
     }

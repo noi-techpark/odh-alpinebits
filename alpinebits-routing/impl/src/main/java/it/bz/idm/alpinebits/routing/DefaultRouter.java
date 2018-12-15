@@ -11,34 +11,28 @@ import it.bz.idm.alpinebits.middleware.Middleware;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
+import java.util.Set;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * This class implements the {@link Router} interface.
  * <p>
- * In addition, it provides a {@link DefaultRouter.Builder} to build new Routes.
+ * In addition, it provides a {@link DefaultRouter.Builder} to build new RoutingConfiguration.
  */
 public final class DefaultRouter implements Router {
 
     private static final String VERSION_NULL_ERROR_MESSAGE = "The version must not be null";
 
-    private final Map<String, Map<String, Middleware>> routes;
+    private final Map<String, VersionConfiguration> routes;
 
     private final String highestSupportedVersion;
 
-    private DefaultRouter(Map<String, Map<String, Middleware>> routes, String highestSupportedVersion) {
-        if (routes == null) {
-            throw new IllegalArgumentException("The routes must not be null");
-        }
-        if (routes.isEmpty()) {
-            throw new IllegalArgumentException("No routes defined");
-        }
-        if (highestSupportedVersion == null) {
-            throw new IllegalArgumentException("The highestSupportedVersion must not be null");
-        }
+    private DefaultRouter(Map<String, VersionConfiguration> routes, String highestSupportedVersion) {
         this.routes = routes;
         this.highestSupportedVersion = highestSupportedVersion;
     }
@@ -52,13 +46,13 @@ public final class DefaultRouter implements Router {
             throw new IllegalArgumentException("The action must not be null");
         }
 
-        Map<String, Middleware> routesForVersion = this.routes.get(version);
+        VersionConfiguration versionConfiguration = this.routes.get(version);
 
-        if (routesForVersion == null) {
+        if (versionConfiguration == null) {
             return Optional.empty();
         }
 
-        return Optional.ofNullable(routesForVersion.get(action));
+        return Optional.ofNullable(versionConfiguration.findMiddlewareForAction(action));
     }
 
     @Override
@@ -71,28 +65,49 @@ public final class DefaultRouter implements Router {
     }
 
     @Override
-    public Collection<String> getVersions() {
+    public Set<String> getVersions() {
         return this.routes.keySet();
     }
 
     @Override
-    public Optional<Collection<String>> getActionsForVersion(String version) {
+    public Optional<Set<String>> getActionsForVersion(String version) {
         if (version == null) {
             throw new IllegalArgumentException(VERSION_NULL_ERROR_MESSAGE);
         }
 
-        Map<String, Middleware> routesForVersion = this.routes.get(version);
+        VersionConfiguration versionConfiguration = this.routes.get(version);
 
-        if (routesForVersion == null) {
+        if (versionConfiguration == null) {
             return Optional.empty();
         }
 
-        return Optional.of(routesForVersion.keySet());
+        return Optional.of(versionConfiguration.getActions().keySet());
+    }
+
+    @Override
+    public Optional<Set<String>> getCapabilitiesForVersion(String version) {
+        if (version == null) {
+            throw new IllegalArgumentException(VERSION_NULL_ERROR_MESSAGE);
+        }
+
+        VersionConfiguration versionConfiguration = this.routes.get(version);
+
+        if (versionConfiguration == null) {
+            return Optional.empty();
+        }
+
+        return Optional.of(versionConfiguration.getCapabilities());
     }
 
     @Override
     public boolean isActionDefined(String version, String action) {
         return this.findMiddleware(version, action).isPresent();
+    }
+
+    @Override
+    public boolean isCapabilityDefined(String version, String capability) {
+        Set<String> capabilities = this.getCapabilitiesForVersion(version).orElse(Collections.emptySet());
+        return capabilities.contains(capability);
     }
 
     @Override
@@ -111,48 +126,61 @@ public final class DefaultRouter implements Router {
      * Example usage:
      * <pre>
      *     DefaultRouter router = new DefaultRouter.Builder()
-     *          .forVersion("2017-10")
-     *              .addMiddleware("action1", middleware1)
-     *              .addMiddleware("action2", middleware2)
-     *              .done()
-     *          .forVersion("2018-10")
-     *              .addMiddleware("action3", middleware3)
-     *              .addMiddleware("action4", middleware4)
-     *              .done()
+     *          .version("2017-10")
+     *              .supportsAction("action1")
+     *                  .withCapabilities("cap1", "cap2")
+     *                  .using(middleware1)
+     *              .and()
+     *              .supportsAction("action2")
+     *                  .withCapabilities("cap3", "cap4")
+     *                  .using(middleware2)
+     *              .versionComplete()
+     *          .version("2018-10")
+     *              .supportsAction("action3")
+     *                  .withCapabilities("cap5", "cap6")
+     *                  .using(middleware3)
+     *              .and()
+     *              .supportsAction("action4")
+     *                  .withCapabilities("cap7")
+     *                  .using(middleware4)
+     *              .versionComplete()
      *          .buildRouter();
      * </pre>
      */
     public static final class Builder {
 
+        private final Map<String, VersionConfiguration> versionConfigurations = new HashMap<>();
+
+        private Supplier<Router> routerBuilder = () -> {
+            List<String> versions = new ArrayList<>(this.versionConfigurations.keySet());
+            Collections.sort(versions);
+            String highestSupportedVersion = versions.get(versions.size() - 1);
+            return new DefaultRouter(this.versionConfigurations, highestSupportedVersion);
+        };
+
         /**
          * Start router building by providing a version.
-         * <p>
-         * See {@link VersionRoutingBuilder} and {@link ActionRoutingBuilder}
-         * for further information
          *
          * @param version the (first) <code>version</code> to configure
          *                <code>actions</code> for. Other versions with
          *                assigned actions may be configured using the
          *                builder.
-         * @return a {@link ActionRoutingBuilder} to configure actions
+         * @return a {@link RoutingBuilder} to configure actions
          * for the given <code>version</code>
          */
-        public ActionRoutingBuilder forVersion(String version) {
-            return VersionRoutingBuilder.newBuilder(this.routerBuilder()).forVersion(version);
+        public RoutingBuilder version(String version) {
+            if (version == null) {
+                throw new IllegalArgumentException(VERSION_NULL_ERROR_MESSAGE);
+            }
+            return new RoutingBuilder(
+                    this,
+                    this.versionHandler(version),
+                    this.routerBuilder);
         }
 
-        /**
-         * Return a function that builds a {@link DefaultRouter} on invocation.
-         *
-         * @return a function building a {@link DefaultRouter}
-         */
-        private Function<Map<String, Map<String, Middleware>>, Router> routerBuilder() {
-            return routes -> {
-                List<String> versions = new ArrayList<>(routes.keySet());
-                Collections.sort(versions);
-                String highestSupportedVersion = versions.get(versions.size() - 1);
-                return new DefaultRouter(routes, highestSupportedVersion);
-            };
+        private Consumer<VersionConfiguration> versionHandler(String version) {
+            return versionConfiguration -> this.versionConfigurations.put(version, versionConfiguration);
         }
+
     }
 }

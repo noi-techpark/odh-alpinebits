@@ -18,22 +18,24 @@ public class DefaultRouterBuilderTest {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void testForVersion_throwsOnNullVersion() {
-        new DefaultRouter.Builder().forVersion(null);
+        new DefaultRouter.Builder().version(null);
     }
 
     @Test
     public void testForVersion_returnsActionConfigurerBuilder() {
-        ActionRoutingBuilder builder = new DefaultRouter.Builder().forVersion("");
-        assertEquals(builder.getClass(), ActionRoutingBuilder.class);
+        RoutingBuilder builder = new DefaultRouter.Builder().version("");
+        assertEquals(builder.getClass(), RoutingBuilder.class);
     }
 
     @Test
     public void testBuild() {
         Router router = new DefaultRouter.Builder()
-                .forVersion("")
-                .addMiddleware("some_action", (ctx, chain) -> {
+                .version("")
+                .supportsAction("some_action")
+                .withCapabilities()
+                .using((ctx, chain) -> {
                 })
-                .done()
+                .versionComplete()
                 .buildRouter();
         assertNotNull(router);
     }

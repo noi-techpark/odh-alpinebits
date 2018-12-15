@@ -6,7 +6,8 @@
 
 package it.bz.idm.alpinebits.housekeeping.middleware;
 
-import it.bz.idm.alpinebits.common.constants.HousekeepingActionEnum;
+import it.bz.idm.alpinebits.common.constants.AlpineBitsAction;
+import it.bz.idm.alpinebits.common.constants.AlpineBitsCapability;
 import it.bz.idm.alpinebits.housekeeping.middleware.utils.IntegrationTestingMiddleware;
 import it.bz.idm.alpinebits.housekeeping.middleware.utils.RouterMiddlewareBuilder;
 import it.bz.idm.alpinebits.servlet.impl.AlpineBitsServlet;
@@ -57,7 +58,7 @@ public class HousekeepingGetCapabilitiesMiddlewareIT extends Arquillian {
                         AlpineBitsClientProtocolMiddleware.CLIENT_PROTOCOL_VERSION_HEADER,
                         RouterMiddlewareBuilder.DEFAULT_VERSION + 1
                 )
-                .multiPart("action", HousekeepingActionEnum.GET_CAPABLILITIES.toString())
+                .multiPart("action", AlpineBitsAction.GET_CAPABILITIES)
                 .when()
                 .post(this.base + "AlpineBits")
                 .then()
@@ -73,12 +74,14 @@ public class HousekeepingGetCapabilitiesMiddlewareIT extends Arquillian {
                         AlpineBitsClientProtocolMiddleware.CLIENT_PROTOCOL_VERSION_HEADER,
                         RouterMiddlewareBuilder.DEFAULT_VERSION
                 )
-                .multiPart("action", HousekeepingActionEnum.GET_CAPABLILITIES.toString())
+                .multiPart("action", AlpineBitsAction.GET_CAPABILITIES)
                 .when()
                 .post(this.base + "AlpineBits")
                 .then()
                 .statusCode(HttpServletResponse.SC_OK)
-                .content(containsString("getVersion"), containsString("getCapabilities"));
+                .content(
+                        containsString(AlpineBitsCapability.GET_VERSION),
+                        containsString(AlpineBitsCapability.GET_CAPABILITIES));
     }
 
 }

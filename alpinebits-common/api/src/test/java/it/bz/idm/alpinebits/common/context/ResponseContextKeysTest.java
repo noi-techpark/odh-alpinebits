@@ -9,7 +9,6 @@ package it.bz.idm.alpinebits.common.context;
 import org.testng.annotations.Test;
 
 import java.io.OutputStream;
-import java.util.Collection;
 
 import static org.testng.Assert.assertEquals;
 
@@ -17,16 +16,6 @@ import static org.testng.Assert.assertEquals;
  * Test cases for {@link ResponseContextKeys} class.
  */
 public class ResponseContextKeysTest {
-
-    @Test
-    public void testContextKey_ResponseCapabilities() {
-        assertEquals(ResponseContextKeys.RESPONSE_CAPABILITIES.getType(), Collection.class);
-    }
-
-    @Test
-    public void testContextKey_ResponseVersion() {
-        assertEquals(ResponseContextKeys.RESPONSE_VERSION.getType(), String.class);
-    }
 
     @Test
     public void testContextKey_ResponseContentStream() {
