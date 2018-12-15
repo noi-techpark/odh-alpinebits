@@ -14,6 +14,7 @@
     <modules>
         <module>alpinebits-common</module>
         <module>alpinebits-housekeeping</module>
+        <module>alpinebits-mapping</module>
         <module>alpinebits-middleware</module>
         <module>alpinebits-routing</module>
         <module>alpinebits-server</module>
@@ -153,6 +154,16 @@
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-housekeeping-impl</artifactId>
+                <version>0.0.9</version>
+            </dependency>
+            <dependency>
+                <groupId>it.bz.idm.alpinebits</groupId>
+                <artifactId>alpinebits-mapping-api</artifactId>
+                <version>0.0.9</version>
+            </dependency>
+            <dependency>
+                <groupId>it.bz.idm.alpinebits</groupId>
+                <artifactId>alpinebits-mapping-impl</artifactId>
                 <version>0.0.9</version>
             </dependency>
             <dependency>
@@ -347,7 +358,7 @@
                     <executions>
                         <execution>
                             <id>verify-style</id>
-                            <phase>process-classes</phase>
+                            <phase>validate</phase>
                             <configuration>
                                 <configLocation>build-tools/src/main/resources/checkstyle.xml</configLocation>
                                 <suppressionsLocation>

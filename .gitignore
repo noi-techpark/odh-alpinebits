@@ -3,6 +3,4 @@ target
 
 *.iml
 
-/alpinebits-mapping
-/alpinebits-persistence
 /alpinebits-validation
