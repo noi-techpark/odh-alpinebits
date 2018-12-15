@@ -13,6 +13,7 @@
 
     <modules>
         <module>alpinebits-common</module>
+        <module>alpinebits-db</module>
         <module>alpinebits-housekeeping</module>
         <module>alpinebits-mapping</module>
         <module>alpinebits-middleware</module>
@@ -113,7 +114,7 @@
             <id>report</id>
             <properties>
                 <!-- Exclude *Exception.java from code coverage reports -->
-                <sonar.coverage.exclusions>**/*Exception.java</sonar.coverage.exclusions>
+                <sonar.coverage.exclusions>**/*Exception.java,**/*Entity.java</sonar.coverage.exclusions>
                 <!-- Exclude *Entity.java from code duplication reports -->
                 <sonar.cpd.exclusions>**/*Entity.java</sonar.cpd.exclusions>
                 <!-- Force sonarqube to show 0% coverage for modules without tests -->
@@ -144,6 +145,16 @@
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-common-utils</artifactId>
+                <version>0.0.9</version>
+            </dependency>
+            <dependency>
+                <groupId>it.bz.idm.alpinebits</groupId>
+                <artifactId>alpinebits-db-api</artifactId>
+                <version>0.0.9</version>
+            </dependency>
+            <dependency>
+                <groupId>it.bz.idm.alpinebits</groupId>
+                <artifactId>alpinebits-db-impl</artifactId>
                 <version>0.0.9</version>
             </dependency>
             <dependency>
@@ -319,7 +330,7 @@
                         </annotationProcessorPaths>
                         <compilerArgs>
                             <compilerArg>
-                                 -Amapstruct.unmappedTargetPolicy=ERROR
+                                -Amapstruct.unmappedTargetPolicy=ERROR
                             </compilerArg>
                         </compilerArgs>
                     </configuration>
