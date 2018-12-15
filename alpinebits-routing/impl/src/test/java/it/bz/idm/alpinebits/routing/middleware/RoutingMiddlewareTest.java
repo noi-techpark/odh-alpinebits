@@ -6,6 +6,7 @@
 
 package it.bz.idm.alpinebits.routing.middleware;
 
+import it.bz.idm.alpinebits.common.constants.AlpineBitsVersion;
 import it.bz.idm.alpinebits.common.context.RequestContextKey;
 import it.bz.idm.alpinebits.middleware.Context;
 import it.bz.idm.alpinebits.middleware.Key;
@@ -27,8 +28,9 @@ import static org.testng.Assert.assertFalse;
  */
 public class RoutingMiddlewareTest {
 
-    private static final String DEFAULT_VERSION = "2017-10";
+    private static final String DEFAULT_VERSION = AlpineBitsVersion.V_2017_10;
     private static final String DEFAULT_ACTION = "some action";
+    private static final String DEFAULT_CAPABILITY = "some capability";
     private static final String DEFAULT_KEY_IDENTIFIER = "test.key";
 
     @Test(expectedExceptions = IllegalArgumentException.class)
@@ -58,9 +60,11 @@ public class RoutingMiddlewareTest {
         String testValue = "some value";
 
         Router router = new DefaultRouter.Builder()
-                .forVersion("some version")
-                .addMiddleware(DEFAULT_ACTION, (ctx, chain) -> ctx.put(testKey, testValue))
-                .done()
+                .version("some version")
+                .supportsAction(DEFAULT_ACTION)
+                .withCapabilities(DEFAULT_CAPABILITY)
+                .using((ctx, chain) -> ctx.put(testKey, testValue))
+                .versionComplete()
                 .buildRouter();
         Middleware middleware = new RoutingMiddleware(router);
         Context ctx = this.getValidContext();
@@ -73,9 +77,11 @@ public class RoutingMiddlewareTest {
         String testValue = "some value";
 
         Router router = new DefaultRouter.Builder()
-                .forVersion(DEFAULT_VERSION)
-                .addMiddleware("some other action", (ctx, chain) -> ctx.put(testKey, testValue))
-                .done()
+                .version(DEFAULT_VERSION)
+                .supportsAction("some other action")
+                .withCapabilities(DEFAULT_CAPABILITY)
+                .using((ctx, chain) -> ctx.put(testKey, testValue))
+                .versionComplete()
                 .buildRouter();
         Middleware middleware = new RoutingMiddleware(router);
         Context ctx = this.getValidContext();
@@ -88,9 +94,11 @@ public class RoutingMiddlewareTest {
         String testValue = "some value";
 
         Router router = new DefaultRouter.Builder()
-                .forVersion(DEFAULT_VERSION)
-                .addMiddleware(DEFAULT_ACTION, (ctx, chain) -> ctx.put(testKey, testValue))
-                .done()
+                .version(DEFAULT_VERSION)
+                .supportsAction(DEFAULT_ACTION)
+                .withCapabilities(DEFAULT_CAPABILITY)
+                .using((ctx, chain) -> ctx.put(testKey, testValue))
+                .versionComplete()
                 .buildRouter();
         Middleware middleware = new RoutingMiddleware(router);
         Context ctx = this.getValidContext();
@@ -100,48 +108,6 @@ public class RoutingMiddlewareTest {
         assertEquals(resultValue, testValue);
     }
 
-    @Test
-    public void testHandleContext_AddActionToExistingVersion() {
-        Key<String> testKey1 = this.getTestCtxKey(DEFAULT_KEY_IDENTIFIER + 1);
-        Key<String> testKey2 = this.getTestCtxKey(DEFAULT_KEY_IDENTIFIER + 2);
-        String testValue1 = "some value1";
-        String testValue2 = "some value2";
-
-        // Configure router with two actions for the same version, where the
-        // version specification is repeated
-        Router router = new DefaultRouter.Builder()
-                .forVersion(DEFAULT_VERSION)
-                .addMiddleware(DEFAULT_ACTION, (ctx, chain) -> {
-                    ctx.put(testKey1, testValue1);
-                    chain.next();
-                })
-                .done()
-                .forVersion(DEFAULT_VERSION)
-                .addMiddleware(DEFAULT_ACTION + 2, (ctx, chain) -> {
-                    ctx.put(testKey2, testValue2);
-                    chain.next();
-                })
-                .done()
-                .buildRouter();
-
-        Middleware middleware = new RoutingMiddleware(router);
-        Context ctx = new SimpleContext();
-        ctx.put(RequestContextKey.REQUEST_VERSION, DEFAULT_VERSION);
-        ctx.put(RequestContextKey.REQUEST_ACTION, DEFAULT_ACTION);
-
-        // The router calls the middleware,
-        // specified with HttpContextKey.ALPINE_BITS_CLIENT_PROTOCOL_VERSION
-        // and HttpContextKey.ALPINE_BITS_ACTION
-        middleware.handleContext(ctx, null);
-
-        String resultValue1 = ctx.getOrThrow(testKey1);
-        assertEquals(resultValue1, testValue1);
-
-        // Since the routing matches only one of the two routes, the second middleware
-        // is not invoked and the result is empty
-        Optional<String> resultValue2 = ctx.get(testKey2);
-        assertFalse(resultValue2.isPresent());
-    }
 
     @Test
     public void testHandleContext_OverwriteExistingAction() {
@@ -154,18 +120,23 @@ public class RoutingMiddlewareTest {
         // version and action specification is repeated. Therefor, the first
         // route is overwritten by the second one
         Router router = new DefaultRouter.Builder()
-                .forVersion(DEFAULT_VERSION)
-                .addMiddleware(DEFAULT_ACTION, (ctx, chain) -> {
+                .version(DEFAULT_VERSION)
+                .supportsAction(DEFAULT_ACTION)
+                .withCapabilities()
+                .using((ctx, chain) -> {
                     ctx.put(testKey1, testValue1);
                     chain.next();
                 })
-                .done()
-                .forVersion(DEFAULT_VERSION)
-                .addMiddleware(DEFAULT_ACTION, (ctx, chain) -> {
+                .versionComplete()
+                .and()
+                .version(DEFAULT_VERSION)
+                .supportsAction(DEFAULT_ACTION)
+                .withCapabilities()
+                .using((ctx, chain) -> {
                     ctx.put(testKey2, testValue2);
                     chain.next();
                 })
-                .done()
+                .versionComplete()
                 .buildRouter();
 
         Middleware middleware = new RoutingMiddleware(router);
@@ -191,7 +162,13 @@ public class RoutingMiddlewareTest {
     }
 
     private Router getValidRouter() {
-        return new DefaultRouter.Builder().forVersion("some version").done().buildRouter();
+        return new DefaultRouter.Builder()
+                .version("some version")
+                .supportsAction("some action")
+                .withCapabilities()
+                .using((ctx, chain) -> {})
+                .versionComplete()
+                .buildRouter();
     }
 
     /**

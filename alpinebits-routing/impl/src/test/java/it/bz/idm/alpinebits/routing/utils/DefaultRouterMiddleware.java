@@ -6,6 +6,7 @@
 
 package it.bz.idm.alpinebits.routing.utils;
 
+import it.bz.idm.alpinebits.common.constants.AlpineBitsVersion;
 import it.bz.idm.alpinebits.common.utils.middleware.ComposingMiddlewareBuilder;
 import it.bz.idm.alpinebits.middleware.Context;
 import it.bz.idm.alpinebits.middleware.Middleware;
@@ -23,17 +24,19 @@ import java.util.Arrays;
  */
 public class DefaultRouterMiddleware implements Middleware {
 
-    public static final String DEFAULT_VERSION = "2017-10";
+    public static final String DEFAULT_VERSION = AlpineBitsVersion.V_2017_10;
     public static final String DEFAULT_ACTION = "some action";
 
     private final Middleware middleware;
 
     public DefaultRouterMiddleware() {
         Router router = new DefaultRouter.Builder()
-                .forVersion(DEFAULT_VERSION)
-                .addMiddleware(DEFAULT_ACTION, (ctx, chain) -> {
+                .version(DEFAULT_VERSION)
+                .supportsAction(DEFAULT_ACTION)
+                .withCapabilities()
+                .using((ctx, chain) -> {
                 })
-                .done()
+                .versionComplete()
                 .buildRouter();
 
         this.middleware = ComposingMiddlewareBuilder.compose(Arrays.asList(

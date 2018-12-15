@@ -6,7 +6,9 @@
 
 package it.bz.idm.alpinebits.examples.housekeeping.middleware;
 
-import it.bz.idm.alpinebits.common.constants.HousekeepingActionEnum;
+import it.bz.idm.alpinebits.common.constants.AlpineBitsAction;
+import it.bz.idm.alpinebits.common.constants.AlpineBitsCapability;
+import it.bz.idm.alpinebits.common.constants.AlpineBitsVersion;
 import it.bz.idm.alpinebits.common.utils.middleware.ComposingMiddlewareBuilder;
 import it.bz.idm.alpinebits.housekeeping.middleware.HousekeepingGetCapabilitiesMiddleware;
 import it.bz.idm.alpinebits.housekeeping.middleware.HousekeepingGetVersionMiddleware;
@@ -14,12 +16,11 @@ import it.bz.idm.alpinebits.middleware.Context;
 import it.bz.idm.alpinebits.middleware.Middleware;
 import it.bz.idm.alpinebits.middleware.MiddlewareChain;
 import it.bz.idm.alpinebits.routing.DefaultRouter;
-import it.bz.idm.alpinebits.routing.VersionRoutingBuilder;
+import it.bz.idm.alpinebits.routing.Router;
 import it.bz.idm.alpinebits.routing.middleware.RoutingMiddleware;
 import it.bz.idm.alpinebits.servlet.middleware.AlpineBitsClientProtocolMiddleware;
 import it.bz.idm.alpinebits.servlet.middleware.BasicAuthenticationMiddleware;
 import it.bz.idm.alpinebits.servlet.middleware.GzipUnsupportedMiddleware;
-import it.bz.idm.alpinebits.servlet.middleware.HousekeepingWriterMiddleware;
 import it.bz.idm.alpinebits.servlet.middleware.MultipartFormDataParserMiddleware;
 
 import java.util.Arrays;
@@ -38,7 +39,7 @@ import java.util.Arrays;
  */
 public class ConfiguringMiddleware implements Middleware {
 
-    public static final String DEFAULT_VERSION = "2017-10";
+    public static final String DEFAULT_VERSION = AlpineBitsVersion.V_2017_10;
 
     private final Middleware middleware;
 
@@ -48,7 +49,6 @@ public class ConfiguringMiddleware implements Middleware {
                 new BasicAuthenticationMiddleware(),
                 new GzipUnsupportedMiddleware(),
                 new MultipartFormDataParserMiddleware(),
-                new HousekeepingWriterMiddleware(),
                 this.buildRoutingMiddleware()
         ));
     }
@@ -59,11 +59,17 @@ public class ConfiguringMiddleware implements Middleware {
     }
 
     private Middleware buildRoutingMiddleware() {
-        VersionRoutingBuilder builder = new DefaultRouter.Builder()
-                .forVersion(DEFAULT_VERSION)
-                .addMiddleware(HousekeepingActionEnum.GET_VERSION.getAction(), new HousekeepingGetVersionMiddleware())
-                .addMiddleware(HousekeepingActionEnum.GET_CAPABLILITIES.getAction(), new HousekeepingGetCapabilitiesMiddleware())
-                .done();
-        return new RoutingMiddleware(builder.buildRouter());
+        Router router = new DefaultRouter.Builder()
+                .version(DEFAULT_VERSION)
+                .supportsAction(AlpineBitsAction.GET_VERSION)
+                .withCapabilities(AlpineBitsCapability.GET_VERSION)
+                .using(new HousekeepingGetVersionMiddleware())
+                .and()
+                .supportsAction(AlpineBitsAction.GET_CAPABILITIES)
+                .withCapabilities(AlpineBitsCapability.GET_CAPABILITIES)
+                .using(new HousekeepingGetCapabilitiesMiddleware())
+                .versionComplete()
+                .buildRouter();
+        return new RoutingMiddleware(router);
     }
 }

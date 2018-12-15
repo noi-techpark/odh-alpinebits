@@ -6,7 +6,7 @@
 
 package it.bz.idm.alpinebits.housekeeping.middleware;
 
-import it.bz.idm.alpinebits.common.constants.HousekeepingActionEnum;
+import it.bz.idm.alpinebits.common.constants.AlpineBitsAction;
 import it.bz.idm.alpinebits.housekeeping.middleware.utils.IntegrationTestingMiddleware;
 import it.bz.idm.alpinebits.housekeeping.middleware.utils.RouterMiddlewareBuilder;
 import it.bz.idm.alpinebits.servlet.impl.AlpineBitsServlet;
@@ -60,7 +60,7 @@ public class HousekeepingGetVersionMiddlewareIT extends Arquillian {
                         AlpineBitsClientProtocolMiddleware.CLIENT_PROTOCOL_VERSION_HEADER,
                         RouterMiddlewareBuilder.DEFAULT_VERSION + 1
                 )
-                .multiPart("action", HousekeepingActionEnum.GET_VERSION.toString())
+                .multiPart("action", AlpineBitsAction.GET_VERSION)
                 .when()
                 .post(this.base + "AlpineBits")
                 .then()
@@ -77,7 +77,7 @@ public class HousekeepingGetVersionMiddlewareIT extends Arquillian {
                         AlpineBitsClientProtocolMiddleware.CLIENT_PROTOCOL_VERSION_HEADER,
                         RouterMiddlewareBuilder.DEFAULT_VERSION
                 )
-                .multiPart("action", HousekeepingActionEnum.GET_VERSION.toString())
+                .multiPart("action", AlpineBitsAction.GET_VERSION)
                 .when()
                 .post(this.base + "AlpineBits")
                 .then()

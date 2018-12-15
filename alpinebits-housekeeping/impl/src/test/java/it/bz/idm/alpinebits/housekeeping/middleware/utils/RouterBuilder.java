@@ -6,6 +6,7 @@
 
 package it.bz.idm.alpinebits.housekeeping.middleware.utils;
 
+import it.bz.idm.alpinebits.common.constants.AlpineBitsVersion;
 import it.bz.idm.alpinebits.routing.DefaultRouter;
 import it.bz.idm.alpinebits.routing.Router;
 
@@ -14,13 +15,20 @@ import it.bz.idm.alpinebits.routing.Router;
  */
 public class RouterBuilder {
 
-    public static final String DEFAULT_VERSION = "2017-10";
+    public static final String DEFAULT_VERSION = AlpineBitsVersion.V_2017_10;
+    public static final String DEFAULT_ACTION = "some action";
 
     public static Router buildDefaultRouter() {
         return buildRouterForVersion(DEFAULT_VERSION);
     }
 
     public static Router buildRouterForVersion(String version) {
-        return new DefaultRouter.Builder().forVersion(version).done().buildRouter();
+        return new DefaultRouter.Builder()
+                .version(version)
+                .supportsAction(DEFAULT_ACTION)
+                .withCapabilities()
+                .using((ctx, chain) -> {})
+                .versionComplete()
+                .buildRouter();
     }
 }

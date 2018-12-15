@@ -6,6 +6,7 @@
 
 package it.bz.idm.alpinebits.routing;
 
+import it.bz.idm.alpinebits.common.constants.AlpineBitsVersion;
 import it.bz.idm.alpinebits.middleware.Context;
 import it.bz.idm.alpinebits.middleware.Key;
 import it.bz.idm.alpinebits.middleware.Middleware;
@@ -15,6 +16,7 @@ import org.testng.annotations.Test;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.testng.Assert.*;
 
@@ -23,7 +25,7 @@ import static org.testng.Assert.*;
  */
 public class DefaultRouterTest {
 
-    private static final String DEFAULT_VERSION = "2017-10";
+    private static final String DEFAULT_VERSION = AlpineBitsVersion.V_2017_10;
     private static final String DEFAULT_ACTION = "DEFAULT_ACTION";
     private static final String UNKNOWN_VERSION = "some_version";
     private static final String UNKNOWN_ACTION = "some_action";
@@ -86,10 +88,17 @@ public class DefaultRouterTest {
         String version2 = "2018-10";
 
         Router router = new DefaultRouter.Builder()
-                .forVersion(version1)
-                .done()
-                .forVersion(version2)
-                .done()
+                .version(version1)
+                .supportsAction("action1")
+                .withCapabilities()
+                .using((ctx, chain) -> {})
+                .versionComplete()
+                .and()
+                .version(version2)
+                .supportsAction("action2")
+                .withCapabilities()
+                .using((ctx, chain) -> {})
+                .versionComplete()
                 .buildRouter();
         Collection<String> versions = router.getVersions();
         assertEquals(versions, Arrays.asList(version1, version2));
@@ -107,10 +116,17 @@ public class DefaultRouterTest {
         String version2 = "2018-10";
 
         Router router = new DefaultRouter.Builder()
-                .forVersion(version1)
-                .done()
-                .forVersion(version2)
-                .done()
+                .version(version1)
+                .supportsAction(DEFAULT_ACTION)
+                .withCapabilities()
+                .using(null)
+                .versionComplete()
+                .and()
+                .version(version2)
+                .supportsAction(DEFAULT_ACTION)
+                .withCapabilities()
+                .using(null)
+                .versionComplete()
                 .buildRouter();
         assertEquals(router.getVersion("xxx"), version2);
     }
@@ -118,22 +134,8 @@ public class DefaultRouterTest {
     @Test
     public void testGetActionsForVersion_emptyForUnknownVersion() {
         Router router = this.getDefaultRouter();
-        Optional<Collection<String>> optional = router.getActionsForVersion(UNKNOWN_VERSION);
+        Optional<Set<String>> optional = router.getActionsForVersion(UNKNOWN_VERSION);
         assertFalse(optional.isPresent());
-    }
-
-    @Test
-    public void testGetActionsForVersion_emptyForKnownVersionAndEmptyActions() {
-        Router router = new DefaultRouter.Builder()
-                .forVersion(DEFAULT_VERSION)
-                .done()
-                .buildRouter();
-        Optional<Collection<String>> optional = router.getActionsForVersion(DEFAULT_VERSION);
-
-        // Use optional value without any further test (e.g. Optional#isPresent()), because if
-        // the optional is not present, an Exception is thrown
-        Collection<String> actions = optional.get();
-        assertTrue(actions.isEmpty());
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
@@ -149,19 +151,59 @@ public class DefaultRouterTest {
         };
 
         Router router = new DefaultRouter.Builder()
-                .forVersion(DEFAULT_VERSION)
-                .addMiddleware(action1, middleware)
-                .addMiddleware(action2, middleware)
-                .done()
+                .version(DEFAULT_VERSION)
+                .supportsAction(action1)
+                .withCapabilities()
+                .using(middleware)
+                .and()
+                .supportsAction(action2)
+                .withCapabilities()
+                .using(middleware)
+                .versionComplete()
                 .buildRouter();
-
-        Optional<Collection<String>> optional = router.getActionsForVersion(DEFAULT_VERSION);
 
         // Use optional value without any further test (e.g. Optional#isPresent()), because if
         // the optional is not present, an Exception is thrown
-        Collection<String> actions = optional.get();
+        Set<String> actions = router.getActionsForVersion(DEFAULT_VERSION).get();
 
         assertEquals(actions.size(), 2);
+    }
+
+    @Test
+    public void testGetCapabilitiesForVersion_listOfCapabilities() {
+        String capability1 = "cap1";
+        String capability2 = "cap2";
+
+        Router router = new DefaultRouter.Builder()
+                .version(DEFAULT_VERSION)
+                .supportsAction(DEFAULT_ACTION)
+                .withCapabilities(capability1, capability2)
+                .using((ctx, chain) -> {})
+                .versionComplete()
+                .buildRouter();
+
+        // Use optional value without any further test (e.g. Optional#isPresent()), because if
+        // the optional is not present, an Exception is thrown
+        Set<String> capabilities = router.getCapabilitiesForVersion(DEFAULT_VERSION).get();
+
+        assertEquals(capabilities.size(), 2);
+    }
+
+    @Test
+    public void testGetCapabilitiesForVersion_emptyCapabilities() {
+        Router router = new DefaultRouter.Builder()
+                .version(DEFAULT_VERSION)
+                .supportsAction(DEFAULT_ACTION)
+                .withCapabilities()
+                .using((ctx, chain) -> {})
+                .versionComplete()
+                .buildRouter();
+
+        // Use optional value without any further test (e.g. Optional#isPresent()), because if
+        // the optional is not present, an Exception is thrown
+        Set<String> capabilities = router.getCapabilitiesForVersion(DEFAULT_VERSION).get();
+
+        assertEquals(capabilities.size(), 0);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
@@ -232,9 +274,11 @@ public class DefaultRouterTest {
 
     private Router getRouter(String version, String action, Middleware middleware) {
         return new DefaultRouter.Builder()
-                .forVersion(version)
-                .addMiddleware(action, middleware)
-                .done()
+                .version(version)
+                .supportsAction(action)
+                .withCapabilities()
+                .using(middleware)
+                .versionComplete()
                 .buildRouter();
     }
 

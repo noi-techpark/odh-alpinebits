@@ -6,14 +6,16 @@
 
 package it.bz.idm.alpinebits.housekeeping.middleware.utils;
 
-import it.bz.idm.alpinebits.common.constants.HousekeepingActionEnum;
+import it.bz.idm.alpinebits.common.constants.AlpineBitsAction;
+import it.bz.idm.alpinebits.common.constants.AlpineBitsCapability;
+import it.bz.idm.alpinebits.common.constants.AlpineBitsVersion;
 import it.bz.idm.alpinebits.common.utils.middleware.ComposingMiddlewareBuilder;
 import it.bz.idm.alpinebits.housekeeping.middleware.HousekeepingGetCapabilitiesMiddleware;
 import it.bz.idm.alpinebits.housekeeping.middleware.HousekeepingGetVersionMiddleware;
 import it.bz.idm.alpinebits.middleware.Middleware;
 import it.bz.idm.alpinebits.routing.DefaultRouter;
 import it.bz.idm.alpinebits.routing.Router;
-import it.bz.idm.alpinebits.routing.VersionRoutingBuilder;
+import it.bz.idm.alpinebits.routing.RoutingBuilder;
 import it.bz.idm.alpinebits.routing.middleware.RoutingMiddleware;
 import it.bz.idm.alpinebits.servlet.middleware.AlpineBitsClientProtocolMiddleware;
 import it.bz.idm.alpinebits.servlet.middleware.MultipartFormDataParserMiddleware;
@@ -26,22 +28,21 @@ import java.util.Collection;
  */
 public class RouterMiddlewareBuilder {
 
-    public static final String DEFAULT_VERSION = "2017-10";
+    public static final String DEFAULT_VERSION = AlpineBitsVersion.V_2017_10;
     public static final String DEFAULT_ACTION = "some action";
 
     private static final Collection<String> VERSION_LIST = Arrays.asList(
-            "2010-08",
-            "2010-10",
-            "2011-09",
-            "2011-10",
-            "2011-11",
-            "2012-05",
-            "2012-05b",
-            "2013-04",
-            "2014-04",
-            "2015-07",
-            "2015-07b",
-            "2017-10"
+            AlpineBitsVersion.V_2010_08,
+            AlpineBitsVersion.V_2010_10,
+            AlpineBitsVersion.V_2011_09,
+            AlpineBitsVersion.V_2011_10,
+            AlpineBitsVersion.V_2011_11,
+            AlpineBitsVersion.V_2012_05,
+            AlpineBitsVersion.V_2012_05B,
+            AlpineBitsVersion.V_2013_04,
+            AlpineBitsVersion.V_2014_04,
+            AlpineBitsVersion.V_2015_07,
+            AlpineBitsVersion.V_2015_07B
     );
 
     /**
@@ -53,9 +54,11 @@ public class RouterMiddlewareBuilder {
      */
     public static Middleware buildRoutingMiddlewareWithSingleVersion() {
         Router router = new DefaultRouter.Builder()
-                .forVersion(DEFAULT_VERSION)
-                .addMiddleware(HousekeepingActionEnum.GET_VERSION.getAction(), new HousekeepingGetVersionMiddleware())
-                .done()
+                .version(DEFAULT_VERSION)
+                .supportsAction(AlpineBitsAction.GET_VERSION)
+                .withCapabilities(AlpineBitsCapability.GET_VERSION)
+                .using(new HousekeepingGetVersionMiddleware())
+                .versionComplete()
                 .buildRouter();
         return new RoutingMiddleware(router);
     }
@@ -69,11 +72,22 @@ public class RouterMiddlewareBuilder {
      * <code>getVersion</code> actions
      */
     public static Middleware buildRoutingMiddlewareWithManyVersions() {
-        VersionRoutingBuilder builder = new DefaultRouter.Builder()
-                .forVersion(DEFAULT_VERSION)
-                .addMiddleware(HousekeepingActionEnum.GET_VERSION.getAction(), new HousekeepingGetVersionMiddleware())
-                .done();
-        VERSION_LIST.forEach(version -> builder.forVersion(version).done());
+        RoutingBuilder.FinalBuilder builder = new DefaultRouter.Builder()
+                .version(DEFAULT_VERSION)
+                .supportsAction(AlpineBitsAction.GET_VERSION)
+                .withCapabilities(AlpineBitsCapability.GET_VERSION)
+                .using(new HousekeepingGetVersionMiddleware())
+                .versionComplete();
+
+        VERSION_LIST.forEach(version -> builder
+                .and()
+                .version(version)
+                .supportsAction(AlpineBitsAction.GET_VERSION)
+                .withCapabilities(AlpineBitsCapability.GET_VERSION)
+                .using(new HousekeepingGetVersionMiddleware())
+                .versionComplete()
+        );
+
         Router router = builder.buildRouter();
         return new RoutingMiddleware(router);
     }
@@ -87,9 +101,11 @@ public class RouterMiddlewareBuilder {
      */
     public static Middleware buildRoutingMiddlewareWithCapabilititesAction() {
         Router router = new DefaultRouter.Builder()
-                .forVersion(DEFAULT_VERSION)
-                .addMiddleware(HousekeepingActionEnum.GET_CAPABLILITIES.getAction(), new HousekeepingGetCapabilitiesMiddleware())
-                .done()
+                .version(DEFAULT_VERSION)
+                .supportsAction(AlpineBitsAction.GET_CAPABILITIES)
+                .withCapabilities(AlpineBitsCapability.GET_CAPABILITIES)
+                .using(new HousekeepingGetCapabilitiesMiddleware())
+                .versionComplete()
                 .buildRouter();
         return new RoutingMiddleware(router);
     }
@@ -103,32 +119,49 @@ public class RouterMiddlewareBuilder {
      * <code>getCapabilities</code> and
      * {@link RouterMiddlewareBuilder#DEFAULT_ACTION} actions
      */
-    public static Middleware buildRoutingMiddlewareWithCapabilititesAndCustomAction() {
+    public static Middleware buildRoutingMiddlewareWithCapabilititesAndCustomAction(String customCapability) {
         Router router = new DefaultRouter.Builder()
-                .forVersion(DEFAULT_VERSION)
-                .addMiddleware(HousekeepingActionEnum.GET_CAPABLILITIES.getAction(), new HousekeepingGetCapabilitiesMiddleware())
-                .addMiddleware(DEFAULT_ACTION, (ctx, chain) -> {
+                .version(DEFAULT_VERSION)
+                .supportsAction(AlpineBitsAction.GET_CAPABILITIES)
+                .withCapabilities(AlpineBitsCapability.GET_CAPABILITIES)
+                .using(new HousekeepingGetCapabilitiesMiddleware())
+                .and()
+                .supportsAction(DEFAULT_ACTION)
+                .withCapabilities(customCapability)
+                .using((ctx, chain) -> {
                 })
-                .done()
+                .versionComplete()
                 .buildRouter();
         return new RoutingMiddleware(router);
     }
 
     public static Middleware buildRoutingMiddlewareForIntegrationTest() {
-        Middleware servletMiddleware = ComposingMiddlewareBuilder.compose(Arrays.asList(
-                new AlpineBitsClientProtocolMiddleware(),
-                new MultipartFormDataParserMiddleware()
-        ));
+        RoutingBuilder.FinalBuilder builder = new DefaultRouter.Builder()
+                .version(DEFAULT_VERSION)
+                .supportsAction(AlpineBitsAction.GET_VERSION)
+                .withCapabilities(AlpineBitsCapability.GET_VERSION)
+                .using(new HousekeepingGetVersionMiddleware())
+                .and()
+                .supportsAction(AlpineBitsAction.GET_CAPABILITIES)
+                .withCapabilities(AlpineBitsCapability.GET_CAPABILITIES)
+                .using(new HousekeepingGetCapabilitiesMiddleware())
+                .versionComplete();
 
-        VersionRoutingBuilder builder = new DefaultRouter.Builder()
-                .forVersion(DEFAULT_VERSION)
-                .addMiddleware(HousekeepingActionEnum.GET_VERSION.getAction(), new HousekeepingGetVersionMiddleware())
-                .addMiddleware(HousekeepingActionEnum.GET_CAPABLILITIES.getAction(), new HousekeepingGetCapabilitiesMiddleware())
-                .done();
-        VERSION_LIST.forEach(version -> builder.forVersion(version).done());
+        VERSION_LIST.forEach(version -> builder
+                .and()
+                .version(version)
+                .supportsAction(AlpineBitsAction.GET_VERSION)
+                .withCapabilities(AlpineBitsCapability.GET_VERSION)
+                .using(new HousekeepingGetVersionMiddleware())
+                .versionComplete()
+        );
 
         Middleware routingMiddleware = new RoutingMiddleware(builder.buildRouter());
 
-        return ComposingMiddlewareBuilder.compose(Arrays.asList(servletMiddleware, routingMiddleware));
+        return ComposingMiddlewareBuilder.compose(Arrays.asList(
+                new AlpineBitsClientProtocolMiddleware(),
+                new MultipartFormDataParserMiddleware(),
+                routingMiddleware
+        ));
     }
 }

@@ -8,8 +8,8 @@ package it.bz.idm.alpinebits.routing;
 
 import it.bz.idm.alpinebits.middleware.Middleware;
 
-import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * A router provides functionality to return a {@link Middleware} based
@@ -42,22 +42,22 @@ public interface Router {
      * best practices (see AlpineBits specification, Housekeeping
      * actions -> Implementation tips and best practices):
      * <ul>
-     *     <li>
-     *         Client: the​ client​ queries​ the​ server​ version, sending​
-     *         a header​ with​ the​ highest​ version​ it supports.
-     *     </li>
-     *     <li>
-     *         Server: if the server supports this same version, it
-     *         answers with this version and the negotiation​ terminates
-     *         successfully; otherwise the server answers with the highest
-     *         version it supports.
-     *     </li>
-     *     <li>
-     *         Client: if the client recognizes the server version, it
-     *         starts using the server version and the negotiation terminates
-     *         successfully; otherwise no communication is possible, since
-     *         the two parties don’t share a common version.
-     *     </li>
+     * <li>
+     * Client: the​ client​ queries​ the​ server​ version, sending​
+     * a header​ with​ the​ highest​ version​ it supports.
+     * </li>
+     * <li>
+     * Server: if the server supports this same version, it
+     * answers with this version and the negotiation​ terminates
+     * successfully; otherwise the server answers with the highest
+     * version it supports.
+     * </li>
+     * <li>
+     * Client: if the client recognizes the server version, it
+     * starts using the server version and the negotiation terminates
+     * successfully; otherwise no communication is possible, since
+     * the two parties don’t share a common version.
+     * </li>
      * </ul>
      * The consequence is, that the server may respond with a version, that
      * is different from the version requested by the client.
@@ -77,31 +77,57 @@ public interface Router {
      * are defined for those versions. That means that a version with
      * no action is also part of the result.
      *
-     * @return a {@link Collection} of configured versions
+     * @return a {@link Set} of configured versions
      */
-    Collection<String> getVersions();
+    Set<String> getVersions();
 
     /**
-     * Return an {@link Optional} wrapping a {@link Collection} of configured
+     * Return an {@link Optional} wrapping a {@link Set} of configured
      * AlpineBits actions for the given <code>version</code>.
      * <p>
      * If the version is not configured, the optional is empty. If there are no
-     * actions defined for the given <code>version</code>, an empty collection
+     * actions defined for the given <code>version</code>, an empty set
      * is returned.
      * <p>
      * If the <code>version</code> is null, an {@link IllegalArgumentException}
      * is thrown.
      *
      * @param version the <code>version</code> for which to return the actions
-     * @return an {@link Optional} wrapping a {@link Collection} of configured
+     * @return an {@link Optional} wrapping a {@link Set} of configured
      * AlpineBits actions for the given <code>version</code>. The optional is
      * empty, if there exists no configuration for the given <code>version</code>.
-     * The optional returns an empty collection, if the <code>version</code>
+     * The optional returns an empty set, if the <code>version</code>
      * is configured, but no actions are defined for it. If there are actions
-     * defined, the collection contains them.
+     * defined, the set contains them.
      * @throws IllegalArgumentException if <code>version</code> is null
      */
-    Optional<Collection<String>> getActionsForVersion(String version);
+    Optional<Set<String>> getActionsForVersion(String version);
+
+    /**
+     * Return an {@link Optional} wrapping a {@link Set} of configured
+     * AlpineBits capabilities for the given <code>version</code>.
+     * <p>
+     * Note, that this method returns pure configuration information.
+     * It provides guarantee at all, that the capabilities are really
+     * implemented and supported.
+     * <p>
+     * If the version is not configured, the optional is empty. If there are no
+     * capabilities defined for the given <code>version</code>, an empty set
+     * is returned.
+     * <p>
+     * If the <code>version</code> is null, an {@link IllegalArgumentException}
+     * is thrown.
+     *
+     * @param version the <code>version</code> for which to return the capabilities
+     * @return an {@link Optional} wrapping a {@link Set} of configured
+     * AlpineBits capabilities for the given <code>version</code>. The optional is
+     * empty, if there exists no configuration for the given <code>version</code>.
+     * The optional returns an empty set, if the <code>version</code>
+     * is configured, but no capabilities are defined for it. If there are capabilities
+     * defined, the set contains them.
+     * @throws IllegalArgumentException if <code>version</code> is null
+     */
+    Optional<Set<String>> getCapabilitiesForVersion(String version);
 
     /**
      * Check if there is a {@link Middleware} for the given <code>version</code>
@@ -115,6 +141,23 @@ public interface Router {
      *                                  <code>action</code> is null
      */
     boolean isActionDefined(String version, String action);
+
+    /**
+     * Check if the <code>capability</code> for the given
+     * <code>version</code> is defined.
+     * <p>
+     * Note, that this method returns pure configuration information.
+     * It provides guarantee at all, that the capability is really
+     * implemented and supported.
+     *
+     * @param version    the AlpineBits version to check
+     * @param capability the AlpineBits capability to check
+     * @return <code>true</code> if the given capability is defined,
+     * <code>false</code> otherwise
+     * @throws IllegalArgumentException if <code>version</code> or
+     *                                  <code>capability</code> is null
+     */
+    boolean isCapabilityDefined(String version, String capability);
 
     /**
      * Check if there is a {@link Middleware} configured for the given
