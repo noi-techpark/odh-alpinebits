@@ -7,12 +7,12 @@
     <parent>
         <groupId>it.bz.idm.alpinebits</groupId>
         <artifactId>alpinebits-db</artifactId>
-        <version>0.0.9</version>
+        <version>0.1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>alpinebits-db-impl</artifactId>
-    <version>0.0.9</version>
+    <version>0.1.0</version>
 
     <name>IDM AlpineBits DB impl</name>
 
