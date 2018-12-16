@@ -6,7 +6,7 @@
 
     <groupId>it.bz.idm.alpinebits</groupId>
     <artifactId>alpinebits-root</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
 
     <packaging>pom</packaging>
     <name>IDM AlpineBits</name>
@@ -140,97 +140,102 @@
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-common-api</artifactId>
-                <version>0.1.0</version>
+                <version>0.1.1</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-common-utils</artifactId>
-                <version>0.1.0</version>
+                <version>0.1.1</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-db-api</artifactId>
-                <version>0.1.0</version>
+                <version>0.1.1</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-db-impl</artifactId>
-                <version>0.1.0</version>
+                <version>0.1.1</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-housekeeping-api</artifactId>
-                <version>0.1.0</version>
+                <version>0.1.1</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-housekeeping-impl</artifactId>
-                <version>0.1.0</version>
+                <version>0.1.1</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-mapping-api</artifactId>
-                <version>0.1.0</version>
+                <version>0.1.1</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-mapping-impl</artifactId>
-                <version>0.1.0</version>
+                <version>0.1.1</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-middleware-api</artifactId>
-                <version>0.1.0</version>
+                <version>0.1.1</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-middleware-impl</artifactId>
-                <version>0.1.0</version>
+                <version>0.1.1</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-routing-api</artifactId>
-                <version>0.1.0</version>
+                <version>0.1.1</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-routing-impl</artifactId>
-                <version>0.1.0</version>
+                <version>0.1.1</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-server-api</artifactId>
-                <version>0.1.0</version>
+                <version>0.1.1</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-server-impl</artifactId>
-                <version>0.1.0</version>
+                <version>0.1.1</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-servlet-api</artifactId>
-                <version>0.1.0</version>
+                <version>0.1.1</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-servlet-impl</artifactId>
-                <version>0.1.0</version>
+                <version>0.1.1</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-xml-api</artifactId>
-                <version>0.1.0</version>
+                <version>0.1.1</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>alpinebits-xml-impl</artifactId>
-                <version>0.1.0</version>
+                <version>0.1.1</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>examples-housekeeping</artifactId>
-                <version>0.1.0</version>
+                <version>0.1.1</version>
+            </dependency>
+            <dependency>
+                <groupId>it.bz.idm.alpinebits</groupId>
+                <artifactId>examples-guestrequests</artifactId>
+                <version>0.1.1</version>
             </dependency>
 
             <dependency>

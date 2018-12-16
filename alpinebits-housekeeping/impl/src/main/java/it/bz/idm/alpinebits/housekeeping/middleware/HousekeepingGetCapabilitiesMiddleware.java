@@ -14,8 +14,6 @@ import it.bz.idm.alpinebits.middleware.Middleware;
 import it.bz.idm.alpinebits.middleware.MiddlewareChain;
 import it.bz.idm.alpinebits.routing.Router;
 import it.bz.idm.alpinebits.routing.RouterContextKey;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -36,8 +34,6 @@ import java.util.Collections;
  * no other middlewares will be invoked after this one.
  */
 public class HousekeepingGetCapabilitiesMiddleware implements Middleware {
-
-    private static final Logger LOG = LoggerFactory.getLogger(HousekeepingGetCapabilitiesMiddleware.class);
 
     @Override
     public void handleContext(Context ctx, MiddlewareChain chain) {
