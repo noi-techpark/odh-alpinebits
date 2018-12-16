@@ -84,7 +84,31 @@ public class ComposingMiddlewareBuilderTest {
     }
 
     @Test(dataProvider = "testComposeDataProvider")
-    public void testCompose(
+    public void testCompose_WithVarArgs(
+            boolean middleware1CallsNext,
+            boolean middleware2CallsNext,
+            Optional<String> expectedValue
+    ) {
+        Context ctx = ContextBuilder.buildSimpleContext();
+
+        Key<String> key1 = Key.key(KEY_1, String.class);
+        Key<String> key2 = Key.key(KEY_2, String.class);
+
+        Middleware middleware1 = MiddlewareBuilder.buildMiddleware(key1, VALUE_1, middleware1CallsNext);
+        Middleware middleware2 = MiddlewareBuilder.buildMiddleware(key2, VALUE_2, middleware2CallsNext);
+
+        Middleware composedMiddleware = ComposingMiddlewareBuilder.compose(middleware1, middleware2);
+        composedMiddleware.handleContext(ctx, null);
+
+        assertEquals(ctx.get(key1), Optional.of(VALUE_1));
+        assertEquals(ctx.get(key2), expectedValue);
+
+        // Assert the value of the toString() method for 100% test coverage
+        assertEquals(ComposingMiddlewareBuilder.COMPOSING_MIDDLEWARE_NAME, composedMiddleware.toString());
+    }
+
+    @Test(dataProvider = "testComposeDataProvider")
+    public void testCompose_WithList(
             boolean middleware1CallsNext,
             boolean middleware2CallsNext,
             Optional<String> expectedValue
@@ -106,12 +130,6 @@ public class ComposingMiddlewareBuilderTest {
         // Assert the value of the toString() method for 100% test coverage
         assertEquals(ComposingMiddlewareBuilder.COMPOSING_MIDDLEWARE_NAME, composedMiddleware.toString());
     }
-
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testComposeMiddlewareListNull() {
-        ComposingMiddlewareBuilder.compose(null);
-    }
-
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void testComposeOneMiddlewareNull() {
