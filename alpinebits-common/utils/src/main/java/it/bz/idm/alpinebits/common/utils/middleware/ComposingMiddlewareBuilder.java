@@ -12,6 +12,7 @@ import it.bz.idm.alpinebits.middleware.MiddlewareChain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
@@ -27,6 +28,10 @@ public final class ComposingMiddlewareBuilder {
 
     private ComposingMiddlewareBuilder() {
         // Empty
+    }
+
+    public static Middleware compose(Middleware ...incomingMiddlewares) {
+        return compose(Arrays.asList(incomingMiddlewares));
     }
 
     /**
