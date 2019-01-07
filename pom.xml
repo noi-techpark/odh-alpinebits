@@ -237,6 +237,11 @@
                 <artifactId>examples-guestrequests</artifactId>
                 <version>0.1.1</version>
             </dependency>
+            <dependency>
+                <groupId>it.bz.idm.alpinebits</groupId>
+                <artifactId>examples-inventory</artifactId>
+                <version>0.1.1</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.slf4j</groupId>
