@@ -4,15 +4,16 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package it.bz.idm.alpinebits.mapping.mapper.guestrequests;
+package it.bz.idm.alpinebits.mapping.mapper.v_2017_10.guestrequests;
 
-import it.bz.idm.alpinebits.mapping.entity.guestrequests.readrq.GuestRequestsReadRequest;
+import it.bz.idm.alpinebits.mapping.entity.guestrequests.resretrievers.GuestRequestsReadResponse;
+import it.bz.idm.alpinebits.mapping.mapper.GuestRequestsMapperInstances;
 import it.bz.idm.alpinebits.xml.JAXBObjectToXmlConverter;
 import it.bz.idm.alpinebits.xml.JAXBXmlToObjectConverter;
 import it.bz.idm.alpinebits.xml.ObjectToXmlConverter;
 import it.bz.idm.alpinebits.xml.XmlToObjectConverter;
 import it.bz.idm.alpinebits.xml.XmlValidationSchemaProvider;
-import it.bz.idm.alpinebits.xml.schema.v_2017_10.OTAReadRQ;
+import it.bz.idm.alpinebits.xml.schema.v_2017_10.OTAResRetrieveRS;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -28,12 +29,15 @@ import static org.testng.Assert.assertNotNull;
  * This class tests the mapper of AlpineBits objects
  * to business objects.
  */
-public class GuestRequestsReadRequestMappingTest {
+public class GuestRequestsReadResponseMappingTest {
 
     @DataProvider(name = "xmlValid")
     public static Object[][] badBasicAuthentication() {
         return new Object[][]{
-                {"GuestRequests-OTA_ReadRQ.xml"},
+                {"GuestRequests-OTA_ResRetrieveRS-cancellation.xml"},
+                {"GuestRequests-OTA_ResRetrieveRS-error.xml"},
+                {"GuestRequests-OTA_ResRetrieveRS-reservation.xml"},
+                {"GuestRequests-OTA_ResRetrieveRS-reservation-empty.xml"},
         };
     }
 
@@ -43,26 +47,27 @@ public class GuestRequestsReadRequestMappingTest {
         InputStream inputXmlStream = this.getClass().getClassLoader().getResourceAsStream(filename);
 
         Schema schema = XmlValidationSchemaProvider.buildRngSchemaForAlpineBitsVersion("2017-10");
-        XmlToObjectConverter<OTAReadRQ> converter = this.validatingXmlToObjectConverter(OTAReadRQ.class, schema);
+        XmlToObjectConverter<OTAResRetrieveRS> converter = this.validatingXmlToObjectConverter(OTAResRetrieveRS.class, schema);
 
-        OTAReadRQ otaReadRQ = converter.toObject(inputXmlStream);
+        OTAResRetrieveRS otaResRetrieveRS = converter.toObject(inputXmlStream);
 
-        GuestRequestsReadRequest guestRequestsReadRequest =
-                GuestRequestsMapperInstances.HOTEL_RESERVATION_READ_REQUEST_MAPPER.toRequestResult(otaReadRQ);
-        assertNotNull(guestRequestsReadRequest);
+        GuestRequestsReadResponse guestRequestsReadResponse =
+                GuestRequestsMapperInstances.HOTEL_RESERVATION_READ_RESPONSE_MAPPER.toHotelReservationReadResult(otaResRetrieveRS);
+        assertNotNull(guestRequestsReadResponse);
 
-        OTAReadRQ otaReadRQ2 = GuestRequestsMapperInstances.HOTEL_RESERVATION_READ_REQUEST_MAPPER.toOTAReadRQ(guestRequestsReadRequest);
-        assertNotNull(otaReadRQ2);
+        OTAResRetrieveRS otaResRetrieveRS2 =
+                GuestRequestsMapperInstances.HOTEL_RESERVATION_READ_RESPONSE_MAPPER.toOTAResRetrieveRS(guestRequestsReadResponse);
+        assertNotNull(otaResRetrieveRS2);
 
-        GuestRequestsReadRequest guestRequestsReadRequest2 =
-                GuestRequestsMapperInstances.HOTEL_RESERVATION_READ_REQUEST_MAPPER.toRequestResult(otaReadRQ2);
-        assertNotNull(guestRequestsReadRequest2);
+        GuestRequestsReadResponse guestRequestsReadResponse2 =
+                GuestRequestsMapperInstances.HOTEL_RESERVATION_READ_RESPONSE_MAPPER.toHotelReservationReadResult(otaResRetrieveRS2);
+        assertNotNull(guestRequestsReadResponse2);
 
-        assertEquals(guestRequestsReadRequest2.toString(), guestRequestsReadRequest.toString());
+        assertEquals(guestRequestsReadResponse2.toString(), guestRequestsReadResponse.toString());
 
-        ObjectToXmlConverter<OTAReadRQ> toObjectConverter = this.validatingObjectToXmlConverter(OTAReadRQ.class, schema);
+        ObjectToXmlConverter<OTAResRetrieveRS> toObjectConverter = this.validatingObjectToXmlConverter(OTAResRetrieveRS.class, schema);
 
-        toObjectConverter.toXml(otaReadRQ2, new ByteArrayOutputStream());
+        toObjectConverter.toXml(otaResRetrieveRS2, new ByteArrayOutputStream());
     }
 
     private <T> XmlToObjectConverter<T> validatingXmlToObjectConverter(Class<T> classToBeBound, Schema schema) throws JAXBException {

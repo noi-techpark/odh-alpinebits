@@ -11,7 +11,7 @@ import it.bz.idm.alpinebits.db.middleware.EntityManagerProvidingMiddleware;
 import it.bz.idm.alpinebits.examples.guestrequests.middleware.GuestRequestsConfirmationMiddleware;
 import it.bz.idm.alpinebits.mapping.entity.guestrequests.notifreportrq.GuestRequestsConfirmationRequest;
 import it.bz.idm.alpinebits.mapping.entity.guestrequests.notifreportrs.GuestRequestsConfirmationResponse;
-import it.bz.idm.alpinebits.mapping.mapper.guestrequests.GuestRequestsMapperInstances;
+import it.bz.idm.alpinebits.mapping.mapper.GuestRequestsMapperInstances;
 import it.bz.idm.alpinebits.mapping.middleware.RequestMappingMiddleware;
 import it.bz.idm.alpinebits.mapping.middleware.ResponseMappingMiddleware;
 import it.bz.idm.alpinebits.middleware.Key;

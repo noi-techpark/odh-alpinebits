@@ -4,15 +4,16 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package it.bz.idm.alpinebits.mapping.mapper.guestrequests;
+package it.bz.idm.alpinebits.mapping.mapper.v_2017_10.guestrequests;
 
-import it.bz.idm.alpinebits.mapping.entity.guestrequests.resretrievers.GuestRequestsReadResponse;
+import it.bz.idm.alpinebits.mapping.entity.guestrequests.notifreportrq.GuestRequestsConfirmationRequest;
+import it.bz.idm.alpinebits.mapping.mapper.GuestRequestsMapperInstances;
 import it.bz.idm.alpinebits.xml.JAXBObjectToXmlConverter;
 import it.bz.idm.alpinebits.xml.JAXBXmlToObjectConverter;
 import it.bz.idm.alpinebits.xml.ObjectToXmlConverter;
 import it.bz.idm.alpinebits.xml.XmlToObjectConverter;
 import it.bz.idm.alpinebits.xml.XmlValidationSchemaProvider;
-import it.bz.idm.alpinebits.xml.schema.v_2017_10.OTAResRetrieveRS;
+import it.bz.idm.alpinebits.xml.schema.v_2017_10.OTANotifReportRQ;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -28,15 +29,12 @@ import static org.testng.Assert.assertNotNull;
  * This class tests the mapper of AlpineBits objects
  * to business objects.
  */
-public class GuestRequestsReadResponseMappingTest {
+public class GuestRequestsConfirmationRequestMappingTest {
 
     @DataProvider(name = "xmlValid")
     public static Object[][] badBasicAuthentication() {
         return new Object[][]{
-                {"GuestRequests-OTA_ResRetrieveRS-cancellation.xml"},
-                {"GuestRequests-OTA_ResRetrieveRS-error.xml"},
-                {"GuestRequests-OTA_ResRetrieveRS-reservation.xml"},
-                {"GuestRequests-OTA_ResRetrieveRS-reservation-empty.xml"},
+                {"GuestRequests-OTA_ReadRQ-ack.xml"},
         };
     }
 
@@ -46,27 +44,27 @@ public class GuestRequestsReadResponseMappingTest {
         InputStream inputXmlStream = this.getClass().getClassLoader().getResourceAsStream(filename);
 
         Schema schema = XmlValidationSchemaProvider.buildRngSchemaForAlpineBitsVersion("2017-10");
-        XmlToObjectConverter<OTAResRetrieveRS> converter = this.validatingXmlToObjectConverter(OTAResRetrieveRS.class, schema);
+        XmlToObjectConverter<OTANotifReportRQ> converter = this.validatingXmlToObjectConverter(OTANotifReportRQ.class, schema);
 
-        OTAResRetrieveRS otaResRetrieveRS = converter.toObject(inputXmlStream);
+        OTANotifReportRQ otaNotifReportRQ = converter.toObject(inputXmlStream);
 
-        GuestRequestsReadResponse guestRequestsReadResponse =
-                GuestRequestsMapperInstances.HOTEL_RESERVATION_READ_RESPONSE_MAPPER.toHotelReservationReadResult(otaResRetrieveRS);
-        assertNotNull(guestRequestsReadResponse);
+        GuestRequestsConfirmationRequest guestRequestsConfirmationRequest =
+                GuestRequestsMapperInstances.HOTEL_RESERVATION_CONFIRMATION_REQUEST_MAPPER.toHotelReservationConfirmationRequest(otaNotifReportRQ);
+        assertNotNull(guestRequestsConfirmationRequest);
 
-        OTAResRetrieveRS otaResRetrieveRS2 =
-                GuestRequestsMapperInstances.HOTEL_RESERVATION_READ_RESPONSE_MAPPER.toOTAResRetrieveRS(guestRequestsReadResponse);
-        assertNotNull(otaResRetrieveRS2);
+        OTANotifReportRQ otaNotifReportRQ2 =
+                GuestRequestsMapperInstances.HOTEL_RESERVATION_CONFIRMATION_REQUEST_MAPPER.toOTANotifReportRQ(guestRequestsConfirmationRequest);
+        assertNotNull(otaNotifReportRQ2);
 
-        GuestRequestsReadResponse guestRequestsReadResponse2 =
-                GuestRequestsMapperInstances.HOTEL_RESERVATION_READ_RESPONSE_MAPPER.toHotelReservationReadResult(otaResRetrieveRS2);
-        assertNotNull(guestRequestsReadResponse2);
+        GuestRequestsConfirmationRequest guestRequestsConfirmationRequest2 =
+                GuestRequestsMapperInstances.HOTEL_RESERVATION_CONFIRMATION_REQUEST_MAPPER.toHotelReservationConfirmationRequest(otaNotifReportRQ2);
+        assertNotNull(guestRequestsConfirmationRequest2);
 
-        assertEquals(guestRequestsReadResponse2.toString(), guestRequestsReadResponse.toString());
+        assertEquals(guestRequestsConfirmationRequest2.toString(), guestRequestsConfirmationRequest.toString());
 
-        ObjectToXmlConverter<OTAResRetrieveRS> toObjectConverter = this.validatingObjectToXmlConverter(OTAResRetrieveRS.class, schema);
+        ObjectToXmlConverter<OTANotifReportRQ> toObjectConverter = this.validatingObjectToXmlConverter(OTANotifReportRQ.class, schema);
 
-        toObjectConverter.toXml(otaResRetrieveRS2, new ByteArrayOutputStream());
+        toObjectConverter.toXml(otaNotifReportRQ2, new ByteArrayOutputStream());
     }
 
     private <T> XmlToObjectConverter<T> validatingXmlToObjectConverter(Class<T> classToBeBound, Schema schema) throws JAXBException {

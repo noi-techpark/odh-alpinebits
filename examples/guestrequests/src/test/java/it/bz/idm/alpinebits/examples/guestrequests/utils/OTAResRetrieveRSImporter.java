@@ -10,7 +10,7 @@ import it.bz.idm.alpinebits.examples.guestrequests.entity.read.HotelReservationE
 import it.bz.idm.alpinebits.examples.guestrequests.mapper.GuestRequestsEntityMapperInstances;
 import it.bz.idm.alpinebits.mapping.entity.guestrequests.resretrievers.GuestRequestsReadResponse;
 import it.bz.idm.alpinebits.mapping.entity.guestrequests.resretrievers.HotelReservation;
-import it.bz.idm.alpinebits.mapping.mapper.guestrequests.GuestRequestsMapperInstances;
+import it.bz.idm.alpinebits.mapping.mapper.GuestRequestsMapperInstances;
 import it.bz.idm.alpinebits.xml.JAXBXmlToObjectConverter;
 import it.bz.idm.alpinebits.xml.XmlToObjectConverter;
 import it.bz.idm.alpinebits.xml.XmlValidationSchemaProvider;
