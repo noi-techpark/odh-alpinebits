@@ -1,0 +1,37 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+package it.bz.idm.alpinebits.mapping.mapper.v_2017_10.inventory.contentnotifrs;
+
+import it.bz.idm.alpinebits.mapping.entity.inventory.HotelDescriptiveContentNotifResponse;
+import it.bz.idm.alpinebits.mapping.mapper.v_2017_10.common.WarningMapper;
+import it.bz.idm.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRS;
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+/**
+ * Convert between AlpineBits {@link OTAHotelDescriptiveContentNotifRS}
+ * (Inventory) and {@link HotelDescriptiveContentNotifResponse} objects.
+ */
+@Mapper(
+        uses = {
+                AfterHotelDescriptiveContentNotifResponseMapping.class,
+                WarningMapper.class
+        }
+)
+public interface HotelDescriptiveContentNotifResponseMapper {
+
+    @Mapping(target = "errors", source = "errors.errors")
+    @Mapping(target = "warnings", source = "warnings.warnings")
+    HotelDescriptiveContentNotifResponse toHotelDescriptiveContentResponse(OTAHotelDescriptiveContentNotifRS otaHotelDescriptiveContentNotifRS);
+
+    @InheritInverseConfiguration
+    @Mapping(target = "version", constant = "3.000")
+    @Mapping(target = "timeStamp", ignore = true)
+    OTAHotelDescriptiveContentNotifRS toOTAHotelDescriptiveContentNotifRS(HotelDescriptiveContentNotifResponse hotelDescriptiveContentNotifResponse);
+
+}
