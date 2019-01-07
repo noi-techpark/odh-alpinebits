@@ -24,10 +24,10 @@ public final class AlpineBitsAction {
     public static final String GUEST_REQUESTS_NOTIF_REPORT_GUEST_REQUESTS = "OTA_NotifReport:GuestRequests";
 
     // Inventory
-    public static final String INVENTORY_HOTEL_DESCRIPTIVE_CONTENT_NOTIF_INVENTORY = "OTA_HotelDescriptiveContentNotif:Inventory";
-    public static final String INVENTORY_HOTEL_DESCRIPTIVE_INFO_INVENTORY = "OTA_HotelDescriptiveInfo:Inventory";
-    public static final String INVENTORY_HOTEL_DESCRIPTIVE_CONTENT_NOTIF_INFO = "OTA_HotelDescriptiveContentNotif:Info";
-    public static final String INVENTORY_HOTEL_DESCRIPTIVE_INFO_INFO = "OTA_HotelDescriptiveInfo:Info";
+    public static final String INVENTORY_BASIC_PUSH = "OTA_HotelDescriptiveContentNotif:Inventory";
+    public static final String INVENTORY_BASIC_PULL = "OTA_HotelDescriptiveInfo:Inventory";
+    public static final String INVENTORY_HOTEL_INFO_PUSH = "OTA_HotelDescriptiveContentNotif:Info";
+    public static final String INVENTORY_HOTEL_INFO_PULL = "OTA_HotelDescriptiveInfo:Info";
 
     // FreeRooms
     public static final String RATE_PLANS_HOTEL_RATE_PLAN_NOTIF_RATE_PLANS = "OTA_HotelRatePlanNotif:RatePlans";
