@@ -117,8 +117,6 @@
                 <sonar.coverage.exclusions>**/*Exception.java,**/*Entity.java</sonar.coverage.exclusions>
                 <!-- Exclude *Entity.java from code duplication reports -->
                 <sonar.cpd.exclusions>**/*Entity.java</sonar.cpd.exclusions>
-                <!-- Force sonarqube to show 0% coverage for modules without tests -->
-                <sonar.jacoco.reportMissing.force.zero>true</sonar.jacoco.reportMissing.force.zero>
                 <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
             </properties>
             <build>
@@ -235,6 +233,11 @@
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
                 <artifactId>examples-guestrequests</artifactId>
+                <version>0.1.1</version>
+            </dependency>
+            <dependency>
+                <groupId>it.bz.idm.alpinebits</groupId>
+                <artifactId>examples-inventory</artifactId>
                 <version>0.1.1</version>
             </dependency>
 

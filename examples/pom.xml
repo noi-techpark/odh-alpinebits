@@ -20,6 +20,7 @@
     <modules>
         <module>guestrequests</module>
         <module>housekeeping</module>
+        <module>inventory</module>
     </modules>
 
     <properties>
