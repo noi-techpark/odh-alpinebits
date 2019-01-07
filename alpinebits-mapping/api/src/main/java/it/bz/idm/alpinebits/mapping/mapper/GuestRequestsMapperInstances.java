@@ -4,16 +4,16 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package it.bz.idm.alpinebits.mapping.mapper.guestrequests;
+package it.bz.idm.alpinebits.mapping.mapper;
 
 import it.bz.idm.alpinebits.mapping.entity.guestrequests.notifreportrq.GuestRequestsConfirmationRequest;
 import it.bz.idm.alpinebits.mapping.entity.guestrequests.notifreportrs.GuestRequestsConfirmationResponse;
 import it.bz.idm.alpinebits.mapping.entity.guestrequests.readrq.GuestRequestsReadRequest;
 import it.bz.idm.alpinebits.mapping.entity.guestrequests.resretrievers.GuestRequestsReadResponse;
-import it.bz.idm.alpinebits.mapping.mapper.guestrequests.v_2017_10.notifreportrq.GuestRequestsConfirmationRequestMapper;
-import it.bz.idm.alpinebits.mapping.mapper.guestrequests.v_2017_10.notifreportrs.GuestRequestsConfirmationResponseMapper;
-import it.bz.idm.alpinebits.mapping.mapper.guestrequests.v_2017_10.readrq.GuestRequestsReadRequestMapper;
-import it.bz.idm.alpinebits.mapping.mapper.guestrequests.v_2017_10.resretrievers.GuestRequestsReadResponseMapper;
+import it.bz.idm.alpinebits.mapping.mapper.v_2017_10.guestrequests.notifreportrq.GuestRequestsConfirmationRequestMapper;
+import it.bz.idm.alpinebits.mapping.mapper.v_2017_10.guestrequests.notifreportrs.GuestRequestsConfirmationResponseMapper;
+import it.bz.idm.alpinebits.mapping.mapper.v_2017_10.guestrequests.readrq.GuestRequestsReadRequestMapper;
+import it.bz.idm.alpinebits.mapping.mapper.v_2017_10.guestrequests.resretrievers.GuestRequestsReadResponseMapper;
 import org.mapstruct.factory.Mappers;
 
 /**

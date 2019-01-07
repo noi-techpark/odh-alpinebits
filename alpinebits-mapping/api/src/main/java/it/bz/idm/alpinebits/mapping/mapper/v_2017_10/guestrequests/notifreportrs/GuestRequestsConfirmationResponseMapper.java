@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package it.bz.idm.alpinebits.mapping.mapper.guestrequests.v_2017_10.notifreportrs;
+package it.bz.idm.alpinebits.mapping.mapper.v_2017_10.guestrequests.notifreportrs;
 
 import it.bz.idm.alpinebits.mapping.entity.guestrequests.notifreportrs.GuestRequestsConfirmationResponse;
 import it.bz.idm.alpinebits.mapping.utils.CollectionUtils;
