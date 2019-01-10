@@ -27,8 +27,10 @@ public class DefaultRouterTest {
 
     private static final String DEFAULT_VERSION = AlpineBitsVersion.V_2017_10;
     private static final String DEFAULT_ACTION = "DEFAULT_ACTION";
+    private static final String DEFAULT_CAPABILITY = "DEFAULT_CAPABILITY";
     private static final String UNKNOWN_VERSION = "some_version";
     private static final String UNKNOWN_ACTION = "some_action";
+    private static final String UNKNOWN_CAPABILITY = "some_capability";
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void testFindMiddleware_throwsOnNullVersion() {
@@ -204,6 +206,44 @@ public class DefaultRouterTest {
         Set<String> capabilities = router.getCapabilitiesForVersion(DEFAULT_VERSION).get();
 
         assertEquals(capabilities.size(), 0);
+    }
+
+
+    @Test
+    public void testGetCapabilitiesForVersion_emptyCapabilitiesOnUnknownVersion() {
+        Optional<Set<String>> capabilities = this.getDefaultRouter().getCapabilitiesForVersion(UNKNOWN_VERSION);
+        assertFalse(capabilities.isPresent());
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testGetCapabilitiesForVersion_throwsOnNullVersion() {
+        this.getDefaultRouter().getCapabilitiesForVersion(null);
+    }
+
+    @Test
+    public void testIsCapabilityDefined_trueIfDefined() {
+        Router router = new DefaultRouter.Builder()
+                .version(DEFAULT_VERSION)
+                .supportsAction(DEFAULT_ACTION)
+                .withCapabilities(DEFAULT_CAPABILITY)
+                .using((ctx, chain) -> {})
+                .versionComplete()
+                .buildRouter();
+
+        boolean isDefined = router.isCapabilityDefined(DEFAULT_VERSION, DEFAULT_CAPABILITY);
+        assertTrue(isDefined);
+    }
+
+    @Test
+    public void testIsCapabilityDefined_falseOnUnknownVersion() {
+        boolean isDefined = this.getDefaultRouter().isCapabilityDefined(UNKNOWN_VERSION, DEFAULT_CAPABILITY);
+        assertFalse(isDefined);
+    }
+
+    @Test
+    public void testIsCapabilityDefined_falseOnUnknownAction() {
+        boolean isDefined = this.getDefaultRouter().isCapabilityDefined(DEFAULT_VERSION, UNKNOWN_CAPABILITY);
+        assertFalse(isDefined);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
