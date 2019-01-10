@@ -18,6 +18,7 @@
     <name>IDM AlpineBits examples - root</name>
 
     <modules>
+        <module>freerooms</module>
         <module>guestrequests</module>
         <module>housekeeping</module>
         <module>inventory</module>

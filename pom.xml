@@ -232,12 +232,12 @@
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
-                <artifactId>examples-guestrequests</artifactId>
+                <artifactId>examples-freerooms</artifactId>
                 <version>0.2.1</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.idm.alpinebits</groupId>
-                <artifactId>examples-inventory</artifactId>
+                <artifactId>examples-guestrequests</artifactId>
                 <version>0.2.1</version>
             </dependency>
             <dependency>
