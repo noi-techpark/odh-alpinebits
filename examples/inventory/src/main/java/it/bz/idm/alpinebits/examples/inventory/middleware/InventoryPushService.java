@@ -17,8 +17,6 @@ import it.bz.idm.alpinebits.mapping.entity.Warning;
 import it.bz.idm.alpinebits.mapping.entity.inventory.GuestRoom;
 import it.bz.idm.alpinebits.mapping.entity.inventory.HotelDescriptiveContent;
 import it.bz.idm.alpinebits.mapping.entity.inventory.HotelDescriptiveContentNotifRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
