@@ -6,6 +6,7 @@
 
 package it.bz.idm.alpinebits.mapping.entity;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -41,6 +42,32 @@ public class GenericResponse {
 
     public void setWarnings(List<Warning> warnings) {
         this.warnings = warnings;
+    }
+
+    public static GenericResponse success() {
+        GenericResponse genericResponse = new GenericResponse();
+        genericResponse.setSuccess("");
+        return genericResponse;
+    }
+
+    public static GenericResponse warning(Warning ...warnings) {
+        return GenericResponse.warning(Arrays.asList(warnings));
+    }
+
+    public static GenericResponse warning(List<Warning> warnings) {
+        GenericResponse genericResponse = GenericResponse.success();
+        genericResponse.setWarnings(warnings);
+        return genericResponse;
+    }
+
+    public static GenericResponse error(Error ...errors) {
+        return GenericResponse.error(Arrays.asList(errors));
+    }
+
+    public static GenericResponse error(List<Error> errors) {
+        GenericResponse genericResponse = new GenericResponse();
+        genericResponse.setErrors(errors);
+        return genericResponse;
     }
 
     @Override

@@ -37,6 +37,7 @@ public class GuestRequestsReadResponseMappingTest {
                 {"GuestRequests-OTA_ResRetrieveRS-cancellation.xml"},
                 {"GuestRequests-OTA_ResRetrieveRS-error.xml"},
                 {"GuestRequests-OTA_ResRetrieveRS-reservation.xml"},
+                {"GuestRequests-OTA_ResRetrieveRS-reservation-with-duration.xml"},
                 {"GuestRequests-OTA_ResRetrieveRS-reservation-empty.xml"},
         };
     }

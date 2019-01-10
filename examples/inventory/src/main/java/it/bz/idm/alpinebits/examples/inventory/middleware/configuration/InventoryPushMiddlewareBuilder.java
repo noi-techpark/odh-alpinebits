@@ -9,8 +9,8 @@ package it.bz.idm.alpinebits.examples.inventory.middleware.configuration;
 import it.bz.idm.alpinebits.common.utils.middleware.ComposingMiddlewareBuilder;
 import it.bz.idm.alpinebits.db.middleware.EntityManagerProvidingMiddleware;
 import it.bz.idm.alpinebits.examples.inventory.middleware.InventoryPushMiddleware;
+import it.bz.idm.alpinebits.mapping.entity.GenericResponse;
 import it.bz.idm.alpinebits.mapping.entity.inventory.HotelDescriptiveContentNotifRequest;
-import it.bz.idm.alpinebits.mapping.entity.inventory.HotelDescriptiveContentNotifResponse;
 import it.bz.idm.alpinebits.mapping.mapper.InventoryMapperInstances;
 import it.bz.idm.alpinebits.mapping.middleware.RequestMappingMiddleware;
 import it.bz.idm.alpinebits.mapping.middleware.ResponseMappingMiddleware;
@@ -34,8 +34,8 @@ public final class InventoryPushMiddlewareBuilder {
 
     private static final Key<HotelDescriptiveContentNotifRequest> HOTEL_DESCRIPTIVE_CONTENT_NOTIF_REQUEST_KEY =
             Key.key("mapped inventory push request", HotelDescriptiveContentNotifRequest.class);
-    private static final Key<HotelDescriptiveContentNotifResponse> HOTEL_DESCRIPTIVE_CONTENT_NOTIF_RESPONSE_KEY =
-            Key.key("mapped inventory push response", HotelDescriptiveContentNotifResponse.class);
+    private static final Key<GenericResponse> HOTEL_DESCRIPTIVE_CONTENT_NOTIF_RESPONSE_KEY =
+            Key.key("mapped inventory push response", GenericResponse.class);
 
     private InventoryPushMiddlewareBuilder() {
         // Empty

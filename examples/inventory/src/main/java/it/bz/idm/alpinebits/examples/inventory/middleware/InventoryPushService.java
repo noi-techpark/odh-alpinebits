@@ -12,18 +12,15 @@ import it.bz.idm.alpinebits.examples.inventory.entity.ImageItemEntity;
 import it.bz.idm.alpinebits.examples.inventory.entity.RoomCategoryEntity;
 import it.bz.idm.alpinebits.examples.inventory.mapper.HotelDescriptiveContentEntityMapperInstances;
 import it.bz.idm.alpinebits.examples.inventory.mapper.ImageItemEntityMapperInstances;
+import it.bz.idm.alpinebits.mapping.entity.GenericResponse;
 import it.bz.idm.alpinebits.mapping.entity.Warning;
 import it.bz.idm.alpinebits.mapping.entity.inventory.GuestRoom;
 import it.bz.idm.alpinebits.mapping.entity.inventory.HotelDescriptiveContent;
 import it.bz.idm.alpinebits.mapping.entity.inventory.HotelDescriptiveContentNotifRequest;
-import it.bz.idm.alpinebits.mapping.entity.inventory.HotelDescriptiveContentNotifResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -36,15 +33,13 @@ import java.util.stream.Collectors;
  */
 public class InventoryPushService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(InventoryPushService.class);
-
     private final EntityManager em;
 
     public InventoryPushService(EntityManager em) {
         this.em = em;
     }
 
-    public HotelDescriptiveContentNotifResponse writeBasic(HotelDescriptiveContentNotifRequest hotelDescriptiveContentNotifRequest) {
+    public GenericResponse writeBasic(HotelDescriptiveContentNotifRequest hotelDescriptiveContentNotifRequest) {
         String hotelCode = hotelDescriptiveContentNotifRequest.getHotelDescriptiveContent().getHotelCode();
         String hotelName = hotelDescriptiveContentNotifRequest.getHotelDescriptiveContent().getHotelName();
 
@@ -52,7 +47,7 @@ public class InventoryPushService {
         // for the given hotelCode and hotelName and return
         if (hotelDescriptiveContentNotifRequest.getHotelDescriptiveContent().getGuestRooms().isEmpty()) {
             this.deleteAllRoomCategories(hotelCode, hotelName);
-            return this.buildSuccessResponse();
+            return GenericResponse.success();
         }
 
         // Build HotelDescriptiveContentEntity from request
@@ -71,16 +66,16 @@ public class InventoryPushService {
                     persistedHotelDescriptiveContentEntity.get(),
                     receivedHotelDescriptiveContentEntity
             );
-            return this.buildSuccessResponse();
+            return GenericResponse.success();
         }
 
         // No HotelDescriptiveContentEntity for hotelCode and hotelName found,
         // so just store the data and return
         this.persistAll(receivedHotelDescriptiveContentEntity);
-        return this.buildSuccessResponse();
+        return GenericResponse.success();
     }
 
-    public HotelDescriptiveContentNotifResponse writeHotelInfo(HotelDescriptiveContentNotifRequest hotelDescriptiveContentNotifRequest) {
+    public GenericResponse writeHotelInfo(HotelDescriptiveContentNotifRequest hotelDescriptiveContentNotifRequest) {
         String hotelCode = hotelDescriptiveContentNotifRequest.getHotelDescriptiveContent().getHotelCode();
         String hotelName = hotelDescriptiveContentNotifRequest.getHotelDescriptiveContent().getHotelName();
 
@@ -90,27 +85,19 @@ public class InventoryPushService {
 
         // If no HotelDescriptiveContentEntity was found, return a warning
         if (!persistedHotelDescriptiveContentEntity.isPresent()) {
-            HotelDescriptiveContentNotifResponse response = new HotelDescriptiveContentNotifResponse();
-            response.setSuccess("");
-            response.setWarnings(Arrays.asList(
+            return GenericResponse.warning(
                     Warning.withoutRecordId(
                             Warning.UNKNOWN,
                             "No entry found for HotelCode " + hotelCode + " and HotelName " + hotelName
                     )
-            ));
-            return response;
+            );
         } else {
             List<Warning> warnings = this.updateHotelInfo(
                     persistedHotelDescriptiveContentEntity.get(),
                     hotelDescriptiveContentNotifRequest.getHotelDescriptiveContent()
             );
 
-            HotelDescriptiveContentNotifResponse response = new HotelDescriptiveContentNotifResponse();
-            response.setSuccess("");
-            if (!warnings.isEmpty()) {
-                response.setWarnings(warnings);
-            }
-            return response;
+            return GenericResponse.warning(warnings);
         }
     }
 
@@ -262,13 +249,6 @@ public class InventoryPushService {
         tx.commit();
 
         return warnings;
-    }
-
-
-    private HotelDescriptiveContentNotifResponse buildSuccessResponse() {
-        HotelDescriptiveContentNotifResponse response = new HotelDescriptiveContentNotifResponse();
-        response.setSuccess("");
-        return response;
     }
 
 }

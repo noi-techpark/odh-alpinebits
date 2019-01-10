@@ -9,6 +9,7 @@ package it.bz.idm.alpinebits.servlet.impl;
 import it.bz.idm.alpinebits.servlet.impl.utils.ResponseStatusSettingMiddleware;
 import it.bz.idm.alpinebits.servlet.impl.utils.ServletOutputStreamBuilder;
 import it.bz.idm.alpinebits.servlet.impl.utils.ThrowingMiddleware;
+import it.bz.idm.alpinebits.servlet.impl.utils.ThrowingRequestExceptionHandler;
 import org.testng.annotations.Test;
 
 import javax.servlet.ServletConfig;
@@ -57,6 +58,28 @@ public class AlpineBitsServletTest {
         verify(response).setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 
         assertEquals(stringWriter.toString(), ThrowingMiddleware.EXPECTED_EXCEPTION_MESSAGE);
+    }
+
+    @Test
+    public void testDoPost_MiddlewareAndExceptionHandlerThrowing() throws Exception {
+        ServletConfig config = mock(ServletConfig.class);
+        when(config.getInitParameter(AlpineBitsServlet.MIDDLEWARE_CLASSNAME))
+                .thenReturn(ThrowingMiddleware.class.getName());
+        when(config.getInitParameter(AlpineBitsServlet.REQUEST_EXCEPTION_HANDLER_CLASSNAME))
+                .thenReturn(ThrowingRequestExceptionHandler.class.getName());
+
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpServletResponse response = mock(HttpServletResponse.class);
+
+        StringWriter stringWriter = new StringWriter();
+        when(response.getOutputStream()).thenReturn(ServletOutputStreamBuilder.getServletOutputStream(stringWriter));
+
+        AlpineBitsServlet servlet = new AlpineBitsServlet();
+        servlet.init(config);
+
+        servlet.doPost(request, response);
+
+        verify(response).setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
 
     @Test

@@ -6,7 +6,7 @@
 
 package it.bz.idm.alpinebits.mapping.mapper.v_2017_10.inventory;
 
-import it.bz.idm.alpinebits.mapping.entity.inventory.HotelDescriptiveContentNotifResponse;
+import it.bz.idm.alpinebits.mapping.entity.GenericResponse;
 import it.bz.idm.alpinebits.mapping.mapper.InventoryMapperInstances;
 import it.bz.idm.alpinebits.xml.JAXBObjectToXmlConverter;
 import it.bz.idm.alpinebits.xml.JAXBXmlToObjectConverter;
@@ -52,22 +52,22 @@ public class HotelDescriptiveContentNotifResponseMappingTest {
 
         OTAHotelDescriptiveContentNotifRS otaHotelDescriptiveContentNotifRS = converter.toObject(inputXmlStream);
 
-        HotelDescriptiveContentNotifResponse hotelDescriptiveContentNotifResponse =
+        GenericResponse genericResponse =
                 InventoryMapperInstances.HOTEL_DESCRIPTIVE_CONTENT_NOTIF_RESPONSE_MAPPER
-                        .toHotelDescriptiveContentResponse(otaHotelDescriptiveContentNotifRS);
-        assertNotNull(hotelDescriptiveContentNotifResponse);
+                        .toGenericResponse(otaHotelDescriptiveContentNotifRS);
+        assertNotNull(genericResponse);
 
         OTAHotelDescriptiveContentNotifRS otaHotelDescriptiveContentNotifRS2 =
                 InventoryMapperInstances.HOTEL_DESCRIPTIVE_CONTENT_NOTIF_RESPONSE_MAPPER
-                        .toOTAHotelDescriptiveContentNotifRS(hotelDescriptiveContentNotifResponse);
+                        .toOTAHotelDescriptiveContentNotifRS(genericResponse);
         assertNotNull(otaHotelDescriptiveContentNotifRS2);
 
-        HotelDescriptiveContentNotifResponse hotelDescriptiveContentNotifResponse2 =
+        GenericResponse genericResponse2 =
                 InventoryMapperInstances.HOTEL_DESCRIPTIVE_CONTENT_NOTIF_RESPONSE_MAPPER
-                        .toHotelDescriptiveContentResponse(otaHotelDescriptiveContentNotifRS2);
-        assertNotNull(hotelDescriptiveContentNotifResponse2);
+                        .toGenericResponse(otaHotelDescriptiveContentNotifRS2);
+        assertNotNull(genericResponse2);
 
-        assertEquals(hotelDescriptiveContentNotifResponse2.toString(), hotelDescriptiveContentNotifResponse.toString());
+        assertEquals(genericResponse2.toString(), genericResponse.toString());
 
         ObjectToXmlConverter<OTAHotelDescriptiveContentNotifRS> toObjectConverter = this.validatingObjectToXmlConverter(
                 OTAHotelDescriptiveContentNotifRS.class, schema);

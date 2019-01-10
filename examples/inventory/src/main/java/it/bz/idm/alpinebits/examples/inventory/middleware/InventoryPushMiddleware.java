@@ -10,8 +10,8 @@ import it.bz.idm.alpinebits.common.constants.AlpineBitsAction;
 import it.bz.idm.alpinebits.common.context.RequestContextKey;
 import it.bz.idm.alpinebits.common.exception.AlpineBitsException;
 import it.bz.idm.alpinebits.db.PersistenceContextKey;
+import it.bz.idm.alpinebits.mapping.entity.GenericResponse;
 import it.bz.idm.alpinebits.mapping.entity.inventory.HotelDescriptiveContentNotifRequest;
-import it.bz.idm.alpinebits.mapping.entity.inventory.HotelDescriptiveContentNotifResponse;
 import it.bz.idm.alpinebits.middleware.Context;
 import it.bz.idm.alpinebits.middleware.Key;
 import it.bz.idm.alpinebits.middleware.Middleware;
@@ -26,11 +26,11 @@ import javax.persistence.EntityManager;
 public class InventoryPushMiddleware implements Middleware {
 
     private final Key<HotelDescriptiveContentNotifRequest> requestKey;
-    private final Key<HotelDescriptiveContentNotifResponse> responseKey;
+    private final Key<GenericResponse> responseKey;
 
     public InventoryPushMiddleware(
             Key<HotelDescriptiveContentNotifRequest> requestKey,
-            Key<HotelDescriptiveContentNotifResponse> responseKey
+            Key<GenericResponse> responseKey
     ) {
         this.requestKey = requestKey;
         this.responseKey = responseKey;
@@ -39,13 +39,13 @@ public class InventoryPushMiddleware implements Middleware {
     @Override
     public void handleContext(Context ctx, MiddlewareChain chain) {
         // Call service for persistence
-        HotelDescriptiveContentNotifResponse response = this.invokeService(ctx);
+        GenericResponse response = this.invokeService(ctx);
 
         // Put result back into middleware context
         ctx.put(this.responseKey, response);
     }
 
-    private HotelDescriptiveContentNotifResponse invokeService(Context ctx) {
+    private GenericResponse invokeService(Context ctx) {
         // Get necessary objects from middleware context
         String action = ctx.getOrThrow(RequestContextKey.REQUEST_ACTION);
         HotelDescriptiveContentNotifRequest hotelDescriptiveContentNotifRequest = ctx.getOrThrow(this.requestKey);
