@@ -6,7 +6,7 @@
 
 package it.bz.idm.alpinebits.mapping.mapper.v_2017_10.inventory.contentnotifrs;
 
-import it.bz.idm.alpinebits.mapping.entity.inventory.HotelDescriptiveContentNotifResponse;
+import it.bz.idm.alpinebits.mapping.entity.GenericResponse;
 import it.bz.idm.alpinebits.mapping.mapper.v_2017_10.common.WarningMapper;
 import it.bz.idm.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRS;
 import org.mapstruct.InheritInverseConfiguration;
@@ -15,7 +15,7 @@ import org.mapstruct.Mapping;
 
 /**
  * Convert between AlpineBits {@link OTAHotelDescriptiveContentNotifRS}
- * (Inventory) and {@link HotelDescriptiveContentNotifResponse} objects.
+ * (Inventory) and {@link GenericResponse} objects.
  */
 @Mapper(
         uses = {
@@ -27,11 +27,11 @@ public interface HotelDescriptiveContentNotifResponseMapper {
 
     @Mapping(target = "errors", source = "errors.errors")
     @Mapping(target = "warnings", source = "warnings.warnings")
-    HotelDescriptiveContentNotifResponse toHotelDescriptiveContentResponse(OTAHotelDescriptiveContentNotifRS otaHotelDescriptiveContentNotifRS);
+    GenericResponse toGenericResponse(OTAHotelDescriptiveContentNotifRS otaHotelDescriptiveContentNotifRS);
 
     @InheritInverseConfiguration
     @Mapping(target = "version", constant = "3.000")
     @Mapping(target = "timeStamp", ignore = true)
-    OTAHotelDescriptiveContentNotifRS toOTAHotelDescriptiveContentNotifRS(HotelDescriptiveContentNotifResponse hotelDescriptiveContentNotifResponse);
+    OTAHotelDescriptiveContentNotifRS toOTAHotelDescriptiveContentNotifRS(GenericResponse genericResponse);
 
 }

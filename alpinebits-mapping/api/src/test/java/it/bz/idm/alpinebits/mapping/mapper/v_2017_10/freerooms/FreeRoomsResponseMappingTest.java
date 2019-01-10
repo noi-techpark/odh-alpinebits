@@ -6,7 +6,7 @@
 
 package it.bz.idm.alpinebits.mapping.mapper.v_2017_10.freerooms;
 
-import it.bz.idm.alpinebits.mapping.entity.freerooms.FreeRoomsResponse;
+import it.bz.idm.alpinebits.mapping.entity.GenericResponse;
 import it.bz.idm.alpinebits.mapping.mapper.FreeRoomsMapperInstances;
 import it.bz.idm.alpinebits.xml.JAXBObjectToXmlConverter;
 import it.bz.idm.alpinebits.xml.JAXBXmlToObjectConverter;
@@ -52,19 +52,19 @@ public class FreeRoomsResponseMappingTest {
 
         OTAHotelAvailNotifRS otaHotelAvailNotifRS = converter.toObject(inputXmlStream);
 
-        FreeRoomsResponse freeRoomsResponse = FreeRoomsMapperInstances.FREE_ROOMS_RESPONSE_MAPPER
-                .toFreeRoomsResponse(otaHotelAvailNotifRS);
-        assertNotNull(freeRoomsResponse);
+        GenericResponse genericResponse = FreeRoomsMapperInstances.FREE_ROOMS_RESPONSE_MAPPER
+                .toGenericResponse(otaHotelAvailNotifRS);
+        assertNotNull(genericResponse);
 
         OTAHotelAvailNotifRS otaHotelAvailNotifRS2 = FreeRoomsMapperInstances.FREE_ROOMS_RESPONSE_MAPPER
-                .toOTAHotelAvailNotifRS(freeRoomsResponse);
+                .toOTAHotelAvailNotifRS(genericResponse);
         assertNotNull(otaHotelAvailNotifRS2);
 
-        FreeRoomsResponse freeRoomsResponse2 = FreeRoomsMapperInstances.FREE_ROOMS_RESPONSE_MAPPER
-                .toFreeRoomsResponse(otaHotelAvailNotifRS2);
-        assertNotNull(freeRoomsResponse2);
+        GenericResponse genericResponse2 = FreeRoomsMapperInstances.FREE_ROOMS_RESPONSE_MAPPER
+                .toGenericResponse(otaHotelAvailNotifRS2);
+        assertNotNull(genericResponse2);
 
-        assertEquals(freeRoomsResponse2.toString(), freeRoomsResponse.toString());
+        assertEquals(genericResponse2.toString(), genericResponse.toString());
 
         ObjectToXmlConverter<OTAHotelAvailNotifRS> toObjectConverter = this.validatingObjectToXmlConverter(
                 OTAHotelAvailNotifRS.class, schema);

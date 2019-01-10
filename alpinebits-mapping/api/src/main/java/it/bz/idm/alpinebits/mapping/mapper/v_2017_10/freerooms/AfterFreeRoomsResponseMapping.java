@@ -6,7 +6,7 @@
 
 package it.bz.idm.alpinebits.mapping.mapper.v_2017_10.freerooms;
 
-import it.bz.idm.alpinebits.mapping.entity.freerooms.FreeRoomsResponse;
+import it.bz.idm.alpinebits.mapping.entity.GenericResponse;
 import it.bz.idm.alpinebits.mapping.utils.CollectionUtils;
 import it.bz.idm.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRS;
 import org.mapstruct.AfterMapping;
@@ -26,7 +26,7 @@ public interface AfterFreeRoomsResponseMapping {
     @AfterMapping
     default void updateOTAHotelDescriptiveContentNotifRS(
             @MappingTarget OTAHotelAvailNotifRS ota,
-            FreeRoomsResponse freeRoomsResponse
+            GenericResponse genericResponse
     ) {
         if (ota.getErrors() != null && CollectionUtils.isNullOrEmpty(ota.getErrors().getErrors())) {
             ota.setErrors(null);
@@ -38,14 +38,14 @@ public interface AfterFreeRoomsResponseMapping {
 
     @AfterMapping
     default void updateHotelDescriptiveContentNotifResponse(
-            @MappingTarget FreeRoomsResponse freeRoomsResponse,
+            @MappingTarget GenericResponse genericResponse,
             OTAHotelAvailNotifRS ota
     ) {
-        if (freeRoomsResponse.getErrors() == null) {
-            freeRoomsResponse.setErrors(new ArrayList<>());
+        if (genericResponse.getErrors() == null) {
+            genericResponse.setErrors(new ArrayList<>());
         }
-        if (freeRoomsResponse.getWarnings() == null) {
-            freeRoomsResponse.setWarnings(new ArrayList<>());
+        if (genericResponse.getWarnings() == null) {
+            genericResponse.setWarnings(new ArrayList<>());
         }
     }
 }

@@ -6,7 +6,7 @@
 
 package it.bz.idm.alpinebits.mapping.mapper.v_2017_10.inventory.contentnotifrs;
 
-import it.bz.idm.alpinebits.mapping.entity.inventory.HotelDescriptiveContentNotifResponse;
+import it.bz.idm.alpinebits.mapping.entity.GenericResponse;
 import it.bz.idm.alpinebits.mapping.utils.CollectionUtils;
 import it.bz.idm.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRS;
 import org.mapstruct.AfterMapping;
@@ -26,7 +26,7 @@ public interface AfterHotelDescriptiveContentNotifResponseMapping {
     @AfterMapping
     default void updateOTAHotelDescriptiveContentNotifRS(
             @MappingTarget OTAHotelDescriptiveContentNotifRS ota,
-            HotelDescriptiveContentNotifResponse hotelDescriptiveContentNotifResponse
+            GenericResponse genericResponse
     ) {
         if (ota.getErrors() != null && CollectionUtils.isNullOrEmpty(ota.getErrors().getErrors())) {
             ota.setErrors(null);
@@ -38,15 +38,15 @@ public interface AfterHotelDescriptiveContentNotifResponseMapping {
 
     @AfterMapping
     default void updateHotelDescriptiveContentNotifResponse(
-            @MappingTarget HotelDescriptiveContentNotifResponse hotelDescriptiveContentNotifResponse,
+            @MappingTarget GenericResponse genericResponse,
             OTAHotelDescriptiveContentNotifRS ota
 
     ) {
-        if (hotelDescriptiveContentNotifResponse.getErrors() == null) {
-            hotelDescriptiveContentNotifResponse.setErrors(new ArrayList<>());
+        if (genericResponse.getErrors() == null) {
+            genericResponse.setErrors(new ArrayList<>());
         }
-        if (hotelDescriptiveContentNotifResponse.getWarnings() == null) {
-            hotelDescriptiveContentNotifResponse.setWarnings(new ArrayList<>());
+        if (genericResponse.getWarnings() == null) {
+            genericResponse.setWarnings(new ArrayList<>());
         }
     }
 }

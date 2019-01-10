@@ -6,7 +6,6 @@
 
 package it.bz.idm.alpinebits.mapping.mapper;
 
-import it.bz.idm.alpinebits.mapping.entity.inventory.HotelDescriptiveContentNotifResponse;
 import it.bz.idm.alpinebits.mapping.mapper.v_2017_10.inventory.contentnotifrq.HotelDescriptiveContentNotifRequestMapper;
 import it.bz.idm.alpinebits.mapping.mapper.v_2017_10.inventory.contentnotifrs.HotelDescriptiveContentNotifResponseMapper;
 import it.bz.idm.alpinebits.mapping.mapper.v_2017_10.inventory.inforq.HotelDescriptiveInfoRequestMapper;
@@ -29,7 +28,7 @@ public final class InventoryMapperInstances {
     /**
      * Provide a mapper between AlpineBits
      * {@link it.bz.idm.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRS} and
-     * {@link HotelDescriptiveContentNotifResponse}.
+     * {@link it.bz.idm.alpinebits.mapping.entity.GenericResponse}.
      */
     public static final HotelDescriptiveContentNotifResponseMapper HOTEL_DESCRIPTIVE_CONTENT_NOTIF_RESPONSE_MAPPER
             = Mappers.getMapper(HotelDescriptiveContentNotifResponseMapper.class);
@@ -45,7 +44,7 @@ public final class InventoryMapperInstances {
     /**
      * Provide a mapper between AlpineBits
      * {@link it.bz.idm.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRS} and
-     * {@link HotelDescriptiveContentNotifResponse}.
+     * {@link it.bz.idm.alpinebits.mapping.entity.GenericResponse}.
      */
     public static final HotelDescriptiveInfoResponseMapper HOTEL_DESCRIPTIVE_INFO_RESPONSE_MAPPER
             = Mappers.getMapper(HotelDescriptiveInfoResponseMapper.class);
