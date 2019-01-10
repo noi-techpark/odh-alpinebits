@@ -158,6 +158,36 @@ would be rather demanding. At the moment, that effort is not justified.
 
 You can use other tools like `curl` to perform requests against the running server.
 
+#### Example: FreeRooms actions
+
+The `freerooms` example provides an AlpineBits server instance supporting
+the so called FreeRooms actions. A [H2](http://www.h2database.com)
+instance is used for persistence (the database file is written with name
+`alpinebits_freerooms` to current user's HOME folder).
+
+Change to the `freerooms` directory (assuming you are in the projects root
+folder):
+
+```bash
+cd examples/freerooms
+```
+
+Run the following maven command:
+
+```bash
+mvn clean install cargo:run
+```
+
+This command starts a local Tomcat 8 instance using
+[Cargo](https://codehaus-cargo.github.io/cargo/Maven2+plugin.html) and deploys
+the example war file, generated during the installation (see [Installing](#installing)).
+
+The deployment contains an AlpineBits server instance supporting the
+FreeRooms action. This example doesn't provide a UI, because its implementation
+would be rather demanding. At the moment, that effort is not justified.
+
+You can use other tools like `curl` to perform requests against the running server.
+
 ## Running the tests
 
 The code in this repository provides unit and integration tests.
