@@ -12,7 +12,9 @@ package it.bz.idm.alpinebits.mapping.entity;
  */
 public class Error {
 
-    public static final String DEFAULT_ERROR_TYPE = "13";
+    public static final String TYPE_DEFAULT = "13";
+
+    public static final int CODE_UNABLE_TO_PROCESS = 450;
 
     private String content;
 
@@ -26,7 +28,7 @@ public class Error {
 
     public static Error withDefaultType(Integer code, String content) {
         Error error = new Error();
-        error.setType(Error.DEFAULT_ERROR_TYPE);
+        error.setType(Error.TYPE_DEFAULT);
         error.setCode(code);
         error.setContent(content);
         return error;
