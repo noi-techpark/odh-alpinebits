@@ -11,6 +11,8 @@ package it.bz.idm.alpinebits.mapping.entity.freerooms;
  */
 public class UniqueId {
 
+    public static final String COMPLETE_SET = "CompleteSet";
+
     private String type;
 
     private String instance;
