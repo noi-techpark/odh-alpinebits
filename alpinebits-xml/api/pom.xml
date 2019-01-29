@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>it.bz.idm.alpinebits</groupId>
+        <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-xml</artifactId>
         <version>0.3.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -14,7 +14,7 @@
     <artifactId>alpinebits-xml-api</artifactId>
     <version>0.3.0</version>
 
-    <name>IDM AlpineBits XML API</name>
+    <name>AlpineBits XML API</name>
 
     <properties>
         <jaxb2-maven.version>2.2</jaxb2-maven.version>
@@ -22,7 +22,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>it.bz.idm.alpinebits</groupId>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-common-api</artifactId>
         </dependency>
 
@@ -60,7 +60,7 @@
                             <sources>
                                 <source>src/main/resources/alpinebits-2017-10.xsd</source>
                             </sources>
-                            <packageName>it.bz.idm.alpinebits.xml.schema.v_2017_10</packageName>
+                            <packageName>it.bz.opendatahub.alpinebits.xml.schema.v_2017_10</packageName>
                             <clearOutputDir>false</clearOutputDir>
                         </configuration>
                     </execution>
@@ -73,7 +73,7 @@
                             <sources>
                                 <source>src/main/resources/alpinebits-2015-07b.xsd</source>
                             </sources>
-                            <packageName>it.bz.idm.alpinebits.xml.schema.v_2015_07b</packageName>
+                            <packageName>it.bz.opendatahub.alpinebits.xml.schema.v_2015_07b</packageName>
                             <clearOutputDir>false</clearOutputDir>
                         </configuration>
                     </execution>
@@ -115,7 +115,7 @@
                     <ignoreMissingFile>false</ignoreMissingFile>
                     <includes>
                         <include>
-                            ${project.build.directory}/generated-sources/jaxb/it/bz/idm/alpinebits/xml/schema/**/*.java
+                            ${project.build.directory}/generated-sources/jaxb/it/bz/opendatahub/alpinebits/xml/schema/**/*.java
                         </include>
                     </includes>
                     <replacements>

@@ -15,23 +15,23 @@
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>it.bz.idm.alpinebits.examples.guestrequests.entity.read.CompanyAddressEntity</class>
-        <class>it.bz.idm.alpinebits.examples.guestrequests.entity.read.CompanyEmailEntity</class>
-        <class>it.bz.idm.alpinebits.examples.guestrequests.entity.read.CompanyEntity</class>
-        <class>it.bz.idm.alpinebits.examples.guestrequests.entity.read.CompanyTelephoneEntity</class>
-        <class>it.bz.idm.alpinebits.examples.guestrequests.entity.read.CustomerAddressEntity</class>
-        <class>it.bz.idm.alpinebits.examples.guestrequests.entity.read.CustomerEmailEntity</class>
-        <class>it.bz.idm.alpinebits.examples.guestrequests.entity.read.CustomerEntity</class>
-        <class>it.bz.idm.alpinebits.examples.guestrequests.entity.read.CustomerTelephoneEntity</class>
-        <class>it.bz.idm.alpinebits.examples.guestrequests.entity.read.GlobalInfoEntity</class>
-        <class>it.bz.idm.alpinebits.examples.guestrequests.entity.read.GuestCountEntity</class>
-        <class>it.bz.idm.alpinebits.examples.guestrequests.entity.read.HotelReservationEntity</class>
-        <class>it.bz.idm.alpinebits.examples.guestrequests.entity.read.HotelReservationIdEntity</class>
-        <class>it.bz.idm.alpinebits.examples.guestrequests.entity.read.PaymentCardEntity</class>
-        <class>it.bz.idm.alpinebits.examples.guestrequests.entity.read.RatePlanEntity</class>
-        <class>it.bz.idm.alpinebits.examples.guestrequests.entity.read.RoomStayEntity</class>
-        <class>it.bz.idm.alpinebits.examples.guestrequests.entity.read.TimeSpanEntity</class>
-        <class>it.bz.idm.alpinebits.examples.guestrequests.entity.read.TranslationEntity</class>
+        <class>it.bz.opendatahub.alpinebits.examples.guestrequests.entity.read.CompanyAddressEntity</class>
+        <class>it.bz.opendatahub.alpinebits.examples.guestrequests.entity.read.CompanyEmailEntity</class>
+        <class>it.bz.opendatahub.alpinebits.examples.guestrequests.entity.read.CompanyEntity</class>
+        <class>it.bz.opendatahub.alpinebits.examples.guestrequests.entity.read.CompanyTelephoneEntity</class>
+        <class>it.bz.opendatahub.alpinebits.examples.guestrequests.entity.read.CustomerAddressEntity</class>
+        <class>it.bz.opendatahub.alpinebits.examples.guestrequests.entity.read.CustomerEmailEntity</class>
+        <class>it.bz.opendatahub.alpinebits.examples.guestrequests.entity.read.CustomerEntity</class>
+        <class>it.bz.opendatahub.alpinebits.examples.guestrequests.entity.read.CustomerTelephoneEntity</class>
+        <class>it.bz.opendatahub.alpinebits.examples.guestrequests.entity.read.GlobalInfoEntity</class>
+        <class>it.bz.opendatahub.alpinebits.examples.guestrequests.entity.read.GuestCountEntity</class>
+        <class>it.bz.opendatahub.alpinebits.examples.guestrequests.entity.read.HotelReservationEntity</class>
+        <class>it.bz.opendatahub.alpinebits.examples.guestrequests.entity.read.HotelReservationIdEntity</class>
+        <class>it.bz.opendatahub.alpinebits.examples.guestrequests.entity.read.PaymentCardEntity</class>
+        <class>it.bz.opendatahub.alpinebits.examples.guestrequests.entity.read.RatePlanEntity</class>
+        <class>it.bz.opendatahub.alpinebits.examples.guestrequests.entity.read.RoomStayEntity</class>
+        <class>it.bz.opendatahub.alpinebits.examples.guestrequests.entity.read.TimeSpanEntity</class>
+        <class>it.bz.opendatahub.alpinebits.examples.guestrequests.entity.read.TranslationEntity</class>
 
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>

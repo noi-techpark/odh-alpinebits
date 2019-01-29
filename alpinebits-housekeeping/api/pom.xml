@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>it.bz.idm.alpinebits</groupId>
+        <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-housekeeping</artifactId>
         <version>0.3.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -14,11 +14,11 @@
     <artifactId>alpinebits-housekeeping-api</artifactId>
     <version>0.3.0</version>
 
-    <name>IDM AlpineBits housekeeping API</name>
+    <name>AlpineBits housekeeping API</name>
 
     <dependencies>
         <dependency>
-            <groupId>it.bz.idm.alpinebits</groupId>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-common-api</artifactId>
         </dependency>
     </dependencies>

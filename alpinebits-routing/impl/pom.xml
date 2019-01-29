@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>it.bz.idm.alpinebits</groupId>
+        <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-routing</artifactId>
         <version>0.3.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -14,15 +14,15 @@
     <artifactId>alpinebits-routing-impl</artifactId>
     <version>0.3.0</version>
 
-    <name>IDM AlpineBits routing impl</name>
+    <name>AlpineBits routing impl</name>
 
     <dependencies>
         <dependency>
-            <groupId>it.bz.idm.alpinebits</groupId>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-routing-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>it.bz.idm.alpinebits</groupId>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-common-utils</artifactId>
         </dependency>
         <dependency>
@@ -32,7 +32,7 @@
 
         <!-- testing -->
         <dependency>
-            <groupId>it.bz.idm.alpinebits</groupId>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-servlet-impl</artifactId>
             <scope>test</scope>
         </dependency>

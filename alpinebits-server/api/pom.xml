@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>it.bz.idm.alpinebits</groupId>
+        <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-server</artifactId>
         <version>0.3.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -14,5 +14,5 @@
     <artifactId>alpinebits-server-api</artifactId>
     <version>0.3.0</version>
 
-    <name>IDM AlpineBits server API</name>
+    <name>AlpineBits server API</name>
 </project>

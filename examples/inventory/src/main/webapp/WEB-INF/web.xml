@@ -4,10 +4,10 @@
     http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <servlet>
         <servlet-name>AlpineBits Servlet</servlet-name>
-        <servlet-class>it.bz.idm.alpinebits.servlet.impl.AlpineBitsServlet</servlet-class>
+        <servlet-class>it.bz.opendatahub.alpinebits.servlet.impl.AlpineBitsServlet</servlet-class>
         <init-param>
             <param-name>MIDDLEWARE_CLASSNAME</param-name>
-            <param-value>it.bz.idm.alpinebits.examples.inventory.middleware.ConfiguringMiddleware</param-value>
+            <param-value>it.bz.opendatahub.alpinebits.examples.inventory.middleware.ConfiguringMiddleware</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
