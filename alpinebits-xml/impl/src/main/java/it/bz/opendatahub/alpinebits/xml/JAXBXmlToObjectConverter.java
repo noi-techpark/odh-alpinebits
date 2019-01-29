@@ -17,18 +17,20 @@ import java.io.InputStream;
  *
  * @param <T> converted object type
  */
-public final class JAXBXmlToObjectConverter<T> implements XmlToObjectConverter {
+public final class JAXBXmlToObjectConverter<T> implements XmlToObjectConverter<T> {
 
-    private Unmarshaller unmarshaller;
+    private final Unmarshaller unmarshaller;
+    private final Class<T> classToBeBound;
 
-    private JAXBXmlToObjectConverter() {
-        // Empty
+    private JAXBXmlToObjectConverter(Unmarshaller unmarshaller, Class<T> classToBeBound) {
+        this.unmarshaller = unmarshaller;
+        this.classToBeBound = classToBeBound;
     }
 
     @Override
     public T toObject(InputStream is) {
         try {
-            return (T) this.unmarshaller.unmarshal(is);
+            return this.classToBeBound.cast(this.unmarshaller.unmarshal(is));
         } catch (JAXBException e) {
             throw new XmlConversionException("XML-to-object conversion error", 400, e);
         }
@@ -58,7 +60,7 @@ public final class JAXBXmlToObjectConverter<T> implements XmlToObjectConverter {
          * @param schema the {@link Schema} used for XML validation
          * @return the current Builder
          */
-        public Builder schema(Schema schema) {
+        public Builder<T> schema(Schema schema) {
             this.schema = schema;
             return this;
         }
@@ -71,12 +73,11 @@ public final class JAXBXmlToObjectConverter<T> implements XmlToObjectConverter {
          * @throws JAXBException if there went something wrong during
          *                       the creation of the {@link JAXBObjectToXmlConverter} instance
          */
-        public JAXBXmlToObjectConverter<T> build() throws JAXBException {
-            JAXBContext jaxbContext = JAXBContext.newInstance(classToBeBound);
-            JAXBXmlToObjectConverter<T> converter = new JAXBXmlToObjectConverter<>();
-            converter.unmarshaller = jaxbContext.createUnmarshaller();
-            converter.unmarshaller.setSchema(schema);
-            return converter;
+        public XmlToObjectConverter<T> build() throws JAXBException {
+            JAXBContext jaxbContext = JAXBContext.newInstance(this.classToBeBound);
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+            unmarshaller.setSchema(this.schema);
+            return new JAXBXmlToObjectConverter<>(unmarshaller, this.classToBeBound);
         }
     }
 

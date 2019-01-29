@@ -19,10 +19,10 @@ import java.io.OutputStream;
  */
 public final class JAXBObjectToXmlConverter<T> implements ObjectToXmlConverter<T> {
 
-    private Marshaller marshaller;
+    private final Marshaller marshaller;
 
-    private JAXBObjectToXmlConverter() {
-        // Empty
+    private JAXBObjectToXmlConverter(Marshaller marshaller) {
+        this.marshaller = marshaller;
     }
 
     @Override
@@ -59,7 +59,7 @@ public final class JAXBObjectToXmlConverter<T> implements ObjectToXmlConverter<T
          * @param schema the {@link Schema} used for XML validation
          * @return the current Builder
          */
-        public Builder schema(Schema schema) {
+        public Builder<T> schema(Schema schema) {
             this.schema = schema;
             return this;
         }
@@ -72,7 +72,7 @@ public final class JAXBObjectToXmlConverter<T> implements ObjectToXmlConverter<T
          *                         XML will be pretty printed
          * @return the current Builder
          */
-        public Builder prettyPrint(boolean doPrettyPrintXml) {
+        public Builder<T> prettyPrint(boolean doPrettyPrintXml) {
             this.doPrettyPrintXml = doPrettyPrintXml;
             return this;
         }
@@ -85,14 +85,12 @@ public final class JAXBObjectToXmlConverter<T> implements ObjectToXmlConverter<T
          * @throws JAXBException if there went something wrong during
          *                       the creation of the {@link JAXBObjectToXmlConverter} instance
          */
-        public JAXBObjectToXmlConverter<T> build() throws JAXBException {
+        public ObjectToXmlConverter<T> build() throws JAXBException {
             JAXBContext jaxbContext = JAXBContext.newInstance(classToBeBound);
-            JAXBObjectToXmlConverter<T> converter = new JAXBObjectToXmlConverter<>();
-            converter.marshaller = jaxbContext.createMarshaller();
-            converter.marshaller.setSchema(this.schema);
-            converter.marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, this.doPrettyPrintXml);
-
-            return converter;
+            Marshaller marshaller = jaxbContext.createMarshaller();
+            marshaller.setSchema(this.schema);
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, this.doPrettyPrintXml);
+            return new JAXBObjectToXmlConverter<>(marshaller);
         }
     }
 }

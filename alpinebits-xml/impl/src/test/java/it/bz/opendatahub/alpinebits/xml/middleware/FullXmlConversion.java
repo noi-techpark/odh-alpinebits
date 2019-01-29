@@ -143,7 +143,7 @@ public class FullXmlConversion {
     }
 
     private <T> XmlToObjectConverter<T> validatingXmlToObjectConverter(Class<T> classToBeBound, Schema schema) throws JAXBException {
-        return new JAXBXmlToObjectConverter.Builder(classToBeBound).schema(schema).build();
+        return new JAXBXmlToObjectConverter.Builder<>(classToBeBound).schema(schema).build();
     }
 
     private <T> XmlResponseMappingMiddleware<T> validatingObjectToXmlMiddleware(Key<T> key, Class<T> classToBeBound, Schema schema) throws JAXBException {
@@ -152,6 +152,6 @@ public class FullXmlConversion {
     }
 
     private <T> ObjectToXmlConverter<T> validatingObjectToXmlConverter(Class<T> classToBeBound, Schema schema) throws JAXBException {
-        return new JAXBObjectToXmlConverter.Builder(classToBeBound).schema(schema).prettyPrint(true).build();
+        return new JAXBObjectToXmlConverter.Builder<>(classToBeBound).schema(schema).prettyPrint(true).build();
     }
 }

@@ -84,6 +84,6 @@ public class OTAResRetrieveRSImporter {
 
     private static XmlToObjectConverter<OTAResRetrieveRS> getXmlConverter() throws JAXBException {
         Schema schema = XmlValidationSchemaProvider.buildRngSchemaForAlpineBitsVersion("2017-10");
-        return new JAXBXmlToObjectConverter.Builder(OTAResRetrieveRS.class).schema(schema).build();
+        return new JAXBXmlToObjectConverter.Builder<>(OTAResRetrieveRS.class).schema(schema).build();
     }
 }

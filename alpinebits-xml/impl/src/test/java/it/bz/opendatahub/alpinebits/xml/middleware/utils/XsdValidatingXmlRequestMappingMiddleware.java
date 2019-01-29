@@ -69,6 +69,6 @@ public class XsdValidatingXmlRequestMappingMiddleware implements Middleware {
     }
 
     private <T> XmlToObjectConverter<T> validatingConverter(Class<T> classToBeBound, Schema schema) throws JAXBException {
-        return new JAXBXmlToObjectConverter.Builder(classToBeBound).schema(schema).build();
+        return new JAXBXmlToObjectConverter.Builder<>(classToBeBound).schema(schema).build();
     }
 }

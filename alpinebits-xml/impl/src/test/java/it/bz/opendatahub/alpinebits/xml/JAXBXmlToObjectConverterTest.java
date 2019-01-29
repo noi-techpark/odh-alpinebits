@@ -29,14 +29,14 @@ public class JAXBXmlToObjectConverterTest {
             }
         };
 
-        XmlToObjectConverter<TestEntity> converter = new JAXBXmlToObjectConverter.Builder(TestEntity.class).build();
+        XmlToObjectConverter<TestEntity> converter = new JAXBXmlToObjectConverter.Builder<>(TestEntity.class).build();
         converter.toObject(is);
     }
 
     @Test
     public void testToObject_Ok() throws Exception {
         InputStream is = this.getClass().getClassLoader().getResourceAsStream("examples/v_2017_10/GuestRequests-OTA_ReadRQ.xml");
-        XmlToObjectConverter<OTAReadRQ> converter = new JAXBXmlToObjectConverter.Builder(OTAReadRQ.class).build();
+        XmlToObjectConverter<OTAReadRQ> converter = new JAXBXmlToObjectConverter.Builder<>(OTAReadRQ.class).build();
         OTAReadRQ otaReadRQ = converter.toObject(is);
 
         assertNotNull(otaReadRQ);
