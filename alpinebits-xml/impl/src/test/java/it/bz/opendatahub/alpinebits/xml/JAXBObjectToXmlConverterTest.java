@@ -33,7 +33,7 @@ public class JAXBObjectToXmlConverterTest {
             }
         };
 
-        ObjectToXmlConverter<TestEntity> converter = new JAXBObjectToXmlConverter.Builder(TestEntity.class).prettyPrint(true).build();
+        ObjectToXmlConverter<TestEntity> converter = new JAXBObjectToXmlConverter.Builder<>(TestEntity.class).prettyPrint(true).build();
         converter.toXml(testEntity, os);
     }
 
@@ -45,7 +45,7 @@ public class JAXBObjectToXmlConverterTest {
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
 
-        ObjectToXmlConverter<TestEntity> converter = new JAXBObjectToXmlConverter.Builder(TestEntity.class).prettyPrint(true).build();
+        ObjectToXmlConverter<TestEntity> converter = new JAXBObjectToXmlConverter.Builder<>(TestEntity.class).prettyPrint(true).build();
         converter.toXml(testEntity, os);
 
         assertTrue(os.size() > 0);

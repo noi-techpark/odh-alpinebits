@@ -38,13 +38,13 @@ public class XmlResponseMappingMiddlewareTest {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void testConstructor_ConverterIsNull() {
-        new XmlResponseMappingMiddleware(null, null);
+        new XmlResponseMappingMiddleware<>(null, null);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void testConstructor_BusinessContextKeyIsNull() throws Exception {
         ObjectToXmlConverter<Object> converter = this.notValidatingConverter(Object.class);
-        new XmlResponseMappingMiddleware(converter, null);
+        new XmlResponseMappingMiddleware<>(converter, null);
     }
 
     @Test(expectedExceptions = RequiredContextKeyMissingException.class)
@@ -121,7 +121,7 @@ public class XmlResponseMappingMiddlewareTest {
 
         InputStream is = this.getClass().getClassLoader().getResourceAsStream("examples/v_2017_10/GuestRequests-OTA_ResRetrieveRS-reservation.xml");
         Schema schema = XmlValidationSchemaProvider.buildRngSchemaForAlpineBitsVersion("2017-10");
-        XmlToObjectConverter<OTAResRetrieveRS> converter = new JAXBXmlToObjectConverter.Builder(OTAResRetrieveRS.class).schema(schema).build();
+        XmlToObjectConverter<OTAResRetrieveRS> converter = new JAXBXmlToObjectConverter.Builder<>(OTAResRetrieveRS.class).schema(schema).build();
         OTAResRetrieveRS responseData = converter.toObject(is);
         ctx.put(DEFAULT_CTX_KEY, responseData);
         return ctx;
@@ -138,11 +138,11 @@ public class XmlResponseMappingMiddlewareTest {
     }
 
     private <T> ObjectToXmlConverter<T> notValidatingConverter(Class<T> classToBeBound) throws JAXBException {
-        return new JAXBObjectToXmlConverter.Builder(classToBeBound).build();
+        return new JAXBObjectToXmlConverter.Builder<>(classToBeBound).build();
     }
 
     private <T> ObjectToXmlConverter<T> validatingConverter(Class<T> classToBeBound, Schema schema) throws JAXBException {
-        return new JAXBObjectToXmlConverter.Builder(classToBeBound).schema(schema).build();
+        return new JAXBObjectToXmlConverter.Builder<>(classToBeBound).schema(schema).build();
     }
 
 }

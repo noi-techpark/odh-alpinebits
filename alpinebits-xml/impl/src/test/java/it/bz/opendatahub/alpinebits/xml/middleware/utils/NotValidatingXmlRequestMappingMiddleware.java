@@ -66,6 +66,6 @@ public class NotValidatingXmlRequestMappingMiddleware implements Middleware {
     }
 
     private <T> XmlToObjectConverter<T> notValidatingConverter(Class<T> classToBeBound) throws JAXBException {
-        return new JAXBXmlToObjectConverter.Builder(classToBeBound).build();
+        return new JAXBXmlToObjectConverter.Builder<>(classToBeBound).build();
     }
 }

@@ -40,7 +40,7 @@ public class XmlRequestMappingMiddlewareTest {
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void testConstructor_BusinessContextKeyIsNull() throws Exception {
         XmlToObjectConverter<Object> converter = this.notValidatingConverter(Object.class);
-        new XmlRequestMappingMiddleware(converter, null);
+        new XmlRequestMappingMiddleware<>(converter, null);
     }
 
     @Test(expectedExceptions = RequiredContextKeyMissingException.class)
@@ -135,11 +135,11 @@ public class XmlRequestMappingMiddlewareTest {
     }
 
     private <T> XmlToObjectConverter<T> notValidatingConverter(Class<T> classToBeBound) throws JAXBException {
-        return new JAXBXmlToObjectConverter.Builder(classToBeBound).build();
+        return new JAXBXmlToObjectConverter.Builder<>(classToBeBound).build();
     }
 
     private <T> XmlToObjectConverter<T> validatingConverter(Class<T> classToBeBound, Schema schema) throws JAXBException {
-        return new JAXBXmlToObjectConverter.Builder(classToBeBound).schema(schema).build();
+        return new JAXBXmlToObjectConverter.Builder<>(classToBeBound).schema(schema).build();
     }
 
 }

@@ -16,7 +16,7 @@ import static org.testng.Assert.*;
 public class KeyTest {
 
     private static final String DEFAULT_IDENTIFIER = "identifier";
-    private static final Class DEFAULT_TYPE = String.class;
+    private static final Class<String> DEFAULT_TYPE = String.class;
 
     @Test
     public void testKey() {
