@@ -5,17 +5,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>it.bz.idm.alpinebits</groupId>
+        <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-root</artifactId>
-        <version>0.3.0</version>
+        <version>0.4.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>alpinebits-middleware</artifactId>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
 
     <packaging>pom</packaging>
-    <name>IDM AlpineBits middleware</name>
+    <name>AlpineBits middleware</name>
 
     <modules>
         <module>api</module>

@@ -5,24 +5,24 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>it.bz.idm.alpinebits</groupId>
+        <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-housekeeping</artifactId>
-        <version>0.3.0</version>
+        <version>0.4.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>alpinebits-housekeeping-impl</artifactId>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
 
-    <name>IDM AlpineBits housekeeping impl</name>
+    <name>AlpineBits housekeeping impl</name>
 
     <dependencies>
         <dependency>
-            <groupId>it.bz.idm.alpinebits</groupId>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-housekeeping-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>it.bz.idm.alpinebits</groupId>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-routing-api</artifactId>
         </dependency>
         <dependency>
@@ -32,17 +32,17 @@
 
         <!-- testing -->
         <dependency>
-            <groupId>it.bz.idm.alpinebits</groupId>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-middleware-impl</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>it.bz.idm.alpinebits</groupId>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-routing-impl</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>it.bz.idm.alpinebits</groupId>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-servlet-impl</artifactId>
             <scope>test</scope>
         </dependency>

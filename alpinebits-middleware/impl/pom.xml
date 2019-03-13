@@ -5,20 +5,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>it.bz.idm.alpinebits</groupId>
+        <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-middleware</artifactId>
-        <version>0.3.0</version>
+        <version>0.4.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>alpinebits-middleware-impl</artifactId>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
 
-    <name>IDM AlpineBits middleware impl</name>
+    <name>AlpineBits middleware impl</name>
 
     <dependencies>
         <dependency>
-            <groupId>it.bz.idm.alpinebits</groupId>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-middleware-api</artifactId>
         </dependency>
         <dependency>

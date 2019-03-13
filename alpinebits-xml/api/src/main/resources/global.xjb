@@ -7,8 +7,8 @@
     <jaxb:globalBindings>
         <xjc:simple/>
         <xjc:javaType name="java.time.LocalDate" xmlType="xs:date"
-                      adapter="it.bz.idm.alpinebits.xml.xmladapter.LocalDateAdapter"/>
+                      adapter="it.bz.opendatahub.alpinebits.xml.xmladapter.LocalDateAdapter"/>
         <xjc:javaType name="java.time.ZonedDateTime" xmlType="xs:dateTime"
-                      adapter="it.bz.idm.alpinebits.xml.xmladapter.ZonedDateTimeAdapter"/>
+                      adapter="it.bz.opendatahub.alpinebits.xml.xmladapter.ZonedDateTimeAdapter"/>
     </jaxb:globalBindings>
 </jaxb:bindings>
