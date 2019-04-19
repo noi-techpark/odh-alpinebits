@@ -44,6 +44,7 @@
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
         <dependency-check-maven.version>3.1.1</dependency-check-maven.version>
         <gitflow-maven-plugin.version>1.10.0</gitflow-maven-plugin.version>
+        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
 
         <servlet.version>3.0.1</servlet.version>
         <mapstruct.version>1.2.0.Final</mapstruct.version>
@@ -128,6 +129,27 @@
                         <configuration>
                             <skip>${skipTests}</skip>
                         </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>sources</id>
+            <build>
+                <plugins>
+                    <!-- Generate sources jar -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
@@ -585,6 +607,13 @@
                             <exclude>**/**IT.java</exclude>
                         </sourceFileExcludes>
                     </configuration>
+                </plugin>
+
+                <!-- Generate sources jar -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
