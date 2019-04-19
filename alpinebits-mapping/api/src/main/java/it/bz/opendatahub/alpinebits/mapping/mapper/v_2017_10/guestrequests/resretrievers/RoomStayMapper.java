@@ -13,6 +13,7 @@ import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.resretrievers.R
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.resretrievers.TimeSpan;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAResRetrieveRS;
 import org.mapstruct.AfterMapping;
+import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -33,30 +34,43 @@ public interface RoomStayMapper {
     @Mapping(target = "ratePlan", source = "ratePlans.ratePlan")
     @Mapping(target = "timeSpan", source = "timeSpan")
     @Mapping(target = "paymentCard", source = "guarantee.guaranteesAccepted.guaranteeAccepted.paymentCard")
-    RoomStay toRoomStay(OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay roomStay);
+    RoomStay toRoomStay(
+            OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay roomStay,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @Mapping(target = "mealPlanIndicator", source = "mealsIncluded.mealPlanIndicator")
     @Mapping(target = "mealPlanCodes", source = "mealsIncluded.mealPlanCodes")
     @Mapping(target = "commissionPercent", source = "commission.percent")
     @Mapping(target = "commissionAmount", source = "commission.commissionPayableAmount.amount")
     @Mapping(target = "commissionCurrencyCode", source = "commission.commissionPayableAmount.currencyCode")
-    RatePlan toRatePlan(OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays
-                                .RoomStay.RatePlans.RatePlan ratePlan);
+    RatePlan toRatePlan(
+            OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay.RatePlans.RatePlan ratePlan,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @Mapping(target = "earliestDate", source = "startDateWindow.earliestDate")
     @Mapping(target = "latestDate", source = "startDateWindow.latestDate")
     @Mapping(target = "duration", ignore = true)
-    TimeSpan toTimeSpan(OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays
-                                .RoomStay.TimeSpan timeSpan);
+    TimeSpan toTimeSpan(
+            OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay.TimeSpan timeSpan,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @Mapping(target = "cardNumberPlain", source = "cardNumber.plainText")
     @Mapping(target = "encryptedValue", source = "cardNumber.encryptedValue")
     @Mapping(target = "encryptionMethod", source = "cardNumber.encryptionMethod")
-    PaymentCard toPaymentCard(OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays
-                                      .RoomStay.Guarantee.GuaranteesAccepted.GuaranteeAccepted.PaymentCard paymentCard);
+    PaymentCard toPaymentCard(
+            OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays
+                    .RoomStay.Guarantee.GuaranteesAccepted.GuaranteeAccepted.PaymentCard paymentCard,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx);
 
     @AfterMapping
-    default void updateTimeSpan(@MappingTarget TimeSpan timeSpan, OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay.TimeSpan ota) {
+    default void updateTimeSpan(
+            @MappingTarget TimeSpan timeSpan,
+            OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay.TimeSpan ota,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         if (ota.getDuration() != null) {
             if (ota.getDuration().length() < 3) {
                 throw new MappingException("Could not parse duration " + ota.getDuration(), 400);
@@ -68,21 +82,36 @@ public interface RoomStayMapper {
     }
 
     @InheritInverseConfiguration
-    OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay toOTARoomStay(RoomStay roomStay);
+    OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay toOTARoomStay(
+            RoomStay roomStay,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @InheritInverseConfiguration
     OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays
-            .RoomStay.Guarantee.GuaranteesAccepted.GuaranteeAccepted.PaymentCard toOTAPaymentCard(PaymentCard paymentCard);
+            .RoomStay.Guarantee.GuaranteesAccepted.GuaranteeAccepted.PaymentCard toOTAPaymentCard(
+            PaymentCard paymentCard,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @InheritInverseConfiguration
-    OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay.TimeSpan toOTATimeSpan(TimeSpan timeSpan);
+    OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay.TimeSpan toOTATimeSpan(
+            TimeSpan timeSpan,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @InheritInverseConfiguration
-    OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay.RatePlans.RatePlan toOTARatePlan(RatePlan ratePlan);
+    OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay.RatePlans.RatePlan toOTARatePlan(
+            RatePlan ratePlan,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @AfterMapping
-    default void updateOTACommission(@MappingTarget OTAResRetrieveRS.ReservationsList.HotelReservation
-            .RoomStays.RoomStay.RatePlans.RatePlan ota, RatePlan ratePlan) {
+    default void updateOTACommission(
+            @MappingTarget OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay.RatePlans.RatePlan ota,
+            RatePlan ratePlan,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         if (ratePlan.getCommissionPercent() == null
                 && ratePlan.getCommissionAmount() == null
                 && ratePlan.getCommissionCurrencyCode() == null) {
@@ -94,7 +123,11 @@ public interface RoomStayMapper {
     }
 
     @AfterMapping
-    default void updateOTATimeSpan(@MappingTarget OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay.TimeSpan ota, TimeSpan timeSpan) {
+    default void updateOTATimeSpan(
+            @MappingTarget OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay.TimeSpan ota,
+            TimeSpan timeSpan,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         if (timeSpan.getStart() != null || timeSpan.getEnd() != null) {
             ota.setStartDateWindow(null);
         }
@@ -104,21 +137,33 @@ public interface RoomStayMapper {
     }
 
     @AfterMapping
-    default void updateOTARoomStayGuarantee(@MappingTarget OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay ota, RoomStay roomStay) {
+    default void updateOTARoomStayGuarantee(
+            @MappingTarget OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay ota,
+            RoomStay roomStay,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         if (roomStay.getPaymentCard() == null) {
             ota.setGuarantee(null);
         }
     }
 
     @AfterMapping
-    default void updateOTARoomStayRatePlan(@MappingTarget OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay ota, RoomStay roomStay) {
+    default void updateOTARoomStayRatePlan(
+            @MappingTarget OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay ota,
+            RoomStay roomStay,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         if (roomStay.getRatePlan() == null) {
             ota.setRatePlans(null);
         }
     }
 
     @AfterMapping
-    default void updateOTARoomStayTotal(@MappingTarget OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay ota, RoomStay roomStay) {
+    default void updateOTARoomStayTotal(
+            @MappingTarget OTAResRetrieveRS.ReservationsList.HotelReservation.RoomStays.RoomStay ota,
+            RoomStay roomStay,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         if (roomStay.getAmountAfterTax() == null && roomStay.getCurrencyCode() == null) {
             ota.setTotal(null);
         }

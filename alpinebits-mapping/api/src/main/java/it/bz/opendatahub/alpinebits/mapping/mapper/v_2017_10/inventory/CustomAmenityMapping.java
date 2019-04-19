@@ -7,6 +7,7 @@
 package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.inventory;
 
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ;
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 
 import java.math.BigInteger;
@@ -26,14 +27,17 @@ import java.math.BigInteger;
 )
 public interface CustomAmenityMapping {
 
-    default Integer toRoomAmenityCode(OTAHotelDescriptiveContentNotifRQ
-                                              .HotelDescriptiveContents
-                                              .HotelDescriptiveContent
-                                              .FacilityInfo
-                                              .GuestRooms
-                                              .GuestRoom
-                                              .Amenities
-                                              .Amenity amenity) {
+    default Integer toRoomAmenityCode(
+            OTAHotelDescriptiveContentNotifRQ
+                    .HotelDescriptiveContents
+                    .HotelDescriptiveContent
+                    .FacilityInfo
+                    .GuestRooms
+                    .GuestRoom
+                    .Amenities
+                    .Amenity amenity,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         return amenity.getRoomAmenityCode().intValue();
     }
 
@@ -44,7 +48,10 @@ public interface CustomAmenityMapping {
             .GuestRooms
             .GuestRoom
             .Amenities
-            .Amenity toOTAAmenity(Integer amenityCode) {
+            .Amenity toOTAAmenity(
+            Integer amenityCode,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         OTAHotelDescriptiveContentNotifRQ
                 .HotelDescriptiveContents
                 .HotelDescriptiveContent

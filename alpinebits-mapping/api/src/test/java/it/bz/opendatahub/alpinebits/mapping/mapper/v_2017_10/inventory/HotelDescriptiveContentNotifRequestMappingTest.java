@@ -37,6 +37,10 @@ public class HotelDescriptiveContentNotifRequestMappingTest {
                 {"Inventory-OTA_HotelDescriptiveContentNotifRQ.xml"},
                 {"Inventory-OTA_HotelDescriptiveContentNotifRQ-delete-all.xml"},
                 {"Inventory-OTA_HotelDescriptiveContentNotifRQ-hotelinfo.xml"},
+                {"Inventory-OTA_HotelDescriptiveContentNotifRQ-hotelinfo_affiliation_info.xml"},
+                {"Inventory-OTA_HotelDescriptiveContentNotifRQ-hotelinfo_contact_info.xml"},
+                {"Inventory-OTA_HotelDescriptiveContentNotifRQ-hotelinfo_hotel_info.xml"},
+                {"Inventory-OTA_HotelDescriptiveContentNotifRQ-hotelinfo_policies.xml"},
         };
     }
 
@@ -53,20 +57,27 @@ public class HotelDescriptiveContentNotifRequestMappingTest {
 
         HotelDescriptiveContentNotifRequest hotelDescriptiveContentNotifRequest =
                 InventoryMapperInstances.HOTEL_DESCRIPTIVE_CONTENT_NOTIF_REQUEST_MAPPER
-                        .toHotelDescriptiveContentNotifRequest(otaHotelDescriptiveContentNotifRQ);
+                        .toHotelDescriptiveContentNotifRequest(otaHotelDescriptiveContentNotifRQ, null);
         assertNotNull(hotelDescriptiveContentNotifRequest);
 
         OTAHotelDescriptiveContentNotifRQ otaHotelDescriptiveContentNotifRQ2 =
                 InventoryMapperInstances.HOTEL_DESCRIPTIVE_CONTENT_NOTIF_REQUEST_MAPPER
-                        .toOTAHotelDescriptiveContentNotifRQ(hotelDescriptiveContentNotifRequest);
+                        .toOTAHotelDescriptiveContentNotifRQ(hotelDescriptiveContentNotifRequest, null);
         assertNotNull(otaHotelDescriptiveContentNotifRQ2);
 
         HotelDescriptiveContentNotifRequest hotelDescriptiveContentNotifRequest2 =
                 InventoryMapperInstances.HOTEL_DESCRIPTIVE_CONTENT_NOTIF_REQUEST_MAPPER
-                        .toHotelDescriptiveContentNotifRequest(otaHotelDescriptiveContentNotifRQ2);
+                        .toHotelDescriptiveContentNotifRequest(otaHotelDescriptiveContentNotifRQ2, null);
         assertNotNull(hotelDescriptiveContentNotifRequest2);
 
-        assertEquals(hotelDescriptiveContentNotifRequest2.toString(), hotelDescriptiveContentNotifRequest.toString());
+        // Convert HotelDescriptiveContentNotifRequest to string for comparison
+        // The strings should be the same, except for instance identity of OTA extensions
+        // (e.g. it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.AffiliationInfoType@1d0f7bcf)
+        // Therefor, the identity is removed
+        String hdcnRequest = hotelDescriptiveContentNotifRequest.toString().replaceAll("@[0-9a-f]*", "");
+        String hdcnRequest2 = hotelDescriptiveContentNotifRequest2.toString().replaceAll("@[0-9a-f]*", "");
+
+        assertEquals(hdcnRequest2, hdcnRequest);
 
         ObjectToXmlConverter<OTAHotelDescriptiveContentNotifRQ> toObjectConverter = this.validatingObjectToXmlConverter(
                 OTAHotelDescriptiveContentNotifRQ.class, schema);

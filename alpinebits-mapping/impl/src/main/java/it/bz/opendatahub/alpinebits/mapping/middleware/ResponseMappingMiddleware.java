@@ -11,7 +11,7 @@ import it.bz.opendatahub.alpinebits.middleware.Key;
 import it.bz.opendatahub.alpinebits.middleware.Middleware;
 import it.bz.opendatahub.alpinebits.middleware.MiddlewareChain;
 
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 /**
  * This {@link Middleware} applies a given mapping function onto
@@ -31,9 +31,9 @@ public class ResponseMappingMiddleware<S, T> implements Middleware {
 
     private final Key<S> sourceKey;
     private final Key<T> targetKey;
-    private final Function<S, T> mappingFunction;
+    private final BiFunction<S, Context, T> mappingFunction;
 
-    public ResponseMappingMiddleware(Key<S> sourceKey, Key<T> targetKey, Function<S, T> mappingFunction) {
+    public ResponseMappingMiddleware(Key<S> sourceKey, Key<T> targetKey, BiFunction<S, Context, T> mappingFunction) {
         this.sourceKey = sourceKey;
         this.targetKey = targetKey;
         this.mappingFunction = mappingFunction;
@@ -44,7 +44,8 @@ public class ResponseMappingMiddleware<S, T> implements Middleware {
         chain.next();
 
         S sourceData = ctx.getOrThrow(this.sourceKey);
-        T targetData = this.mappingFunction.apply(sourceData);
+        T targetData = this.mappingFunction.apply(sourceData, ctx);
+
         ctx.put(this.targetKey, targetData);
     }
 

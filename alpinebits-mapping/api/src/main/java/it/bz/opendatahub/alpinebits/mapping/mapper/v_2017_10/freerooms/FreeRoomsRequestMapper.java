@@ -8,6 +8,7 @@ package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.freerooms;
 
 import it.bz.opendatahub.alpinebits.mapping.entity.freerooms.FreeRoomsRequest;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRQ;
+import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -29,11 +30,17 @@ public interface FreeRoomsRequestMapper {
     @Mapping(target = "hotelName", source = "availStatusMessages.hotelName")
     @Mapping(target = "uniqueId", source = "uniqueID")
     @Mapping(target = "availStatuses", source = "availStatusMessages.availStatusMessages")
-    FreeRoomsRequest toFreeRoomsRequest(OTAHotelAvailNotifRQ otaHotelAvailNotifRQ);
+    FreeRoomsRequest toFreeRoomsRequest(
+            OTAHotelAvailNotifRQ otaHotelAvailNotifRQ,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @InheritInverseConfiguration
     @Mapping(target = "version", constant = "1.002")
     @Mapping(target = "timeStamp", ignore = true)
-    OTAHotelAvailNotifRQ toOTAHotelAvailNotifRQ(FreeRoomsRequest freeRoomsRequest);
+    OTAHotelAvailNotifRQ toOTAHotelAvailNotifRQ(
+            FreeRoomsRequest freeRoomsRequest,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
 }

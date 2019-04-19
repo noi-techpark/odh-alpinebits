@@ -8,6 +8,7 @@ package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.common;
 
 import it.bz.opendatahub.alpinebits.mapping.entity.Warning;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRS;
+import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -20,9 +21,15 @@ import org.mapstruct.Mapping;
 public interface WarningMapper {
 
     @Mapping(target = "recordId", source = "recordID")
-    Warning toWarning(OTAHotelAvailNotifRS.Warnings.Warning warning);
+    Warning toWarning(
+            OTAHotelAvailNotifRS.Warnings.Warning warning,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @InheritInverseConfiguration
-    OTAHotelAvailNotifRS.Warnings.Warning toOTAWarning(Warning warning);
+    OTAHotelAvailNotifRS.Warnings.Warning toOTAWarning(
+            Warning warning,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
 }

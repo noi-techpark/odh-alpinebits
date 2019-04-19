@@ -32,7 +32,7 @@ public class ResponseMappingMiddlewareTest {
         Context ctx = new SimpleContext();
         ctx.put(SOURCE_KEY, source);
 
-        Middleware middleware = new ResponseMappingMiddleware<>(SOURCE_KEY, TARGET_KEY, integer -> integer.toString());
+        Middleware middleware = new ResponseMappingMiddleware<>(SOURCE_KEY, TARGET_KEY, (integer, context) -> integer.toString());
 
         middleware.handleContext(ctx, () -> {
             Optional<String> target = ctx.get(TARGET_KEY);

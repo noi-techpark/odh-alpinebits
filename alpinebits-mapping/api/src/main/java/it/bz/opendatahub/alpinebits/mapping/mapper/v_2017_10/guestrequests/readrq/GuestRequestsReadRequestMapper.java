@@ -8,6 +8,7 @@ package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.guestrequests.read
 
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.readrq.GuestRequestsReadRequest;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAReadRQ;
+import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -23,11 +24,17 @@ public interface GuestRequestsReadRequestMapper {
     @Mapping(target = "hotelCode", source = "readRequests.hotelReadRequest.hotelCode")
     @Mapping(target = "hotelName", source = "readRequests.hotelReadRequest.hotelName")
     @Mapping(target = "start", source = "readRequests.hotelReadRequest.selectionCriteria.start")
-    GuestRequestsReadRequest toRequestResult(OTAReadRQ otaReadRQ);
+    GuestRequestsReadRequest toRequestResult(
+            OTAReadRQ otaReadRQ,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @InheritInverseConfiguration
     @Mapping(target = "version", constant = "1.001")
     @Mapping(target = "timeStamp", ignore = true)
-    OTAReadRQ toOTAReadRQ(GuestRequestsReadRequest guestRequestsReadRequest);
+    OTAReadRQ toOTAReadRQ(
+            GuestRequestsReadRequest guestRequestsReadRequest,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
 }

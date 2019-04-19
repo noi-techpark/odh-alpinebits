@@ -9,6 +9,7 @@ package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.guestrequests.resr
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.resretrievers.Customer;
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.resretrievers.Gender;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAResRetrieveRS;
+import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -26,17 +27,28 @@ public interface CustomerMapper {
     @Mapping(target = "nameTitle", source = "personName.nameTitle")
     @Mapping(target = "email.email", source = "email.value")
     @Mapping(target = "address.countryNameCode", source = "address.countryName.code")
-    Customer toCustomer(OTAResRetrieveRS.ReservationsList.HotelReservation.ResGuests.ResGuest.Profiles.ProfileInfo.Profile.Customer customer);
+    Customer toCustomer(
+            OTAResRetrieveRS.ReservationsList.HotelReservation.ResGuests.ResGuest.Profiles.ProfileInfo.Profile.Customer customer,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @InheritInverseConfiguration
-    OTAResRetrieveRS.ReservationsList.HotelReservation.ResGuests
-            .ResGuest.Profiles.ProfileInfo.Profile.Customer toOTACustomer(Customer customer);
+    OTAResRetrieveRS.ReservationsList.HotelReservation.ResGuests.ResGuest.Profiles.ProfileInfo.Profile.Customer toOTACustomer(
+            Customer customer,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
-    default Gender stringToGender(String s) {
+    default Gender stringToGender(
+            String s,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         return Gender.fromString(s);
     }
 
-    default String genderToString(Gender gender) {
+    default String genderToString(
+            Gender gender,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         return gender == null ? null : gender.toString();
     }
 }

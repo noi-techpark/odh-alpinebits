@@ -54,17 +54,17 @@ public class HotelDescriptiveContentNotifResponseMappingTest {
 
         GenericResponse genericResponse =
                 InventoryMapperInstances.HOTEL_DESCRIPTIVE_CONTENT_NOTIF_RESPONSE_MAPPER
-                        .toGenericResponse(otaHotelDescriptiveContentNotifRS);
+                        .toGenericResponse(otaHotelDescriptiveContentNotifRS, null);
         assertNotNull(genericResponse);
 
         OTAHotelDescriptiveContentNotifRS otaHotelDescriptiveContentNotifRS2 =
                 InventoryMapperInstances.HOTEL_DESCRIPTIVE_CONTENT_NOTIF_RESPONSE_MAPPER
-                        .toOTAHotelDescriptiveContentNotifRS(genericResponse);
+                        .toOTAHotelDescriptiveContentNotifRS(genericResponse, null);
         assertNotNull(otaHotelDescriptiveContentNotifRS2);
 
         GenericResponse genericResponse2 =
                 InventoryMapperInstances.HOTEL_DESCRIPTIVE_CONTENT_NOTIF_RESPONSE_MAPPER
-                        .toGenericResponse(otaHotelDescriptiveContentNotifRS2);
+                        .toGenericResponse(otaHotelDescriptiveContentNotifRS2, null);
         assertNotNull(genericResponse2);
 
         assertEquals(genericResponse2.toString(), genericResponse.toString());

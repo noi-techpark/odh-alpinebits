@@ -26,6 +26,10 @@
             <artifactId>alpinebits-xml-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <artifactId>ota-extension-impl</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-jdk8</artifactId>
         </dependency>
@@ -33,7 +37,13 @@
         <!-- testing -->
         <dependency>
             <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <artifactId>alpinebits-middleware-impl</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-xml-impl</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

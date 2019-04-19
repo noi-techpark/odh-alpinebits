@@ -10,6 +10,7 @@ import it.bz.opendatahub.alpinebits.mapping.entity.inventory.HotelDescriptiveInf
 import it.bz.opendatahub.alpinebits.mapping.utils.CollectionUtils;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveInfoRS;
 import org.mapstruct.AfterMapping;
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
@@ -26,7 +27,8 @@ public interface AfterHotelDescriptiveInfoResponseMapping {
     @AfterMapping
     default void updateOTAHotelDescriptiveInfoRS(
             @MappingTarget OTAHotelDescriptiveInfoRS ota,
-            HotelDescriptiveInfoResponse hotelDescriptiveInfoResponse
+            HotelDescriptiveInfoResponse hotelDescriptiveInfoResponse,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
     ) {
         if (ota.getErrors() != null && CollectionUtils.isNullOrEmpty(ota.getErrors().getErrors())) {
             ota.setErrors(null);
@@ -36,8 +38,8 @@ public interface AfterHotelDescriptiveInfoResponseMapping {
     @AfterMapping
     default void updateHotelDescriptiveInfoResponse(
             @MappingTarget HotelDescriptiveInfoResponse hotelDescriptiveInfoResponse,
-            OTAHotelDescriptiveInfoRS ota
-
+            OTAHotelDescriptiveInfoRS ota,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
     ) {
         if (hotelDescriptiveInfoResponse.getErrors() == null) {
             hotelDescriptiveInfoResponse.setErrors(new ArrayList<>());

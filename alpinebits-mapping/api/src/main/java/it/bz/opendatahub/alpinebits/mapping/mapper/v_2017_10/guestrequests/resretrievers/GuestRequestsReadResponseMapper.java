@@ -9,6 +9,7 @@ package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.guestrequests.resr
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.resretrievers.GuestRequestsReadResponse;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAResRetrieveRS;
 import org.mapstruct.AfterMapping;
+import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -23,25 +24,43 @@ public interface GuestRequestsReadResponseMapper {
 
     @Mapping(target = "errors", source = "errors.errors")
     @Mapping(target = "hotelReservations", source = "reservationsList.hotelReservations")
-    GuestRequestsReadResponse toHotelReservationReadResult(OTAResRetrieveRS otaResRetrieveRS);
+    GuestRequestsReadResponse toHotelReservationReadResult(
+            OTAResRetrieveRS otaResRetrieveRS,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @AfterMapping
-    default void checkAndSetLists(@MappingTarget GuestRequestsReadResponse readResult, OTAResRetrieveRS ota) {
+    default void checkAndSetLists(
+            @MappingTarget GuestRequestsReadResponse readResult,
+            OTAResRetrieveRS ota,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         ListInitializer.checkAndSetLists(readResult);
     }
 
     @InheritInverseConfiguration
     @Mapping(target = "version", constant = "7.000")
     @Mapping(target = "timeStamp", ignore = true)
-    OTAResRetrieveRS toOTAResRetrieveRS(GuestRequestsReadResponse readResult);
+    OTAResRetrieveRS toOTAResRetrieveRS(
+            GuestRequestsReadResponse readResult,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @AfterMapping
-    default void checkAndRemoveOTAParents(@MappingTarget OTAResRetrieveRS ota, GuestRequestsReadResponse readResult) {
+    default void checkAndRemoveOTAParents(
+            @MappingTarget OTAResRetrieveRS ota,
+            GuestRequestsReadResponse readResult,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         ListParentCleaner.checkAndRemoveOTAParents(ota);
     }
 
     @AfterMapping
-    default void removeOTAReservationListOnError(@MappingTarget OTAResRetrieveRS ota, GuestRequestsReadResponse readResult) {
+    default void removeOTAReservationListOnError(
+            @MappingTarget OTAResRetrieveRS ota,
+            GuestRequestsReadResponse readResult,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         if (ota.getErrors() != null) {
             ota.setReservationsList(null);
         }

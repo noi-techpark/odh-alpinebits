@@ -211,6 +211,14 @@ quality. Run the following command:
 ```bash
 mvn clean verify sonar:sonar -P it,report
 ```
+
+## Generate source JARs
+
+To generate the source JARs, use the `sources` maven profile, e.g. run the following command:
+
+```
+mvn clean install -P sources
+```
  
 ## Deployment
 

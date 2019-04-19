@@ -8,6 +8,7 @@ package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.inventory;
 
 import it.bz.opendatahub.alpinebits.mapping.entity.inventory.TextItemDescription;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ;
+import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 
@@ -18,17 +19,20 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface TextItemDescriptionMapper {
 
-    TextItemDescription toTextItemDescription(OTAHotelDescriptiveContentNotifRQ
-                                                      .HotelDescriptiveContents
-                                                      .HotelDescriptiveContent
-                                                      .FacilityInfo
-                                                      .GuestRooms
-                                                      .GuestRoom
-                                                      .MultimediaDescriptions
-                                                      .MultimediaDescription
-                                                      .TextItems
-                                                      .TextItem
-                                                      .Description description);
+    TextItemDescription toTextItemDescription(
+            OTAHotelDescriptiveContentNotifRQ
+                    .HotelDescriptiveContents
+                    .HotelDescriptiveContent
+                    .FacilityInfo
+                    .GuestRooms
+                    .GuestRoom
+                    .MultimediaDescriptions
+                    .MultimediaDescription
+                    .TextItems
+                    .TextItem
+                    .Description description,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @InheritInverseConfiguration
     OTAHotelDescriptiveContentNotifRQ
@@ -41,6 +45,9 @@ public interface TextItemDescriptionMapper {
             .MultimediaDescription
             .TextItems
             .TextItem
-            .Description toOTATextItemDescription(TextItemDescription textItemDescription);
+            .Description toOTATextItemDescription(
+            TextItemDescription textItemDescription,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
 }

@@ -53,15 +53,15 @@ public class FreeRoomsResponseMappingTest {
         OTAHotelAvailNotifRS otaHotelAvailNotifRS = converter.toObject(inputXmlStream);
 
         GenericResponse genericResponse = FreeRoomsMapperInstances.FREE_ROOMS_RESPONSE_MAPPER
-                .toGenericResponse(otaHotelAvailNotifRS);
+                .toGenericResponse(otaHotelAvailNotifRS, null);
         assertNotNull(genericResponse);
 
         OTAHotelAvailNotifRS otaHotelAvailNotifRS2 = FreeRoomsMapperInstances.FREE_ROOMS_RESPONSE_MAPPER
-                .toOTAHotelAvailNotifRS(genericResponse);
+                .toOTAHotelAvailNotifRS(genericResponse, null);
         assertNotNull(otaHotelAvailNotifRS2);
 
         GenericResponse genericResponse2 = FreeRoomsMapperInstances.FREE_ROOMS_RESPONSE_MAPPER
-                .toGenericResponse(otaHotelAvailNotifRS2);
+                .toGenericResponse(otaHotelAvailNotifRS2, null);
         assertNotNull(genericResponse2);
 
         assertEquals(genericResponse2.toString(), genericResponse.toString());

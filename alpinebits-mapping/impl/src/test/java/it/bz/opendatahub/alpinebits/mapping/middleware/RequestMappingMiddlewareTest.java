@@ -29,7 +29,7 @@ public class RequestMappingMiddlewareTest {
         Context ctx = new SimpleContext();
         ctx.put(SOURCE_KEY, source);
 
-        Middleware middleware = new RequestMappingMiddleware<>(SOURCE_KEY, TARGET_KEY, integer -> integer.toString());
+        Middleware middleware = new RequestMappingMiddleware<>(SOURCE_KEY, TARGET_KEY, (integer, context) -> integer.toString());
 
         middleware.handleContext(ctx, () -> {
             String target = ctx.getOrThrow(TARGET_KEY);

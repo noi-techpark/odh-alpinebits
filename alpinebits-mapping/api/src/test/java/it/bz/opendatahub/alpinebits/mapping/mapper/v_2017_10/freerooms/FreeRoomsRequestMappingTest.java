@@ -51,15 +51,15 @@ public class FreeRoomsRequestMappingTest {
         OTAHotelAvailNotifRQ otaHotelAvailNotifRQ = converter.toObject(inputXmlStream);
 
         FreeRoomsRequest freeRoomsRequest = FreeRoomsMapperInstances.FREE_ROOMS_REQUEST_MAPPER
-                .toFreeRoomsRequest(otaHotelAvailNotifRQ);
+                .toFreeRoomsRequest(otaHotelAvailNotifRQ, null);
         assertNotNull(freeRoomsRequest);
 
         OTAHotelAvailNotifRQ otaHotelAvailNotifRQ2 = FreeRoomsMapperInstances.FREE_ROOMS_REQUEST_MAPPER
-                .toOTAHotelAvailNotifRQ(freeRoomsRequest);
+                .toOTAHotelAvailNotifRQ(freeRoomsRequest, null);
         assertNotNull(otaHotelAvailNotifRQ2);
 
         FreeRoomsRequest freeRoomsRequest2 = FreeRoomsMapperInstances.FREE_ROOMS_REQUEST_MAPPER
-                .toFreeRoomsRequest(otaHotelAvailNotifRQ2);
+                .toFreeRoomsRequest(otaHotelAvailNotifRQ2, null);
         assertNotNull(freeRoomsRequest2);
 
         assertEquals(freeRoomsRequest2.toString(), freeRoomsRequest.toString());

@@ -23,6 +23,7 @@
         <module>alpinebits-xml</module>
         <module>build-tools</module>
         <module>examples</module>
+        <module>ota-extension</module>
     </modules>
 
     <properties>
@@ -243,6 +244,16 @@
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>examples-inventory</artifactId>
+                <version>0.5.0</version>
+            </dependency>
+            <dependency>
+                <groupId>it.bz.opendatahub.alpinebits</groupId>
+                <artifactId>ota-extension-api</artifactId>
+                <version>0.5.0</version>
+            </dependency>
+            <dependency>
+                <groupId>it.bz.opendatahub.alpinebits</groupId>
+                <artifactId>ota-extension-impl</artifactId>
                 <version>0.5.0</version>
             </dependency>
 

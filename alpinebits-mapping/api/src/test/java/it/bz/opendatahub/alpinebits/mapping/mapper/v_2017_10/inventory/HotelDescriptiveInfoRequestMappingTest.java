@@ -52,17 +52,17 @@ public class HotelDescriptiveInfoRequestMappingTest {
 
         HotelDescriptiveInfoRequest hotelDescriptiveInfoRequest =
                 InventoryMapperInstances.HOTEL_DESCRIPTIVE_INFO_REQUEST_MAPPER
-                        .toHotelDescriptiveInfoRequest(otaHotelDescriptiveInfoRQ);
+                        .toHotelDescriptiveInfoRequest(otaHotelDescriptiveInfoRQ, null);
         assertNotNull(hotelDescriptiveInfoRequest);
 
         OTAHotelDescriptiveInfoRQ otaHotelDescriptiveInfoRQ2 =
                 InventoryMapperInstances.HOTEL_DESCRIPTIVE_INFO_REQUEST_MAPPER
-                        .toOTAHotelDescriptiveInfoRQ(hotelDescriptiveInfoRequest);
+                        .toOTAHotelDescriptiveInfoRQ(hotelDescriptiveInfoRequest, null);
         assertNotNull(otaHotelDescriptiveInfoRQ2);
 
         HotelDescriptiveInfoRequest hotelDescriptiveInfoRequest2 =
                 InventoryMapperInstances.HOTEL_DESCRIPTIVE_INFO_REQUEST_MAPPER
-                        .toHotelDescriptiveInfoRequest(otaHotelDescriptiveInfoRQ2);
+                        .toHotelDescriptiveInfoRequest(otaHotelDescriptiveInfoRQ2, null);
         assertNotNull(hotelDescriptiveInfoRequest2);
 
         assertEquals(hotelDescriptiveInfoRequest2.toString(), hotelDescriptiveInfoRequest.toString());

@@ -10,6 +10,7 @@ import it.bz.opendatahub.alpinebits.mapping.entity.GenericResponse;
 import it.bz.opendatahub.alpinebits.mapping.utils.CollectionUtils;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRS;
 import org.mapstruct.AfterMapping;
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
@@ -26,7 +27,8 @@ public interface AfterHotelDescriptiveContentNotifResponseMapping {
     @AfterMapping
     default void updateOTAHotelDescriptiveContentNotifRS(
             @MappingTarget OTAHotelDescriptiveContentNotifRS ota,
-            GenericResponse genericResponse
+            GenericResponse genericResponse,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
     ) {
         if (ota.getErrors() != null && CollectionUtils.isNullOrEmpty(ota.getErrors().getErrors())) {
             ota.setErrors(null);
@@ -39,7 +41,8 @@ public interface AfterHotelDescriptiveContentNotifResponseMapping {
     @AfterMapping
     default void updateHotelDescriptiveContentNotifResponse(
             @MappingTarget GenericResponse genericResponse,
-            OTAHotelDescriptiveContentNotifRS ota
+            OTAHotelDescriptiveContentNotifRS ota,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
 
     ) {
         if (genericResponse.getErrors() == null) {

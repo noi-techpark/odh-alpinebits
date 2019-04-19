@@ -11,6 +11,7 @@ import it.bz.opendatahub.alpinebits.mapping.entity.freerooms.FreeRoomsRequest;
 import it.bz.opendatahub.alpinebits.mapping.utils.CollectionUtils;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRQ;
 import org.mapstruct.AfterMapping;
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
@@ -25,7 +26,8 @@ public abstract class AfterFreeRoomsRequestMapping {
     @AfterMapping
     public void updateOTAHotelDescriptiveContentNotifRS(
             @MappingTarget OTAHotelAvailNotifRQ ota,
-            FreeRoomsRequest freeRoomsRequest
+            FreeRoomsRequest freeRoomsRequest,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
     ) {
         if (ota.getAvailStatusMessages() != null
             && CollectionUtils.isNullOrEmpty(ota.getAvailStatusMessages().getAvailStatusMessages())
@@ -37,7 +39,8 @@ public abstract class AfterFreeRoomsRequestMapping {
     @AfterMapping
     public void updateHotelDescriptiveContentNotifResponse(
             @MappingTarget FreeRoomsRequest freeRoomsRequest,
-            OTAHotelAvailNotifRQ ota
+            OTAHotelAvailNotifRQ ota,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
     ) {
         if (freeRoomsRequest.getAvailStatuses() != null
                 && freeRoomsRequest.getAvailStatuses().size() == 1

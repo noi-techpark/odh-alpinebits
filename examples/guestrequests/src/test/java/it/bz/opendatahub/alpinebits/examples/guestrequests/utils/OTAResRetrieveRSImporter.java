@@ -78,7 +78,7 @@ public class OTAResRetrieveRSImporter {
         InputStream is = Files.newInputStream(path);
         OTAResRetrieveRS otaResRetrieveRS = converter.toObject(is);
         GuestRequestsReadResponse guestRequestsReadResponse =
-                GuestRequestsMapperInstances.HOTEL_RESERVATION_READ_RESPONSE_MAPPER.toHotelReservationReadResult(otaResRetrieveRS);
+                GuestRequestsMapperInstances.HOTEL_RESERVATION_READ_RESPONSE_MAPPER.toHotelReservationReadResult(otaResRetrieveRS, null);
         return guestRequestsReadResponse.getHotelReservations();
     }
 

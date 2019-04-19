@@ -19,7 +19,15 @@
     <dependencies>
         <dependency>
             <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <artifactId>alpinebits-common-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-middleware-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <artifactId>alpinebits-xml-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

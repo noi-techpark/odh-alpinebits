@@ -50,15 +50,15 @@ public class GuestRequestsConfirmationResponseMappingTest {
         OTANotifReportRS otaNotifReportRS = converter.toObject(inputXmlStream);
 
         GuestRequestsConfirmationResponse guestRequestsConfirmationResponse =
-                GuestRequestsMapperInstances.HOTEL_RESERVATION_CONFIRMATION_RESPONSE_MAPPER.toHotelReservationConfirmationResponse(otaNotifReportRS);
+                GuestRequestsMapperInstances.HOTEL_RESERVATION_CONFIRMATION_RESPONSE_MAPPER.toHotelReservationConfirmationResponse(otaNotifReportRS, null);
         assertNotNull(guestRequestsConfirmationResponse);
 
         OTANotifReportRS otaNotifReportRS2 =
-                GuestRequestsMapperInstances.HOTEL_RESERVATION_CONFIRMATION_RESPONSE_MAPPER.toOTANotifReportRS(guestRequestsConfirmationResponse);
+                GuestRequestsMapperInstances.HOTEL_RESERVATION_CONFIRMATION_RESPONSE_MAPPER.toOTANotifReportRS(guestRequestsConfirmationResponse, null);
         assertNotNull(otaNotifReportRS2);
 
         GuestRequestsConfirmationResponse guestRequestsConfirmationResponse2 =
-                GuestRequestsMapperInstances.HOTEL_RESERVATION_CONFIRMATION_RESPONSE_MAPPER.toHotelReservationConfirmationResponse(otaNotifReportRS2);
+                GuestRequestsMapperInstances.HOTEL_RESERVATION_CONFIRMATION_RESPONSE_MAPPER.toHotelReservationConfirmationResponse(otaNotifReportRS2, null);
         assertNotNull(guestRequestsConfirmationResponse2);
 
         assertEquals(guestRequestsConfirmationResponse2.toString(), guestRequestsConfirmationResponse.toString());

@@ -53,15 +53,15 @@ public class GuestRequestsReadResponseMappingTest {
         OTAResRetrieveRS otaResRetrieveRS = converter.toObject(inputXmlStream);
 
         GuestRequestsReadResponse guestRequestsReadResponse =
-                GuestRequestsMapperInstances.HOTEL_RESERVATION_READ_RESPONSE_MAPPER.toHotelReservationReadResult(otaResRetrieveRS);
+                GuestRequestsMapperInstances.HOTEL_RESERVATION_READ_RESPONSE_MAPPER.toHotelReservationReadResult(otaResRetrieveRS, null);
         assertNotNull(guestRequestsReadResponse);
 
         OTAResRetrieveRS otaResRetrieveRS2 =
-                GuestRequestsMapperInstances.HOTEL_RESERVATION_READ_RESPONSE_MAPPER.toOTAResRetrieveRS(guestRequestsReadResponse);
+                GuestRequestsMapperInstances.HOTEL_RESERVATION_READ_RESPONSE_MAPPER.toOTAResRetrieveRS(guestRequestsReadResponse, null);
         assertNotNull(otaResRetrieveRS2);
 
         GuestRequestsReadResponse guestRequestsReadResponse2 =
-                GuestRequestsMapperInstances.HOTEL_RESERVATION_READ_RESPONSE_MAPPER.toHotelReservationReadResult(otaResRetrieveRS2);
+                GuestRequestsMapperInstances.HOTEL_RESERVATION_READ_RESPONSE_MAPPER.toHotelReservationReadResult(otaResRetrieveRS2, null);
         assertNotNull(guestRequestsReadResponse2);
 
         assertEquals(guestRequestsReadResponse2.toString(), guestRequestsReadResponse.toString());
