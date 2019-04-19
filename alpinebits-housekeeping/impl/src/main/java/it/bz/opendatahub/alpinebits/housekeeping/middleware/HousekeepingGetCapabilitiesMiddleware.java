@@ -17,7 +17,7 @@ import it.bz.opendatahub.alpinebits.routing.RouterContextKey;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -45,7 +45,7 @@ public class HousekeepingGetCapabilitiesMiddleware implements Middleware {
 
         String responseMessage = "OK:" + String.join(",", capabilities);
         try {
-            os.write(responseMessage.getBytes(Charset.forName("UTF-8")));
+            os.write(responseMessage.getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
             throw new HousekeepingWriteException(
                     "Error while writing Housekeeping response. Response message" +
