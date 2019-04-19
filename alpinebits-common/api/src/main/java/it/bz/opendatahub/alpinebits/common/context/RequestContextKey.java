@@ -41,7 +41,7 @@ public final class RequestContextKey {
     );
 
     /**
-     * Context key for HTTP Basic Authentication password.
+     * Context key for AlpineBits version.
      */
     public static final Key<String> REQUEST_VERSION = Key.key(
             "request.version", String.class
@@ -55,7 +55,7 @@ public final class RequestContextKey {
     );
 
     /**
-     * Context key for AlpineBits request content in its plain form, i.e. the XML.
+     * Context key for AlpineBits request content as an InputStream, i.e. the XML as stream.
      */
     public static final Key<InputStream> REQUEST_CONTENT_STREAM = Key.key(
             "request.content.stream", InputStream.class

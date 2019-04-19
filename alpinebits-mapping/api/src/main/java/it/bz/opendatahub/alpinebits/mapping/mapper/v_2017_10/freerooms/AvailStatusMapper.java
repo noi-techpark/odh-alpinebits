@@ -8,6 +8,7 @@ package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.freerooms;
 
 import it.bz.opendatahub.alpinebits.mapping.entity.freerooms.AvailStatus;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRQ;
+import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -23,9 +24,15 @@ public interface AvailStatusMapper {
     @Mapping(target = "end", source = "statusApplicationControl.end")
     @Mapping(target = "invTypeCode", source = "statusApplicationControl.invTypeCode")
     @Mapping(target = "invCode", source = "statusApplicationControl.invCode")
-    AvailStatus toAvailStatus(OTAHotelAvailNotifRQ.AvailStatusMessages.AvailStatusMessage availStatusMessage);
+    AvailStatus toAvailStatus(
+            OTAHotelAvailNotifRQ.AvailStatusMessages.AvailStatusMessage availStatusMessage,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @InheritInverseConfiguration
-    OTAHotelAvailNotifRQ.AvailStatusMessages.AvailStatusMessage toOTAAvailStatusMessage(AvailStatus availStatus);
+    OTAHotelAvailNotifRQ.AvailStatusMessages.AvailStatusMessage toOTAAvailStatusMessage(
+            AvailStatus availStatus,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
 }

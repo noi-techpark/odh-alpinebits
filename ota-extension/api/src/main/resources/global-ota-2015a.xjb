@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<jaxb:bindings version="2.0" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               jaxb:extensionBindingPrefixes="xjc">
+
+    <jaxb:globalBindings>
+        <xjc:simple/>
+        <xjc:javaType name="java.time.LocalDate" xmlType="xs:date"
+                      adapter="it.bz.opendatahub.alpinebits.xml.xmladapter.LocalDateAdapter"/>
+        <xjc:javaType name="java.time.ZonedDateTime" xmlType="xs:dateTime"
+                      adapter="it.bz.opendatahub.alpinebits.xml.xmladapter.ZonedDateTimeAdapter"/>
+    </jaxb:globalBindings>
+
+    <jaxb:bindings schemaLocation="./ota2015a/OTA_CommonTypes.xsd">
+        <!-- Rename the value element -->
+        <jaxb:bindings node="//xs:complexType[@name='OntologyDistanceType']">
+            <jaxb:bindings node=".//xs:attribute[@name='Value']">
+                <jaxb:property name="OfferDistanceValue"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='RequestedOffer']//xs:element[@name='EarliestStart']">
+            <jaxb:bindings node=".//xs:attribute[@name='Value']">
+                <jaxb:property name="RequestedOfferEarliestStartValue"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='RequestedOffer']//xs:element[@name='MaximumDuration']">
+            <jaxb:bindings node=".//xs:attribute[@name='Value']">
+                <jaxb:property name="RequestedOfferMaximumDurationValue"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='OntologyTimeDurationType']">
+            <jaxb:bindings node=".//xs:attribute[@name='Value']">
+                <jaxb:property name="OfferDurationValue"/>
+            </jaxb:bindings>
+        </jaxb:bindings>
+    </jaxb:bindings>
+</jaxb:bindings>

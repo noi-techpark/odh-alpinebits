@@ -8,6 +8,7 @@ package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.inventory;
 
 import it.bz.opendatahub.alpinebits.mapping.entity.inventory.GuestRoom;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ;
+import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -33,11 +34,16 @@ public interface GuestRoomMapper {
     @Mapping(target = "descriptions", ignore = true)
     @Mapping(target = "pictures", ignore = true)
     @Mapping(target = "hotelInfoPictures", ignore = true)
-    GuestRoom toGuestRoom(OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom guestRoom);
+    GuestRoom toGuestRoom(
+            OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom guestRoom,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @InheritInverseConfiguration
     @Mapping(target = "multimediaDescriptions", ignore = true)
-    OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent
-            .FacilityInfo.GuestRooms.GuestRoom toOTAGuestRoom(GuestRoom guestRoom);
+    OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom toOTAGuestRoom(
+            GuestRoom guestRoom,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
 }

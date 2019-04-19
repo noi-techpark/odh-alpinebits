@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>it.bz.opendatahub.alpinebits</groupId>
+        <artifactId>ota-extension</artifactId>
+        <version>0.6.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>ota-extension-impl</artifactId>
+    <version>0.6.0</version>
+
+    <name>OTA extension impl</name>
+
+    <properties>
+        <xmlunit.version>2.6.2</xmlunit.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <artifactId>alpinebits-common-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <artifactId>alpinebits-middleware-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <artifactId>ota-extension-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>saxon-dom</artifactId>
+            <version>8.7</version>
+        </dependency>
+
+        <!-- testing -->
+        <dependency>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <artifactId>alpinebits-xml-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.xmlunit</groupId>
+            <artifactId>xmlunit-core</artifactId>
+            <version>${xmlunit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.xmlunit</groupId>
+            <artifactId>xmlunit-matchers</artifactId>
+            <version>${xmlunit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

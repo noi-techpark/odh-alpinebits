@@ -8,6 +8,7 @@ package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.inventory;
 
 import it.bz.opendatahub.alpinebits.mapping.entity.inventory.TypeRoom;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ;
+import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -20,7 +21,10 @@ import org.mapstruct.Mapping;
 public interface TypeRoomMapper {
 
     @Mapping(target = "roomId", source = "roomID")
-    TypeRoom toTypeRoom(OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.TypeRoom typeRoom);
+    TypeRoom toTypeRoom(
+            OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.TypeRoom typeRoom,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @InheritInverseConfiguration
     OTAHotelDescriptiveContentNotifRQ
@@ -29,6 +33,9 @@ public interface TypeRoomMapper {
             .FacilityInfo
             .GuestRooms
             .GuestRoom
-            .TypeRoom toOTATypeRoom(TypeRoom typeRoom);
+            .TypeRoom toOTATypeRoom(
+            TypeRoom typeRoom,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
 }

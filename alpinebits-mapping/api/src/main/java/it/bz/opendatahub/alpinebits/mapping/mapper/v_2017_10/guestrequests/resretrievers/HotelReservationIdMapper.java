@@ -8,6 +8,7 @@ package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.guestrequests.resr
 
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.resretrievers.HotelReservationId;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAResRetrieveRS;
+import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -23,13 +24,19 @@ public interface HotelReservationIdMapper {
     @Mapping(target = "resIdValue", source = "resIDValue")
     @Mapping(target = "resIdSource", source = "resIDSource")
     @Mapping(target = "resIdSourceContext", source = "resIDSourceContext")
-    HotelReservationId toHotelReservationId(OTAResRetrieveRS
-                                                    .ReservationsList
-                                                    .HotelReservation
-                                                    .ResGlobalInfo
-                                                    .HotelReservationIDs
-                                                    .HotelReservationID hotelReservationID);
+    HotelReservationId toHotelReservationId(
+            OTAResRetrieveRS
+                    .ReservationsList
+                    .HotelReservation
+                    .ResGlobalInfo
+                    .HotelReservationIDs
+                    .HotelReservationID hotelReservationID,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
+
     @InheritInverseConfiguration
-    OTAResRetrieveRS.ReservationsList.HotelReservation.ResGlobalInfo
-            .HotelReservationIDs.HotelReservationID toOTAHotelReservationId(HotelReservationId hotelReservationId);
+    OTAResRetrieveRS.ReservationsList.HotelReservation.ResGlobalInfo.HotelReservationIDs.HotelReservationID toOTAHotelReservationId(
+            HotelReservationId hotelReservationId,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 }

@@ -11,6 +11,7 @@ import it.bz.opendatahub.alpinebits.mapping.entity.inventory.HotelDescriptiveInf
 import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.inventory.HotelDescriptiveContentMapper;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveInfoRS;
+import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -29,11 +30,17 @@ public interface HotelDescriptiveInfoResponseMapper {
 
     @Mapping(target = "hotelDescriptiveContent", source = "hotelDescriptiveContents.hotelDescriptiveContent")
     @Mapping(target = "errors", source = "errors.errors")
-    HotelDescriptiveInfoResponse toHotelDescriptiveInfoResponse(OTAHotelDescriptiveInfoRS otaHotelDescriptiveInfoRS);
+    HotelDescriptiveInfoResponse toHotelDescriptiveInfoResponse(
+            OTAHotelDescriptiveInfoRS otaHotelDescriptiveInfoRS,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @InheritInverseConfiguration
     @Mapping(target = "version", constant = "8.000")
     @Mapping(target = "timeStamp", ignore = true)
-    OTAHotelDescriptiveInfoRS toOTAHotelDescriptiveInfoRS(HotelDescriptiveInfoResponse hotelDescriptiveInfoResponse);
+    OTAHotelDescriptiveInfoRS toOTAHotelDescriptiveInfoRS(
+            HotelDescriptiveInfoResponse hotelDescriptiveInfoResponse,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
 }

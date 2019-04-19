@@ -10,6 +10,7 @@ import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.resretrievers.G
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.resretrievers.Translation;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAResRetrieveRS;
 import org.mapstruct.AfterMapping;
+import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -35,17 +36,26 @@ public interface GlobalInfoMapper {
     @Mapping(target = "hotelReservationIds", source = "hotelReservationIDs.hotelReservationIDs")
     @Mapping(target = "includedServices", source = "comments")
     @Mapping(target = "company", source = "resGlobalInfo.profiles.profileInfo.profile.companyInfo")
-    GlobalInfo toGlobalInfo(OTAResRetrieveRS.ReservationsList.HotelReservation.ResGlobalInfo resGlobalInfo);
+    GlobalInfo toGlobalInfo(
+            OTAResRetrieveRS.ReservationsList.HotelReservation.ResGlobalInfo resGlobalInfo,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @InheritInverseConfiguration
     @Mapping(target = "comments", ignore = true)
     @Mapping(target = "profiles.profileInfo.profile.profileType", constant = "4")
     @Mapping(target = "basicPropertyInfo", expression = "java(new String())")
-    OTAResRetrieveRS.ReservationsList.HotelReservation.ResGlobalInfo toOTAGlobalInfo(GlobalInfo globalInfo);
+    OTAResRetrieveRS.ReservationsList.HotelReservation.ResGlobalInfo toOTAGlobalInfo(
+            GlobalInfo globalInfo,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @AfterMapping
-    default void updateOTAResGlobalInfoComments(@MappingTarget OTAResRetrieveRS.ReservationsList.HotelReservation
-            .ResGlobalInfo resGlobalInfo, GlobalInfo globalInfo) {
+    default void updateOTAResGlobalInfoComments(
+            @MappingTarget OTAResRetrieveRS.ReservationsList.HotelReservation.ResGlobalInfo resGlobalInfo,
+            GlobalInfo globalInfo,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         OTAResRetrieveRS.ReservationsList.HotelReservation.ResGlobalInfo.Comments comments =
                 new OTAResRetrieveRS.ReservationsList.HotelReservation.ResGlobalInfo.Comments();
 
@@ -83,16 +93,22 @@ public interface GlobalInfoMapper {
     }
 
     @AfterMapping
-    default void updateOTAResGlobalInfoPenalty(@MappingTarget OTAResRetrieveRS.ReservationsList.HotelReservation
-            .ResGlobalInfo resGlobalInfo, GlobalInfo globalInfo) {
+    default void updateOTAResGlobalInfoPenalty(
+            @MappingTarget OTAResRetrieveRS.ReservationsList.HotelReservation.ResGlobalInfo resGlobalInfo,
+            GlobalInfo globalInfo,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         if (globalInfo.getPenaltyDescription() == null) {
             resGlobalInfo.setCancelPenalties(null);
         }
     }
 
     @AfterMapping
-    default void updateOTAResGlobalInfoProfile(@MappingTarget OTAResRetrieveRS.ReservationsList.HotelReservation
-            .ResGlobalInfo resGlobalInfo, GlobalInfo globalInfo) {
+    default void updateOTAResGlobalInfoProfile(
+            @MappingTarget OTAResRetrieveRS.ReservationsList.HotelReservation.ResGlobalInfo resGlobalInfo,
+            GlobalInfo globalInfo,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         if (globalInfo.getCompany() == null) {
             resGlobalInfo.setProfiles(null);
         }

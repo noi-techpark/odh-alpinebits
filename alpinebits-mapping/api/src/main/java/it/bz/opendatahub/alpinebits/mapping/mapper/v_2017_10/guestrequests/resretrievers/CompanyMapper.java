@@ -8,6 +8,7 @@ package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.guestrequests.resr
 
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.resretrievers.Company;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAResRetrieveRS;
+import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -25,9 +26,14 @@ public interface CompanyMapper {
     @Mapping(target = "email.email", source = "email")
     @Mapping(target = "address.countryNameCode", source = "addressInfo.countryName.code")
     @Mapping(target = "telephone", source = "telephoneInfo")
-    Company toCompany(OTAResRetrieveRS.ReservationsList.HotelReservation.ResGlobalInfo.Profiles.ProfileInfo.Profile.CompanyInfo companyInfo);
+    Company toCompany(
+            OTAResRetrieveRS.ReservationsList.HotelReservation.ResGlobalInfo.Profiles.ProfileInfo.Profile.CompanyInfo companyInfo,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @InheritInverseConfiguration
-    OTAResRetrieveRS.ReservationsList.HotelReservation
-            .ResGlobalInfo.Profiles.ProfileInfo.Profile.CompanyInfo toOTACompany(Company company);
+    OTAResRetrieveRS.ReservationsList.HotelReservation.ResGlobalInfo.Profiles.ProfileInfo.Profile.CompanyInfo toOTACompany(
+            Company company,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 }

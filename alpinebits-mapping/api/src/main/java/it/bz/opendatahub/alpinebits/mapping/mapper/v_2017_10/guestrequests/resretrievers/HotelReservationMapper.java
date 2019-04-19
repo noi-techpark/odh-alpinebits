@@ -10,6 +10,7 @@ import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.resretrievers.H
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.resretrievers.ReservationStatus;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAResRetrieveRS;
 import org.mapstruct.AfterMapping;
+import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -34,23 +35,36 @@ public interface HotelReservationMapper {
     @Mapping(target = "roomStays", source = "roomStays.roomStaies")
     @Mapping(target = "created", source = "createDateTime")
     @Mapping(target = "updated", ignore = true)
-    HotelReservation toHotelReservation(OTAResRetrieveRS.ReservationsList.HotelReservation hotelReservation);
+    HotelReservation toHotelReservation(
+            OTAResRetrieveRS.ReservationsList.HotelReservation hotelReservation,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @InheritInverseConfiguration
-    OTAResRetrieveRS.ReservationsList.HotelReservation toOTAHotelReservation(HotelReservation hotelReservation);
+    OTAResRetrieveRS.ReservationsList.HotelReservation toOTAHotelReservation(
+            HotelReservation hotelReservation,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
-    default ReservationStatus stringToReservationStatus(String s) {
+    default ReservationStatus stringToReservationStatus(
+            String s,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         return ReservationStatus.fromString(s);
     }
 
-    default String reservationStatusToString(ReservationStatus reservationStatus) {
+    default String reservationStatusToString(
+            ReservationStatus reservationStatus,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         return reservationStatus == null ? null : reservationStatus.toString();
     }
 
     @AfterMapping
     default void updateOTAUniqueId(
             @MappingTarget OTAResRetrieveRS.ReservationsList.HotelReservation.UniqueID uniqueId,
-            HotelReservation hotelReservation
+            HotelReservation hotelReservation,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
     ) {
         uniqueId.setID(hotelReservation.getId());
         uniqueId.setType(ReservationStatus.CANCELLED.equals(hotelReservation.getResStatus()) ? "15" : "14");

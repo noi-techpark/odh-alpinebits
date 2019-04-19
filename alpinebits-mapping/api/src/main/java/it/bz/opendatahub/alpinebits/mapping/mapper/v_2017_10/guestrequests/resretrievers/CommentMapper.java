@@ -8,6 +8,7 @@ package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.guestrequests.resr
 
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.resretrievers.Translation;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAResRetrieveRS;
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 
 import java.util.ArrayList;
@@ -23,7 +24,10 @@ import java.util.stream.Collectors;
 @Mapper
 public interface CommentMapper {
 
-    default String toCustomerComment(OTAResRetrieveRS.ReservationsList.HotelReservation.ResGlobalInfo.Comments comments) {
+    default String toCustomerComment(
+            OTAResRetrieveRS.ReservationsList.HotelReservation.ResGlobalInfo.Comments comments,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         if (comments == null) {
             return null;
         }
@@ -36,7 +40,10 @@ public interface CommentMapper {
                 .orElse(null);
     }
 
-    default List<Translation> toIncludedServices(OTAResRetrieveRS.ReservationsList.HotelReservation.ResGlobalInfo.Comments comments) {
+    default List<Translation> toIncludedServices(
+            OTAResRetrieveRS.ReservationsList.HotelReservation.ResGlobalInfo.Comments comments,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         if (comments == null) {
             return new ArrayList<>();
         }

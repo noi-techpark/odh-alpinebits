@@ -8,6 +8,7 @@ package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.freerooms;
 
 import it.bz.opendatahub.alpinebits.mapping.entity.freerooms.UniqueId;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRQ;
+import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -19,10 +20,16 @@ import org.mapstruct.Mapping;
 @Mapper
 public interface UniqueIdMapper {
 
-    UniqueId toUniqueId(OTAHotelAvailNotifRQ.UniqueID uniqueId);
+    UniqueId toUniqueId(
+            OTAHotelAvailNotifRQ.UniqueID uniqueId,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @InheritInverseConfiguration
     @Mapping(target = "ID", constant = "1")
-    OTAHotelAvailNotifRQ.UniqueID toOTAUniqueId(UniqueId uniqueId);
+    OTAHotelAvailNotifRQ.UniqueID toOTAUniqueId(
+            UniqueId uniqueId,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
 }

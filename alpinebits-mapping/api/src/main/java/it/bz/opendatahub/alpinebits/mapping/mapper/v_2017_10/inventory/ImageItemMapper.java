@@ -8,6 +8,7 @@ package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.inventory;
 
 import it.bz.opendatahub.alpinebits.mapping.entity.inventory.ImageItem;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ;
+import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -21,16 +22,19 @@ public interface ImageItemMapper {
 
     @Mapping(target = "copyrightNotice", source = "imageFormat.copyrightNotice")
     @Mapping(target = "url", source = "imageFormat.URL")
-    ImageItem toImageItem(OTAHotelDescriptiveContentNotifRQ
-                                  .HotelDescriptiveContents
-                                  .HotelDescriptiveContent
-                                  .FacilityInfo
-                                  .GuestRooms
-                                  .GuestRoom
-                                  .MultimediaDescriptions
-                                  .MultimediaDescription
-                                  .ImageItems
-                                  .ImageItem imageItem);
+    ImageItem toImageItem(
+            OTAHotelDescriptiveContentNotifRQ
+                    .HotelDescriptiveContents
+                    .HotelDescriptiveContent
+                    .FacilityInfo
+                    .GuestRooms
+                    .GuestRoom
+                    .MultimediaDescriptions
+                    .MultimediaDescription
+                    .ImageItems
+                    .ImageItem imageItem,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @InheritInverseConfiguration
     OTAHotelDescriptiveContentNotifRQ
@@ -42,6 +46,9 @@ public interface ImageItemMapper {
             .MultimediaDescriptions
             .MultimediaDescription
             .ImageItems
-            .ImageItem toOTAImageItemm(ImageItem imageItem);
+            .ImageItem toOTAImageItem(
+            ImageItem imageItem,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
 }

@@ -6,6 +6,11 @@
 
 package it.bz.opendatahub.alpinebits.mapping.entity.inventory;
 
+import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.AffiliationInfoType;
+import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.ContactInfosType;
+import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.HotelDescriptiveContentType;
+import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.HotelInfoType;
+
 import java.util.List;
 
 /**
@@ -20,13 +25,13 @@ public class HotelDescriptiveContent {
 
     private List<GuestRoom> guestRooms;
 
-    private Object affiliationInfo;
+    private AffiliationInfoType affiliationInfo;
 
-    private Object contactInfos;
+    private ContactInfosType contactInfos;
 
-    private Object hotelInfo;
+    private HotelInfoType hotelInfo;
 
-    private Object policies;
+    private HotelDescriptiveContentType.Policies policies;
 
     public String getHotelCode() {
         return hotelCode;
@@ -52,35 +57,35 @@ public class HotelDescriptiveContent {
         this.guestRooms = guestRooms;
     }
 
-    public Object getAffiliationInfo() {
+    public AffiliationInfoType getAffiliationInfo() {
         return affiliationInfo;
     }
 
-    public void setAffiliationInfo(Object affiliationInfo) {
+    public void setAffiliationInfo(AffiliationInfoType affiliationInfo) {
         this.affiliationInfo = affiliationInfo;
     }
 
-    public Object getContactInfos() {
+    public ContactInfosType getContactInfos() {
         return contactInfos;
     }
 
-    public void setContactInfos(Object contactInfos) {
+    public void setContactInfos(ContactInfosType contactInfos) {
         this.contactInfos = contactInfos;
     }
 
-    public Object getHotelInfo() {
+    public HotelInfoType getHotelInfo() {
         return hotelInfo;
     }
 
-    public void setHotelInfo(Object hotelInfo) {
+    public void setHotelInfo(HotelInfoType hotelInfo) {
         this.hotelInfo = hotelInfo;
     }
 
-    public Object getPolicies() {
+    public HotelDescriptiveContentType.Policies getPolicies() {
         return policies;
     }
 
-    public void setPolicies(Object policies) {
+    public void setPolicies(HotelDescriptiveContentType.Policies policies) {
         this.policies = policies;
     }
 

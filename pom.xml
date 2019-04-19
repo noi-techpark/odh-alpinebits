@@ -6,7 +6,7 @@
 
     <groupId>it.bz.opendatahub.alpinebits</groupId>
     <artifactId>alpinebits-root</artifactId>
-    <version>0.5.0</version>
+    <version>0.6.0</version>
 
     <packaging>pom</packaging>
     <name>AlpineBits</name>
@@ -23,6 +23,7 @@
         <module>alpinebits-xml</module>
         <module>build-tools</module>
         <module>examples</module>
+        <module>ota-extension</module>
     </modules>
 
     <properties>
@@ -43,6 +44,7 @@
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
         <dependency-check-maven.version>3.1.1</dependency-check-maven.version>
         <gitflow-maven-plugin.version>1.10.0</gitflow-maven-plugin.version>
+        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
 
         <servlet.version>3.0.1</servlet.version>
         <mapstruct.version>1.2.0.Final</mapstruct.version>
@@ -131,6 +133,27 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>sources</id>
+            <build>
+                <plugins>
+                    <!-- Generate sources jar -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
     <dependencyManagement>
@@ -138,112 +161,122 @@
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-common-api</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-common-utils</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-db-api</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-db-impl</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-housekeeping-api</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-housekeeping-impl</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-mapping-api</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-mapping-impl</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-middleware-api</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-middleware-impl</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-routing-api</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-routing-impl</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-server-api</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-server-impl</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-servlet-api</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-servlet-impl</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-xml-api</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-xml-impl</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>examples-housekeeping</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>examples-freerooms</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>examples-guestrequests</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>examples-inventory</artifactId>
-                <version>0.5.0</version>
+                <version>0.6.0</version>
+            </dependency>
+            <dependency>
+                <groupId>it.bz.opendatahub.alpinebits</groupId>
+                <artifactId>ota-extension-api</artifactId>
+                <version>0.6.0</version>
+            </dependency>
+            <dependency>
+                <groupId>it.bz.opendatahub.alpinebits</groupId>
+                <artifactId>ota-extension-impl</artifactId>
+                <version>0.6.0</version>
             </dependency>
 
             <dependency>
@@ -574,6 +607,13 @@
                             <exclude>**/**IT.java</exclude>
                         </sourceFileExcludes>
                     </configuration>
+                </plugin>
+
+                <!-- Generate sources jar -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

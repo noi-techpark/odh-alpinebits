@@ -10,6 +10,7 @@ import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.notifreportrs.G
 import it.bz.opendatahub.alpinebits.mapping.utils.CollectionUtils;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTANotifReportRS;
 import org.mapstruct.AfterMapping;
+import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -26,10 +27,17 @@ import java.util.ArrayList;
 public interface GuestRequestsConfirmationResponseMapper {
 
     @Mapping(target = "errors", source = "errors.errors")
-    GuestRequestsConfirmationResponse toHotelReservationConfirmationResponse(OTANotifReportRS otaNotifReportRS);
+    GuestRequestsConfirmationResponse toHotelReservationConfirmationResponse(
+            OTANotifReportRS otaNotifReportRS,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @AfterMapping
-    default void checkAndSetLists(@MappingTarget GuestRequestsConfirmationResponse readResult, OTANotifReportRS ota) {
+    default void checkAndSetLists(
+            @MappingTarget GuestRequestsConfirmationResponse readResult,
+            OTANotifReportRS ota,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         if (readResult.getErrors() == null) {
             readResult.setErrors(new ArrayList<>());
         }
@@ -38,10 +46,17 @@ public interface GuestRequestsConfirmationResponseMapper {
     @InheritInverseConfiguration
     @Mapping(target = "version", constant = "1.000")
     @Mapping(target = "timeStamp", ignore = true)
-    OTANotifReportRS toOTANotifReportRS(GuestRequestsConfirmationResponse guestRequestsConfirmationResponse);
+    OTANotifReportRS toOTANotifReportRS(
+            GuestRequestsConfirmationResponse guestRequestsConfirmationResponse,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    );
 
     @AfterMapping
-    default void checkAndRemoveOTAParents(@MappingTarget OTANotifReportRS ota, GuestRequestsConfirmationResponse response) {
+    default void checkAndRemoveOTAParents(
+            @MappingTarget OTANotifReportRS ota,
+            GuestRequestsConfirmationResponse response,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         if (ota.getErrors() == null || CollectionUtils.isNullOrEmpty(ota.getErrors().getErrors())) {
             ota.setErrors(null);
         }

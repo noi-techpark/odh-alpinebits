@@ -19,16 +19,23 @@ import java.io.OutputStream;
  */
 public final class JAXBObjectToXmlConverter<T> implements ObjectToXmlConverter<T> {
 
-    private final Marshaller marshaller;
+    private final JAXBContext jaxbContext;
+    private final Schema schema;
+    private final boolean doPrettyPrintXml;
 
-    private JAXBObjectToXmlConverter(Marshaller marshaller) {
-        this.marshaller = marshaller;
+    private JAXBObjectToXmlConverter(JAXBContext jaxbContext, Schema schema, boolean doPrettyPrintXml) {
+        this.jaxbContext = jaxbContext;
+        this.schema = schema;
+        this.doPrettyPrintXml = doPrettyPrintXml;
     }
 
     @Override
     public void toXml(T objectToConvert, OutputStream os) {
         try {
-            this.marshaller.marshal(objectToConvert, os);
+            Marshaller marshaller = jaxbContext.createMarshaller();
+            marshaller.setSchema(this.schema);
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, this.doPrettyPrintXml);
+            marshaller.marshal(objectToConvert, os);
         } catch (JAXBException e) {
             throw new XmlConversionException("Object-to-XML conversion error", e);
         }
@@ -87,10 +94,7 @@ public final class JAXBObjectToXmlConverter<T> implements ObjectToXmlConverter<T
          */
         public ObjectToXmlConverter<T> build() throws JAXBException {
             JAXBContext jaxbContext = JAXBContext.newInstance(classToBeBound);
-            Marshaller marshaller = jaxbContext.createMarshaller();
-            marshaller.setSchema(this.schema);
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, this.doPrettyPrintXml);
-            return new JAXBObjectToXmlConverter<>(marshaller);
+            return new JAXBObjectToXmlConverter<>(jaxbContext, this.schema, this.doPrettyPrintXml);
         }
     }
 }

@@ -12,6 +12,7 @@ import it.bz.opendatahub.alpinebits.mapping.entity.inventory.TextItemDescription
 import it.bz.opendatahub.alpinebits.mapping.utils.CollectionUtils;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ;
 import org.mapstruct.AfterMapping;
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
@@ -40,7 +41,8 @@ public abstract class AfterGuestRoomMapping {
     @AfterMapping
     public void updateGuestRoomMultimedia(
             @MappingTarget GuestRoom guestRoom,
-            OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom otaGuestRoom
+            OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom otaGuestRoom,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
     ) {
         if (this.hasMultimediaDescriptions(otaGuestRoom)) {
             for (OTAHotelDescriptiveContentNotifRQ
@@ -54,26 +56,26 @@ public abstract class AfterGuestRoomMapping {
 
                 // Special case: Inventory/HotelInfo (push) client request hotel images
                 if (multimediaDescription.getInfoCode() == null) {
-                    List<ImageItem> hotelInfoImageItems = this.buildImageItems(multimediaDescription);
+                    List<ImageItem> hotelInfoImageItems = this.buildImageItems(multimediaDescription, ctx);
                     guestRoom.setHotelInfoPictures(hotelInfoImageItems);
                     continue;
                 }
 
                 // Long name
                 if (multimediaDescription.getInfoCode().intValue() == MULTIMEDIA_LONG_NAME_CODE) {
-                    List<TextItemDescription> textItemDescriptions = this.buildTextItemDescriptions(multimediaDescription);
+                    List<TextItemDescription> textItemDescriptions = this.buildTextItemDescriptions(multimediaDescription, ctx);
                     guestRoom.setLongNames(textItemDescriptions);
                 }
 
                 // Description
                 if (multimediaDescription.getInfoCode().intValue() == MULTIMEDIA_DESCRIPTION_CODE) {
-                    List<TextItemDescription> textItemDescriptions = this.buildTextItemDescriptions(multimediaDescription);
+                    List<TextItemDescription> textItemDescriptions = this.buildTextItemDescriptions(multimediaDescription, ctx);
                     guestRoom.setDescriptions(textItemDescriptions);
                 }
 
                 // Pictures
                 if (multimediaDescription.getInfoCode().intValue() == MULTIMEDIA_PICTURES_CODE) {
-                    List<ImageItem> imageItems = this.buildImageItems(multimediaDescription);
+                    List<ImageItem> imageItems = this.buildImageItems(multimediaDescription, ctx);
                     guestRoom.setPictures(imageItems);
                 }
             }
@@ -88,7 +90,8 @@ public abstract class AfterGuestRoomMapping {
                     .FacilityInfo
                     .GuestRooms
                     .GuestRoom otaGuestRoom,
-            GuestRoom guestRoom
+            GuestRoom guestRoom,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
     ) {
         List<OTAHotelDescriptiveContentNotifRQ
                 .HotelDescriptiveContents
@@ -100,16 +103,16 @@ public abstract class AfterGuestRoomMapping {
                 .MultimediaDescription> multimediaDescriptions = new ArrayList<>();
 
         // Special case: Inventory/HotelInfo (push) client request hotel images
-        this.buildOTAMultiMediaImages(guestRoom.getHotelInfoPictures(), null)
+        this.buildOTAMultiMediaImages(guestRoom.getHotelInfoPictures(), null, ctx)
                 .ifPresent(multimediaDescriptions::add);
 
-        this.buildOTAMultiMediaDescriptions(guestRoom.getLongNames(), MULTIMEDIA_LONG_NAME_CODE)
+        this.buildOTAMultiMediaDescriptions(guestRoom.getLongNames(), MULTIMEDIA_LONG_NAME_CODE, ctx)
                 .ifPresent(multimediaDescriptions::add);
 
-        this.buildOTAMultiMediaDescriptions(guestRoom.getDescriptions(), MULTIMEDIA_DESCRIPTION_CODE)
+        this.buildOTAMultiMediaDescriptions(guestRoom.getDescriptions(), MULTIMEDIA_DESCRIPTION_CODE, ctx)
                 .ifPresent(multimediaDescriptions::add);
 
-        this.buildOTAMultiMediaImages(guestRoom.getPictures(), MULTIMEDIA_PICTURES_CODE)
+        this.buildOTAMultiMediaImages(guestRoom.getPictures(), MULTIMEDIA_PICTURES_CODE, ctx)
                 .ifPresent(multimediaDescriptions::add);
 
         if (!multimediaDescriptions.isEmpty()) {
@@ -138,7 +141,8 @@ public abstract class AfterGuestRoomMapping {
                     .FacilityInfo
                     .GuestRooms
                     .GuestRoom otaGuestRoom,
-            GuestRoom guestRoom
+            GuestRoom guestRoom,
+            @Context it.bz.opendatahub.alpinebits.middleware.Context ctx
     ) {
         if (CollectionUtils.isNullOrEmpty(guestRoom.getRoomAmenityCodes())) {
             otaGuestRoom.setAmenities(null);
@@ -155,15 +159,18 @@ public abstract class AfterGuestRoomMapping {
                 && !CollectionUtils.isNullOrEmpty(otaGuestRoom.getMultimediaDescriptions().getMultimediaDescriptions());
     }
 
-    private List<TextItemDescription> buildTextItemDescriptions(OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents
-                                                                        .HotelDescriptiveContent.FacilityInfo.GuestRooms
-                                                                        .GuestRoom.MultimediaDescriptions.MultimediaDescription multimediaDescription) {
+    private List<TextItemDescription> buildTextItemDescriptions(
+            OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents
+                    .HotelDescriptiveContent.FacilityInfo.GuestRooms
+                    .GuestRoom.MultimediaDescriptions.MultimediaDescription multimediaDescription,
+            it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         if (!hasTextItems(multimediaDescription)) {
             return Collections.emptyList();
         }
 
         return multimediaDescription.getTextItems().getTextItem().getDescriptions().stream()
-                .map(this.textItemDescriptionMapper::toTextItemDescription)
+                .map(description -> this.textItemDescriptionMapper.toTextItemDescription(description, ctx))
                 .collect(Collectors.toList());
     }
 
@@ -174,15 +181,18 @@ public abstract class AfterGuestRoomMapping {
                 && !CollectionUtils.isNullOrEmpty(multimediaDescription.getTextItems().getTextItem().getDescriptions());
     }
 
-    private List<ImageItem> buildImageItems(OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents
-                                                    .HotelDescriptiveContent.FacilityInfo.GuestRooms
-                                                    .GuestRoom.MultimediaDescriptions.MultimediaDescription multimediaDescription) {
+    private List<ImageItem> buildImageItems(
+            OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents
+                    .HotelDescriptiveContent.FacilityInfo.GuestRooms
+                    .GuestRoom.MultimediaDescriptions.MultimediaDescription multimediaDescription,
+            it.bz.opendatahub.alpinebits.middleware.Context ctx
+    ) {
         if (!hasImageItems(multimediaDescription)) {
             return Collections.emptyList();
         }
 
         return multimediaDescription.getImageItems().getImageItems().stream()
-                .map(this.imageItemMapper::toImageItem)
+                .map(imageItem -> this.imageItemMapper.toImageItem(imageItem, ctx))
                 .collect(Collectors.toList());
     }
 
@@ -201,7 +211,8 @@ public abstract class AfterGuestRoomMapping {
             .MultimediaDescriptions
             .MultimediaDescription> buildOTAMultiMediaDescriptions(
             List<TextItemDescription> textItemDescriptions,
-            int code
+            int code,
+            it.bz.opendatahub.alpinebits.middleware.Context ctx
     ) {
         if (CollectionUtils.isNullOrEmpty(textItemDescriptions)) {
             return Optional.empty();
@@ -218,7 +229,7 @@ public abstract class AfterGuestRoomMapping {
                 .TextItems
                 .TextItem
                 .Description> descriptions = textItemDescriptions.stream()
-                .map(this.textItemDescriptionMapper::toOTATextItemDescription)
+                .map(textItemDescription -> this.textItemDescriptionMapper.toOTATextItemDescription(textItemDescription, ctx))
                 .collect(Collectors.toList());
 
         OTAHotelDescriptiveContentNotifRQ
@@ -266,7 +277,8 @@ public abstract class AfterGuestRoomMapping {
             .MultimediaDescriptions
             .MultimediaDescription> buildOTAMultiMediaImages(
             List<ImageItem> imageItems,
-            Integer code
+            Integer code,
+            it.bz.opendatahub.alpinebits.middleware.Context ctx
     ) {
         if (CollectionUtils.isNullOrEmpty(imageItems)) {
             return Optional.empty();
@@ -282,7 +294,7 @@ public abstract class AfterGuestRoomMapping {
                 .MultimediaDescription
                 .ImageItems
                 .ImageItem> images = imageItems.stream()
-                .map(this.imageItemMapper::toOTAImageItemm)
+                .map(imageItem -> this.imageItemMapper.toOTAImageItem(imageItem, ctx))
                 .collect(Collectors.toList());
 
         OTAHotelDescriptiveContentNotifRQ
