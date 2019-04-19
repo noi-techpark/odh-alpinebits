@@ -7,12 +7,12 @@
     <parent>
         <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-middleware</artifactId>
-        <version>0.5.0</version>
+        <version>0.6.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>alpinebits-middleware-api</artifactId>
-    <version>0.5.0</version>
+    <version>0.6.0</version>
 
     <name>AlpineBits middleware API</name>
 
