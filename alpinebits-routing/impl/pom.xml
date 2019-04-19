@@ -7,12 +7,12 @@
     <parent>
         <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-routing</artifactId>
-        <version>0.6.0</version>
+        <version>0.6.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>alpinebits-routing-impl</artifactId>
-    <version>0.6.0</version>
+    <version>0.6.1</version>
 
     <name>AlpineBits routing impl</name>
 

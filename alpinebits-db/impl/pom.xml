@@ -7,12 +7,12 @@
     <parent>
         <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-db</artifactId>
-        <version>0.6.0</version>
+        <version>0.6.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>alpinebits-db-impl</artifactId>
-    <version>0.6.0</version>
+    <version>0.6.1</version>
 
     <name>AlpineBits DB impl</name>
 
