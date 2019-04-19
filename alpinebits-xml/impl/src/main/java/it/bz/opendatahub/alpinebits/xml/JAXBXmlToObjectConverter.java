@@ -19,18 +19,23 @@ import java.io.InputStream;
  */
 public final class JAXBXmlToObjectConverter<T> implements XmlToObjectConverter<T> {
 
-    private final Unmarshaller unmarshaller;
+
+    private final JAXBContext jaxbContext;
+    private final Schema schema;
     private final Class<T> classToBeBound;
 
-    private JAXBXmlToObjectConverter(Unmarshaller unmarshaller, Class<T> classToBeBound) {
-        this.unmarshaller = unmarshaller;
+    private JAXBXmlToObjectConverter(JAXBContext jaxbContext, Schema schema, Class<T> classToBeBound) {
+        this.jaxbContext = jaxbContext;
+        this.schema = schema;
         this.classToBeBound = classToBeBound;
     }
 
     @Override
     public T toObject(InputStream is) {
         try {
-            return this.classToBeBound.cast(this.unmarshaller.unmarshal(is));
+            Unmarshaller unmarshaller = this.jaxbContext.createUnmarshaller();
+            unmarshaller.setSchema(this.schema);
+            return this.classToBeBound.cast(unmarshaller.unmarshal(is));
         } catch (JAXBException e) {
             throw new XmlConversionException("XML-to-object conversion error", 400, e);
         }
@@ -75,9 +80,7 @@ public final class JAXBXmlToObjectConverter<T> implements XmlToObjectConverter<T
          */
         public XmlToObjectConverter<T> build() throws JAXBException {
             JAXBContext jaxbContext = JAXBContext.newInstance(this.classToBeBound);
-            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            unmarshaller.setSchema(this.schema);
-            return new JAXBXmlToObjectConverter<>(unmarshaller, this.classToBeBound);
+            return new JAXBXmlToObjectConverter<>(jaxbContext, this.schema, this.classToBeBound);
         }
     }
 
