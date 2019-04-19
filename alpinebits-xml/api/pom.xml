@@ -45,11 +45,6 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
                 <version>${jaxb2-maven.version}</version>
-                <configuration>
-                    <xjbSources>
-                        <xjbSource>src/main/resources/global.xjb</xjbSource>
-                    </xjbSources>
-                </configuration>
                 <executions>
                     <execution>
                         <id>alpinebits-2017-10</id>
@@ -57,6 +52,9 @@
                             <goal>xjc</goal>
                         </goals>
                         <configuration>
+                            <xjbSources>
+                                <xjbSource>src/main/resources/global.xjb</xjbSource>
+                            </xjbSources>
                             <sources>
                                 <source>src/main/resources/alpinebits-2017-10.xsd</source>
                             </sources>
@@ -70,6 +68,9 @@
                             <goal>xjc</goal>
                         </goals>
                         <configuration>
+                            <xjbSources>
+                                <xjbSource>src/main/resources/global.xjb</xjbSource>
+                            </xjbSources>
                             <sources>
                                 <source>src/main/resources/alpinebits-2015-07b.xsd</source>
                             </sources>
