@@ -10,7 +10,6 @@ import it.bz.opendatahub.alpinebits.common.context.RequestContextKey;
 import it.bz.opendatahub.alpinebits.middleware.Context;
 import it.bz.opendatahub.alpinebits.middleware.Middleware;
 import it.bz.opendatahub.alpinebits.middleware.MiddlewareChain;
-import it.bz.opendatahub.alpinebits.middleware.RequiredContextKeyMissingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +33,8 @@ import org.slf4j.LoggerFactory;
  */
 public class StatisticsMiddleware implements Middleware {
 
+    public static final String UNKNOWN = "(Unknown)";
+
     private static final Logger LOG = LoggerFactory.getLogger(StatisticsMiddleware.class);
 
     @Override
@@ -42,16 +43,12 @@ public class StatisticsMiddleware implements Middleware {
 
         chain.next();
 
-        try {
-            String username = ctx.getOrThrow(RequestContextKey.REQUEST_USERNAME);
-            String version = ctx.getOrThrow(RequestContextKey.REQUEST_VERSION);
-            String action = ctx.getOrThrow(RequestContextKey.REQUEST_ACTION);
-            long durationInNano = (System.nanoTime() - start) / 1000000;
+        String username = ctx.get(RequestContextKey.REQUEST_USERNAME).orElse(UNKNOWN);
+        String version = ctx.get(RequestContextKey.REQUEST_VERSION).orElse(UNKNOWN);
+        String action = ctx.get(RequestContextKey.REQUEST_ACTION).orElse(UNKNOWN);
+        long durationInNano = (System.nanoTime() - start) / 1000000;
 
-            LOG.info("[username={}] - [version={}] - [action={}] - [duration={}ms]", username, version, action, durationInNano);
-        } catch (RequiredContextKeyMissingException e) {
-            LOG.error("Could not read context key: {}", e.getMessage());
-        }
+        LOG.info("[username={}] - [version={}] - [action={}] - [duration={}ms]", username, version, action, durationInNano);
     }
 
 }
