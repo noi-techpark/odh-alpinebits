@@ -33,6 +33,10 @@ public class AlpineBitsServlet extends HttpServlet {
     public static final String REQUEST_EXCEPTION_HANDLER_CLASSNAME = "REQUEST_EXCEPTION_HANDLER_CLASSNAME";
     public static final String CONTEXT_BUILDER_CLASSNAME = "CONTEXT_BUILDER_CLASSNAME";
 
+    // A unique requestId is set as attribute for
+    // each request using this name
+    public static final String REQUEST_ID = "requestId";
+
     private static final Logger LOG = LoggerFactory.getLogger(AlpineBitsServlet.class);
 
     // Make the servlet variables static, since there exists only a single
@@ -79,7 +83,8 @@ public class AlpineBitsServlet extends HttpServlet {
     private void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             String requestId = this.buildRequestId();
-            MDC.put("requestId", requestId);
+            request.setAttribute(REQUEST_ID, requestId);
+            MDC.put(REQUEST_ID, requestId);
 
             LOG.debug("Handle incoming request");
 
@@ -90,6 +95,8 @@ public class AlpineBitsServlet extends HttpServlet {
             AlpineBitsServlet.middleware.handleContext(ctx, null);
         } catch (Exception e) {
             AlpineBitsServlet.requestExceptionHandler.handleRequestException(request, response, e);
+        } finally {
+            MDC.clear();
         }
     }
 

@@ -7,12 +7,12 @@
     <parent>
         <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-mapping</artifactId>
-        <version>0.6.2</version>
+        <version>0.6.3</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>alpinebits-mapping-api</artifactId>
-    <version>0.6.2</version>
+    <version>0.6.3</version>
 
     <name>AlpineBits mapping API</name>
 

@@ -7,12 +7,12 @@
     <parent>
         <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-housekeeping</artifactId>
-        <version>0.6.2</version>
+        <version>0.6.3</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>alpinebits-housekeeping-impl</artifactId>
-    <version>0.6.2</version>
+    <version>0.6.3</version>
 
     <name>AlpineBits housekeeping impl</name>
 
@@ -24,6 +24,10 @@
         <dependency>
             <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-routing-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <artifactId>alpinebits-servlet-impl</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

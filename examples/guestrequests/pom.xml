@@ -7,12 +7,12 @@
     <parent>
         <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>examples-root</artifactId>
-        <version>0.6.2</version>
+        <version>0.6.3</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>examples-guestrequests</artifactId>
-    <version>0.6.2</version>
+    <version>0.6.3</version>
 
     <packaging>war</packaging>
     <name>AlpineBits examples - GuestRequests</name>

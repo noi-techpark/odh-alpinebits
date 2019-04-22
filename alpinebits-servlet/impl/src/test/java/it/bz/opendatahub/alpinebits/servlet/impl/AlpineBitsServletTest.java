@@ -57,7 +57,7 @@ public class AlpineBitsServletTest {
         // exception and sets the response status
         verify(response).setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 
-        assertEquals(stringWriter.toString(), ThrowingMiddleware.EXPECTED_EXCEPTION_MESSAGE);
+        assertEquals(stringWriter.toString(), ThrowingMiddleware.EXPECTED_EXCEPTION_MESSAGE + " [rid=null]");
     }
 
     @Test
