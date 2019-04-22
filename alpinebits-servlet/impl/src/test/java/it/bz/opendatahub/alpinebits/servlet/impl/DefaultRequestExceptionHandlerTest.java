@@ -25,7 +25,6 @@ import static org.testng.Assert.assertEquals;
 public class DefaultRequestExceptionHandlerTest {
 
     private static final String EXCEPTION_MESSAGE = "exception message";
-    private static final String EXPECTED_EXCEPTION_MESSAGE = "ERROR:" + EXCEPTION_MESSAGE;
 
     @DataProvider(name = "exceptions")
     public static Object[][] exceptions() {
@@ -51,16 +50,9 @@ public class DefaultRequestExceptionHandlerTest {
 
         handler.handleRequestException(request, response, e);
 
-        String expectedErrorMessage = handler.getErrorMessage(e, "null");
+        String expectedErrorMessage = ResponseWriter.buildErrorMessage(e.getMessage(), null);
 
         verify(response).setStatus(expectedStatusCode);
         assertEquals(stringWriter.toString(), expectedErrorMessage);
-    }
-
-    @Test
-    public void testGetErrorMessage() {
-        DefaultRequestExceptionHandler handler = new DefaultRequestExceptionHandler();
-        String errorMessage = handler.getErrorMessage(new Exception(EXCEPTION_MESSAGE), "1");
-        assertEquals(errorMessage, EXPECTED_EXCEPTION_MESSAGE + " [rid=1]");
     }
 }

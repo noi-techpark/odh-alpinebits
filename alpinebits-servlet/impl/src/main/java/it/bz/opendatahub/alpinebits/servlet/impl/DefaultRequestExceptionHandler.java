@@ -45,49 +45,21 @@ public class DefaultRequestExceptionHandler implements RequestExceptionHandler {
             LOG.error("Handling uncaught AlpineBitsException", e);
 
             int status = this.getStatus((AlpineBitsException) e);
-            this.sendError(response, status, e, requestId);
+            String message = ((AlpineBitsException) e).getResponseMessage();
+
+            ResponseWriter.writeError(response, status, requestId, message);
         } else if (e instanceof RequiredContextKeyMissingException) {
             LOG.error("Context key missing", e);
-            this.sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e, requestId);
+            ResponseWriter.writeError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, requestId, e.getMessage());
         } else {
             LOG.error("Handling uncaught Exception", e);
-            this.sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e, requestId);
+            ResponseWriter.writeError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, requestId, e.getMessage());
         }
-    }
-
-    public String getErrorMessage(Exception e, String requestId) {
-        StringBuilder sb = new StringBuilder("ERROR:");
-
-        if (e instanceof AlpineBitsException) {
-            sb.append(((AlpineBitsException) e).getResponseMessage());
-        } else {
-            sb.append(e.getMessage());
-        }
-
-        sb.append(" [rid=").append(requestId).append("]");
-
-        return sb.toString();
     }
 
     private int getStatus(AlpineBitsException e) {
         int status = e.getCode();
         return status < 100 || status > 599 ? HttpServletResponse.SC_INTERNAL_SERVER_ERROR : status;
-    }
-
-    /**
-     * Set the response error by setting status explicitly and writing the error message using the writer.
-     * <p>
-     * This is necessary, since otherwise application servers (e.g. Tomcat) may wrap the error inside
-     * their (HTML) error page
-     *
-     * @param response set the status and message for this {@link HttpServletResponse}
-     * @param status   the status to set
-     * @param e        the exception, containing the relevant message
-     * @throws IOException if an input or output exception occurred
-     */
-    private void sendError(HttpServletResponse response, int status, Exception e, String requestId) throws IOException {
-        response.setStatus(status);
-        response.getOutputStream().print(this.getErrorMessage(e, requestId));
     }
 
 }
