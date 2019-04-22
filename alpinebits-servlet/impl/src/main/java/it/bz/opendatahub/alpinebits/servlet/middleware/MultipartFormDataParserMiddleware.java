@@ -124,7 +124,7 @@ public class MultipartFormDataParserMiddleware implements Middleware {
             ctx.put(RequestContextKey.REQUEST_CONTENT_STREAM, abRequest);
         }
 
-        LOG.info("AlpineBits action parameter: {}, AlpineBits request parameter is present: {}", abAction, abRequest != null);
+        LOG.debug("AlpineBits action parameter: {}, AlpineBits request parameter is present: {}", abAction, abRequest != null);
     }
 
 }
