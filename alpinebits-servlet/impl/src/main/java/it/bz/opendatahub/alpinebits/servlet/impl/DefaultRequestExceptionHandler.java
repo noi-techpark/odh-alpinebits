@@ -39,24 +39,34 @@ public class DefaultRequestExceptionHandler implements RequestExceptionHandler {
 
     @Override
     public void handleRequestException(HttpServletRequest request, HttpServletResponse response, Exception e) throws IOException {
+        String requestId = (String) request.getAttribute(AlpineBitsServlet.REQUEST_ID);
+
         if (e instanceof AlpineBitsException) {
-            LOG.error("Handling uncaught AlpinBitsException", e);
+            LOG.error("Handling uncaught AlpineBitsException", e);
 
             int status = this.getStatus((AlpineBitsException) e);
-            this.sendError(response, status, e);
+            this.sendError(response, status, e, requestId);
         } else if (e instanceof RequiredContextKeyMissingException) {
             LOG.error("Context key missing", e);
-            this.sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e);
+            this.sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e, requestId);
         } else {
             LOG.error("Handling uncaught Exception", e);
-            this.sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e);
+            this.sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e, requestId);
         }
     }
 
-    public String getErrorMessage(Exception e) {
-        return e instanceof AlpineBitsException
-                ? "ERROR:" + ((AlpineBitsException) e).getResponseMessage()
-                : "ERROR:" + e.getMessage();
+    public String getErrorMessage(Exception e, String requestId) {
+        StringBuilder sb = new StringBuilder("ERROR:");
+
+        if (e instanceof AlpineBitsException) {
+            sb.append(((AlpineBitsException) e).getResponseMessage());
+        } else {
+            sb.append(e.getMessage());
+        }
+
+        sb.append(" [rid=").append(requestId).append("]");
+
+        return sb.toString();
     }
 
     private int getStatus(AlpineBitsException e) {
@@ -75,9 +85,9 @@ public class DefaultRequestExceptionHandler implements RequestExceptionHandler {
      * @param e        the exception, containing the relevant message
      * @throws IOException if an input or output exception occurred
      */
-    private void sendError(HttpServletResponse response, int status, Exception e) throws IOException {
+    private void sendError(HttpServletResponse response, int status, Exception e, String requestId) throws IOException {
         response.setStatus(status);
-        response.getOutputStream().print(this.getErrorMessage(e));
+        response.getOutputStream().print(this.getErrorMessage(e, requestId));
     }
 
 }

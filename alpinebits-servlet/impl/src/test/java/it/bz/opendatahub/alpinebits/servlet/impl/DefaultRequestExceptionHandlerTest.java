@@ -51,7 +51,7 @@ public class DefaultRequestExceptionHandlerTest {
 
         handler.handleRequestException(request, response, e);
 
-        String expectedErrorMessage = handler.getErrorMessage(e);
+        String expectedErrorMessage = handler.getErrorMessage(e, "null");
 
         verify(response).setStatus(expectedStatusCode);
         assertEquals(stringWriter.toString(), expectedErrorMessage);
@@ -60,7 +60,7 @@ public class DefaultRequestExceptionHandlerTest {
     @Test
     public void testGetErrorMessage() {
         DefaultRequestExceptionHandler handler = new DefaultRequestExceptionHandler();
-        String errorMessage = handler.getErrorMessage(new Exception(EXCEPTION_MESSAGE));
-        assertEquals(errorMessage, EXPECTED_EXCEPTION_MESSAGE);
+        String errorMessage = handler.getErrorMessage(new Exception(EXCEPTION_MESSAGE), "1");
+        assertEquals(errorMessage, EXPECTED_EXCEPTION_MESSAGE + " [rid=1]");
     }
 }
