@@ -96,7 +96,7 @@ pipeline {
                 sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG ota-extension/impl/pom.xml'
                 sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG ota-extension/impl/pom.xml'
 
-                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG buildtools/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG build-tools/pom.xml'
 
                 sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG examples/pom.xml'
                 sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG examples/pom.xml'
