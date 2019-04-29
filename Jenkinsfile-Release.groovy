@@ -117,15 +117,7 @@ pipeline {
         }
         stage('Release') {
             steps {
-		        sh 'cd alpinebits-common && mvn -B -U clean deploy'
-                sh 'cd alpinebits-db && mvn -B -U clean deploy'
-                sh 'cd alpinebits-housekeeping && mvn -B -U clean deploy'
-                sh 'cd alpinebits-mapping && mvn -B -U clean deploy'
-                sh 'cd alpinebits-middleware && mvn -B -U clean deploy'
-                sh 'cd alpinebits-routing && mvn -B -U clean deploy'
-                sh 'cd alpinebits-servlet && mvn -B -U clean deploy'
-                sh 'cd alpinebits-xml && mvn -B -U clean deploy'
-                sh 'cd ota-extension && mvn -B -U clean deploy'
+		        sh 'mvn -B -U clean deploy --projects alpinebits-common,alpinebits-db,alpinebits-housekeeping,alpinebits-mapping,alpinebits-middleware,alpinebits-routing,alpinebits-servlet,alpinebits-xml,ota-extension'
             }
         }
         stage('Tag') {
