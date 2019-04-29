@@ -31,6 +31,90 @@ pipeline {
                 sh 'echo "</settings>" >> ~/.m2/settings.xml'
 
                 sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:dependencies/pom:dependency[pom:groupId=\'it.bz.opendatahub.alpinebits\']/pom:version"" -v $TAG pom.xml'
+                
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-common/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-common/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-common/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-common/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-common/utils/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-common/utils/pom.xml'
+
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-db/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-db/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-db/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-db/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-db/impl/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-db/impl/pom.xml'
+
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-housekeeping/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-housekeeping/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-housekeeping/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-housekeeping/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-housekeeping/impl/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-housekeeping/impl/pom.xml'
+
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-mapping/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-mapping/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-mapping/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-mapping/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-mapping/impl/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-mapping/impl/pom.xml'
+
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-middleware/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-middleware/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-middleware/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-middleware/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-middleware/impl/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-middleware/impl/pom.xml'
+
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-routing/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-routing/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-routing/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-routing/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-routing/impl/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-routing/impl/pom.xml'
+
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-server/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-server/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-server/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-server/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-server/impl/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-server/impl/pom.xml'
+
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-servlet/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-servlet/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-servlet/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-servlet/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-servlet/impl/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-servlet/impl/pom.xml'
+
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-xml/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-xml/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-xml/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-xml/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-xml/impl/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-xml/impl/pom.xml'
+
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG ota-extension/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG ota-extension/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG ota-extension/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG ota-extension/api/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG ota-extension/impl/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG ota-extension/impl/pom.xml'
+
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG buildtools/pom.xml'
+
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG examples/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG examples/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG examples/freerooms/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG examples/freerooms/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG examples/guestrequests/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG examples/guestrequests/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG examples/housekeeping/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG examples/housekeeping/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG examples/inventory/pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG examples/inventory/pom.xml'
             }
         }
         stage('Test') {
@@ -40,7 +124,16 @@ pipeline {
         }
         stage('Release') {
             steps {
-		        sh 'mvn -B -U clean deploy'
+		        sh 'cd alpinebits-common && mvn -B -U clean deploy'
+                sh 'cd alpinebits-db && mvn -B -U clean deploy'
+                sh 'cd alpinebits-housekeeping && mvn -B -U clean deploy'
+                sh 'cd alpinebits-mapping && mvn -B -U clean deploy'
+                sh 'cd alpinebits-middleware && mvn -B -U clean deploy'
+                sh 'cd alpinebits-routing && mvn -B -U clean deploy'
+                sh 'cd alpinebits-server && mvn -B -U clean deploy'
+                sh 'cd alpinebits-servlet && mvn -B -U clean deploy'
+                sh 'cd alpinebits-xml && mvn -B -U clean deploy'
+                sh 'cd ota-extension && mvn -B -U clean deploy'
             }
         }
         stage('Tag') {
@@ -57,6 +150,5 @@ pipeline {
                 }
             }
         }
-
     }
 }
