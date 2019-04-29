@@ -31,7 +31,7 @@ pipeline {
                 sh 'echo "</settings>" >> ~/.m2/settings.xml'
 
                 sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG pom.xml'
-                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:dependencies/pom:dependency[pom:groupId=\'it.bz.opendatahub.alpinebits\']/pom:version" -v $TAG pom.xml'
+                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:dependencyManagement/pom:dependencies/pom:dependency[pom:groupId=\'it.bz.opendatahub.alpinebits\']/pom:version" -v $TAG pom.xml'
                 
                 sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-common/pom.xml'
                 sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-common/pom.xml'
