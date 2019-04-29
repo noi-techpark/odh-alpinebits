@@ -75,13 +75,6 @@ pipeline {
                 sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-routing/impl/pom.xml'
                 sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-routing/impl/pom.xml'
 
-                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-server/pom.xml'
-                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-server/pom.xml'
-                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-server/api/pom.xml'
-                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-server/api/pom.xml'
-                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-server/impl/pom.xml'
-                sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-server/impl/pom.xml'
-
                 sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-servlet/pom.xml'
                 sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:parent/pom:version" -v $TAG alpinebits-servlet/pom.xml'
                 sh 'xmlstarlet ed -P -L -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $TAG alpinebits-servlet/api/pom.xml'
@@ -130,7 +123,6 @@ pipeline {
                 sh 'cd alpinebits-mapping && mvn -B -U clean deploy'
                 sh 'cd alpinebits-middleware && mvn -B -U clean deploy'
                 sh 'cd alpinebits-routing && mvn -B -U clean deploy'
-                sh 'cd alpinebits-server && mvn -B -U clean deploy'
                 sh 'cd alpinebits-servlet && mvn -B -U clean deploy'
                 sh 'cd alpinebits-xml && mvn -B -U clean deploy'
                 sh 'cd ota-extension && mvn -B -U clean deploy'
