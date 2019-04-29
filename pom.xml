@@ -109,13 +109,6 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                     </plugin>
                 </plugins>
-                <extensions>
-                    <extension>
-                        <groupId>org.springframework.build</groupId>
-                        <artifactId>aws-maven</artifactId>
-                        <version>5.0.0.RELEASE</version>
-                    </extension>
-                </extensions>
             </build>
         </profile>
         <profile>
@@ -161,13 +154,6 @@
             </build>
         </profile>
     </profiles>
-
-    <repositories>
-        <repository>
-            <id>maven-repo.opendatahub.bz.it</id>
-            <url>http://it.bz.opendatahub.s3-website-eu-west-1.amazonaws.com/release</url>
-        </repository>
-    </repositories>
 
     <dependencyManagement>
         <dependencies>
