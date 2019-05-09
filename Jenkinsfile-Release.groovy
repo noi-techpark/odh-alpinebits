@@ -13,8 +13,8 @@ pipeline {
 
     environment {
         S3_REPO_ID='maven-repo.opendatahub.bz.it'
-        S3_REPO_USERNAME=credentials('s3_repo_username')
-        S3_REPO_PASSWORD=credentials('s3_repo_password')
+        AWS_ACCESS_KEY=credentials('s3_repo_username')
+        AWS_SECRET_KEY=credentials('s3_repo_password')
     }
 
     stages {
@@ -24,8 +24,8 @@ pipeline {
                 sh 'echo "    <servers>" >> ~/.m2/settings.xml'
                 sh 'echo "        <server>" >> ~/.m2/settings.xml'
                 sh 'echo "            <id>${S3_REPO_ID}</id>" >> ~/.m2/settings.xml'
-                sh 'echo "            <username>${S3_REPO_USERNAME}</username>" >> ~/.m2/settings.xml'
-                sh 'echo "            <password>${S3_REPO_PASSWORD}</password>" >> ~/.m2/settings.xml'
+                sh 'echo "            <username>${AWS_ACCESS_KEY}</username>" >> ~/.m2/settings.xml'
+                sh 'echo "            <password>${AWS_SECRET_KEY}</password>" >> ~/.m2/settings.xml'
                 sh 'echo "        </server>" >> ~/.m2/settings.xml'
                 sh 'echo "    </servers>" >> ~/.m2/settings.xml'
                 sh 'echo "</settings>" >> ~/.m2/settings.xml'
