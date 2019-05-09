@@ -8,7 +8,6 @@ pipeline {
 
     parameters {
         string(name: 'TAG', defaultValue: '1.0.0', description: 'Tag')
-        gitParameter name: 'BRANCH', branchFilter: 'origin/(.*)', defaultValue: 'master', type: 'PT_BRANCH'
     }
 
     environment {
@@ -117,7 +116,7 @@ pipeline {
         }
         stage('Release') {
             steps {
-		        sh 'mvn -B -U clean deploy --projects alpinebits-common,alpinebits-db,alpinebits-housekeeping,alpinebits-mapping,alpinebits-middleware,alpinebits-routing,alpinebits-servlet,alpinebits-xml,ota-extension'
+		        sh 'mvn -B -U clean deploy --projects alpinebits-common,alpinebits-common-api,alpinebits-common-utils,alpinebits-db,alpinebits-db-api,alpinebits-db-impl,alpinebits-housekeeping,alpinebits-housekeeping-api,alpinebits-housekeeping-impl,alpinebits-mapping,alpinebits-mapping-api,alpinebits-mapping-impl,alpinebits-middleware,alpinebits-middleware-api,alpinebits-middleware-impl,alpinebits-routing,alpinebits-routing-api,alpinebits-routing-impl,alpinebits-servlet,alpinebits-servlet-api,alpinebits-servlet-impl,alpinebits-xml,alpinebits-xml-api,alpinebits-xml-impl,ota-extension,ota-extension-api,ota-extension-impl'
             }
         }
         stage('Tag') {
