@@ -129,7 +129,7 @@ pipeline {
                     sh "git tag -a ${params.TAG} -m ${params.TAG}"
                     sh "mkdir -p ~/.ssh"
                     sh "ssh-keyscan -H github.com >> ~/.ssh/known_hosts"
-                    sh "git push origin HEAD:${params.BRANCH} --follow-tags"
+                    sh "git push origin HEAD:master --follow-tags"
                 }
             }
         }
