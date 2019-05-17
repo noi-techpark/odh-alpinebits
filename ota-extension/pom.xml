@@ -5,12 +5,12 @@
     <parent>
         <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-root</artifactId>
-        <version>0.7.0</version>
+        <version>0.7.2</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>ota-extension</artifactId>
-    <version>0.7.0</version>
+    <version>0.7.2</version>
 
     <packaging>pom</packaging>
     <name>OTA extension</name>

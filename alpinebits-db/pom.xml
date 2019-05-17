@@ -5,12 +5,12 @@
     <parent>
         <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-root</artifactId>
-        <version>0.7.0</version>
+        <version>0.7.2</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>alpinebits-db</artifactId>
-    <version>0.7.0</version>
+    <version>0.7.2</version>
 
     <packaging>pom</packaging>
     <name>AlpineBits DB</name>
