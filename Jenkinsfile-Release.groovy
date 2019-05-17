@@ -39,7 +39,7 @@ pipeline {
         }
         stage('Release') {
             steps {
-		        sh 'mvn -B -U clean deploy --projects alpinebits-common-api,alpinebits-common-utils,alpinebits-db-api,alpinebits-db-impl,alpinebits-housekeeping-api,alpinebits-housekeeping-impl,alpinebits-mapping-api,alpinebits-mapping-impl,alpinebits-middleware-api,alpinebits-middleware-impl,alpinebits-routing-api,alpinebits-routing-impl,alpinebits-servlet-api,alpinebits-servlet-impl,alpinebits-xml-api,alpinebits-xml-impl,ota-extension-api,ota-extension-impl'
+		        sh 'mvn -B -U clean deploy'
             }
         }
         stage('Tag') {
