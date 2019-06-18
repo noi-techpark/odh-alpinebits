@@ -39,7 +39,7 @@
         <jacoco.version>0.8.2</jacoco.version>
 
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
-        <dependency-check-maven.version>3.1.1</dependency-check-maven.version>
+        <dependency-check-maven.version>5.0.0</dependency-check-maven.version>
         <gitflow-maven-plugin.version>1.10.0</gitflow-maven-plugin.version>
         <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
 
@@ -126,6 +126,17 @@
                         <configuration>
                             <skip>${skipTests}</skip>
                         </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>security-scan</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.owasp</groupId>
+                        <artifactId>dependency-check-maven</artifactId>
                     </plugin>
                 </plugins>
             </build>
@@ -575,6 +586,13 @@
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
                     <version>${dependency-check-maven.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                     <configuration>
                         <failBuildOnCVSS>8</failBuildOnCVSS>
                         <cveValidForHours>24</cveValidForHours>
