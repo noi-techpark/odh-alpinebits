@@ -7,6 +7,7 @@
 package it.bz.opendatahub.alpinebits.servlet.impl.utils;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
 import java.io.StringWriter;
 
 /**
@@ -22,6 +23,16 @@ public class ServletOutputStreamBuilder {
      */
     public static ServletOutputStream getServletOutputStream(StringWriter sw) {
         return new ServletOutputStream() {
+            @Override
+            public boolean isReady() {
+                return true;
+            }
+
+            @Override
+            public void setWriteListener(WriteListener writeListener) {
+
+            }
+
             @Override
             public void write(int b) {
                 sw.write(b);
