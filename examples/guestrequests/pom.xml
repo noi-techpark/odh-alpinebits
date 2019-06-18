@@ -18,7 +18,6 @@
     <properties>
         <javax-persistence-api.version>2.2</javax-persistence-api.version>
         <hibernate-core.version>5.3.7.Final</hibernate-core.version>
-        <h2.version>1.4.197</h2.version>
     </properties>
 
     <dependencies>
@@ -72,7 +71,6 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>${h2.version}</version>
         </dependency>
     </dependencies>
 
