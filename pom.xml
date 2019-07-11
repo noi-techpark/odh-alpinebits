@@ -4,7 +4,7 @@
 
     <groupId>it.bz.opendatahub.alpinebits</groupId>
     <artifactId>alpinebits-root</artifactId>
-    <version>0.7.2</version>
+    <version>0.7.3</version>
 
     <packaging>pom</packaging>
     <name>AlpineBits</name>
@@ -33,7 +33,7 @@
         <maven-failsafe-plugin.version>2.20</maven-failsafe-plugin.version>
         <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
         <checkstyle-maven.version>2.17</checkstyle-maven.version>
-        <checkstyle.version>8.5</checkstyle.version>
+        <puppycrawl-checkstyle.version>8.18</puppycrawl-checkstyle.version>
         <maven-pmd-plugin.version>3.10.0</maven-pmd-plugin.version>
         <sonar-maven-plugin.version>3.4.0.905</sonar-maven-plugin.version>
         <jacoco.version>0.8.2</jacoco.version>
@@ -169,112 +169,112 @@
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-common-api</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-common-utils</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-db-api</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-db-impl</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-housekeeping-api</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-housekeeping-impl</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-mapping-api</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-mapping-impl</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-middleware-api</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-middleware-impl</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-routing-api</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-routing-impl</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-servlet-api</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-servlet-impl</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-xml-api</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>alpinebits-xml-impl</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>examples-housekeeping</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>examples-freerooms</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>examples-guestrequests</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>examples-inventory</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>ota-extension-api</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
             <dependency>
                 <groupId>it.bz.opendatahub.alpinebits</groupId>
                 <artifactId>ota-extension-impl</artifactId>
-                <version>0.7.2</version>
+                <version>0.7.3</version>
             </dependency>
 
             <dependency>
@@ -433,7 +433,7 @@
                         <dependency>
                             <groupId>com.puppycrawl.tools</groupId>
                             <artifactId>checkstyle</artifactId>
-                            <version>${checkstyle.version}</version>
+                            <version>${puppycrawl-checkstyle.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
