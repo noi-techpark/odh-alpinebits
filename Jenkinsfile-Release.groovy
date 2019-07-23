@@ -38,7 +38,6 @@ pipeline {
                 sh 'echo "                </activation>" >> ~/.m2/settings.xml'
                 sh 'echo "                <properties>" >> ~/.m2/settings.xml'
                 sh 'echo "                    <gpg.executable>gpg2</gpg.executable>" >> ~/.m2/settings.xml'
-                sh 'echo "                    <gpg.passphrase>the_pass_phrase</gpg.passphrase>" >> ~/.m2/settings.xml'
                 sh 'echo "                </properties>" >> ~/.m2/settings.xml'
                 sh 'echo "            </profile>" >> ~/.m2/settings.xml'
                 sh 'echo "        </profiles>" >> ~/.m2/settings.xml'
