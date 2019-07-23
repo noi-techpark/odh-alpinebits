@@ -32,10 +32,10 @@ import java.util.Map;
  * The AlpineBits inventory actions specify, that any valid OTA data can be used at
  * the following positions as an extension:
  * <ul>
- * <li>OTAHotelDescriptiveContentNotifRQ -> HotelDescriptiveContents -> HotelDescriptiveContent -> AffiliationInfo</li>
- * <li>OTAHotelDescriptiveContentNotifRQ -> HotelDescriptiveContents -> HotelDescriptiveContent -> ContactInfos</li>
- * <li>OTAHotelDescriptiveContentNotifRQ -> HotelDescriptiveContents -> HotelDescriptiveContent -> HotelInfo</li>
- * <li>OTAHotelDescriptiveContentNotifRQ -> HotelDescriptiveContents -> HotelDescriptiveContent -> Policies</li>
+ * <li>OTAHotelDescriptiveContentNotifRQ {@literal ->} HotelDescriptiveContents {@literal ->} HotelDescriptiveContent {@literal ->} AffiliationInfo</li>
+ * <li>OTAHotelDescriptiveContentNotifRQ {@literal ->} HotelDescriptiveContents {@literal ->} HotelDescriptiveContent {@literal ->} ContactInfos</li>
+ * <li>OTAHotelDescriptiveContentNotifRQ {@literal ->} HotelDescriptiveContents {@literal ->} HotelDescriptiveContent {@literal ->} HotelInfo</li>
+ * <li>OTAHotelDescriptiveContentNotifRQ {@literal ->} HotelDescriptiveContents {@literal ->} HotelDescriptiveContent {@literal ->} Policies</li>
  * </ul>
  *
  * @see AffiliationInfoConverter
@@ -84,7 +84,7 @@ public final class HotelInfoConverter {
     /**
      * Create a new instance of InventoryObjectToXmlConverter that can be used
      * to convert between generic JAXB classes for OTAHotelDescriptiveContentNotifRQ
-     * -> HotelDescriptiveContents -> HotelDescriptiveContent and OTA classes.
+     * {@literal ->} HotelDescriptiveContents {@literal ->} HotelDescriptiveContent and OTA classes.
      *
      * @return an instance of InventoryObjectToXmlConverter
      * @throws OtaExtensionException if the creation of the instance was not possible
