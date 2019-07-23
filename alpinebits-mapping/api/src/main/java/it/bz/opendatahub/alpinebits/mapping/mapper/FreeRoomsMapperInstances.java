@@ -28,7 +28,7 @@ public final class FreeRoomsMapperInstances {
     /**
      * Provide a mapper between AlpineBits
      * {@link OTAHotelAvailNotifRS} and
-     * {@link it.bz.opendatahub.alpinebits.mapping.entity.freerooms.FreeRoomsResponseMapper}.
+     * {@link it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.freerooms.FreeRoomsResponseMapper}.
      */
     public static final FreeRoomsResponseMapper FREE_ROOMS_RESPONSE_MAPPER = Mappers.getMapper(FreeRoomsResponseMapper.class);
 
