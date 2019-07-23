@@ -11,22 +11,38 @@ pipeline {
     }
 
     environment {
-        S3_REPO_ID='maven-repo.opendatahub.bz.it'
-        AWS_ACCESS_KEY=credentials('s3_repo_username')
-        AWS_SECRET_KEY=credentials('s3_repo_password')
+        ODH_OSSRH_USERNAME=credentials('odh-ossrh-username')
+        ODH_OSSRH_PASSWORD=credentials('odh-ossrh-password')
+        ODH_OSSRH_GPG_KEY=credentials('odh-ossrh-gpg-key')
     }
 
     stages {
         stage('Configure') {
             steps {
+                sh "gpg --import ${ODH_OSSRH_GPG_KEY}"
+
                 sh 'sed -i -e "s/<\\/settings>$//g\" ~/.m2/settings.xml'
                 sh 'echo "    <servers>" >> ~/.m2/settings.xml'
                 sh 'echo "        <server>" >> ~/.m2/settings.xml'
-                sh 'echo "            <id>${S3_REPO_ID}</id>" >> ~/.m2/settings.xml'
-                sh 'echo "            <username>${AWS_ACCESS_KEY}</username>" >> ~/.m2/settings.xml'
-                sh 'echo "            <password>${AWS_SECRET_KEY}</password>" >> ~/.m2/settings.xml'
+                sh 'echo "            <id>ossrh</id>" >> ~/.m2/settings.xml'
+                sh 'echo "            <username>${ODH_OSSRH_USERNAME}</username>" >> ~/.m2/settings.xml'
+                sh 'echo "            <password>${ODH_OSSRH_PASSWORD}</password>" >> ~/.m2/settings.xml'
                 sh 'echo "        </server>" >> ~/.m2/settings.xml'
                 sh 'echo "    </servers>" >> ~/.m2/settings.xml'
+
+                sh 'echo "        <profiles>" >> ~/.m2/settings.xml'
+                sh 'echo "            <profile>" >> ~/.m2/settings.xml'
+                sh 'echo "                <id>ossrh</id>" >> ~/.m2/settings.xml'
+                sh 'echo "                <activation>" >> ~/.m2/settings.xml'
+                sh 'echo "                    <activeByDefault>true</activeByDefault>" >> ~/.m2/settings.xml'
+                sh 'echo "                </activation>" >> ~/.m2/settings.xml'
+                sh 'echo "                <properties>" >> ~/.m2/settings.xml'
+                sh 'echo "                    <gpg.executable>gpg2</gpg.executable>" >> ~/.m2/settings.xml'
+                sh 'echo "                    <gpg.passphrase>the_pass_phrase</gpg.passphrase>" >> ~/.m2/settings.xml'
+                sh 'echo "                </properties>" >> ~/.m2/settings.xml'
+                sh 'echo "            </profile>" >> ~/.m2/settings.xml'
+                sh 'echo "        </profiles>" >> ~/.m2/settings.xml'
+
                 sh 'echo "</settings>" >> ~/.m2/settings.xml'
 
                 sh "mvn versions:set -DnewVersion=${params.TAG}"
@@ -39,7 +55,7 @@ pipeline {
         }
         stage('Release') {
             steps {
-		        sh 'mvn -B -U clean deploy'
+		        sh 'mvn -B -U clean deploy -P release'
             }
         }
         stage('Tag') {
