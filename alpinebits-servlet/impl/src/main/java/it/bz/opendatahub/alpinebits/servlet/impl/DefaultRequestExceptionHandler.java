@@ -25,7 +25,7 @@ import java.io.IOException;
  * <li>
  * for an {@link AlpineBitsException}, the value provided by {@link AlpineBitsException#getCode()}
  * is returned as HTTP status. If the status is not in the range of valid HTTP statuses (i.e.
- * status < 100 || status > 599), a HTTP status of 500 is returned to align to common HTTP statuses.
+ * status {@literal <} 100 || status {@literal >} 599), a HTTP status of 500 is returned to align to common HTTP statuses.
  * </li>
  * <li>
  * for all other exception types, a 500 HTTP status is returned
