@@ -40,7 +40,7 @@ public interface Router {
     /**
      * Return the server AlpineBits version, according to AlpineBits
      * best practices (see AlpineBits specification, Housekeeping
-     * actions -> Implementation tips and best practices):
+     * actions - Implementation tips and best practices):
      * <ul>
      * <li>
      * Client: the​ client​ queries​ the​ server​ version, sending​
