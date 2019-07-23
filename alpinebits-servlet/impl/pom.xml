@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>it.bz.opendatahub</groupId>
+        <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-servlet</artifactId>
         <version>0.7.3</version>
         <relativePath>../pom.xml</relativePath>
@@ -20,19 +20,19 @@
 
     <dependencies>
         <dependency>
-            <groupId>it.bz.opendatahub</groupId>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-servlet-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>it.bz.opendatahub</groupId>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-common-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>it.bz.opendatahub</groupId>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-common-utils</artifactId>
         </dependency>
         <dependency>
-            <groupId>it.bz.opendatahub</groupId>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-middleware-impl</artifactId>
         </dependency>
         <dependency>

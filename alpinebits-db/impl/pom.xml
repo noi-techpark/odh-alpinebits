@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>it.bz.opendatahub</groupId>
+        <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-db</artifactId>
         <version>0.7.3</version>
         <relativePath>../pom.xml</relativePath>
@@ -16,11 +16,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>it.bz.opendatahub</groupId>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-db-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>it.bz.opendatahub</groupId>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-middleware-api</artifactId>
         </dependency>
         <dependency>
@@ -35,7 +35,7 @@
 
         <!-- testing -->
         <dependency>
-            <groupId>it.bz.opendatahub</groupId>
+            <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-middleware-impl</artifactId>
             <scope>test</scope>
         </dependency>

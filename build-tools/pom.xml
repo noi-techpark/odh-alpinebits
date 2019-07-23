@@ -3,8 +3,8 @@
     <modelVersion>4.0.0</modelVersion>
     
     <parent>
-        <groupId>it.bz.opendatahub</groupId>
         <artifactId>alpinebits-root</artifactId>
+        <groupId>it.bz.opendatahub.alpinebits</groupId>
         <version>0.7.3</version>
     </parent>
 
