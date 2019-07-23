@@ -16,7 +16,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <groupId>it.bz.opendatahub</groupId>
             <artifactId>alpinebits-common-api</artifactId>
         </dependency>
     </dependencies>

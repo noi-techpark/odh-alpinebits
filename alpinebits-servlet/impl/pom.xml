@@ -20,19 +20,19 @@
 
     <dependencies>
         <dependency>
-            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <groupId>it.bz.opendatahub</groupId>
             <artifactId>alpinebits-servlet-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <groupId>it.bz.opendatahub</groupId>
             <artifactId>alpinebits-common-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <groupId>it.bz.opendatahub</groupId>
             <artifactId>alpinebits-common-utils</artifactId>
         </dependency>
         <dependency>
-            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <groupId>it.bz.opendatahub</groupId>
             <artifactId>alpinebits-middleware-impl</artifactId>
         </dependency>
         <dependency>

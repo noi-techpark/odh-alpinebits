@@ -16,15 +16,15 @@
 
     <dependencies>
         <dependency>
-            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <groupId>it.bz.opendatahub</groupId>
             <artifactId>alpinebits-middleware-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <groupId>it.bz.opendatahub</groupId>
             <artifactId>alpinebits-xml-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <groupId>it.bz.opendatahub</groupId>
             <artifactId>ota-extension-impl</artifactId>
         </dependency>
         <dependency>
@@ -34,12 +34,12 @@
 
         <!-- testing -->
         <dependency>
-            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <groupId>it.bz.opendatahub</groupId>
             <artifactId>alpinebits-middleware-impl</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <groupId>it.bz.opendatahub</groupId>
             <artifactId>alpinebits-xml-impl</artifactId>
             <scope>test</scope>
         </dependency>

@@ -16,11 +16,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <groupId>it.bz.opendatahub</groupId>
             <artifactId>alpinebits-routing-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <groupId>it.bz.opendatahub</groupId>
             <artifactId>alpinebits-common-utils</artifactId>
         </dependency>
         <dependency>
@@ -30,7 +30,7 @@
 
         <!-- testing -->
         <dependency>
-            <groupId>it.bz.opendatahub.alpinebits</groupId>
+            <groupId>it.bz.opendatahub</groupId>
             <artifactId>alpinebits-servlet-impl</artifactId>
             <scope>test</scope>
         </dependency>
