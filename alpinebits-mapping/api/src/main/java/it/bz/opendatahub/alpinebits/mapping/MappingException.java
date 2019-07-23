@@ -18,6 +18,7 @@ public class MappingException extends AlpineBitsException {
      * Constructs a {@code VersionMismatchException} with the specified message and status.
      *
      * @param msg the detail message
+     * @param status the status
      */
     public MappingException(String msg, int status) {
         super(msg, status);
