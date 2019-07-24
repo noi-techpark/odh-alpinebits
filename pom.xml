@@ -8,6 +8,16 @@
 
     <packaging>pom</packaging>
     <name>AlpineBits</name>
+    <description>
+        AlpineBits is an open standard to exchange touristic data.
+
+        This library provides functionality to implement AlpineBits server. Use it to build your own standalone AlpineBits server, or integrate parts of it into your existing code base.
+    </description>
+    <url>https://www.alpinebits.org/</url>
+
+    <scm>
+        <url>https://github.com/noi-techpark/odh-alpinebits</url>
+    </scm>
 
     <modules>
         <module>alpinebits-common</module>
