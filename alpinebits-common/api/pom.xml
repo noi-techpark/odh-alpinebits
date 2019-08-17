@@ -14,6 +14,15 @@
 
     <name>AlpineBits common API</name>
 
+    <properties>
+        <!--
+            Exclude files that define constants/enums from Sonar,
+            because they account for the reported test coverage,
+            but testing them makes no sense
+         -->
+        <sonar.exclusions>**/constants/*.java</sonar.exclusions>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>it.bz.opendatahub.alpinebits</groupId>
