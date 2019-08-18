@@ -6,7 +6,7 @@
 
 package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory;
 
-import it.bz.opendatahub.alpinebits.validation.ContextWithAction;
+import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.NotLesserOrEqualValidationException;
@@ -114,7 +114,7 @@ public class GuestRoomBasicHeadingValidatorTest {
 
     private void validateAndAssert(
             GuestRoom data,
-            ContextWithAction ctx,
+            InventoryContext ctx,
             Class<? extends ValidationException> exceptionClass,
             String errorMessage
     ) {
@@ -129,12 +129,12 @@ public class GuestRoomBasicHeadingValidatorTest {
         assertEquals(e.getMessage().substring(0, errorMessage.length()), errorMessage);
     }
 
-    private ContextWithAction buildCtx() {
+    private InventoryContext buildCtx() {
         return this.buildCtx(null);
     }
 
-    private ContextWithAction buildCtx(String action) {
-        return new ContextWithAction(action);
+    private InventoryContext buildCtx(String action) {
+        return new InventoryContext(action);
     }
 
 }

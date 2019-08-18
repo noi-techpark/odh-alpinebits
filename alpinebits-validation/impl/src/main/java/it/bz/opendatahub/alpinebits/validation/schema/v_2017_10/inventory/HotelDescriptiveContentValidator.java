@@ -7,7 +7,7 @@
 package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory;
 
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsAction;
-import it.bz.opendatahub.alpinebits.validation.ContextWithAction;
+import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
@@ -19,7 +19,7 @@ import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveCont
  * Validate OTAHotelDescriptiveContentNotifRQ->HotelDescriptiveContents
  * ->HotelDescriptiveContent elements.
  */
-public class HotelDescriptiveContentValidator implements Validator<HotelDescriptiveContent, ContextWithAction> {
+public class HotelDescriptiveContentValidator implements Validator<HotelDescriptiveContent, InventoryContext> {
 
     public static final String ELEMENT_NAME = Names.HOTEL_DESCRIPTIVE_CONTENT;
 
@@ -28,7 +28,7 @@ public class HotelDescriptiveContentValidator implements Validator<HotelDescript
     private final FacilityInfoValidator facilityInfoValidator = new FacilityInfoValidator();
 
     @Override
-    public void validate(HotelDescriptiveContent hotelDescriptiveContent, ContextWithAction ctx, ValidationPath path) {
+    public void validate(HotelDescriptiveContent hotelDescriptiveContent, InventoryContext ctx, ValidationPath path) {
         VALIDATOR.expectNotNull(hotelDescriptiveContent, ErrorMessage.EXPECT_HOTEL_DESCRIPTIVE_CONTENT_TO_BE_NOT_NULL, path);
         VALIDATOR.expectNotNull(ctx, ErrorMessage.EXPECT_CONTEXT_TO_BE_NOT_NULL);
 
@@ -76,7 +76,7 @@ public class HotelDescriptiveContentValidator implements Validator<HotelDescript
         );
     }
 
-    private boolean isInventoryBasicAction(ContextWithAction ctx) {
+    private boolean isInventoryBasicAction(InventoryContext ctx) {
         return AlpineBitsAction.INVENTORY_BASIC_PUSH.equals(ctx.getAction());
     }
 }

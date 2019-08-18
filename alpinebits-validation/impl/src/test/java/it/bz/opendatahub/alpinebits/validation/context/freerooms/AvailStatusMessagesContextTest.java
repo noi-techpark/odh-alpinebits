@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.freerooms.context;
+package it.bz.opendatahub.alpinebits.validation.context.freerooms;
 
 import org.testng.annotations.Test;
 

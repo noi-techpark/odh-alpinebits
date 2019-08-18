@@ -11,7 +11,7 @@ import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
-import it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.freerooms.context.AvailStatusMessagesContext;
+import it.bz.opendatahub.alpinebits.validation.context.freerooms.AvailStatusMessagesContext;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRQ.AvailStatusMessages;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRQ.AvailStatusMessages.AvailStatusMessage;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRQ.AvailStatusMessages.AvailStatusMessage.StatusApplicationControl;

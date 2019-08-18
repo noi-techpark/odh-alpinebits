@@ -8,7 +8,7 @@ package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.freerooms.fromx
 
 import it.bz.opendatahub.alpinebits.validation.XmlSchemaType;
 import it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.freerooms.OTAHotelAvailNotifRQValidator;
-import it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.freerooms.context.FreeRoomsContext;
+import it.bz.opendatahub.alpinebits.validation.context.freerooms.FreeRoomsContext;
 import it.bz.opendatahub.alpinebits.xml.JAXBXmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlValidationSchemaProvider;

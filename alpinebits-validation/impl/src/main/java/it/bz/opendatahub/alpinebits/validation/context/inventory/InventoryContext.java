@@ -4,16 +4,16 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package it.bz.opendatahub.alpinebits.validation;
+package it.bz.opendatahub.alpinebits.validation.context.inventory;
 
 /**
  * This context contains the AlpineBits action as single property.
  */
-public class ContextWithAction {
+public class InventoryContext {
 
     private final String action;
 
-    public ContextWithAction(String action) {
+    public InventoryContext(String action) {
         this.action = action;
     }
 

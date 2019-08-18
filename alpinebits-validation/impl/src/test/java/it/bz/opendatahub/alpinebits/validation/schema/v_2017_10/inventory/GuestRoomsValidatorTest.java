@@ -8,7 +8,7 @@ package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory;
 
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsAction;
 import it.bz.opendatahub.alpinebits.common.constants.OTACodeGuestRoomInfo;
-import it.bz.opendatahub.alpinebits.validation.ContextWithAction;
+import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.NullValidationException;
 import it.bz.opendatahub.alpinebits.validation.SimpleValidationPath;
@@ -84,7 +84,7 @@ public class GuestRoomsValidatorTest {
 
     private void validateAndAssert(
             GuestRooms data,
-            ContextWithAction ctx,
+            InventoryContext ctx,
             Class<? extends ValidationException> exceptionClass,
             String errorMessage
     ) {
@@ -130,12 +130,12 @@ public class GuestRoomsValidatorTest {
         return headingGuestRoom;
     }
 
-    private ContextWithAction buildInventoryBasicCtx() {
+    private InventoryContext buildInventoryBasicCtx() {
         return this.buildCtx(AlpineBitsAction.INVENTORY_BASIC_PUSH);
     }
 
-    private ContextWithAction buildCtx(String action) {
-        return new ContextWithAction(action);
+    private InventoryContext buildCtx(String action) {
+        return new InventoryContext(action);
     }
 
 }

@@ -7,7 +7,7 @@
 package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory;
 
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsAction;
-import it.bz.opendatahub.alpinebits.validation.ContextWithAction;
+import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
@@ -35,7 +35,7 @@ import java.math.BigInteger;
  * </ul>
  * <p>
  */
-public class GuestRoomBasicHeadingValidator implements Validator<GuestRoom, ContextWithAction> {
+public class GuestRoomBasicHeadingValidator implements Validator<GuestRoom, InventoryContext> {
 
     private static final ValidationHelper VALIDATOR = ValidationHelper.withClientDataError();
 
@@ -44,7 +44,7 @@ public class GuestRoomBasicHeadingValidator implements Validator<GuestRoom, Cont
     private final MultimediaDescriptionsBasicValidator multimediaDescriptionsBasicValidator = new MultimediaDescriptionsBasicValidator();
 
     @Override
-    public void validate(GuestRoom guestRoom, ContextWithAction ctx, ValidationPath path) {
+    public void validate(GuestRoom guestRoom, InventoryContext ctx, ValidationPath path) {
         VALIDATOR.expectNotNull(guestRoom, ErrorMessage.EXPECT_GUEST_ROOM_TO_BE_NOT_NULL, path);
         VALIDATOR.expectNotNull(ctx, ErrorMessage.EXPECT_CONTEXT_TO_BE_NOT_NULL);
 

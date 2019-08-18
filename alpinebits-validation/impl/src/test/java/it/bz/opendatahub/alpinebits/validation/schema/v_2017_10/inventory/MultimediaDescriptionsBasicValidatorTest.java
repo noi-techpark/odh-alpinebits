@@ -8,7 +8,7 @@ package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory;
 
 import it.bz.opendatahub.alpinebits.common.constants.Iso6391;
 import it.bz.opendatahub.alpinebits.common.constants.OTACodeInformationType;
-import it.bz.opendatahub.alpinebits.validation.ContextWithAction;
+import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
 import it.bz.opendatahub.alpinebits.validation.EmptyCollectionValidationException;
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.NotNullValidationException;
@@ -312,7 +312,7 @@ public class MultimediaDescriptionsBasicValidatorTest {
 
     private void validateAndAssert(
             MultimediaDescriptions data,
-            ContextWithAction ctx,
+            InventoryContext ctx,
             Class<? extends ValidationException> exceptionClass,
             String errorMessage
     ) {
@@ -350,12 +350,12 @@ public class MultimediaDescriptionsBasicValidatorTest {
     }
 
 
-    private ContextWithAction buildCtx() {
+    private InventoryContext buildCtx() {
         return this.buildCtx(null);
     }
 
-    private ContextWithAction buildCtx(String action) {
-        return new ContextWithAction(action);
+    private InventoryContext buildCtx(String action) {
+        return new InventoryContext(action);
     }
 
 }

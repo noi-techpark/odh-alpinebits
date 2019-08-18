@@ -7,7 +7,7 @@
 package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory;
 
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsAction;
-import it.bz.opendatahub.alpinebits.validation.ContextWithAction;
+import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
@@ -20,7 +20,7 @@ import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveCont
  * Validate OTAHotelDescriptiveContentNotifRQ->HotelDescriptiveContents
  * ->HotelDescriptiveContent->FacilityInfo->GuestRooms elements.
  */
-public class GuestRoomsValidator implements Validator<GuestRooms, ContextWithAction> {
+public class GuestRoomsValidator implements Validator<GuestRooms, InventoryContext> {
 
     public static final String ELEMENT_NAME = Names.GUEST_ROOMS;
 
@@ -31,7 +31,7 @@ public class GuestRoomsValidator implements Validator<GuestRooms, ContextWithAct
     private final GuestRoomHotelInfoValidator guestRoomHotelInfoValidator = new GuestRoomHotelInfoValidator();
 
     @Override
-    public void validate(GuestRooms guestRooms, ContextWithAction ctx, ValidationPath path) {
+    public void validate(GuestRooms guestRooms, InventoryContext ctx, ValidationPath path) {
         // It is valid for GuestRooms to be empty.
         if (guestRooms == null) {
             return;

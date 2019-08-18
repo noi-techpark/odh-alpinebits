@@ -6,7 +6,7 @@
 
 package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory.fromxml;
 
-import it.bz.opendatahub.alpinebits.validation.ContextWithAction;
+import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
 import it.bz.opendatahub.alpinebits.validation.XmlSchemaType;
 import it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory.OTAHotelDescriptiveContentNotifRQValidator;
 import it.bz.opendatahub.alpinebits.xml.JAXBXmlToObjectConverter;
@@ -46,7 +46,7 @@ public class InventoryFromXmlTest {
 
         XmlToObjectConverter<OTAHotelDescriptiveContentNotifRQ> xmlConverter = this.getConverter(xmlSchemaType);
 
-        ContextWithAction ctx = new ContextWithAction(action);
+        InventoryContext ctx = new InventoryContext(action);
 
         OTAHotelDescriptiveContentNotifRQValidator validator = new OTAHotelDescriptiveContentNotifRQValidator();
 

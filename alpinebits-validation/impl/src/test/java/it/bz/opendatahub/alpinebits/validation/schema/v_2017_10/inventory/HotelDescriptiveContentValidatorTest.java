@@ -7,7 +7,7 @@
 package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory;
 
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsAction;
-import it.bz.opendatahub.alpinebits.validation.ContextWithAction;
+import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.NotNullValidationException;
@@ -55,7 +55,7 @@ public class HotelDescriptiveContentValidatorTest {
     @Test
     public void testValidate_ShouldThrow_WhenBothHotelCodeAndHotelNameAreMissing() {
         HotelDescriptiveContent content = new HotelDescriptiveContent();
-        ContextWithAction ctx = new ContextWithAction(null);
+        InventoryContext ctx = new InventoryContext(null);
 
         this.validateAndAssert(
                 content,
@@ -70,7 +70,7 @@ public class HotelDescriptiveContentValidatorTest {
         HotelDescriptiveContent content = new HotelDescriptiveContent();
         content.setHotelCode(DEFAULT_HOTEL_CODE);
         content.setHotelInfo(new HotelDescriptiveContent.HotelInfo());
-        ContextWithAction ctx = new ContextWithAction(AlpineBitsAction.INVENTORY_BASIC_PUSH);
+        InventoryContext ctx = new InventoryContext(AlpineBitsAction.INVENTORY_BASIC_PUSH);
 
         this.validateAndAssert(
                 content,
@@ -85,7 +85,7 @@ public class HotelDescriptiveContentValidatorTest {
         HotelDescriptiveContent content = new HotelDescriptiveContent();
         content.setHotelCode(DEFAULT_HOTEL_CODE);
         content.setPolicies(new HotelDescriptiveContent.Policies());
-        ContextWithAction ctx = new ContextWithAction(AlpineBitsAction.INVENTORY_BASIC_PUSH);
+        InventoryContext ctx = new InventoryContext(AlpineBitsAction.INVENTORY_BASIC_PUSH);
 
         this.validateAndAssert(
                 content,
@@ -100,7 +100,7 @@ public class HotelDescriptiveContentValidatorTest {
         HotelDescriptiveContent content = new HotelDescriptiveContent();
         content.setHotelCode(DEFAULT_HOTEL_CODE);
         content.setAffiliationInfo(new HotelDescriptiveContent.AffiliationInfo());
-        ContextWithAction ctx = new ContextWithAction(AlpineBitsAction.INVENTORY_BASIC_PUSH);
+        InventoryContext ctx = new InventoryContext(AlpineBitsAction.INVENTORY_BASIC_PUSH);
 
         this.validateAndAssert(
                 content,
@@ -115,7 +115,7 @@ public class HotelDescriptiveContentValidatorTest {
         HotelDescriptiveContent content = new HotelDescriptiveContent();
         content.setHotelCode(DEFAULT_HOTEL_CODE);
         content.setContactInfos(new HotelDescriptiveContent.ContactInfos());
-        ContextWithAction ctx = new ContextWithAction(AlpineBitsAction.INVENTORY_BASIC_PUSH);
+        InventoryContext ctx = new InventoryContext(AlpineBitsAction.INVENTORY_BASIC_PUSH);
 
         this.validateAndAssert(
                 content,
@@ -127,7 +127,7 @@ public class HotelDescriptiveContentValidatorTest {
 
     private void validateAndAssert(
             HotelDescriptiveContent data,
-            ContextWithAction ctx,
+            InventoryContext ctx,
             Class<? extends ValidationException> exceptionClass,
             String errorMessage
     ) {

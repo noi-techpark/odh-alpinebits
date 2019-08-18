@@ -7,7 +7,7 @@
 package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory;
 
 import it.bz.opendatahub.alpinebits.common.constants.OTACodeInformationType;
-import it.bz.opendatahub.alpinebits.validation.ContextWithAction;
+import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
@@ -30,7 +30,7 @@ import java.util.Set;
  * ->FacilityInfo->GuestRooms->GuestRoom->MultimediaDescriptions
  * elements.
  */
-public class MultimediaDescriptionsBasicValidator implements Validator<MultimediaDescriptions, ContextWithAction> {
+public class MultimediaDescriptionsBasicValidator implements Validator<MultimediaDescriptions, InventoryContext> {
 
     public static final String ELEMENT_NAME = Names.MULTIMEDIA_DESCRIPTIONS;
 
@@ -40,7 +40,7 @@ public class MultimediaDescriptionsBasicValidator implements Validator<Multimedi
     private final TextItemValidator textItemValidator = new TextItemValidator();
 
     @Override
-    public void validate(MultimediaDescriptions multimediaDescriptions, ContextWithAction ctx, ValidationPath path) {
+    public void validate(MultimediaDescriptions multimediaDescriptions, InventoryContext ctx, ValidationPath path) {
         VALIDATOR.expectNotNull(multimediaDescriptions, ErrorMessage.EXPECT_MULTIMEDIA_DESCRIPTIONS_TO_BE_NOT_NULL);
         VALIDATOR.expectNotNull(ctx, ErrorMessage.EXPECT_CONTEXT_TO_BE_NOT_NULL);
 

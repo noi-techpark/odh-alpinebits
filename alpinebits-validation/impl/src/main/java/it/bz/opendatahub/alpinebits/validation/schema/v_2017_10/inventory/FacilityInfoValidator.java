@@ -6,7 +6,7 @@
 
 package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory;
 
-import it.bz.opendatahub.alpinebits.validation.ContextWithAction;
+import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
@@ -18,7 +18,7 @@ import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveCont
  * Validate OTAHotelDescriptiveContentNotifRQ->HotelDescriptiveContents
  * ->HotelDescriptiveContent->FacilityInfo elements.
  */
-public class FacilityInfoValidator implements Validator<FacilityInfo, ContextWithAction> {
+public class FacilityInfoValidator implements Validator<FacilityInfo, InventoryContext> {
 
     public static final String ELEMENT_NAME = Names.FACILITY_INFO;
 
@@ -27,7 +27,7 @@ public class FacilityInfoValidator implements Validator<FacilityInfo, ContextWit
     private final GuestRoomsValidator guestRoomsValidator = new GuestRoomsValidator();
 
     @Override
-    public void validate(FacilityInfo facilityInfo, ContextWithAction ctx, ValidationPath path) {
+    public void validate(FacilityInfo facilityInfo, InventoryContext ctx, ValidationPath path) {
         VALIDATOR.expectNotNull(facilityInfo, ErrorMessage.EXPECT_FACILITY_INFO_TO_BE_NOT_NULL, path);
         VALIDATOR.expectNotNull(ctx, ErrorMessage.EXPECT_CONTEXT_TO_BE_NOT_NULL);
 

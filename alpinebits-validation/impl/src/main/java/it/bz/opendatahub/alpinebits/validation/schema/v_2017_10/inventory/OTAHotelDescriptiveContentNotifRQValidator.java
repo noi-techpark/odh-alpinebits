@@ -6,7 +6,7 @@
 
 package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory;
 
-import it.bz.opendatahub.alpinebits.validation.ContextWithAction;
+import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.SimpleValidationPath;
@@ -20,7 +20,7 @@ import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveCont
  * objects (AlpineBits 2017-10).
  */
 public class OTAHotelDescriptiveContentNotifRQValidator
-        implements Validator<OTAHotelDescriptiveContentNotifRQ, ContextWithAction> {
+        implements Validator<OTAHotelDescriptiveContentNotifRQ, InventoryContext> {
 
     public static final String ELEMENT_NAME = Names.OTA_HOTEL_DESCRIPTIVE_CONTENT_NOTIF_RQ;
 
@@ -31,7 +31,7 @@ public class OTAHotelDescriptiveContentNotifRQValidator
     @Override
     public void validate(
             OTAHotelDescriptiveContentNotifRQ hotelDescriptiveContentNotifRQ,
-            ContextWithAction ctx,
+            InventoryContext ctx,
             ValidationPath unused
     ) {
         // Initialize validation path

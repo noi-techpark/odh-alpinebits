@@ -4,28 +4,42 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.freerooms.context;
+package it.bz.opendatahub.alpinebits.validation.context.freerooms;
 
 /**
- * This context contains information about FreeRooms capabilities.
+ * This class contains context information for
+ * {@link it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.freerooms.AvailStatusMessagesValidator}.
  */
-public final class FreeRoomsContext {
+public final class AvailStatusMessagesContext {
 
+    private final String instance;
     private final boolean roomCategoriesSupported;
     private final boolean distinctRoomsSupported;
-    private final boolean deltaSupported;
     private final boolean freeButNotBookableSupported;
 
-    private FreeRoomsContext(
+    private AvailStatusMessagesContext(
+            String instance,
             boolean roomCategoriesSupported,
             boolean distinctRoomsSupported,
-            boolean deltaSupported,
             boolean freeButNotBookableSupported
     ) {
+        this.instance = instance;
         this.roomCategoriesSupported = roomCategoriesSupported;
         this.distinctRoomsSupported = distinctRoomsSupported;
-        this.deltaSupported = deltaSupported;
         this.freeButNotBookableSupported = freeButNotBookableSupported;
+    }
+
+    public static AvailStatusMessagesContext fromFreeRoomsContext(String instance, FreeRoomsContext ctx) {
+        return new AvailStatusMessagesContext(
+                instance,
+                ctx.isRoomCategoriesSupported(),
+                ctx.isDistinctRoomsSupported(),
+                ctx.isFreeButNotBookableSupported()
+        );
+    }
+
+    public String getInstance() {
+        return instance;
     }
 
     public boolean isRoomCategoriesSupported() {
@@ -36,54 +50,50 @@ public final class FreeRoomsContext {
         return distinctRoomsSupported;
     }
 
-    public boolean isDeltaSupported() {
-        return deltaSupported;
-    }
-
     public boolean isFreeButNotBookableSupported() {
         return freeButNotBookableSupported;
     }
 
     @Override
     public String toString() {
-        return "CapabilitiesSupport{" +
-                "roomCategoriesSupported=" + roomCategoriesSupported +
+        return "AvailStatusContext{" +
+                "instance='" + instance + '\'' +
+                ", roomCategoriesSupported=" + roomCategoriesSupported +
                 ", distinctRoomsSupported=" + distinctRoomsSupported +
-                ", deltaSupported=" + deltaSupported +
                 ", freeButNotBookableSupported=" + freeButNotBookableSupported +
                 '}';
     }
 
     /**
-     * Builder for {@link FreeRoomsContext}.
+     * Builder for {@link AvailStatusMessagesContext}.
      */
     public static class Builder {
+        private String instance;
         private boolean roomCategoriesSupported;
         private boolean distinctRoomsSupported;
-        private boolean deltaSupported;
         private boolean freeButNotBookableSupported;
 
-        public FreeRoomsContext build() {
-            return new FreeRoomsContext(
+        public AvailStatusMessagesContext build() {
+            return new AvailStatusMessagesContext(
+                    this.instance,
                     this.roomCategoriesSupported,
                     this.distinctRoomsSupported,
-                    this.deltaSupported,
                     this.freeButNotBookableSupported
             );
         }
 
-        public Builder withRoomCategoriesSupport() {
+        public Builder withInstance(String instance) {
+            this.instance = instance;
+            return this;
+        }
+
+        public Builder withRoomsCategoriesSupport() {
             this.roomCategoriesSupported = true;
             return this;
         }
 
         public Builder withDistinctRoomsSupport() {
             this.distinctRoomsSupported = true;
-            return this;
-        }
-
-        public Builder withDeltaSupport() {
-            this.deltaSupported = true;
             return this;
         }
 
