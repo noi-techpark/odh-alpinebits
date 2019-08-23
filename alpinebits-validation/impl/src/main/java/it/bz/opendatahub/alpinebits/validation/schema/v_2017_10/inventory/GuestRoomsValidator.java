@@ -17,8 +17,8 @@ import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveCont
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom;
 
 /**
- * Validate OTAHotelDescriptiveContentNotifRQ->HotelDescriptiveContents
- * ->HotelDescriptiveContent->FacilityInfo->GuestRooms elements.
+ * Validate OTAHotelDescriptiveContentNotifRQ-&gt;HotelDescriptiveContents
+ * -&gt;HotelDescriptiveContent-&gt;FacilityInfo-&gt;GuestRooms elements.
  */
 public class GuestRoomsValidator implements Validator<GuestRooms, InventoryContext> {
 

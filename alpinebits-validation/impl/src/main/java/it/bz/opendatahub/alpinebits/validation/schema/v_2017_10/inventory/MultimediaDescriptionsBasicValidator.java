@@ -26,8 +26,8 @@ import java.util.Set;
 
 /**
  * Validate Inventory/Basic OTAHotelDescriptiveContentNotifRQ
- * ->HotelDescriptiveContents->HotelDescriptiveContent
- * ->FacilityInfo->GuestRooms->GuestRoom->MultimediaDescriptions
+ * -&gt;HotelDescriptiveContents-&gt;HotelDescriptiveContent
+ * -&gt;FacilityInfo-&gt;GuestRooms-&gt;GuestRoom-&gt;MultimediaDescriptions
  * elements.
  */
 public class MultimediaDescriptionsBasicValidator implements Validator<MultimediaDescriptions, InventoryContext> {

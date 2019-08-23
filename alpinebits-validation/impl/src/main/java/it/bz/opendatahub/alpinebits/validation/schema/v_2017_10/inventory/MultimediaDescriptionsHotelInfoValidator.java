@@ -19,8 +19,8 @@ import java.util.List;
 
 /**
  * Validate Inventory/HotelInfo OTAHotelDescriptiveContentNotifRQ
- * ->HotelDescriptiveContents->HotelDescriptiveContent
- * ->FacilityInfo->GuestRooms->GuestRoom->MultimediaDescriptions
+ * -&gt;HotelDescriptiveContents-&gt;HotelDescriptiveContent
+ * -&gt;FacilityInfo-&gt;GuestRooms-&gt;GuestRoom-&gt;MultimediaDescriptions
  * elements.
  */
 public class MultimediaDescriptionsHotelInfoValidator implements Validator<MultimediaDescriptions, Void> {

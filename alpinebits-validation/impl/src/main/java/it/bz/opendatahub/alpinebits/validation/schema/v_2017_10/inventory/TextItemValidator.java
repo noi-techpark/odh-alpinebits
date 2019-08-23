@@ -18,9 +18,9 @@ import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveCont
 import java.util.List;
 
 /**
- * Validate OTAHotelDescriptiveContentNotifRQ->HotelDescriptiveContents
- * ->HotelDescriptiveContent->FacilityInfo->GuestRooms->GuestRoom
- * ->MultimediaDescriptions->MultimediaDescription->TextItems->TextItem elements.
+ * Validate OTAHotelDescriptiveContentNotifRQ-&gt;HotelDescriptiveContents
+ * -&gt;HotelDescriptiveContent-&gt;FacilityInfo-&gt;GuestRooms-&gt;GuestRoom
+ * -&gt;MultimediaDescriptions-&gt;MultimediaDescription-&gt;TextItems-&gt;TextItem elements.
  */
 public class TextItemValidator implements Validator<TextItem, Void> {
 
