@@ -5,14 +5,23 @@
     <parent>
         <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-common</artifactId>
-        <version>0.8.0</version>
+        <version>0.9.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>alpinebits-common-api</artifactId>
-    <version>0.8.0</version>
+    <version>0.9.0-SNAPSHOT</version>
 
     <name>AlpineBits common API</name>
+
+    <properties>
+        <!--
+            Exclude files that define constants/enums from Sonar,
+            because they account for the reported test coverage,
+            but testing them makes no sense
+         -->
+        <sonar.exclusions>**/constants/*.java</sonar.exclusions>
+    </properties>
 
     <dependencies>
         <dependency>
