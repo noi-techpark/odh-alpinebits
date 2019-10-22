@@ -17,19 +17,23 @@ import it.bz.opendatahub.alpinebits.xml.ObjectToXmlConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlValidationSchemaProvider;
 import it.bz.opendatahub.alpinebits.xml.middleware.utils.UnitTestDifferenceEvaluator;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRQ;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRS;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRS;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveInfoRQ;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveInfoRS;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelRatePlanNotifRQ;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelRatePlanNotifRS;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelRatePlanRQ;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelRatePlanRS;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTANotifReportRQ;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAReadRQ;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAResRetrieveRS;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelAvailNotifRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelAvailNotifRS;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelDescriptiveContentNotifRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelDescriptiveContentNotifRS;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelDescriptiveInfoRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelDescriptiveInfoRS;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelRatePlanNotifRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelRatePlanNotifRS;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelRatePlanRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelRatePlanRS;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelResNotifRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelResNotifRS;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTANotifReportRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAPingRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAPingRS;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAReadRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAResRetrieveRS;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.xmlunit.builder.DiffBuilder;
@@ -50,7 +54,7 @@ import static org.testng.Assert.assertFalse;
  * asserts that the original XML and the result XML
  * are similar.
  */
-public class FullXmlConversion {
+public class FullXmlConversion201810 {
 
     @DataProvider(name = "xmlValid")
     public static Object[][] badBasicAuthentication() {
@@ -63,15 +67,22 @@ public class FullXmlConversion {
                 {"FreeRooms-OTA_HotelAvailNotifRS-error.xml", OTAHotelAvailNotifRS.class},
                 {"FreeRooms-OTA_HotelAvailNotifRS-success.xml", OTAHotelAvailNotifRS.class},
                 {"FreeRooms-OTA_HotelAvailNotifRS-warning.xml", OTAHotelAvailNotifRS.class},
+                {"GuestRequests-OTA_HotelResNotifRQ-reservation-push.xml", OTAHotelResNotifRQ.class},
+                {"GuestRequests-OTA_HotelResNotifRS-reservation-push.xml", OTAHotelResNotifRS.class},
                 {"GuestRequests-OTA_ReadRQ.xml", OTAReadRQ.class},
                 {"GuestRequests-OTA_ReadRQ-ack.xml", OTANotifReportRQ.class},
                 {"GuestRequests-OTA_ResRetrieveRS-cancellation.xml", OTAResRetrieveRS.class},
                 {"GuestRequests-OTA_ResRetrieveRS-error.xml", OTAResRetrieveRS.class},
+                {"GuestRequests-OTA_ResRetrieveRS-request-with-roomtype.xml", OTAResRetrieveRS.class},
                 {"GuestRequests-OTA_ResRetrieveRS-reservation.xml", OTAResRetrieveRS.class},
                 {"GuestRequests-OTA_ResRetrieveRS-reservation-empty.xml", OTAResRetrieveRS.class},
+                {"Handshake-OTA_PingRQ.xml", OTAPingRQ.class},
+                {"Handshake-OTA_PingRS.xml", OTAPingRS.class},
                 {"Inventory-OTA_HotelDescriptiveContentNotifRQ.xml", OTAHotelDescriptiveContentNotifRQ.class},
                 {"Inventory-OTA_HotelDescriptiveContentNotifRQ-delete-all.xml", OTAHotelDescriptiveContentNotifRQ.class},
                 {"Inventory-OTA_HotelDescriptiveContentNotifRQ-hotelinfo.xml", OTAHotelDescriptiveContentNotifRQ.class},
+                {"Inventory-OTA_HotelDescriptiveContentNotifRQ-hotelinfo-with-contact-infos.xml", OTAHotelDescriptiveContentNotifRQ.class},
+                {"Inventory-OTA_HotelDescriptiveContentNotifRQ-with-roomtype.xml", OTAHotelDescriptiveContentNotifRQ.class},
                 {"Inventory-OTA_HotelDescriptiveContentNotifRS-advisory.xml", OTAHotelDescriptiveContentNotifRS.class},
                 {"Inventory-OTA_HotelDescriptiveContentNotifRS-error.xml", OTAHotelDescriptiveContentNotifRS.class},
                 {"Inventory-OTA_HotelDescriptiveContentNotifRS-success.xml", OTAHotelDescriptiveContentNotifRS.class},
@@ -90,11 +101,11 @@ public class FullXmlConversion {
 
     @Test(dataProvider = "xmlValid")
     public <T> void fullConversion(String xmlFile, Class<T> classToBeBound) throws Exception {
-        String filename = "examples/v_2017_10/" + xmlFile;
+        String filename = "examples/v_2018_10/" + xmlFile;
         Context ctx = this.prepareCtx(filename);
 
         Key<T> key = Key.key("data key", classToBeBound);
-        Schema schema = XmlValidationSchemaProvider.buildRngSchemaForAlpineBitsVersion("2017-10");
+        Schema schema = XmlValidationSchemaProvider.buildRngSchemaForAlpineBitsVersion("2018-10");
 
         // XML to object
         XmlRequestMappingMiddleware<T> xmlToObjectMiddleware = this.validatingXmlToObjectMiddleware(key, classToBeBound, schema);
