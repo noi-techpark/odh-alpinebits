@@ -8,9 +8,12 @@ package it.bz.opendatahub.alpinebits.common.constants;
 
 /**
  * This class provides constants for all known
- * AlpineBits actions for version 2017-10.
+ * AlpineBits actions for version 2018-10.
  */
 public final class AlpineBitsAction {
+
+    // Handshaking
+    public static final String HANDSHAKING = "OTA_Ping:Handshaking";
 
     // Housekeeping
     public static final String GET_VERSION = "getVersion";
@@ -21,6 +24,7 @@ public final class AlpineBitsAction {
 
     // GuestRequests
     public static final String GUEST_REQUESTS_READ_GUEST_REQUESTS = "OTA_Read:GuestRequests";
+    public static final String GUEST_REQUESTS_WRITE_GUEST_REQUESTS = "OTA_HotelResNotif:GuestRequests";
     public static final String GUEST_REQUESTS_NOTIF_REPORT_GUEST_REQUESTS = "OTA_NotifReport:GuestRequests";
 
     // Inventory
