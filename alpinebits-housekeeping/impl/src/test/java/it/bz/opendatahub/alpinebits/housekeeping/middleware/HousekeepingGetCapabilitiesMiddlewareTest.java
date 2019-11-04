@@ -71,7 +71,7 @@ public class HousekeepingGetCapabilitiesMiddlewareTest {
     }
 
     @Test
-    public void testHandleContext_ReturnManyCapabilitites() throws Exception {
+    public void testHandleContext_ReturnManyCapabilities() throws Exception {
         Context ctx = new SimpleContext();
         ctx.put(RequestContextKey.REQUEST_VERSION, RouterMiddlewareBuilder.DEFAULT_VERSION);
         ctx.put(RequestContextKey.REQUEST_ACTION, AlpineBitsAction.GET_CAPABILITIES);
@@ -79,10 +79,10 @@ public class HousekeepingGetCapabilitiesMiddlewareTest {
 
         String customCapability = "cap1";
 
-        // This routing middleware is configured for the getCapabilitites and
+        // This routing middleware is configured for the getCapabilities and
         // RouterMiddlewareBuilder#DEFAULT_ACTION. Therefore, when invoked with
         // getCapabilities as action, it returns two actions
-        Middleware routingMiddleware = RouterMiddlewareBuilder.buildRoutingMiddlewareWithCapabilititesAndCustomAction(customCapability);
+        Middleware routingMiddleware = RouterMiddlewareBuilder.buildRoutingMiddlewareWithCapabilitiesAndCustomAction(customCapability);
         routingMiddleware.handleContext(ctx, null);
 
         // Read the capabilities response from the context

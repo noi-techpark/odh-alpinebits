@@ -22,6 +22,9 @@ public class AlpineBitsVersionChecker {
      * @return <code>true</code> if the provided version is a legacy
      * version, <code>false</code> otherwise.
      */
+    // Disable CheckStyle rule "BooleanExpressionComplexity" for this method,
+    // which forbids boolean expressions with more than 7 conditions
+    @SuppressWarnings("checkstyle:booleanexpressioncomplexity")
     public static boolean isLegacyVersion(String alpineBitsVersion) {
         return AlpineBitsVersion.V_2017_10.equals(alpineBitsVersion)
                 || AlpineBitsVersion.V_2015_07B.equals(alpineBitsVersion)

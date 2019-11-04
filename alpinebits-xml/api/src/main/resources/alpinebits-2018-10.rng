@@ -486,11 +486,6 @@
                   </rng:choice>
                 </rng:attribute>
                 <rng:optional>
-<!--                  <rng:optional>-->
-<!--                    <rng:attribute name="Code">-->
-<!--                      <rng:ref name="def_int_ge0"/>-->
-<!--                    </rng:attribute>-->
-<!--                  </rng:optional>-->
                   <rng:attribute name="Code">
                     <rng:ref name="def_int_ge0"/>
                   </rng:attribute>

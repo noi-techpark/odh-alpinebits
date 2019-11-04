@@ -33,7 +33,7 @@ public final class AlpineBitsAction {
     public static final String INVENTORY_HOTEL_INFO_PUSH = "OTA_HotelDescriptiveContentNotif:Info";
     public static final String INVENTORY_HOTEL_INFO_PULL = "OTA_HotelDescriptiveInfo:Info";
 
-    // FreeRooms
+    // RatePlans
     public static final String RATE_PLANS_HOTEL_RATE_PLAN_NOTIF_RATE_PLANS = "OTA_HotelRatePlanNotif:RatePlans";
 
     // BaseRates

@@ -17,7 +17,7 @@ import static org.testng.Assert.*;
 public class AlpineBitsVersionCheckerTest {
 
     @Test
-    public void testIsLegacyVersion_ShouldReturnTrueForAlpineBits2010_08() {
+    public void testIsLegacyVersion_ShouldReturnTrueForAlpineBitsV_2010_08() {
         assertTrue(AlpineBitsVersionChecker.isLegacyVersion(AlpineBitsVersion.V_2010_08));
     }
 
