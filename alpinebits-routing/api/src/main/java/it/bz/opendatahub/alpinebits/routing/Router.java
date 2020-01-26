@@ -108,7 +108,7 @@ public interface Router {
      * AlpineBits capabilities for the given <code>version</code>.
      * <p>
      * Note, that this method returns pure configuration information.
-     * It provides guarantee at all, that the capabilities are really
+     * It provides no guarantee at all, that the capabilities are really
      * implemented and supported.
      * <p>
      * If the version is not configured, the optional is empty. If there are no
@@ -130,6 +130,35 @@ public interface Router {
     Optional<Set<String>> getCapabilitiesForVersion(String version);
 
     /**
+     * Return an {@link Optional} wrapping a {@link Set} of configured
+     * AlpineBits capabilities for the given <code>version</code> and
+     * <code>action</code>.
+     * <p>
+     * Note, that this method returns pure configuration information.
+     * It provides no guarantee at all, that the capabilities are really
+     * implemented and supported.
+     * <p>
+     * If the version is not configured, the optional is empty. If the action
+     * for the given version is not configured, the optional is also empty.
+     * If there are no capabilities defined for the given <code>version</code>
+     * and <code>action</code>, an empty set is returned.
+     * <p>
+     * If the <code>version</code> or <code>action</code> is null, an
+     * {@link IllegalArgumentException} is thrown.
+     *
+     * @param version The <code>version</code> for which to return the capabilities.
+     * @param action The <code>action</code> for which to return the capabilities.
+     * @return An {@link Optional} wrapping a {@link Set} of configured
+     * AlpineBits capabilities for the given <code>version</code> and <code>action</code>,
+     * if such a configuration exists. The Optional contains an empty set, if the
+     * <code>version</code> and <code>action</code> are configured, but no capabilities
+     * are defined for them. The method returns an empty Optional, if there exists
+     * no such configuration.
+     * @throws IllegalArgumentException if <code>version</code> is null
+     */
+    Optional<Set<String>> getCapabilitiesForVersionAndAction(String version, String action);
+
+    /**
      * Check if there is a {@link Middleware} for the given <code>version</code>
      * and <code>action</code>.
      *
@@ -147,7 +176,7 @@ public interface Router {
      * <code>version</code> is defined.
      * <p>
      * Note, that this method returns pure configuration information.
-     * It provides guarantee at all, that the capability is really
+     * It provides no guarantee at all, that the capability is really
      * implemented and supported.
      *
      * @param version    the AlpineBits version to check

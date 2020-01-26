@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -72,8 +73,7 @@ public class DefaultRouterTest {
         Router router = this.getRouter(DEFAULT_VERSION, DEFAULT_ACTION, middleware);
         Optional<Middleware> optionalMiddleware = router.findMiddleware(DEFAULT_VERSION, DEFAULT_ACTION);
 
-        // Use optional value without any further test (e.g. Optional#isPresent()), because if
-        // the optional is not present, an Exception is thrown
+        assertTrue(optionalMiddleware.isPresent());
         Middleware resultMiddleware = optionalMiddleware.get();
 
         Context ctx = new SimpleContext();
@@ -164,8 +164,7 @@ public class DefaultRouterTest {
                 .versionComplete()
                 .buildRouter();
 
-        // Use optional value without any further test (e.g. Optional#isPresent()), because if
-        // the optional is not present, an Exception is thrown
+        assertTrue(router.getActionsForVersion(DEFAULT_VERSION).isPresent());
         Set<String> actions = router.getActionsForVersion(DEFAULT_VERSION).get();
 
         assertEquals(actions.size(), 2);
@@ -184,8 +183,7 @@ public class DefaultRouterTest {
                 .versionComplete()
                 .buildRouter();
 
-        // Use optional value without any further test (e.g. Optional#isPresent()), because if
-        // the optional is not present, an Exception is thrown
+        assertTrue(router.getCapabilitiesForVersion(DEFAULT_VERSION).isPresent());
         Set<String> capabilities = router.getCapabilitiesForVersion(DEFAULT_VERSION).get();
 
         assertEquals(capabilities.size(), 2);
@@ -201,8 +199,7 @@ public class DefaultRouterTest {
                 .versionComplete()
                 .buildRouter();
 
-        // Use optional value without any further test (e.g. Optional#isPresent()), because if
-        // the optional is not present, an Exception is thrown
+        assertTrue(router.getCapabilitiesForVersion(DEFAULT_VERSION).isPresent());
         Set<String> capabilities = router.getCapabilitiesForVersion(DEFAULT_VERSION).get();
 
         assertEquals(capabilities.size(), 0);
@@ -218,6 +215,57 @@ public class DefaultRouterTest {
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void testGetCapabilitiesForVersion_throwsOnNullVersion() {
         this.getDefaultRouter().getCapabilitiesForVersion(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testGetCapabilitiesForVersionAndAction_throwsOnNullVersion() {
+        this.getDefaultRouter().getCapabilitiesForVersionAndAction(null, DEFAULT_ACTION);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testGetCapabilitiesForVersionAndAction_throwsOnNullAction() {
+        this.getDefaultRouter().getCapabilitiesForVersionAndAction(DEFAULT_VERSION, null);
+    }
+
+    @Test
+    public void testGetCapabilitiesForVersionAndAction_ShouldReturnEmptyOptional_IfVersionIsNotConfigured() {
+        Optional<Set<String>> result = this.getDefaultRouter()
+                .getCapabilitiesForVersionAndAction(DEFAULT_VERSION + 1, DEFAULT_ACTION);
+        assertFalse(result.isPresent());
+    }
+
+    @Test
+    public void testGetCapabilitiesForVersionAndAction_ShouldReturnEmptyOptional_IfActionForVersionIsNotConfigured() {
+        Optional<Set<String>> result = this.getDefaultRouter()
+                .getCapabilitiesForVersionAndAction(DEFAULT_VERSION, DEFAULT_ACTION + 1);
+        assertFalse(result.isPresent());
+    }
+
+    @Test
+    public void testGetCapabilitiesForVersionAndAction_ShouldReturnEmptySet_IfNoCapabilitiesConfiguredForVersionAndAction() {
+        Optional<Set<String>> result = this.getRouter(DEFAULT_VERSION, DEFAULT_ACTION)
+                .getCapabilitiesForVersionAndAction(DEFAULT_VERSION, DEFAULT_ACTION);
+        assertTrue(result.isPresent());
+        assertTrue(result.get().isEmpty());
+    }
+
+    @Test
+    public void testGetCapabilitiesForVersionAndAction_ShouldReturnCapabilities_IfCapabilitiesConfiguredForVersionAndAction() {
+        Set<String> capabilities = new HashSet<>();
+        capabilities.add("CAP1");
+        capabilities.add("CAP2");
+
+        Router router = new DefaultRouter.Builder()
+                .version(DEFAULT_VERSION)
+                .supportsAction(DEFAULT_ACTION)
+                .withCapabilities(capabilities)
+                .using((ctx, chain) -> {})
+                .versionComplete()
+                .buildRouter();
+
+        Optional<Set<String>> result = router.getCapabilitiesForVersionAndAction(DEFAULT_VERSION, DEFAULT_ACTION);
+        assertTrue(result.isPresent());
+        assertEquals(result.get(), capabilities);
     }
 
     @Test
@@ -321,5 +369,4 @@ public class DefaultRouterTest {
                 .versionComplete()
                 .buildRouter();
     }
-
 }

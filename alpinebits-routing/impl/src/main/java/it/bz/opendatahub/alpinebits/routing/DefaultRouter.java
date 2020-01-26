@@ -27,6 +27,7 @@ import java.util.function.Supplier;
 public final class DefaultRouter implements Router {
 
     private static final String VERSION_NULL_ERROR_MESSAGE = "The version must not be null";
+    private static final String ACTION_NULL_ERROR_MESSAGE = "The action must not be null";
 
     private final Map<String, VersionConfiguration> routes;
 
@@ -97,6 +98,33 @@ public final class DefaultRouter implements Router {
         }
 
         return Optional.of(versionConfiguration.getCapabilities());
+    }
+
+    @Override
+    public Optional<Set<String>> getCapabilitiesForVersionAndAction(String version, String action) {
+        if (version == null) {
+            throw new IllegalArgumentException(VERSION_NULL_ERROR_MESSAGE);
+        }
+        if (action == null) {
+            throw new IllegalArgumentException(ACTION_NULL_ERROR_MESSAGE);
+        }
+
+        VersionConfiguration versionConfiguration = this.routes.get(version);
+        if (versionConfiguration == null) {
+            return Optional.empty();
+        }
+
+        Map<String, ActionConfiguration> actionConfigurations = versionConfiguration.getActions();
+        if (actionConfigurations == null) {
+            return Optional.empty();
+        }
+
+        ActionConfiguration actionConfiguration = actionConfigurations.get(action);
+        if (actionConfiguration == null) {
+            return Optional.empty();
+        }
+
+        return Optional.ofNullable(actionConfiguration.getCapabilitites());
     }
 
     @Override
