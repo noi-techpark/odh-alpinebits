@@ -44,7 +44,7 @@
         <maven-failsafe-plugin.version>2.20</maven-failsafe-plugin.version>
         <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
         <checkstyle-maven.version>2.17</checkstyle-maven.version>
-        <puppycrawl-checkstyle.version>8.18</puppycrawl-checkstyle.version>
+        <puppycrawl-checkstyle.version>8.29</puppycrawl-checkstyle.version>
         <maven-pmd-plugin.version>3.10.0</maven-pmd-plugin.version>
         <sonar-maven-plugin.version>3.4.0.905</sonar-maven-plugin.version>
         <jacoco.version>0.8.2</jacoco.version>
