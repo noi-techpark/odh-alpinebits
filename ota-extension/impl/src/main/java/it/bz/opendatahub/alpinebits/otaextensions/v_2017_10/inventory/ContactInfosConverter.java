@@ -29,7 +29,7 @@ import java.util.Map;
  * The provided converter facilitates the conversion between the generic JAXB classes
  * generated for AlpineBits at the given extension points and OTA classes.
  * <p>
- * The AlpineBits inventory actions specify, that any valid OTA data can be used at
+ * The AlpineBits 2017-10 inventory actions specify, that any valid OTA data can be used at
  * the following positions as an extension:
  * <ul>
  * <li>OTAHotelDescriptiveContentNotifRQ {@literal ->} HotelDescriptiveContents {@literal ->} HotelDescriptiveContent {@literal ->} AffiliationInfo</li>

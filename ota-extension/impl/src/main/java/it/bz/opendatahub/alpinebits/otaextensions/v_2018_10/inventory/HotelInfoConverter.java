@@ -4,13 +4,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package it.bz.opendatahub.alpinebits.otaextensions.v_2017_10.inventory;
+package it.bz.opendatahub.alpinebits.otaextensions.v_2018_10.inventory;
 
 import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.CategoryCodesType;
 import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.HotelInfoType;
 import it.bz.opendatahub.alpinebits.otaextensions.ConverterUtil;
 import it.bz.opendatahub.alpinebits.otaextensions.exception.OtaExtensionException;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelDescriptiveContentNotifRQ;
 import org.w3c.dom.Element;
 
 import javax.xml.bind.JAXBContext;
@@ -29,17 +29,15 @@ import java.util.Map;
  * The provided converter facilitates the conversion between the generic JAXB classes
  * generated for AlpineBits at the given extension points and OTA classes.
  * <p>
- * The AlpineBits 2017-10 inventory actions specify, that any valid OTA data can be used at
+ * The AlpineBits 2018-10 inventory actions specify, that any valid OTA data can be used at
  * the following positions as an extension:
  * <ul>
  * <li>OTAHotelDescriptiveContentNotifRQ {@literal ->} HotelDescriptiveContents {@literal ->} HotelDescriptiveContent {@literal ->} AffiliationInfo</li>
- * <li>OTAHotelDescriptiveContentNotifRQ {@literal ->} HotelDescriptiveContents {@literal ->} HotelDescriptiveContent {@literal ->} ContactInfos</li>
  * <li>OTAHotelDescriptiveContentNotifRQ {@literal ->} HotelDescriptiveContents {@literal ->} HotelDescriptiveContent {@literal ->} HotelInfo</li>
  * <li>OTAHotelDescriptiveContentNotifRQ {@literal ->} HotelDescriptiveContents {@literal ->} HotelDescriptiveContent {@literal ->} Policies</li>
  * </ul>
  *
  * @see AffiliationInfoConverter
- * @see ContactInfosConverter
  * @see PoliciesConverter
  */
 public final class HotelInfoConverter {
