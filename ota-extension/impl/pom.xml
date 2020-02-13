@@ -45,6 +45,7 @@
         <dependency>
             <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-xml-impl</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
