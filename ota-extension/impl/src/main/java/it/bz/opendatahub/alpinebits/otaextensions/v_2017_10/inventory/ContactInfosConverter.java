@@ -78,8 +78,7 @@ public final class ContactInfosConverter {
     }
 
     /**
-     * Convert an AlpineBits {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.ContactInfos}
-     * element to an OTA {@link ContactInfosType}.
+     * Convert an AlpineBits ContactInfos element to an OTA {@link ContactInfosType}.
      * <p>
      * The AlpineBits ContactInfosType has an <code>any</code> type, that allows any OTA
      * content valid for this position according to the specification.
@@ -87,8 +86,7 @@ public final class ContactInfosConverter {
      * This method converts the content of the AlpineBits ContactInfosType into
      * corresponding OTA types.
      *
-     * @param hotelDescriptiveContent the OTA {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent}
-     *                                that contains contact info
+     * @param hotelDescriptiveContent the OTA HotelDescriptiveContent that contains contact info
      * @return the converted {@link ContactInfosType} or null if the hotelDescriptiveContent is null
      * or its contactInfos is null or empty
      * @throws OtaExtensionException if there was an error during the conversion
@@ -120,7 +118,7 @@ public final class ContactInfosConverter {
     }
 
     /**
-     * Apply the {@link ContactInfosType} to the {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent}.
+     * Apply the {@link ContactInfosType} to the HotelDescriptiveContent.
      * <p>
      * The method first tries to convert the provided contactInfosType to XML
      * elements using JAXB. Then it adds those elements to the hotelDescriptiveContent.
@@ -128,8 +126,7 @@ public final class ContactInfosConverter {
      * If either of the input params are null, no modification will take place.
      *
      * @param hotelDescriptiveContent apply the {@link ContactInfosType} to this hotelDescriptiveContent
-     * @param contactInfosType        apply this {@link ContactInfosType} to the
-     *                                hotelDescriptiveContent
+     * @param contactInfosType        apply this {@link ContactInfosType} to the hotelDescriptiveContent
      * @throws OtaExtensionException if there was an error during the conversion of the
      *                               provided {@link ContactInfosType}
      */

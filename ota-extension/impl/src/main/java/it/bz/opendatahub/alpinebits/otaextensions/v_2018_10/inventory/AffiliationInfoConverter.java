@@ -81,8 +81,7 @@ public final class AffiliationInfoConverter {
     }
 
     /**
-     * Convert an AlpineBits {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.AffiliationInfo}
-     * element to an OTA {@link AffiliationInfoType}.
+     * Convert an AlpineBits AffiliationInfo element to an OTA {@link AffiliationInfoType}.
      * <p>
      * The AlpineBits AffiliationInfo has an <code>any</code> type, that allows any OTA
      * content valid for this position according to the specification.
@@ -90,8 +89,7 @@ public final class AffiliationInfoConverter {
      * This method converts the content of the AlpineBits AffiliationInfo into
      * corresponding OTA types.
      *
-     * @param hotelDescriptiveContent the OTA {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent}
-     *                                that contains affiliation info
+     * @param hotelDescriptiveContent the OTA HotelDescriptiveContent that contains affiliation info
      * @return the converted {@link AffiliationInfoType} or null if the hotelDescriptiveContent is null
      * or its affiliationInfo is null or empty
      * @throws OtaExtensionException if there was an error during the conversion
@@ -130,7 +128,7 @@ public final class AffiliationInfoConverter {
     }
 
     /**
-     * Apply the {@link AffiliationInfoType} to the {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent}.
+     * Apply the {@link AffiliationInfoType} to the HotelDescriptiveContent.
      * <p>
      * The method first tries to convert the provided affiliationInfoType to XML
      * elements using JAXB. Then it adds those elements to the hotelDescriptiveContent.
@@ -138,8 +136,7 @@ public final class AffiliationInfoConverter {
      * If either of the input params are null, no modification will take place.
      *
      * @param hotelDescriptiveContent apply the {@link AffiliationInfoType} to this hotelDescriptiveContent
-     * @param affiliationInfoType     apply this {@link AffiliationInfoType} to the
-     *                                inventory
+     * @param affiliationInfoType     apply this {@link AffiliationInfoType} to the inventory
      * @throws OtaExtensionException if there was an error during the conversion of the
      *                               provided {@link AffiliationInfoType}
      */

@@ -101,8 +101,7 @@ public final class HotelInfoConverter {
     }
 
     /**
-     * Convert an AlpineBits {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.HotelInfo}
-     * element to an OTA {@link HotelInfoType}.
+     * Convert an AlpineBits HotelInfo element to an OTA {@link HotelInfoType}.
      * <p>
      * The AlpineBits HotelInfoType has an <code>any</code> type, that allows any OTA
      * content valid for this position according to the specification.
@@ -110,8 +109,7 @@ public final class HotelInfoConverter {
      * This method converts the content of the AlpineBits HotelInfoType into
      * corresponding OTA types.
      *
-     * @param hotelDescriptiveContent the OTA {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent}
-     *                                that contains hotel info
+     * @param hotelDescriptiveContent the OTA HotelDescriptiveContent that contains hotel info
      * @return the converted {@link HotelInfoType} or null if the hotelDescriptiveContent is null
      * or its hotelInfo is null or empty
      * @throws OtaExtensionException if there was an error during the conversion
@@ -147,7 +145,7 @@ public final class HotelInfoConverter {
     }
 
     /**
-     * Apply the {@link HotelInfoType} to the {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent}.
+     * Apply the {@link HotelInfoType} to the HotelDescriptiveContent.
      * <p>
      * The method first tries to convert the provided hotelInfoType to XML
      * elements using JAXB. Then it adds those elements to the hotelDescriptiveContent.
