@@ -7,7 +7,7 @@
 package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.inventory;
 
 import it.bz.opendatahub.alpinebits.mapping.entity.GenericResponse;
-import it.bz.opendatahub.alpinebits.mapping.mapper.InventoryMapperInstances;
+import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.InventoryMapperInstances;
 import it.bz.opendatahub.alpinebits.xml.JAXBObjectToXmlConverter;
 import it.bz.opendatahub.alpinebits.xml.JAXBXmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.ObjectToXmlConverter;

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+     AlpineBits 2017-10
+     http://www.alpinebits.org/
+
+     sample message file
+
+     changelog:
+     v. 2017-10 1.0
+-->
+
+<OTA_HotelDescriptiveInfoRS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                            xmlns="http://www.opentravel.org/OTA/2003/05"
+                            xsi:schemaLocation="http://www.opentravel.org/OTA/2003/05 OTA_HotelDescriptiveInfoRS.xsd"
+                            Version="3.000">
+
+    <Success/>
+
+    <HotelDescriptiveContents>
+
+        <HotelDescriptiveContent HotelCode="123" HotelName="Frangart Inn">
+
+            <!-- FacilityInfo: additional descriptive content for room categories -->
+
+            <FacilityInfo>
+                <GuestRooms>
+                    <GuestRoom Code="DZ">
+                        <MultimediaDescriptions>
+                            <MultimediaDescription>
+                                <ImageItems>
+                                    <ImageItem Category="6">
+                                        <ImageFormat CopyrightNotice="Image copyright">
+                                            <URL>https://..../HotelLogo.jpg</URL>
+                                        </ImageFormat>
+                                        <Description TextFormat="PlainText" Language="en">Image description
+                                        </Description>
+                                    </ImageItem>
+                                    <!--
+                                    .....
+                                    -->
+                                </ImageItems>
+                            </MultimediaDescription>
+                        </MultimediaDescriptions>
+                    </GuestRoom>
+                </GuestRooms>
+            </FacilityInfo>
+
+        </HotelDescriptiveContent>
+
+    </HotelDescriptiveContents>
+
+</OTA_HotelDescriptiveInfoRS>

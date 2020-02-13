@@ -4,20 +4,20 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package it.bz.opendatahub.alpinebits.mapping.mapper;
+package it.bz.opendatahub.alpinebits.mapping.mapper.v_2018_10;
 
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.notifreportrq.GuestRequestsConfirmationRequest;
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.notifreportrs.GuestRequestsConfirmationResponse;
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.readrq.GuestRequestsReadRequest;
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.resretrievers.GuestRequestsReadResponse;
-import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.guestrequests.notifreportrq.GuestRequestsConfirmationRequestMapper;
-import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.guestrequests.notifreportrs.GuestRequestsConfirmationResponseMapper;
-import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.guestrequests.readrq.GuestRequestsReadRequestMapper;
-import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.guestrequests.resretrievers.GuestRequestsReadResponseMapper;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTANotifReportRQ;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTANotifReportRS;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAReadRQ;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAResRetrieveRS;
+import it.bz.opendatahub.alpinebits.mapping.mapper.v_2018_10.guestrequests.notifreportrq.GuestRequestsConfirmationRequestMapper;
+import it.bz.opendatahub.alpinebits.mapping.mapper.v_2018_10.guestrequests.notifreportrs.GuestRequestsConfirmationResponseMapper;
+import it.bz.opendatahub.alpinebits.mapping.mapper.v_2018_10.guestrequests.readrq.GuestRequestsReadRequestMapper;
+import it.bz.opendatahub.alpinebits.mapping.mapper.v_2018_10.guestrequests.resretrievers.GuestRequestsReadResponseMapper;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTANotifReportRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTANotifReportRS;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAReadRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAResRetrieveRS;
 import org.mapstruct.factory.Mappers;
 
 /**

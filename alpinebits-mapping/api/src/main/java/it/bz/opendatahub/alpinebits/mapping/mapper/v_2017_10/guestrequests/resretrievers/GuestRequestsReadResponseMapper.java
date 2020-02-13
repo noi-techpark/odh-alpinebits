@@ -7,6 +7,7 @@
 package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.guestrequests.resretrievers;
 
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.resretrievers.GuestRequestsReadResponse;
+import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.common.ErrorMapper;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAResRetrieveRS;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Context;
@@ -19,11 +20,17 @@ import org.mapstruct.MappingTarget;
  * Map AlpineBits {@link OTAResRetrieveRS} objects to
  * {@link GuestRequestsReadResponse} objects and vice versa.
  */
-@Mapper(uses = HotelReservationMapper.class)
+@Mapper(
+        uses = {
+                ErrorMapper.class,
+                HotelReservationMapper.class,
+        }
+)
 public interface GuestRequestsReadResponseMapper {
 
     @Mapping(target = "errors", source = "errors.errors")
     @Mapping(target = "hotelReservations", source = "reservationsList.hotelReservations")
+    @Mapping(target = "warnings", ignore = true)
     GuestRequestsReadResponse toHotelReservationReadResult(
             OTAResRetrieveRS otaResRetrieveRS,
             @Context it.bz.opendatahub.alpinebits.middleware.Context ctx

@@ -7,6 +7,7 @@
 package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.inventory.contentnotifrs;
 
 import it.bz.opendatahub.alpinebits.mapping.entity.GenericResponse;
+import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.common.ErrorMapper;
 import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.common.WarningMapper;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRS;
 import org.mapstruct.Context;
@@ -21,7 +22,8 @@ import org.mapstruct.Mapping;
 @Mapper(
         uses = {
                 AfterHotelDescriptiveContentNotifResponseMapping.class,
-                WarningMapper.class
+                ErrorMapper.class,
+                WarningMapper.class,
         }
 )
 public interface HotelDescriptiveContentNotifResponseMapper {

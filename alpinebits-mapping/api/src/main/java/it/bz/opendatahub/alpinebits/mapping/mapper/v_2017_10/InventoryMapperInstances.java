@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package it.bz.opendatahub.alpinebits.mapping.mapper;
+package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10;
 
 import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.inventory.contentnotifrq.HotelDescriptiveContentNotifRequestMapper;
 import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.inventory.contentnotifrs.HotelDescriptiveContentNotifResponseMapper;

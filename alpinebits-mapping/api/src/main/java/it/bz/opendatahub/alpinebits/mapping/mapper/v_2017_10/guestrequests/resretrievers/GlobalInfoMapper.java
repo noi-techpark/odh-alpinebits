@@ -36,6 +36,7 @@ public interface GlobalInfoMapper {
     @Mapping(target = "hotelReservationIds", source = "hotelReservationIDs.hotelReservationIDs")
     @Mapping(target = "includedServices", source = "comments")
     @Mapping(target = "company", source = "resGlobalInfo.profiles.profileInfo.profile.companyInfo")
+    @Mapping(target = "basicPropertyInfo", ignore = true)
     GlobalInfo toGlobalInfo(
             OTAResRetrieveRS.ReservationsList.HotelReservation.ResGlobalInfo resGlobalInfo,
             @Context it.bz.opendatahub.alpinebits.middleware.Context ctx

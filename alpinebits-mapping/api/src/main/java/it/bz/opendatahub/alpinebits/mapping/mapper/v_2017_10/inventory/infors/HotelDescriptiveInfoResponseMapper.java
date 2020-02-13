@@ -8,6 +8,7 @@ package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.inventory.infors;
 
 import it.bz.opendatahub.alpinebits.mapping.entity.inventory.HotelDescriptiveContent;
 import it.bz.opendatahub.alpinebits.mapping.entity.inventory.HotelDescriptiveInfoResponse;
+import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.common.ErrorMapper;
 import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.inventory.HotelDescriptiveContentMapper;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveInfoRS;
@@ -23,7 +24,8 @@ import org.mapstruct.Mapping;
 @Mapper(
         uses = {
                 AfterHotelDescriptiveInfoResponseMapping.class,
-                HotelDescriptiveContentMapper.class
+                ErrorMapper.class,
+                HotelDescriptiveContentMapper.class,
         }
 )
 public interface HotelDescriptiveInfoResponseMapper {
