@@ -31,25 +31,24 @@ import static org.testng.Assert.*;
  */
 public class AffiliationInfoConverterTest {
 
+    public static final AffiliationInfoConverter AFFILIATION_INFO_CONVERTER = AffiliationInfoConverter.newInstance();
+
     @Test
     public void testToAffiliationInfoType_hotelDescriptiveContentNull() {
-        AffiliationInfoConverter affiliationInfoConverter = AffiliationInfoConverter.newInstance();
-        AffiliationInfoType affiliationInfoType = affiliationInfoConverter.toAffiliationInfoType(null);
+        AffiliationInfoType affiliationInfoType = AFFILIATION_INFO_CONVERTER.toAffiliationInfoType(null);
         assertNull(affiliationInfoType);
     }
 
     @Test
     public void testToAffiliationInfoType_affiliationInfoNull() {
-        AffiliationInfoConverter affiliationInfoConverter = AffiliationInfoConverter.newInstance();
         OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent hotelDescriptiveContent =
                 new OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent();
-        AffiliationInfoType affiliationInfoType = affiliationInfoConverter.toAffiliationInfoType(hotelDescriptiveContent);
+        AffiliationInfoType affiliationInfoType = AFFILIATION_INFO_CONVERTER.toAffiliationInfoType(hotelDescriptiveContent);
         assertNull(affiliationInfoType);
     }
 
     @Test
     public void testToAffiliationInfoType_affiliationInfoEmpty() {
-        AffiliationInfoConverter affiliationInfoConverter = AffiliationInfoConverter.newInstance();
         OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent hotelDescriptiveContent =
                 new OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent();
 
@@ -57,7 +56,7 @@ public class AffiliationInfoConverterTest {
                 new OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.AffiliationInfo();
         hotelDescriptiveContent.setAffiliationInfo(affiliationInfo);
 
-        AffiliationInfoType affiliationInfoType = affiliationInfoConverter.toAffiliationInfoType(hotelDescriptiveContent);
+        AffiliationInfoType affiliationInfoType = AFFILIATION_INFO_CONVERTER.toAffiliationInfoType(hotelDescriptiveContent);
         assertNull(affiliationInfoType);
     }
 
@@ -72,8 +71,7 @@ public class AffiliationInfoConverterTest {
         InputStream inputXmlStream = this.getClass().getClassLoader().getResourceAsStream(filename);
         OTAHotelDescriptiveContentNotifRQ otaHotelDescriptiveContentNotifRQ = xmlConverter.toObject(inputXmlStream);
 
-        AffiliationInfoConverter affiliationInfoConverter = AffiliationInfoConverter.newInstance();
-        AffiliationInfoType affiliationInfoType = affiliationInfoConverter.toAffiliationInfoType(
+        AffiliationInfoType affiliationInfoType = AFFILIATION_INFO_CONVERTER.toAffiliationInfoType(
                 otaHotelDescriptiveContentNotifRQ
                         .getHotelDescriptiveContents()
                         .getHotelDescriptiveContent()
@@ -103,8 +101,7 @@ public class AffiliationInfoConverterTest {
         InputStream inputXmlStream = this.getClass().getClassLoader().getResourceAsStream(filename);
         OTAHotelDescriptiveContentNotifRQ otaHotelDescriptiveContentNotifRQ = xmlConverter.toObject(inputXmlStream);
 
-        AffiliationInfoConverter affiliationInfoConverter = AffiliationInfoConverter.newInstance();
-        AffiliationInfoType affiliationInfoType = affiliationInfoConverter.toAffiliationInfoType(
+        AffiliationInfoType affiliationInfoType = AFFILIATION_INFO_CONVERTER.toAffiliationInfoType(
                 otaHotelDescriptiveContentNotifRQ
                         .getHotelDescriptiveContents()
                         .getHotelDescriptiveContent()
@@ -146,8 +143,7 @@ public class AffiliationInfoConverterTest {
 
         // Apply an AffiliationInfoType to the OTAHotelDescriptiveContentNotifRQ
         AffiliationInfoType affiliationInfoType = getAffiliationInfoType();
-        AffiliationInfoConverter affiliationInfoConverter = AffiliationInfoConverter.newInstance();
-        affiliationInfoConverter.applyAffiliationInfo(
+        AFFILIATION_INFO_CONVERTER.applyAffiliationInfo(
                 otaHotelDescriptiveContentNotifRQ.getHotelDescriptiveContents().getHotelDescriptiveContent(),
                 affiliationInfoType
         );

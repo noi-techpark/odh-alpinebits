@@ -37,25 +37,24 @@ import static org.testng.Assert.*;
  */
 public class HotelInfoConverterTest {
 
+    public static final HotelInfoConverter HOTEL_INFO_CONVERTER = HotelInfoConverter.newInstance();
+
     @Test
     public void testToHotelInfoType_hotelDescriptiveContentNull() {
-        HotelInfoConverter hotelInfoConverter = HotelInfoConverter.newInstance();
-        HotelInfoType hotelInfoType = hotelInfoConverter.toHotelInfoType(null);
+        HotelInfoType hotelInfoType = HOTEL_INFO_CONVERTER.toHotelInfoType(null);
         assertNull(hotelInfoType);
     }
 
     @Test
     public void testToHotelInfoType_hotelInfoNull() {
-        HotelInfoConverter hotelInfoConverter = HotelInfoConverter.newInstance();
         OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent hotelDescriptiveContent =
                 new OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent();
-        HotelInfoType hotelInfoType = hotelInfoConverter.toHotelInfoType(hotelDescriptiveContent);
+        HotelInfoType hotelInfoType = HOTEL_INFO_CONVERTER.toHotelInfoType(hotelDescriptiveContent);
         assertNull(hotelInfoType);
     }
 
     @Test
     public void testToHotelInfoType_hotelInfoEmpty() {
-        HotelInfoConverter hotelInfoConverter = HotelInfoConverter.newInstance();
         OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent hotelDescriptiveContent =
                 new OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent();
 
@@ -63,7 +62,7 @@ public class HotelInfoConverterTest {
                 new OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.HotelInfo();
         hotelDescriptiveContent.setHotelInfo(hotelInfo);
 
-        HotelInfoType hotelInfoType = hotelInfoConverter.toHotelInfoType(hotelDescriptiveContent);
+        HotelInfoType hotelInfoType = HOTEL_INFO_CONVERTER.toHotelInfoType(hotelDescriptiveContent);
         assertNull(hotelInfoType);
     }
 
@@ -78,8 +77,7 @@ public class HotelInfoConverterTest {
         InputStream inputXmlStream = this.getClass().getClassLoader().getResourceAsStream(filename);
         OTAHotelDescriptiveContentNotifRQ otaHotelDescriptiveContentNotifRQ = xmlConverter.toObject(inputXmlStream);
 
-        HotelInfoConverter hotelInfoConverter = HotelInfoConverter.newInstance();
-        HotelInfoType hotelInfoType = hotelInfoConverter.toHotelInfoType(
+        HotelInfoType hotelInfoType = HOTEL_INFO_CONVERTER.toHotelInfoType(
                 otaHotelDescriptiveContentNotifRQ
                         .getHotelDescriptiveContents()
                         .getHotelDescriptiveContent()
@@ -147,8 +145,7 @@ public class HotelInfoConverterTest {
         InputStream inputXmlStream = this.getClass().getClassLoader().getResourceAsStream(filename);
         OTAHotelDescriptiveContentNotifRQ otaHotelDescriptiveContentNotifRQ = xmlConverter.toObject(inputXmlStream);
 
-        HotelInfoConverter hotelInfoConverter = HotelInfoConverter.newInstance();
-        HotelInfoType hotelInfoType = hotelInfoConverter.toHotelInfoType(
+        HotelInfoType hotelInfoType = HOTEL_INFO_CONVERTER.toHotelInfoType(
                 otaHotelDescriptiveContentNotifRQ
                         .getHotelDescriptiveContents()
                         .getHotelDescriptiveContent()
@@ -208,8 +205,7 @@ public class HotelInfoConverterTest {
 
         // Apply an HotelInfoType to the OTAHotelDescriptiveContentNotifRQ
         HotelInfoType hotelInfoType = getHotelInfoType();
-        HotelInfoConverter hotelInfoConverter = HotelInfoConverter.newInstance();
-        hotelInfoConverter.applyHotelInfo(
+        HOTEL_INFO_CONVERTER.applyHotelInfo(
                 otaHotelDescriptiveContentNotifRQ.getHotelDescriptiveContents().getHotelDescriptiveContent(),
                 hotelInfoType
         );

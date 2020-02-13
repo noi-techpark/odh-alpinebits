@@ -41,25 +41,24 @@ import static org.testng.Assert.*;
  */
 public class PoliciesConverterTest {
 
+    public static final PoliciesConverter POLICIES_CONVERTER = PoliciesConverter.newInstance();
+
     @Test
     public void testToContactInfosType_hotelDescriptiveContentNull() {
-        PoliciesConverter contactInfosConverter = PoliciesConverter.newInstance();
-        HotelDescriptiveContentType.Policies policies = contactInfosConverter.toPolicies(null);
+        HotelDescriptiveContentType.Policies policies = POLICIES_CONVERTER.toPolicies(null);
         assertNull(policies);
     }
 
     @Test
     public void testToContactInfosType_contactInfoNull() {
-        PoliciesConverter contactInfosConverter = PoliciesConverter.newInstance();
         OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent hotelDescriptiveContent =
                 new OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent();
-        HotelDescriptiveContentType.Policies policies = contactInfosConverter.toPolicies(hotelDescriptiveContent);
+        HotelDescriptiveContentType.Policies policies = POLICIES_CONVERTER.toPolicies(hotelDescriptiveContent);
         assertNull(policies);
     }
 
     @Test
     public void testToContactInfosType_contactInfoEmpty() {
-        PoliciesConverter contactInfosConverter = PoliciesConverter.newInstance();
         OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent hotelDescriptiveContent =
                 new OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent();
 
@@ -67,7 +66,7 @@ public class PoliciesConverterTest {
                 new OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.Policies();
         hotelDescriptiveContent.setPolicies(policies);
 
-        HotelDescriptiveContentType.Policies policiesResult = contactInfosConverter.toPolicies(hotelDescriptiveContent);
+        HotelDescriptiveContentType.Policies policiesResult = POLICIES_CONVERTER.toPolicies(hotelDescriptiveContent);
         assertNull(policiesResult);
     }
 
@@ -82,8 +81,7 @@ public class PoliciesConverterTest {
         InputStream inputXmlStream = this.getClass().getClassLoader().getResourceAsStream(filename);
         OTAHotelDescriptiveContentNotifRQ otaHotelDescriptiveContentNotifRQ = xmlConverter.toObject(inputXmlStream);
 
-        PoliciesConverter policiesConverter = PoliciesConverter.newInstance();
-        HotelDescriptiveContentType.Policies policiesType = policiesConverter.toPolicies(
+        HotelDescriptiveContentType.Policies policiesType = POLICIES_CONVERTER.toPolicies(
                 otaHotelDescriptiveContentNotifRQ
                         .getHotelDescriptiveContents()
                         .getHotelDescriptiveContent()
@@ -135,8 +133,7 @@ public class PoliciesConverterTest {
         InputStream inputXmlStream = this.getClass().getClassLoader().getResourceAsStream(filename);
         OTAHotelDescriptiveContentNotifRQ otaHotelDescriptiveContentNotifRQ = xmlConverter.toObject(inputXmlStream);
 
-        PoliciesConverter policiesConverter = PoliciesConverter.newInstance();
-        HotelDescriptiveContentType.Policies policiesType = policiesConverter.toPolicies(
+        HotelDescriptiveContentType.Policies policiesType = POLICIES_CONVERTER.toPolicies(
                 otaHotelDescriptiveContentNotifRQ
                         .getHotelDescriptiveContents()
                         .getHotelDescriptiveContent()
@@ -175,8 +172,7 @@ public class PoliciesConverterTest {
 
         // Apply an ContactInfosType to the OTAHotelDescriptiveContentNotifRQ
         HotelDescriptiveContentType.Policies policiesType = getPoliciesType();
-        PoliciesConverter policiesConverter = PoliciesConverter.newInstance();
-        policiesConverter.applyPolicies(
+        POLICIES_CONVERTER.applyPolicies(
                 otaHotelDescriptiveContentNotifRQ.getHotelDescriptiveContents().getHotelDescriptiveContent(),
                 policiesType
         );

@@ -38,25 +38,24 @@ import static org.testng.Assert.*;
  */
 public class ContactInfosConverterTest {
 
+    public static final ContactInfosConverter CONTACT_INFOS_CONVERTER = ContactInfosConverter.newInstance();
+
     @Test
     public void testToContactInfosType_hotelDescriptiveContentNull() {
-        ContactInfosConverter contactInfosConverter = ContactInfosConverter.newInstance();
-        ContactInfosType contactInfosType = contactInfosConverter.toContactInfosType(null);
+        ContactInfosType contactInfosType = CONTACT_INFOS_CONVERTER.toContactInfosType(null);
         assertNull(contactInfosType);
     }
 
     @Test
     public void testToContactInfosType_contactInfoNull() {
-        ContactInfosConverter contactInfosConverter = ContactInfosConverter.newInstance();
         OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent hotelDescriptiveContent =
                 new OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent();
-        ContactInfosType contactInfosType = contactInfosConverter.toContactInfosType(hotelDescriptiveContent);
+        ContactInfosType contactInfosType = CONTACT_INFOS_CONVERTER.toContactInfosType(hotelDescriptiveContent);
         assertNull(contactInfosType);
     }
 
     @Test
     public void testToContactInfosType_contactInfoEmpty() {
-        ContactInfosConverter contactInfosConverter = ContactInfosConverter.newInstance();
         OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent hotelDescriptiveContent =
                 new OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent();
 
@@ -64,7 +63,7 @@ public class ContactInfosConverterTest {
                 new OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.ContactInfos();
         hotelDescriptiveContent.setContactInfos(contactInfos);
 
-        ContactInfosType contactInfosType = contactInfosConverter.toContactInfosType(hotelDescriptiveContent);
+        ContactInfosType contactInfosType = CONTACT_INFOS_CONVERTER.toContactInfosType(hotelDescriptiveContent);
         assertNull(contactInfosType);
     }
 
@@ -79,8 +78,7 @@ public class ContactInfosConverterTest {
         InputStream inputXmlStream = this.getClass().getClassLoader().getResourceAsStream(filename);
         OTAHotelDescriptiveContentNotifRQ otaHotelDescriptiveContentNotifRQ = xmlConverter.toObject(inputXmlStream);
 
-        ContactInfosConverter contactInfosConverter = ContactInfosConverter.newInstance();
-        ContactInfosType contactInfosType = contactInfosConverter.toContactInfosType(
+        ContactInfosType contactInfosType = CONTACT_INFOS_CONVERTER.toContactInfosType(
                 otaHotelDescriptiveContentNotifRQ
                         .getHotelDescriptiveContents()
                         .getHotelDescriptiveContent()
@@ -137,8 +135,7 @@ public class ContactInfosConverterTest {
         InputStream inputXmlStream = this.getClass().getClassLoader().getResourceAsStream(filename);
         OTAHotelDescriptiveContentNotifRQ otaHotelDescriptiveContentNotifRQ = xmlConverter.toObject(inputXmlStream);
 
-        ContactInfosConverter contactInfosConverter = ContactInfosConverter.newInstance();
-        ContactInfosType contactInfosType = contactInfosConverter.toContactInfosType(
+        ContactInfosType contactInfosType = CONTACT_INFOS_CONVERTER.toContactInfosType(
                 otaHotelDescriptiveContentNotifRQ
                         .getHotelDescriptiveContents()
                         .getHotelDescriptiveContent()
@@ -173,8 +170,7 @@ public class ContactInfosConverterTest {
 
         // Apply an ContactInfosType to the OTAHotelDescriptiveContentNotifRQ
         ContactInfosType contactInfosType = getContactInfoType();
-        ContactInfosConverter contactInfosConverter = ContactInfosConverter.newInstance();
-        contactInfosConverter.applyContactInfo(
+        CONTACT_INFOS_CONVERTER.applyContactInfo(
                 otaHotelDescriptiveContentNotifRQ.getHotelDescriptiveContents().getHotelDescriptiveContent(),
                 contactInfosType
         );
