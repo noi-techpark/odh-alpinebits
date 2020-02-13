@@ -92,9 +92,7 @@ public class ConverterUtilTest {
         InputStream inputXmlStream = this.getClass().getClassLoader().getResourceAsStream(defaultInventoryFilename);
         OTAHotelDescriptiveContentNotifRQ otaHotelDescriptiveContentNotifRQ = xmlToObjectConverter.toObject(inputXmlStream);
 
-        JAXBContext jaxbContext = JAXBContext.newInstance(
-                AffiliationInfoType.class
-        );
+        JAXBContext jaxbContext = JAXBContextProvider.getJAXBContext();
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
         AffiliationInfoType.Awards awards = ConverterUtil.unmarshallElement(
@@ -131,9 +129,7 @@ public class ConverterUtilTest {
         AffiliationInfoType affiliationInfoType = new AffiliationInfoType();
         affiliationInfoType.setAwards(awards);
 
-        JAXBContext jaxbContext = JAXBContext.newInstance(
-                AffiliationInfoType.class
-        );
+        JAXBContext jaxbContext = JAXBContextProvider.getJAXBContext();
         Marshaller marshaller = jaxbContext.createMarshaller();
 
         Element element = ConverterUtil.marshallToElement(

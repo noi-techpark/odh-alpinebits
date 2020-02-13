@@ -9,6 +9,7 @@ package it.bz.opendatahub.alpinebits.otaextensions.v_2017_10.inventory;
 import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.ContactInfoRootType;
 import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.ContactInfosType;
 import it.bz.opendatahub.alpinebits.otaextensions.ConverterUtil;
+import it.bz.opendatahub.alpinebits.otaextensions.JAXBContextProvider;
 import it.bz.opendatahub.alpinebits.otaextensions.exception.OtaExtensionException;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ;
 import org.w3c.dom.Element;
@@ -66,9 +67,7 @@ public final class ContactInfosConverter {
      */
     public static ContactInfosConverter newInstance() {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(
-                    ContactInfoRootType.class
-            );
+            JAXBContext jaxbContext = JAXBContextProvider.getJAXBContext();
             Marshaller marshaller = jaxbContext.createMarshaller();
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             return new ContactInfosConverter(marshaller, unmarshaller);

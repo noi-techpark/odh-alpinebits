@@ -9,6 +9,7 @@ package it.bz.opendatahub.alpinebits.otaextensions.v_2018_10.inventory;
 import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.CategoryCodesType;
 import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.HotelInfoType;
 import it.bz.opendatahub.alpinebits.otaextensions.ConverterUtil;
+import it.bz.opendatahub.alpinebits.otaextensions.JAXBContextProvider;
 import it.bz.opendatahub.alpinebits.otaextensions.exception.OtaExtensionException;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelDescriptiveContentNotifRQ;
 import org.w3c.dom.Element;
@@ -89,9 +90,7 @@ public final class HotelInfoConverter {
      */
     public static HotelInfoConverter newInstance() {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(
-                    HotelInfoType.class
-            );
+            JAXBContext jaxbContext = JAXBContextProvider.getJAXBContext();
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             Marshaller marshaller = jaxbContext.createMarshaller();
             return new HotelInfoConverter(marshaller, unmarshaller);
