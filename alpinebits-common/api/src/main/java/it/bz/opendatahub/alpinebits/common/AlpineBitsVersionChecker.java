@@ -12,7 +12,11 @@ import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsVersion;
  * This class implements facilities to check AlpineBits versions
  * for different criteria.
  */
-public class AlpineBitsVersionChecker {
+public final class AlpineBitsVersionChecker {
+
+    private AlpineBitsVersionChecker() {
+        // Empty
+    }
 
     /**
      * This method checks if the provided AlpineBits Version is a legacy

@@ -17,6 +17,10 @@ public final class OTAPingRSBuilder {
     public static final String ALPINEBITS_HANDSHAKE = "ALPINEBITS_HANDSHAKE";
     public static final String VERSION = "8.000";
 
+    private OTAPingRSBuilder() {
+        // Empty
+    }
+
     /**
      * Build an {@link OTAPingRS} with the given data.
      * <p>

@@ -44,6 +44,10 @@ public final class JAXBContextProvider {
         }
     }
 
+    private JAXBContextProvider() {
+        // Empty
+    }
+
     /**
      * Return a {@link JAXBContext} instance that knows how to handle
      * {@link AffiliationInfoType}, {@link ContactInfosType}, {@link HotelInfoType} and
