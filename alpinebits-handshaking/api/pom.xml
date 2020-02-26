@@ -19,5 +19,12 @@
             <groupId>it.bz.opendatahub.alpinebits</groupId>
             <artifactId>alpinebits-common-api</artifactId>
         </dependency>
+
+        <!-- testing -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
