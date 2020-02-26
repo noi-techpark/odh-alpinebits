@@ -10,6 +10,7 @@ import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.AffiliationInfo
 import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.ContactInfosType;
 import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.HotelDescriptiveContentType;
 import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.HotelInfoType;
+import it.bz.opendatahub.alpinebits.otaextensions.exception.OtaExtensionException;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -40,7 +41,7 @@ public final class JAXBContextProvider {
                     HotelDescriptiveContentType.Policies.class
             );
         } catch (JAXBException e) {
-            throw new RuntimeException("Error while initializing JAXBContext for AffiliationInfoType.class", e);
+            throw new OtaExtensionException("Error while initializing JAXBContext for AffiliationInfoType.class", e);
         }
     }
 
