@@ -31,8 +31,9 @@ public class XmlDataProvider {
             .withFreeButNotBookableSupport().build();
 
     @DataProvider(name = "xml")
+    // Suppress line-length warnings for this test configuration
+    @SuppressWarnings("checkstyle:linelength")
     public static Object[][] xmlProvider() {
-        // CHECKSTYLE:OFF
         return new Object[][]{
                 {"HotelAvailNotifRQ_ok_uniqueid-and-reset.xml", DEFAULT_CTX, XmlSchemaType.XSD_SCHEMA, null},
                 {"HotelAvailNotifRQ_ok_uniqueid-and-reset.xml", DEFAULT_CTX, XmlSchemaType.RNG_SCHEMA, null},
@@ -97,7 +98,6 @@ public class XmlDataProvider {
                 {"HotelAvailNotifRQ_err_room-categories-and-distinct-rooms-mixed.xml", CTX_WITH_ROOM_CATEGORIES_AND_DISTINCT_ROOM_SUPPORT, XmlSchemaType.XSD_SCHEMA, ValidationException.class},
                 {"HotelAvailNotifRQ_err_room-categories-and-distinct-rooms-mixed.xml", CTX_WITH_ROOM_CATEGORIES_AND_DISTINCT_ROOM_SUPPORT, XmlSchemaType.RNG_SCHEMA, ValidationException.class},
         };
-        // CHECKSTYLE:ON
     }
 
 }

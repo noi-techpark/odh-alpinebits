@@ -25,8 +25,9 @@ public class XmlDataProvider {
     private static final String HOTEL_INFO = AlpineBitsAction.INVENTORY_HOTEL_INFO_PUSH;
 
     @DataProvider(name = "xml")
+    // Suppress line-length warnings for this test configuration
+    @SuppressWarnings("checkstyle:linelength")
     public static Object[][] xmlProvider() {
-        // CHECKSTYLE:OFF
         return new Object[][]{
                 {"HotelDescriptiveContentNotifRQ_Basic-ok.xml", BASIC, XmlSchemaType.XSD_SCHEMA, null},
                 {"HotelDescriptiveContentNotifRQ_Basic-ok.xml", BASIC, XmlSchemaType.RNG_SCHEMA, null},
@@ -191,7 +192,6 @@ public class XmlDataProvider {
                 // no TextItems element is allowed at this position.
                 {"HotelDescriptiveContentNotifRQ_HotelInfo-err-text-items-notnull.xml", HOTEL_INFO, XmlSchemaType.RNG_SCHEMA, XmlConversionException.class},
         };
-        // CHECKSTYLE:ON
     }
 
 }
