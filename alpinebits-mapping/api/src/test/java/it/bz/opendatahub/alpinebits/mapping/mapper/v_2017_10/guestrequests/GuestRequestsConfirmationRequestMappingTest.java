@@ -7,7 +7,7 @@
 package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.guestrequests;
 
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.notifreportrq.GuestRequestsConfirmationRequest;
-import it.bz.opendatahub.alpinebits.mapping.mapper.GuestRequestsMapperInstances;
+import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.GuestRequestsMapperInstances;
 import it.bz.opendatahub.alpinebits.xml.JAXBObjectToXmlConverter;
 import it.bz.opendatahub.alpinebits.xml.JAXBXmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.ObjectToXmlConverter;

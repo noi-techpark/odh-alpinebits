@@ -11,7 +11,7 @@ import it.bz.opendatahub.alpinebits.db.middleware.EntityManagerProvidingMiddlewa
 import it.bz.opendatahub.alpinebits.examples.inventory.middleware.InventoryPushMiddleware;
 import it.bz.opendatahub.alpinebits.mapping.entity.GenericResponse;
 import it.bz.opendatahub.alpinebits.mapping.entity.inventory.HotelDescriptiveContentNotifRequest;
-import it.bz.opendatahub.alpinebits.mapping.mapper.InventoryMapperInstances;
+import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.InventoryMapperInstances;
 import it.bz.opendatahub.alpinebits.mapping.middleware.RequestMappingMiddleware;
 import it.bz.opendatahub.alpinebits.mapping.middleware.ResponseMappingMiddleware;
 import it.bz.opendatahub.alpinebits.middleware.Key;

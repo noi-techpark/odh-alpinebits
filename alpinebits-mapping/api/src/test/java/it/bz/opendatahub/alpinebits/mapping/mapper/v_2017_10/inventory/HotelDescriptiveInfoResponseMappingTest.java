@@ -9,7 +9,7 @@ package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.inventory;
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsAction;
 import it.bz.opendatahub.alpinebits.common.context.RequestContextKey;
 import it.bz.opendatahub.alpinebits.mapping.entity.inventory.HotelDescriptiveInfoResponse;
-import it.bz.opendatahub.alpinebits.mapping.mapper.InventoryMapperInstances;
+import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.InventoryMapperInstances;
 import it.bz.opendatahub.alpinebits.middleware.Context;
 import it.bz.opendatahub.alpinebits.middleware.impl.SimpleContext;
 import it.bz.opendatahub.alpinebits.xml.JAXBObjectToXmlConverter;

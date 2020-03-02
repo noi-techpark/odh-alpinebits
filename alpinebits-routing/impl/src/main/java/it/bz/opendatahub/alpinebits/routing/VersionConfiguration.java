@@ -7,6 +7,8 @@
 package it.bz.opendatahub.alpinebits.routing;
 
 import it.bz.opendatahub.alpinebits.middleware.Middleware;
+import it.bz.opendatahub.alpinebits.routing.constants.Action;
+import it.bz.opendatahub.alpinebits.routing.constants.ActionRequestParam;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,13 +21,15 @@ import java.util.stream.Collectors;
  */
 public class VersionConfiguration {
 
-    private Map<String, ActionConfiguration> actions = new HashMap<>();
+    private Map<Action, ActionConfiguration> actions = new HashMap<>();
+    private Map<ActionRequestParam, ActionConfiguration> actionsByActionRequestParam = new HashMap<>();
 
-    public void addActionConfiguration(String action, ActionConfiguration actionConfiguration) {
+    public void addActionConfiguration(Action action, ActionConfiguration actionConfiguration) {
         this.actions.put(action, actionConfiguration);
+        this.actionsByActionRequestParam.put(action.getRequestParameter(), actionConfiguration);
     }
 
-    public Map<String, ActionConfiguration> getActions() {
+    public Map<Action, ActionConfiguration> getActions() {
         return actions;
     }
 
@@ -36,8 +40,10 @@ public class VersionConfiguration {
                 .collect(Collectors.toSet());
     }
 
-    public Middleware findMiddlewareForAction(String action) {
-        return this.actions.containsKey(action) ? this.actions.get(action).getMiddleware() : null;
+    public Middleware findMiddleware(ActionRequestParam actionRequestParam) {
+        return this.actionsByActionRequestParam.containsKey(actionRequestParam)
+                ? this.actionsByActionRequestParam.get(actionRequestParam).getMiddleware()
+                : null;
     }
 
     @Override

@@ -8,7 +8,7 @@ package it.bz.opendatahub.alpinebits.common.constants;
 
 /**
  * This class provides constants for all known
- * AlpineBits versions (as of 2018-12-31).
+ * AlpineBits versions (as of 2018-10).
  */
 public final class AlpineBitsVersion {
 

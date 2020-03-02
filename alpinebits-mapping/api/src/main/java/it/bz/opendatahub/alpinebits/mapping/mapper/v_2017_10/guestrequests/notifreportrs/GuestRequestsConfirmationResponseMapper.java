@@ -7,6 +7,7 @@
 package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.guestrequests.notifreportrs;
 
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.notifreportrs.GuestRequestsConfirmationResponse;
+import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.common.ErrorMapper;
 import it.bz.opendatahub.alpinebits.mapping.utils.CollectionUtils;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTANotifReportRS;
 import org.mapstruct.AfterMapping;
@@ -23,7 +24,11 @@ import java.util.ArrayList;
  * {@link GuestRequestsConfirmationResponse} objects
  * and vice versa.
  */
-@Mapper
+@Mapper(
+        uses = {
+                ErrorMapper.class,
+        }
+)
 public interface GuestRequestsConfirmationResponseMapper {
 
     @Mapping(target = "errors", source = "errors.errors")

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OTA_HotelAvailNotifRQ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       xmlns="http://www.opentravel.org/OTA/2003/05"
+                       xsi:schemaLocation="http://www.opentravel.org/OTA/2003/05 OTA_HotelAvailNotifRQ.xsd"
+                       Version="1.002">
+    <UniqueID Type="16" ID="1" Instance="CompleteSet"/>
+    <AvailStatusMessages HotelCode="9996">
+        <AvailStatusMessage BookingLimit="1" BookingLimitMessageType="SetLimit">
+            <StatusApplicationControl Start="2010-08-01" End="2010-08-10"/>
+        </AvailStatusMessage>
+    </AvailStatusMessages>
+</OTA_HotelAvailNotifRQ>

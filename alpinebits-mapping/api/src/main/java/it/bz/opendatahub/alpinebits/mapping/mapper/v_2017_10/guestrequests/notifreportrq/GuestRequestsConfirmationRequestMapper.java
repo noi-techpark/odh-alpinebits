@@ -9,6 +9,7 @@ package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.guestrequests.noti
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.notifreportrq.Acknowledge;
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.notifreportrq.GuestRequestsConfirmationRequest;
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.notifreportrq.Refusal;
+import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.common.ErrorMapper;
 import it.bz.opendatahub.alpinebits.mapping.utils.CollectionUtils;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTANotifReportRQ;
 import org.mapstruct.AfterMapping;
@@ -25,7 +26,11 @@ import java.util.ArrayList;
  * {@link GuestRequestsConfirmationRequest} objects
  * and vice versa.
  */
-@Mapper
+@Mapper(
+        uses = {
+                ErrorMapper.class,
+        }
+)
 public interface GuestRequestsConfirmationRequestMapper {
 
     @Mapping(target = "acknowledges", source = "notifDetails.hotelNotifReport.hotelReservations.hotelReservations")
@@ -43,6 +48,7 @@ public interface GuestRequestsConfirmationRequestMapper {
     );
 
     @Mapping(target = "recordId", source = "recordID")
+    @Mapping(target = "status", ignore = true)
     Refusal toRefusal(
             OTANotifReportRQ.Warnings.Warning warning,
             @Context it.bz.opendatahub.alpinebits.middleware.Context ctx

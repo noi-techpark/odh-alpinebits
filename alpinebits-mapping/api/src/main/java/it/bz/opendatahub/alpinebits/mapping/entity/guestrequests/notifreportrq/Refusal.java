@@ -21,6 +21,8 @@ public class Refusal {
 
     private String recordId;
 
+    private String status;
+
     public Integer getType() {
         return type;
     }
@@ -53,6 +55,14 @@ public class Refusal {
         this.recordId = recordId;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Refusal{" +
@@ -60,6 +70,7 @@ public class Refusal {
                 ", code=" + code +
                 ", content='" + content + '\'' +
                 ", recordId='" + recordId + '\'' +
+                ", status=" + status +
                 '}';
     }
 }

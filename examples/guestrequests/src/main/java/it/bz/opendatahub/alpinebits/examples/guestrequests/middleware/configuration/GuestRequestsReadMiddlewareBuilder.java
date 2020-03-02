@@ -11,7 +11,7 @@ import it.bz.opendatahub.alpinebits.db.middleware.EntityManagerProvidingMiddlewa
 import it.bz.opendatahub.alpinebits.examples.guestrequests.middleware.GuestRequestsReadMiddleware;
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.readrq.GuestRequestsReadRequest;
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.resretrievers.GuestRequestsReadResponse;
-import it.bz.opendatahub.alpinebits.mapping.mapper.GuestRequestsMapperInstances;
+import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.GuestRequestsMapperInstances;
 import it.bz.opendatahub.alpinebits.mapping.middleware.RequestMappingMiddleware;
 import it.bz.opendatahub.alpinebits.mapping.middleware.ResponseMappingMiddleware;
 import it.bz.opendatahub.alpinebits.middleware.Key;

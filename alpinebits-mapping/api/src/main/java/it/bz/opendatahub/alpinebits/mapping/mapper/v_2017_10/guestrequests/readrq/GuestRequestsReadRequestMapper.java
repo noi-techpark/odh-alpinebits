@@ -7,6 +7,7 @@
 package it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.guestrequests.readrq;
 
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.readrq.GuestRequestsReadRequest;
+import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.common.ErrorMapper;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAReadRQ;
 import org.mapstruct.Context;
 import org.mapstruct.InheritInverseConfiguration;
@@ -18,7 +19,11 @@ import org.mapstruct.Mapping;
  * {@link GuestRequestsReadRequest} objects
  * and vice versa.
  */
-@Mapper
+@Mapper(
+        uses = {
+                ErrorMapper.class,
+        }
+)
 public interface GuestRequestsReadRequestMapper {
 
     @Mapping(target = "hotelCode", source = "readRequests.hotelReadRequest.hotelCode")

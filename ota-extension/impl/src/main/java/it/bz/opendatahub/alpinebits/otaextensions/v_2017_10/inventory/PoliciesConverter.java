@@ -9,6 +9,7 @@ package it.bz.opendatahub.alpinebits.otaextensions.v_2017_10.inventory;
 import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.HotelDescriptiveContentType;
 import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.PoliciesType;
 import it.bz.opendatahub.alpinebits.otaextensions.ConverterUtil;
+import it.bz.opendatahub.alpinebits.otaextensions.JAXBContextProvider;
 import it.bz.opendatahub.alpinebits.otaextensions.exception.OtaExtensionException;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ;
 import org.w3c.dom.Element;
@@ -29,7 +30,7 @@ import java.util.Map;
  * The provided converter facilitates the conversion between the generic JAXB classes
  * generated for AlpineBits at the given extension points and OTA classes.
  * <p>
- * The AlpineBits inventory actions specify, that any valid OTA data can be used at
+ * The AlpineBits 2017-10 inventory actions specify, that any valid OTA data can be used at
  * the following positions as an extension:
  * <ul>
  * <li>OTAHotelDescriptiveContentNotifRQ {@literal ->} HotelDescriptiveContents {@literal ->} HotelDescriptiveContent {@literal ->} AffiliationInfo</li>
@@ -70,9 +71,7 @@ public final class PoliciesConverter {
      */
     public static PoliciesConverter newInstance() {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(
-                    HotelDescriptiveContentType.Policies.class
-            );
+            JAXBContext jaxbContext = JAXBContextProvider.getJAXBContext();
             Marshaller marshaller = jaxbContext.createMarshaller();
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             return new PoliciesConverter(marshaller, unmarshaller);
@@ -83,8 +82,7 @@ public final class PoliciesConverter {
     }
 
     /**
-     * Convert an AlpineBits {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.Policies}
-     * element to an OTA {@link HotelDescriptiveContentType.Policies}.
+     * Convert an AlpineBits Policies element to an OTA Policies.
      * <p>
      * The AlpineBits Policies has an <code>any</code> type, that allows any OTA
      * content valid for this position according to the specification.
@@ -92,9 +90,8 @@ public final class PoliciesConverter {
      * This method converts the content of the AlpineBits Policies into
      * corresponding OTA types.
      *
-     * @param hotelDescriptiveContent the OTA {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent}
-     *                                that contains policies
-     * @return the converted {@link HotelDescriptiveContentType.Policies} or null if the hotelDescriptiveContent is null
+     * @param hotelDescriptiveContent the OTA HotelDescriptiveContent that contains policies
+     * @return the converted Policies or null if the hotelDescriptiveContent is null
      * or its policies is null or empty
      * @throws OtaExtensionException if there was an error during the conversion
      */
@@ -129,19 +126,17 @@ public final class PoliciesConverter {
     }
 
     /**
-     * Apply the {@link HotelDescriptiveContentType.Policies} to the
-     * {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent}.
+     * Apply the Policies to the HotelDescriptiveContent.
      * <p>
      * The method first tries to convert the provided policies to XML
      * elements using JAXB. Then it adds the elements to the hotelDescriptiveContent.
      * <p>
      * If either of the input params are null, no modification will take place.
      *
-     * @param hotelDescriptiveContent apply the {@link HotelDescriptiveContentType.Policies} to this hotelDescriptiveContent
-     * @param policiesType            apply this {@link HotelDescriptiveContentType.Policies} to the
-     *                                hotelDescriptiveContent
+     * @param hotelDescriptiveContent apply the Policies to this hotelDescriptiveContent
+     * @param policiesType            apply this Policies to the hotelDescriptiveContent
      * @throws OtaExtensionException if there was an error during the conversion of the
-     *                               provided {@link HotelDescriptiveContentType.Policies}
+     *                               provided Policies
      */
     public void applyPolicies(
             OTAHotelDescriptiveContentNotifRQ
@@ -171,8 +166,8 @@ public final class PoliciesConverter {
     }
 
     private boolean isPoliciesEmpty(OTAHotelDescriptiveContentNotifRQ
-                                               .HotelDescriptiveContents
-                                               .HotelDescriptiveContent hotelDescriptiveContent) {
+                                            .HotelDescriptiveContents
+                                            .HotelDescriptiveContent hotelDescriptiveContent) {
         if (hotelDescriptiveContent == null) {
             return true;
         }

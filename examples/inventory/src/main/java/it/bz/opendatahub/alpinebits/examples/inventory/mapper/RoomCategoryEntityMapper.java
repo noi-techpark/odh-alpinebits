@@ -36,5 +36,6 @@ public interface RoomCategoryEntityMapper {
 
     @InheritInverseConfiguration
     @Mapping(target = "roomAmenityCodes", ignore = true)
+    @Mapping(target = "typeRoom.roomType", ignore = true)
     GuestRoom toGuestRoom(RoomCategoryEntity roomCategoryEntity);
 }
