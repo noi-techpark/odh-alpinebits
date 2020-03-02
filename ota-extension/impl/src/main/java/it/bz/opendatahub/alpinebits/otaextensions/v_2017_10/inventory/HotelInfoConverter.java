@@ -9,6 +9,7 @@ package it.bz.opendatahub.alpinebits.otaextensions.v_2017_10.inventory;
 import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.CategoryCodesType;
 import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.HotelInfoType;
 import it.bz.opendatahub.alpinebits.otaextensions.ConverterUtil;
+import it.bz.opendatahub.alpinebits.otaextensions.JAXBContextProvider;
 import it.bz.opendatahub.alpinebits.otaextensions.exception.OtaExtensionException;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ;
 import org.w3c.dom.Element;
@@ -29,7 +30,7 @@ import java.util.Map;
  * The provided converter facilitates the conversion between the generic JAXB classes
  * generated for AlpineBits at the given extension points and OTA classes.
  * <p>
- * The AlpineBits inventory actions specify, that any valid OTA data can be used at
+ * The AlpineBits 2017-10 inventory actions specify, that any valid OTA data can be used at
  * the following positions as an extension:
  * <ul>
  * <li>OTAHotelDescriptiveContentNotifRQ {@literal ->} HotelDescriptiveContents {@literal ->} HotelDescriptiveContent {@literal ->} AffiliationInfo</li>
@@ -91,9 +92,7 @@ public final class HotelInfoConverter {
      */
     public static HotelInfoConverter newInstance() {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(
-                    HotelInfoType.class
-            );
+            JAXBContext jaxbContext = JAXBContextProvider.getJAXBContext();
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             Marshaller marshaller = jaxbContext.createMarshaller();
             return new HotelInfoConverter(marshaller, unmarshaller);
@@ -103,8 +102,7 @@ public final class HotelInfoConverter {
     }
 
     /**
-     * Convert an AlpineBits {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.HotelInfo}
-     * element to an OTA {@link HotelInfoType}.
+     * Convert an AlpineBits HotelInfo nfoType}.
      * <p>
      * The AlpineBits HotelInfoType has an <code>any</code> type, that allows any OTA
      * content valid for this position according to the specification.
@@ -112,8 +110,7 @@ public final class HotelInfoConverter {
      * This method converts the content of the AlpineBits HotelInfoType into
      * corresponding OTA types.
      *
-     * @param hotelDescriptiveContent the OTA {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent}
-     *                                that contains hotel info
+     * @param hotelDescriptiveContent the OTA HotelDescriptiveContent that contains hotel info
      * @return the converted {@link HotelInfoType} or null if the hotelDescriptiveContent is null
      * or its hotelInfo is null or empty
      * @throws OtaExtensionException if there was an error during the conversion
@@ -149,7 +146,7 @@ public final class HotelInfoConverter {
     }
 
     /**
-     * Apply the {@link HotelInfoType} to the {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent}.
+     * Apply the {@link HotelInfoType} to the HotelDescriptiveContent.
      * <p>
      * The method first tries to convert the provided hotelInfoType to XML
      * elements using JAXB. Then it adds those elements to the hotelDescriptiveContent.

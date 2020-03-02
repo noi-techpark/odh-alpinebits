@@ -7,6 +7,9 @@
 package it.bz.opendatahub.alpinebits.routing;
 
 import it.bz.opendatahub.alpinebits.middleware.Middleware;
+import it.bz.opendatahub.alpinebits.routing.constants.Action;
+import it.bz.opendatahub.alpinebits.routing.constants.ActionName;
+import it.bz.opendatahub.alpinebits.routing.constants.ActionRequestParam;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,6 +30,7 @@ import java.util.function.Supplier;
 public final class DefaultRouter implements Router {
 
     private static final String VERSION_NULL_ERROR_MESSAGE = "The version must not be null";
+    private static final String ACTION_NAME_NULL_ERROR_MESSAGE = "The action name must not be null";
 
     private final Map<String, VersionConfiguration> routes;
 
@@ -38,11 +42,11 @@ public final class DefaultRouter implements Router {
     }
 
     @Override
-    public Optional<Middleware> findMiddleware(String version, String action) {
+    public Optional<Middleware> findMiddleware(String version, ActionRequestParam actionRequestParam) {
         if (version == null) {
             throw new IllegalArgumentException(VERSION_NULL_ERROR_MESSAGE);
         }
-        if (action == null) {
+        if (actionRequestParam == null) {
             throw new IllegalArgumentException("The action must not be null");
         }
 
@@ -52,14 +56,14 @@ public final class DefaultRouter implements Router {
             return Optional.empty();
         }
 
-        return Optional.ofNullable(versionConfiguration.findMiddlewareForAction(action));
+        return Optional.ofNullable(versionConfiguration.findMiddleware(actionRequestParam));
     }
 
     @Override
-    public String getVersion(String requestedVersion) {
+    public String getVersion(String version) {
         Collection<String> versions = this.getVersions();
-        if (versions.contains(requestedVersion)) {
-            return requestedVersion;
+        if (versions.contains(version)) {
+            return version;
         }
         return this.highestSupportedVersion;
     }
@@ -70,7 +74,7 @@ public final class DefaultRouter implements Router {
     }
 
     @Override
-    public Optional<Set<String>> getActionsForVersion(String version) {
+    public Optional<Set<Action>> getActionsForVersion(String version) {
         if (version == null) {
             throw new IllegalArgumentException(VERSION_NULL_ERROR_MESSAGE);
         }
@@ -100,24 +104,38 @@ public final class DefaultRouter implements Router {
     }
 
     @Override
-    public boolean isActionDefined(String version, String action) {
-        return this.findMiddleware(version, action).isPresent();
+    public Optional<Set<String>> getCapabilitiesForVersionAndActionName(String version, ActionName actionName) {
+        if (version == null) {
+            throw new IllegalArgumentException(VERSION_NULL_ERROR_MESSAGE);
+        }
+        if (actionName == null) {
+            throw new IllegalArgumentException(ACTION_NAME_NULL_ERROR_MESSAGE);
+        }
+
+        VersionConfiguration versionConfiguration = this.routes.get(version);
+        if (versionConfiguration == null) {
+            return Optional.empty();
+        }
+
+        Map<Action, ActionConfiguration> actionConfigurations = versionConfiguration.getActions();
+        if (actionConfigurations == null) {
+            return Optional.empty();
+        }
+
+        for (Action action : actionConfigurations.keySet()) {
+            if (action.getName() != null && action.getName().equals(actionName)) {
+                ActionConfiguration actionConfiguration = actionConfigurations.get(action);
+                return Optional.ofNullable(actionConfiguration.getCapabilitites());
+            }
+        }
+
+        return Optional.empty();
     }
 
     @Override
     public boolean isCapabilityDefined(String version, String capability) {
         Set<String> capabilities = this.getCapabilitiesForVersion(version).orElse(Collections.emptySet());
         return capabilities.contains(capability);
-    }
-
-    @Override
-    public boolean isRouteDefined(String version, String action) {
-        return this.findMiddleware(version, action).isPresent();
-    }
-
-    @Override
-    public boolean isVersionDefined(String version) {
-        return this.routes.get(version) != null;
     }
 
     /**

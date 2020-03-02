@@ -6,7 +6,6 @@
 
 package it.bz.opendatahub.alpinebits.housekeeping.middleware.utils;
 
-import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsAction;
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsCapability;
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsVersion;
 import it.bz.opendatahub.alpinebits.common.utils.middleware.ComposingMiddlewareBuilder;
@@ -16,6 +15,9 @@ import it.bz.opendatahub.alpinebits.middleware.Middleware;
 import it.bz.opendatahub.alpinebits.routing.DefaultRouter;
 import it.bz.opendatahub.alpinebits.routing.Router;
 import it.bz.opendatahub.alpinebits.routing.RoutingBuilder;
+import it.bz.opendatahub.alpinebits.routing.constants.Action;
+import it.bz.opendatahub.alpinebits.routing.constants.ActionName;
+import it.bz.opendatahub.alpinebits.routing.constants.ActionRequestParam;
 import it.bz.opendatahub.alpinebits.routing.middleware.RoutingMiddleware;
 import it.bz.opendatahub.alpinebits.servlet.middleware.AlpineBitsClientProtocolMiddleware;
 import it.bz.opendatahub.alpinebits.servlet.middleware.MultipartFormDataParserMiddleware;
@@ -29,7 +31,6 @@ import java.util.Collection;
 public class RouterMiddlewareBuilder {
 
     public static final String DEFAULT_VERSION = AlpineBitsVersion.V_2017_10;
-    public static final String DEFAULT_ACTION = "some action";
 
     private static final Collection<String> VERSION_LIST = Arrays.asList(
             AlpineBitsVersion.V_2010_08,
@@ -55,7 +56,7 @@ public class RouterMiddlewareBuilder {
     public static Middleware buildRoutingMiddlewareWithSingleVersion() {
         Router router = new DefaultRouter.Builder()
                 .version(DEFAULT_VERSION)
-                .supportsAction(AlpineBitsAction.GET_VERSION)
+                .supportsAction(Action.GET_VERSION)
                 .withCapabilities(AlpineBitsCapability.GET_VERSION)
                 .using(new HousekeepingGetVersionMiddleware())
                 .versionComplete()
@@ -74,7 +75,7 @@ public class RouterMiddlewareBuilder {
     public static Middleware buildRoutingMiddlewareWithManyVersions() {
         RoutingBuilder.FinalBuilder builder = new DefaultRouter.Builder()
                 .version(DEFAULT_VERSION)
-                .supportsAction(AlpineBitsAction.GET_VERSION)
+                .supportsAction(Action.GET_VERSION)
                 .withCapabilities(AlpineBitsCapability.GET_VERSION)
                 .using(new HousekeepingGetVersionMiddleware())
                 .versionComplete();
@@ -82,7 +83,7 @@ public class RouterMiddlewareBuilder {
         VERSION_LIST.forEach(version -> builder
                 .and()
                 .version(version)
-                .supportsAction(AlpineBitsAction.GET_VERSION)
+                .supportsAction(Action.GET_VERSION)
                 .withCapabilities(AlpineBitsCapability.GET_VERSION)
                 .using(new HousekeepingGetVersionMiddleware())
                 .versionComplete()
@@ -102,7 +103,7 @@ public class RouterMiddlewareBuilder {
     public static Middleware buildRoutingMiddlewareWithCapabilititesAction() {
         Router router = new DefaultRouter.Builder()
                 .version(DEFAULT_VERSION)
-                .supportsAction(AlpineBitsAction.GET_CAPABILITIES)
+                .supportsAction(Action.GET_CAPABILITIES)
                 .withCapabilities(AlpineBitsCapability.GET_CAPABILITIES)
                 .using(new HousekeepingGetCapabilitiesMiddleware())
                 .versionComplete()
@@ -112,21 +113,19 @@ public class RouterMiddlewareBuilder {
 
     /**
      * This method builds a routing {@link Middleware} able to route
-     * AlpineBits <code>getCapabilities</code> and
-     * {@link RouterMiddlewareBuilder#DEFAULT_ACTION} actions.
+     * AlpineBits <code>getCapabilities</code>.
      *
      * @return {@link Middleware} able to route AlpineBits
-     * <code>getCapabilities</code> and
-     * {@link RouterMiddlewareBuilder#DEFAULT_ACTION} actions
+     * <code>getCapabilities</code>.
      */
-    public static Middleware buildRoutingMiddlewareWithCapabilititesAndCustomAction(String customCapability) {
+    public static Middleware buildRoutingMiddlewareWithCapabilitiesAndCustomAction(String customCapability) {
         Router router = new DefaultRouter.Builder()
                 .version(DEFAULT_VERSION)
-                .supportsAction(AlpineBitsAction.GET_CAPABILITIES)
+                .supportsAction(Action.GET_CAPABILITIES)
                 .withCapabilities(AlpineBitsCapability.GET_CAPABILITIES)
                 .using(new HousekeepingGetCapabilitiesMiddleware())
                 .and()
-                .supportsAction(DEFAULT_ACTION)
+                .supportsAction(Action.of(ActionRequestParam.of("some"), ActionName.GET_CAPABILITIES))
                 .withCapabilities(customCapability)
                 .using((ctx, chain) -> {
                 })
@@ -138,11 +137,11 @@ public class RouterMiddlewareBuilder {
     public static Middleware buildRoutingMiddlewareForIntegrationTest() {
         RoutingBuilder.FinalBuilder builder = new DefaultRouter.Builder()
                 .version(DEFAULT_VERSION)
-                .supportsAction(AlpineBitsAction.GET_VERSION)
+                .supportsAction(Action.GET_VERSION)
                 .withCapabilities(AlpineBitsCapability.GET_VERSION)
                 .using(new HousekeepingGetVersionMiddleware())
                 .and()
-                .supportsAction(AlpineBitsAction.GET_CAPABILITIES)
+                .supportsAction(Action.GET_CAPABILITIES)
                 .withCapabilities(AlpineBitsCapability.GET_CAPABILITIES)
                 .using(new HousekeepingGetCapabilitiesMiddleware())
                 .versionComplete();
@@ -150,7 +149,7 @@ public class RouterMiddlewareBuilder {
         VERSION_LIST.forEach(version -> builder
                 .and()
                 .version(version)
-                .supportsAction(AlpineBitsAction.GET_VERSION)
+                .supportsAction(Action.GET_VERSION)
                 .withCapabilities(AlpineBitsCapability.GET_VERSION)
                 .using(new HousekeepingGetVersionMiddleware())
                 .versionComplete()

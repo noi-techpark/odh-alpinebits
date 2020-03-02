@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+     AlpineBits 2017-10
+     http://www.alpinebits.org/
+
+     sample message file
+
+     changelog:
+     v. 2017-10 1.0
+-->
+
+<OTA_HotelDescriptiveInfoRS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                            xmlns="http://www.opentravel.org/OTA/2003/05"
+                            xsi:schemaLocation="http://www.opentravel.org/OTA/2003/05 OTA_HotelDescriptiveInfoRS.xsd"
+                            Version="3.000">
+
+    <Success/>
+
+    <HotelDescriptiveContents>
+
+        <HotelDescriptiveContent HotelCode="123" HotelName="Frangart Inn">
+
+            <!-- FacilityInfo: additional descriptive content for room categories -->
+
+            <FacilityInfo>
+                <GuestRooms>
+                    <GuestRoom Code="DZ">
+                        <MultimediaDescriptions>
+                            <MultimediaDescription>
+                                <ImageItems>
+                                    <ImageItem Category="6">
+                                        <ImageFormat CopyrightNotice="Image copyright">
+                                            <URL>https://..../HotelLogo.jpg</URL>
+                                        </ImageFormat>
+                                        <Description TextFormat="PlainText" Language="en">Image description
+                                        </Description>
+                                    </ImageItem>
+                                    <!--
+                                    .....
+                                    -->
+                                </ImageItems>
+                            </MultimediaDescription>
+                        </MultimediaDescriptions>
+                    </GuestRoom>
+                </GuestRooms>
+            </FacilityInfo>
+            <Policies>
+                <Policy>
+                    <GuaranteePaymentPolicy>
+                        <GuaranteePayment>
+                            <AcceptedPayments>
+                                <AcceptedPayment>
+                                    <BankAcct>
+                                        <BankAcctName>My Bank</BankAcctName>
+                                        <BankAcctNumber>
+                                            <PlainText>IBAN12345</PlainText>
+                                        </BankAcctNumber>
+                                        <BankID>
+                                            <PlainText>SWIFT123</PlainText>
+                                        </BankID>
+                                    </BankAcct>
+                                </AcceptedPayment>
+                                <AcceptedPayment>
+                                    <PaymentCard>
+                                        <CardType>VISA</CardType>
+                                    </PaymentCard>
+                                </AcceptedPayment>
+                                <AcceptedPayment>
+                                    <PaymentCard>
+                                        <CardType>Mastercard</CardType>
+                                    </PaymentCard>
+                                </AcceptedPayment>
+                            </AcceptedPayments>
+                            <AmountPercent Percent="30"/>
+                            <Deadline OffsetDropTime="AfterBooking" OffsetTimeUnit="Day" OffsetUnitMultiplier="0"/>
+                        </GuaranteePayment>
+                    </GuaranteePaymentPolicy>
+                    <PolicyInfo CheckInTime="15:00:00" CheckOutTime="10:00:00" MinGuestAge="16"/>
+                </Policy>
+            </Policies>
+        </HotelDescriptiveContent>
+
+    </HotelDescriptiveContents>
+
+</OTA_HotelDescriptiveInfoRS>

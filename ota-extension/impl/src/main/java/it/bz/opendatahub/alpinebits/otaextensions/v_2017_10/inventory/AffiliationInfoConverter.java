@@ -8,6 +8,7 @@ package it.bz.opendatahub.alpinebits.otaextensions.v_2017_10.inventory;
 
 import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.AffiliationInfoType;
 import it.bz.opendatahub.alpinebits.otaextensions.ConverterUtil;
+import it.bz.opendatahub.alpinebits.otaextensions.JAXBContextProvider;
 import it.bz.opendatahub.alpinebits.otaextensions.exception.OtaExtensionException;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ;
 import org.w3c.dom.Element;
@@ -28,7 +29,7 @@ import java.util.Map;
  * The provided converter facilitates the conversion between the generic JAXB classes
  * generated for AlpineBits at the given extension points and OTA classes.
  * <p>
- * The AlpineBits inventory actions specify, that any valid OTA data can be used at
+ * The AlpineBits 2017-10 inventory actions specify, that any valid OTA data can be used at
  * the following positions as an extension:
  * <ul>
  * <li>OTAHotelDescriptiveContentNotifRQ {@literal ->} HotelDescriptiveContents {@literal ->} HotelDescriptiveContent {@literal ->} AffiliationInfo</li>
@@ -71,9 +72,7 @@ public final class AffiliationInfoConverter {
      */
     public static AffiliationInfoConverter newInstance() {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(
-                    AffiliationInfoType.class
-            );
+            JAXBContext jaxbContext = JAXBContextProvider.getJAXBContext();
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             Marshaller marshaller = jaxbContext.createMarshaller();
             return new AffiliationInfoConverter(marshaller, unmarshaller);
@@ -83,8 +82,7 @@ public final class AffiliationInfoConverter {
     }
 
     /**
-     * Convert an AlpineBits {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.AffiliationInfo}
-     * element to an OTA {@link AffiliationInfoType}.
+     * Convert an AlpineBits AffiliationInfo element to an OTA {@link AffiliationInfoType}.
      * <p>
      * The AlpineBits AffiliationInfo has an <code>any</code> type, that allows any OTA
      * content valid for this position according to the specification.
@@ -92,8 +90,7 @@ public final class AffiliationInfoConverter {
      * This method converts the content of the AlpineBits AffiliationInfo into
      * corresponding OTA types.
      *
-     * @param hotelDescriptiveContent the OTA {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent}
-     *                                that contains affiliation info
+     * @param hotelDescriptiveContent the OTA HotelDescriptiveContent that contains affiliation info
      * @return the converted {@link AffiliationInfoType} or null if the hotelDescriptiveContent is null
      * or its affiliationInfo is null or empty
      * @throws OtaExtensionException if there was an error during the conversion
@@ -132,7 +129,7 @@ public final class AffiliationInfoConverter {
     }
 
     /**
-     * Apply the {@link AffiliationInfoType} to the {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent}.
+     * Apply the {@link AffiliationInfoType} to the HotelDescriptiveContent.
      * <p>
      * The method first tries to convert the provided affiliationInfoType to XML
      * elements using JAXB. Then it adds those elements to the hotelDescriptiveContent.
@@ -140,8 +137,7 @@ public final class AffiliationInfoConverter {
      * If either of the input params are null, no modification will take place.
      *
      * @param hotelDescriptiveContent apply the {@link AffiliationInfoType} to this hotelDescriptiveContent
-     * @param affiliationInfoType     apply this {@link AffiliationInfoType} to the
-     *                                inventory
+     * @param affiliationInfoType     apply this {@link AffiliationInfoType} to the inventory
      * @throws OtaExtensionException if there was an error during the conversion of the
      *                               provided {@link AffiliationInfoType}
      */

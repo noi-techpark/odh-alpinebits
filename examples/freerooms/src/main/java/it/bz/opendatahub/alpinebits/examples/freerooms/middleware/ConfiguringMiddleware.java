@@ -6,7 +6,6 @@
 
 package it.bz.opendatahub.alpinebits.examples.freerooms.middleware;
 
-import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsAction;
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsCapability;
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsVersion;
 import it.bz.opendatahub.alpinebits.common.utils.middleware.ComposingMiddlewareBuilder;
@@ -18,6 +17,7 @@ import it.bz.opendatahub.alpinebits.middleware.Middleware;
 import it.bz.opendatahub.alpinebits.middleware.MiddlewareChain;
 import it.bz.opendatahub.alpinebits.routing.DefaultRouter;
 import it.bz.opendatahub.alpinebits.routing.Router;
+import it.bz.opendatahub.alpinebits.routing.constants.Action;
 import it.bz.opendatahub.alpinebits.routing.middleware.RoutingMiddleware;
 import it.bz.opendatahub.alpinebits.servlet.middleware.AlpineBitsClientProtocolMiddleware;
 import it.bz.opendatahub.alpinebits.servlet.middleware.BasicAuthenticationMiddleware;
@@ -61,15 +61,15 @@ public class ConfiguringMiddleware implements Middleware {
     private Middleware buildRoutingMiddleware() throws JAXBException {
         Router router = new DefaultRouter.Builder()
                 .version(AlpineBitsVersion.V_2017_10)
-                .supportsAction(AlpineBitsAction.GET_VERSION)
+                .supportsAction(Action.GET_VERSION)
                 .withCapabilities(AlpineBitsCapability.GET_VERSION)
                 .using(new HousekeepingGetVersionMiddleware())
                 .and()
-                .supportsAction(AlpineBitsAction.GET_CAPABILITIES)
+                .supportsAction(Action.GET_CAPABILITIES)
                 .withCapabilities(AlpineBitsCapability.GET_CAPABILITIES)
                 .using(new HousekeepingGetCapabilitiesMiddleware())
                 .and()
-                .supportsAction(AlpineBitsAction.FREE_ROOMS_HOTEL_AVAIL_NOTIF_FREE_ROOMS)
+                .supportsAction(Action.FREE_ROOMS_HOTEL_AVAIL_NOTIF_FREE_ROOMS)
                 .withCapabilities(
                         AlpineBitsCapability.FREE_ROOMS_HOTEL_AVAIL_NOTIF,
                         AlpineBitsCapability.FREE_ROOMS_HOTEL_AVAIL_NOTIF_ACCEPT_DELTAS,

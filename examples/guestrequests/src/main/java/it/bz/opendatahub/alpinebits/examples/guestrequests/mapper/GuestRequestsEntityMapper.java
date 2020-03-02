@@ -72,6 +72,7 @@ public interface GuestRequestsEntityMapper {
     @Mapping(target = "roomStay", ignore = true)
     GuestCountEntity toGuestCountEntity(GuestCount guestCount);
 
+    @Mapping(target = "globalInfo.basicPropertyInfo", ignore = true)
     HotelReservation toHotelReservation(HotelReservationEntity hotelReservationEntity);
 
     default ReservationStatus stringToReservationStatus(String s) {

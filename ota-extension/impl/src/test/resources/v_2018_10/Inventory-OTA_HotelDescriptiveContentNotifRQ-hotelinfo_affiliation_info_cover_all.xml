@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    !!!Important!!!
+    This XML is intended for testing purpose only.
+    It is NOT a valid OTA 2015 document.
+
+    The XML covers all attributes and direct child elements of the element
+    OTA_HotelDescriptiveContentNotifRQ -> HotelDescriptiveContents -> AffiliationInfo
+-->
+
+<OTA_HotelDescriptiveContentNotifRQ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                    xmlns="http://www.opentravel.org/OTA/2003/05"
+                                    xsi:schemaLocation="http://www.opentravel.org/OTA/2003/05 OTA_HotelDescriptiveContentNotifRQ.xsd"
+                                    Version="8.000">
+
+    <HotelDescriptiveContents>
+
+        <HotelDescriptiveContent HotelCode="123" HotelName="Frangart Inn">
+            <AffiliationInfo LastUpdated="2019-01-01T10:20:30.000+02:00">
+                <Awards></Awards>
+                <Brands></Brands>
+                <DistribSystems></DistribSystems>
+                <LoyalPrograms></LoyalPrograms>
+                <PartnerInfos></PartnerInfos>
+                <Descriptions></Descriptions>
+            </AffiliationInfo>
+        </HotelDescriptiveContent>
+
+    </HotelDescriptiveContents>
+
+</OTA_HotelDescriptiveContentNotifRQ>

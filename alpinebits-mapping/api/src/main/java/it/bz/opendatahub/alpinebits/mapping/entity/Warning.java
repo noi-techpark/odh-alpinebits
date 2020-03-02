@@ -32,6 +32,10 @@ public class Warning {
 
     private String recordId;
 
+    private String status;
+
+    private Integer code;
+
     public static Warning withoutRecordId(Integer type, String content) {
         Warning warning = new Warning();
         warning.setType(type);
@@ -64,12 +68,30 @@ public class Warning {
         this.recordId = recordId;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
     @Override
     public String toString() {
         return "Warning{" +
                 "content='" + content + '\'' +
                 ", type=" + type +
                 ", recordId='" + recordId + '\'' +
+                ", status=" + status +
+                ", code=" + code +
                 '}';
     }
 }

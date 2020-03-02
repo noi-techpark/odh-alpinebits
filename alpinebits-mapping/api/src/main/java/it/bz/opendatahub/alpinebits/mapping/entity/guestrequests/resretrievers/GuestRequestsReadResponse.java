@@ -7,6 +7,7 @@
 package it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.resretrievers;
 
 import it.bz.opendatahub.alpinebits.mapping.entity.Error;
+import it.bz.opendatahub.alpinebits.mapping.entity.Warning;
 
 import java.util.List;
 
@@ -19,6 +20,8 @@ public class GuestRequestsReadResponse {
     private String success;
 
     private List<Error> errors;
+
+    private List<Warning> warnings;
 
     private List<HotelReservation> hotelReservations;
 
@@ -38,6 +41,14 @@ public class GuestRequestsReadResponse {
         this.errors = errors;
     }
 
+    public List<Warning> getWarnings() {
+        return warnings;
+    }
+
+    public void setWarnings(List<Warning> warnings) {
+        this.warnings = warnings;
+    }
+
     public List<HotelReservation> getHotelReservations() {
         return hotelReservations;
     }
@@ -51,6 +62,7 @@ public class GuestRequestsReadResponse {
         return "GuestRequestsReadResponse{" +
                 "success='" + success + '\'' +
                 ", errors=" + errors +
+                ", warnings=" + warnings +
                 ", hotelReservations=" + hotelReservations +
                 '}';
     }

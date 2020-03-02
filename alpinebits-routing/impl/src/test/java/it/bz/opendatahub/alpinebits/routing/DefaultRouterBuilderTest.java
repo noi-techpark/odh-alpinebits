@@ -6,6 +6,9 @@
 
 package it.bz.opendatahub.alpinebits.routing;
 
+import it.bz.opendatahub.alpinebits.routing.constants.Action;
+import it.bz.opendatahub.alpinebits.routing.constants.ActionName;
+import it.bz.opendatahub.alpinebits.routing.constants.ActionRequestParam;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -31,7 +34,7 @@ public class DefaultRouterBuilderTest {
     public void testBuild() {
         Router router = new DefaultRouter.Builder()
                 .version("")
-                .supportsAction("some_action")
+                .supportsAction(Action.of(ActionRequestParam.of("some"), ActionName.of("value")))
                 .withCapabilities()
                 .using((ctx, chain) -> {
                 })

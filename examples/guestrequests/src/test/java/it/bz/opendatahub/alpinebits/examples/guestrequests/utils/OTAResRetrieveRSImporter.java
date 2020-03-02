@@ -10,7 +10,7 @@ import it.bz.opendatahub.alpinebits.examples.guestrequests.entity.read.HotelRese
 import it.bz.opendatahub.alpinebits.examples.guestrequests.mapper.GuestRequestsEntityMapperInstances;
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.resretrievers.GuestRequestsReadResponse;
 import it.bz.opendatahub.alpinebits.mapping.entity.guestrequests.resretrievers.HotelReservation;
-import it.bz.opendatahub.alpinebits.mapping.mapper.GuestRequestsMapperInstances;
+import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.GuestRequestsMapperInstances;
 import it.bz.opendatahub.alpinebits.xml.JAXBXmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlValidationSchemaProvider;

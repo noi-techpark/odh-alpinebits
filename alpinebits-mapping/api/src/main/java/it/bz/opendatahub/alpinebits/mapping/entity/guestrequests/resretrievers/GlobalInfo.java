@@ -31,6 +31,8 @@ public class GlobalInfo {
 
     private List<Translation> includedServices;
 
+    private BasicPropertyInfo basicPropertyInfo;
+
     public String getCustomerComment() {
         return customerComment;
     }
@@ -71,6 +73,14 @@ public class GlobalInfo {
         this.includedServices = includedServices;
     }
 
+    public BasicPropertyInfo getBasicPropertyInfo() {
+        return basicPropertyInfo;
+    }
+
+    public void setBasicPropertyInfo(BasicPropertyInfo basicPropertyInfo) {
+        this.basicPropertyInfo = basicPropertyInfo;
+    }
+
     @Override
     public String toString() {
         return "GlobalInfo{" +
@@ -79,6 +89,7 @@ public class GlobalInfo {
                 ", company=" + company +
                 ", hotelReservationIds=" + hotelReservationIds +
                 ", includedServices=" + includedServices +
+                ", basicPropertyInfo=" + basicPropertyInfo +
                 '}';
     }
 }

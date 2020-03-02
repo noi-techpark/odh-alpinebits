@@ -7,6 +7,7 @@
 package it.bz.opendatahub.alpinebits.routing;
 
 import it.bz.opendatahub.alpinebits.middleware.Middleware;
+import it.bz.opendatahub.alpinebits.routing.constants.Action;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,7 +19,7 @@ import java.util.function.Supplier;
 /**
  * This class is used by {@link DefaultRouter.Builder}
  * for route building.
- *
+ * <p>
  * It's usefulness is limited for other cases.
  */
 public final class RoutingBuilder {
@@ -44,12 +45,11 @@ public final class RoutingBuilder {
      * Add an <code>action</code> to {@link Middleware} assignment for the
      * current {@link RoutingBuilder} instance.
      *
-     * @param action the <code>action</code> that links to the <code>middleware</code>
-     * @return a {@link CapabilityBuilder} instance to further configure the route
-     * @throws IllegalArgumentException if the <code>action</code> or
-     *                                  <code>middleware</code> is null
+     * @param action The action links to the <code>middleware</code> for request handling.
+     * @return A {@link CapabilityBuilder} instance to further configure the route.
+     * @throws IllegalArgumentException if the <code>action</code> is null.
      */
-    public CapabilityBuilder supportsAction(String action) {
+    public CapabilityBuilder supportsAction(Action action) {
         if (action == null) {
             throw new IllegalArgumentException("The action must not be null");
         }
@@ -61,9 +61,9 @@ public final class RoutingBuilder {
      * Builder for AlpineBits capabilities for a given route.
      */
     public class CapabilityBuilder {
-        private final String action;
+        private final Action action;
 
-        public CapabilityBuilder(String action) {
+        public CapabilityBuilder(Action action) {
             this.action = action;
         }
 
@@ -84,10 +84,10 @@ public final class RoutingBuilder {
      * Builder for AlpineBits middleware for a given route.
      */
     public class MiddlewareBuilder {
-        private final String action;
+        private final Action action;
         private final Set<String> capabilities;
 
-        public MiddlewareBuilder(String action, Set<String> capabilities) {
+        public MiddlewareBuilder(Action action, Set<String> capabilities) {
             this.action = action;
             this.capabilities = capabilities;
         }

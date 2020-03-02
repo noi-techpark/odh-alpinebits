@@ -21,6 +21,7 @@ import org.mapstruct.Mapping;
 public interface TypeRoomMapper {
 
     @Mapping(target = "roomId", source = "roomID")
+    @Mapping(target = "roomType", ignore = true)
     TypeRoom toTypeRoom(
             OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.TypeRoom typeRoom,
             @Context it.bz.opendatahub.alpinebits.middleware.Context ctx

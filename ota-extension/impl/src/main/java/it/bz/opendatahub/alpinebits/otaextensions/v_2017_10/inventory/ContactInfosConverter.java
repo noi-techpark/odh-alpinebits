@@ -9,6 +9,7 @@ package it.bz.opendatahub.alpinebits.otaextensions.v_2017_10.inventory;
 import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.ContactInfoRootType;
 import it.bz.opendatahub.alpinebits.otaextension.schema.ota2015a.ContactInfosType;
 import it.bz.opendatahub.alpinebits.otaextensions.ConverterUtil;
+import it.bz.opendatahub.alpinebits.otaextensions.JAXBContextProvider;
 import it.bz.opendatahub.alpinebits.otaextensions.exception.OtaExtensionException;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ;
 import org.w3c.dom.Element;
@@ -29,7 +30,7 @@ import java.util.Map;
  * The provided converter facilitates the conversion between the generic JAXB classes
  * generated for AlpineBits at the given extension points and OTA classes.
  * <p>
- * The AlpineBits inventory actions specify, that any valid OTA data can be used at
+ * The AlpineBits 2017-10 inventory actions specify, that any valid OTA data can be used at
  * the following positions as an extension:
  * <ul>
  * <li>OTAHotelDescriptiveContentNotifRQ {@literal ->} HotelDescriptiveContents {@literal ->} HotelDescriptiveContent {@literal ->} AffiliationInfo</li>
@@ -66,9 +67,7 @@ public final class ContactInfosConverter {
      */
     public static ContactInfosConverter newInstance() {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(
-                    ContactInfoRootType.class
-            );
+            JAXBContext jaxbContext = JAXBContextProvider.getJAXBContext();
             Marshaller marshaller = jaxbContext.createMarshaller();
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             return new ContactInfosConverter(marshaller, unmarshaller);
@@ -78,8 +77,7 @@ public final class ContactInfosConverter {
     }
 
     /**
-     * Convert an AlpineBits {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.ContactInfos}
-     * element to an OTA {@link ContactInfosType}.
+     * Convert an AlpineBits ContactInfos element to an OTA {@link ContactInfosType}.
      * <p>
      * The AlpineBits ContactInfosType has an <code>any</code> type, that allows any OTA
      * content valid for this position according to the specification.
@@ -87,8 +85,7 @@ public final class ContactInfosConverter {
      * This method converts the content of the AlpineBits ContactInfosType into
      * corresponding OTA types.
      *
-     * @param hotelDescriptiveContent the OTA {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent}
-     *                                that contains contact info
+     * @param hotelDescriptiveContent the OTA HotelDescriptiveContent that contains contact info
      * @return the converted {@link ContactInfosType} or null if the hotelDescriptiveContent is null
      * or its contactInfos is null or empty
      * @throws OtaExtensionException if there was an error during the conversion
@@ -120,7 +117,7 @@ public final class ContactInfosConverter {
     }
 
     /**
-     * Apply the {@link ContactInfosType} to the {@link OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent}.
+     * Apply the {@link ContactInfosType} to the HotelDescriptiveContent.
      * <p>
      * The method first tries to convert the provided contactInfosType to XML
      * elements using JAXB. Then it adds those elements to the hotelDescriptiveContent.
@@ -128,8 +125,7 @@ public final class ContactInfosConverter {
      * If either of the input params are null, no modification will take place.
      *
      * @param hotelDescriptiveContent apply the {@link ContactInfosType} to this hotelDescriptiveContent
-     * @param contactInfosType        apply this {@link ContactInfosType} to the
-     *                                hotelDescriptiveContent
+     * @param contactInfosType        apply this {@link ContactInfosType} to the hotelDescriptiveContent
      * @throws OtaExtensionException if there was an error during the conversion of the
      *                               provided {@link ContactInfosType}
      */

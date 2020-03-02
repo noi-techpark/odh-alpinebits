@@ -6,7 +6,6 @@
 
 package it.bz.opendatahub.alpinebits.validation.context.freerooms;
 
-import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsAction;
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsCapability;
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsVersion;
 import it.bz.opendatahub.alpinebits.common.context.RequestContextKey;
@@ -16,9 +15,10 @@ import it.bz.opendatahub.alpinebits.middleware.impl.SimpleContext;
 import it.bz.opendatahub.alpinebits.routing.DefaultRouter;
 import it.bz.opendatahub.alpinebits.routing.Router;
 import it.bz.opendatahub.alpinebits.routing.RouterContextKey;
+import it.bz.opendatahub.alpinebits.routing.constants.Action;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertTrue;
 
 /**
  * Tests for {@link FreeRoomsContextProvider}.
@@ -96,7 +96,7 @@ public class FreeRoomsContextProviderTest {
     private Router buildRouter(String... capabilities) {
         return new DefaultRouter.Builder()
                 .version(ALPINEBITS_VERSION)
-                .supportsAction(AlpineBitsAction.FREE_ROOMS_HOTEL_AVAIL_NOTIF_FREE_ROOMS)
+                .supportsAction(Action.FREE_ROOMS_HOTEL_AVAIL_NOTIF_FREE_ROOMS)
                 .withCapabilities(capabilities)
                 .using(null)
                 .versionComplete()

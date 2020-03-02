@@ -22,6 +22,8 @@ public class Error {
 
     private Integer code;
 
+    private String status;
+
     public static Error withDefaultType(Integer code) {
         return Error.withDefaultType(code, null);
     }
@@ -58,12 +60,21 @@ public class Error {
         this.code = code;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Error{" +
                 "content='" + content + '\'' +
                 ", type='" + type + '\'' +
                 ", code=" + code +
+                ", status=" + status +
                 '}';
     }
 }

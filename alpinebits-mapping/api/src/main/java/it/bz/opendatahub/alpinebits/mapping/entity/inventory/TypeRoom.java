@@ -21,6 +21,8 @@ public class TypeRoom {
 
     private String roomId;
 
+    private String roomType;
+
     public Integer getStandardOccupancy() {
         return standardOccupancy;
     }
@@ -53,6 +55,14 @@ public class TypeRoom {
         this.roomId = roomId;
     }
 
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
+    }
+
     @Override
     public String toString() {
         return "TypeRoom{" +
@@ -60,6 +70,7 @@ public class TypeRoom {
                 ", roomClassificationCode=" + roomClassificationCode +
                 ", size=" + size +
                 ", roomId='" + roomId + '\'' +
+                ", roomType='" + roomType + '\'' +
                 '}';
     }
 }
