@@ -6,6 +6,8 @@
 
 package it.bz.opendatahub.alpinebits.xml;
 
+import org.xml.sax.SAXParseException;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -18,7 +20,6 @@ import java.io.InputStream;
  * @param <T> converted object type
  */
 public final class JAXBXmlToObjectConverter<T> implements XmlToObjectConverter<T> {
-
 
     private final JAXBContext jaxbContext;
     private final Schema schema;
@@ -37,8 +38,23 @@ public final class JAXBXmlToObjectConverter<T> implements XmlToObjectConverter<T
             unmarshaller.setSchema(this.schema);
             return this.classToBeBound.cast(unmarshaller.unmarshal(is));
         } catch (JAXBException e) {
-            throw new XmlConversionException("XML-to-object conversion error", 400, e);
+            String message = buildErrorMessage(e);
+            throw new XmlConversionException(message, 400, e);
         }
+    }
+
+    private String buildErrorMessage(JAXBException e) {
+        String message = "XML-to-object conversion error";
+
+        if (e.getCause() instanceof SAXParseException) {
+            SAXParseException se = (SAXParseException) e.getCause();
+            int lineNumber = se.getLineNumber();
+            int colNumber = se.getColumnNumber();
+            message += " on line " + lineNumber + " and col " + colNumber + ": " + se.getMessage();
+        } else {
+            message += ": " + e.getMessage();
+        }
+        return message;
     }
 
     /**

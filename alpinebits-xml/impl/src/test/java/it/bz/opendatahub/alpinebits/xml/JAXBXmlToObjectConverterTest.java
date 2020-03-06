@@ -10,6 +10,7 @@ import it.bz.opendatahub.alpinebits.xml.entity.TestEntity;
 import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAReadRQ;
 import org.testng.annotations.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -29,6 +30,20 @@ public class JAXBXmlToObjectConverterTest {
             }
         };
 
+        XmlToObjectConverter<TestEntity> converter = new JAXBXmlToObjectConverter.Builder<>(TestEntity.class).build();
+        converter.toObject(is);
+    }
+
+    @Test(expectedExceptions = XmlConversionException.class)
+    public void testToObject_Error_WhenXmlIsInvalid() throws Exception {
+        InputStream is = new ByteArrayInputStream("NOT AN XML".getBytes());
+        XmlToObjectConverter<TestEntity> converter = new JAXBXmlToObjectConverter.Builder<>(TestEntity.class).build();
+        converter.toObject(is);
+    }
+
+    @Test(expectedExceptions = XmlConversionException.class)
+    public void testToObject_Error_OnXmlMappingError() throws Exception {
+        InputStream is = new ByteArrayInputStream("<?xml version=\"1.0\" encoding=\"UTF-8\"?><some></some>".getBytes());
         XmlToObjectConverter<TestEntity> converter = new JAXBXmlToObjectConverter.Builder<>(TestEntity.class).build();
         converter.toObject(is);
     }
