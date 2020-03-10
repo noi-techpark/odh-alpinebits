@@ -37,7 +37,8 @@ public final class JAXBObjectToXmlConverter<T> implements ObjectToXmlConverter<T
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, this.doPrettyPrintXml);
             marshaller.marshal(objectToConvert, os);
         } catch (JAXBException e) {
-            throw new XmlConversionException("Object-to-XML conversion error", e);
+            String message = "Object-to-XML conversion error: " + (e.getMessage() == null ? e.toString() : e.getMessage());
+            throw new XmlConversionException(message, e);
         }
     }
 
