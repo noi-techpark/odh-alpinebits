@@ -5,11 +5,7 @@
     <parent>
         <artifactId>alpinebits-root</artifactId>
         <groupId>it.bz.opendatahub.alpinebits</groupId>
-<<<<<<< HEAD
         <version>1.0.1-SNAPSHOT</version>
-=======
-        <version>1.0.1</version>
->>>>>>> master
     </parent>
 
     <artifactId>build-tools</artifactId>

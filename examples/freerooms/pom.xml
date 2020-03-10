@@ -5,20 +5,12 @@
     <parent>
         <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>examples-root</artifactId>
-<<<<<<< HEAD
         <version>1.0.1-SNAPSHOT</version>
-=======
-        <version>1.0.1</version>
->>>>>>> master
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>examples-freerooms</artifactId>
-<<<<<<< HEAD
     <version>1.0.1-SNAPSHOT</version>
-=======
-    <version>1.0.1</version>
->>>>>>> master
 
     <packaging>war</packaging>
     <name>AlpineBits examples - FreeRooms</name>
