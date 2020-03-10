@@ -5,12 +5,20 @@
     <parent>
         <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-servlet</artifactId>
+<<<<<<< HEAD
         <version>1.0.1-SNAPSHOT</version>
+=======
+        <version>1.0.1</version>
+>>>>>>> master
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>alpinebits-servlet-impl</artifactId>
+<<<<<<< HEAD
     <version>1.0.1-SNAPSHOT</version>
+=======
+    <version>1.0.1</version>
+>>>>>>> master
 
     <name>AlpineBits servlet impl</name>
 

@@ -5,12 +5,20 @@
     <parent>
         <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-root</artifactId>
+<<<<<<< HEAD
         <version>1.0.1-SNAPSHOT</version>
+=======
+        <version>1.0.1</version>
+>>>>>>> master
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>alpinebits-common</artifactId>
+<<<<<<< HEAD
     <version>1.0.1-SNAPSHOT</version>
+=======
+    <version>1.0.1</version>
+>>>>>>> master
 
     <packaging>pom</packaging>
     <name>AlpineBits common</name>
