@@ -54,7 +54,7 @@ pipeline {
         }
         stage('Release') {
             steps {
-		        sh 'mvn -B -U clean deploy -P release'
+		        sh 'mvn -B -U clean deploy -P release,sources'
             }
         }
         stage('Tag') {
