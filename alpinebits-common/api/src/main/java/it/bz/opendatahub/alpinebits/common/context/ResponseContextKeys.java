@@ -23,6 +23,16 @@ public final class ResponseContextKeys {
             "response.content.stream", OutputStream.class
     );
 
+    /**
+     * Context key for response content type hint.
+     * <p>
+     * The hint can be used e.g. by a HTTP middleware to set the correct content-type
+     * header value.
+     */
+    public static final Key<String> RESPONSE_CONTENT_TYPE_HINT = Key.key(
+            "response.content.type.hint", String.class
+    );
+
     private ResponseContextKeys() {
         // Empty
     }
