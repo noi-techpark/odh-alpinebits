@@ -7,20 +7,12 @@
     <parent>
         <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-validation</artifactId>
-<<<<<<< HEAD
-        <version>1.0.2</version>
-=======
         <version>1.0.3-SNAPSHOT</version>
->>>>>>> development
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>alpinebits-validation-api</artifactId>
-<<<<<<< HEAD
-    <version>1.0.2</version>
-=======
     <version>1.0.3-SNAPSHOT</version>
->>>>>>> development
 
     <name>AlpineBits validation API</name>
 

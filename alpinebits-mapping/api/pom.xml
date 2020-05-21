@@ -5,20 +5,12 @@
     <parent>
         <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-mapping</artifactId>
-<<<<<<< HEAD
-        <version>1.0.2</version>
-=======
         <version>1.0.3-SNAPSHOT</version>
->>>>>>> development
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>alpinebits-mapping-api</artifactId>
-<<<<<<< HEAD
-    <version>1.0.2</version>
-=======
     <version>1.0.3-SNAPSHOT</version>
->>>>>>> development
 
     <name>AlpineBits mapping API</name>
 
