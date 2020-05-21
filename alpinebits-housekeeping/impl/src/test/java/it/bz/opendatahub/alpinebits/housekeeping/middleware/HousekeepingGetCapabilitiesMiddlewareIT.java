@@ -8,10 +8,12 @@ package it.bz.opendatahub.alpinebits.housekeeping.middleware;
 
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsAction;
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsCapability;
+import it.bz.opendatahub.alpinebits.common.constants.HttpContentTypeHeaderValues;
 import it.bz.opendatahub.alpinebits.housekeeping.middleware.utils.IntegrationTestingMiddleware;
 import it.bz.opendatahub.alpinebits.housekeeping.middleware.utils.RouterMiddlewareBuilder;
 import it.bz.opendatahub.alpinebits.servlet.impl.AlpineBitsServlet;
 import it.bz.opendatahub.alpinebits.servlet.middleware.AlpineBitsClientProtocolMiddleware;
+import it.bz.opendatahub.alpinebits.servlet.middleware.ContentTypeHintMiddleware;
 import it.bz.opendatahub.alpinebits.servlet.middleware.MultipartFormDataParserMiddleware;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -63,6 +65,7 @@ public class HousekeepingGetCapabilitiesMiddlewareIT extends Arquillian {
                 .post(this.base + "AlpineBits")
                 .then()
                 .statusCode(HttpServletResponse.SC_BAD_REQUEST)
+                .header(ContentTypeHintMiddleware.RESPONSE_CONTENT_TYPE_HEADER, HttpContentTypeHeaderValues.TEXT_PLAIN)
                 .content(containsString("ERROR"));
     }
 
@@ -79,6 +82,7 @@ public class HousekeepingGetCapabilitiesMiddlewareIT extends Arquillian {
                 .post(this.base + "AlpineBits")
                 .then()
                 .statusCode(HttpServletResponse.SC_OK)
+                .header(ContentTypeHintMiddleware.RESPONSE_CONTENT_TYPE_HEADER, HttpContentTypeHeaderValues.TEXT_PLAIN)
                 .content(
                         containsString(AlpineBitsCapability.GET_VERSION),
                         containsString(AlpineBitsCapability.GET_CAPABILITIES));

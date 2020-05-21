@@ -8,6 +8,7 @@ package it.bz.opendatahub.alpinebits.housekeeping.middleware;
 
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsAction;
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsCapability;
+import it.bz.opendatahub.alpinebits.common.constants.HttpContentTypeHeaderValues;
 import it.bz.opendatahub.alpinebits.common.context.RequestContextKey;
 import it.bz.opendatahub.alpinebits.common.context.ResponseContextKeys;
 import it.bz.opendatahub.alpinebits.housekeeping.middleware.utils.RouterBuilder;
@@ -47,6 +48,7 @@ public class HousekeepingGetCapabilitiesMiddlewareTest {
         Context ctx = new SimpleContext();
         ctx.put(RouterContextKey.ALPINEBITS_ROUTER, RouterBuilder.buildDefaultRouter());
         middleware.handleContext(ctx, null);
+        assertEquals(ctx.getOrThrow(ResponseContextKeys.RESPONSE_CONTENT_TYPE_HINT), HttpContentTypeHeaderValues.TEXT_PLAIN);
     }
 
     @Test
@@ -68,6 +70,7 @@ public class HousekeepingGetCapabilitiesMiddlewareTest {
         Collection<String> capabilities = Arrays.asList(resultCapabilities.split(","));
 
         assertEquals(capabilities, Collections.singletonList(AlpineBitsCapability.GET_CAPABILITIES));
+        assertEquals(ctx.getOrThrow(ResponseContextKeys.RESPONSE_CONTENT_TYPE_HINT), HttpContentTypeHeaderValues.TEXT_PLAIN);
     }
 
     @Test
@@ -97,5 +100,6 @@ public class HousekeepingGetCapabilitiesMiddlewareTest {
                 )
         );
         assertEquals(capabilities, expectedCapabilities);
+        assertEquals(ctx.getOrThrow(ResponseContextKeys.RESPONSE_CONTENT_TYPE_HINT), HttpContentTypeHeaderValues.TEXT_PLAIN);
     }
 }

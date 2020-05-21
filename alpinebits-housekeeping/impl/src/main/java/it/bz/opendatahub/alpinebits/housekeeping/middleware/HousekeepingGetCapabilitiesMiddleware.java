@@ -6,6 +6,7 @@
 
 package it.bz.opendatahub.alpinebits.housekeeping.middleware;
 
+import it.bz.opendatahub.alpinebits.common.constants.HttpContentTypeHeaderValues;
 import it.bz.opendatahub.alpinebits.common.context.RequestContextKey;
 import it.bz.opendatahub.alpinebits.common.context.ResponseContextKeys;
 import it.bz.opendatahub.alpinebits.housekeeping.HousekeepingWriteException;
@@ -46,6 +47,7 @@ public class HousekeepingGetCapabilitiesMiddleware implements Middleware {
         String responseMessage = "OK:" + String.join(",", capabilities);
         try {
             os.write(responseMessage.getBytes(StandardCharsets.UTF_8));
+            ctx.put(ResponseContextKeys.RESPONSE_CONTENT_TYPE_HINT, HttpContentTypeHeaderValues.TEXT_PLAIN);
         } catch (IOException e) {
             throw new HousekeepingWriteException(
                     "Error while writing Housekeeping response. Response message" +
