@@ -6,7 +6,9 @@
 
 package it.bz.opendatahub.alpinebits.xml.middleware;
 
+import it.bz.opendatahub.alpinebits.common.constants.HttpContentTypeHeaderValues;
 import it.bz.opendatahub.alpinebits.servlet.impl.AlpineBitsServlet;
+import it.bz.opendatahub.alpinebits.servlet.middleware.ContentTypeHintMiddleware;
 import it.bz.opendatahub.alpinebits.xml.middleware.utils.NotValidatingXmlResponseMappingMiddleware;
 import it.bz.opendatahub.alpinebits.xml.middleware.utils.RngValidatingXmlResponseMappingMiddleware;
 import it.bz.opendatahub.alpinebits.xml.middleware.utils.XsdValidatingXmlResponseMappingMiddleware;
@@ -37,66 +39,56 @@ public class XmlResponseMappingMiddlewareIT extends Arquillian {
     @Deployment(name = "NoValidation", testable = false)
     @SuppressWarnings("ArquillianTooManyDeployment")
     public static WebArchive createNotValidatingDeployment() {
-        final WebArchive war = ShrinkWrap.create(WebArchive.class, "test-no-validation.war")
+        return ShrinkWrap.create(WebArchive.class, "test-no-validation.war")
                 .addClasses(AlpineBitsServlet.class)
                 .addClasses(NotValidatingXmlResponseMappingMiddleware.class)
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsManifestResource("web/context.xml", "context.xml")
                 .addAsWebInfResource("web/web-not-validating-xml-response-wrapping-middleware-integration-test.xml", "web.xml");
-
-        return war;
     }
 
     @Deployment(name = "RngValidation", testable = false)
     @SuppressWarnings("ArquillianTooManyDeployment")
     public static WebArchive createRngValidatingDeployment() {
-        final WebArchive war = ShrinkWrap.create(WebArchive.class, "test-rng-validation.war")
+        return ShrinkWrap.create(WebArchive.class, "test-rng-validation.war")
                 .addClasses(AlpineBitsServlet.class)
                 .addClasses(RngValidatingXmlResponseMappingMiddleware.class)
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsManifestResource("web/context.xml", "context.xml")
                 .addAsWebInfResource("web/web-rng-validating-xml-response-wrapping-middleware-integration-test.xml", "web.xml");
-
-        return war;
     }
 
     @Deployment(name = "RngValidationError", testable = false)
     @SuppressWarnings("ArquillianTooManyDeployment")
     public static WebArchive createRngValidatingErrorDeployment() {
-        final WebArchive war = ShrinkWrap.create(WebArchive.class, "test-rng-validation-error.war")
+        return ShrinkWrap.create(WebArchive.class, "test-rng-validation-error.war")
                 .addClasses(AlpineBitsServlet.class)
                 .addClasses(RngValidatingXmlResponseMappingMiddleware.class)
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsManifestResource("web/context.xml", "context.xml")
                 .addAsWebInfResource("web/web-rng-validating-error-xml-response-wrapping-middleware-integration-test.xml", "web.xml");
-
-        return war;
     }
 
     @Deployment(name = "XsdValidation", testable = false)
     @SuppressWarnings("ArquillianTooManyDeployment")
     public static WebArchive createXsdValidatingDeployment() {
-        final WebArchive war = ShrinkWrap.create(WebArchive.class, "test-xsd-validation.war")
+        return ShrinkWrap.create(WebArchive.class, "test-xsd-validation.war")
                 .addClasses(AlpineBitsServlet.class)
                 .addClasses(XsdValidatingXmlResponseMappingMiddleware.class)
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsManifestResource("web/context.xml", "context.xml")
                 .addAsWebInfResource("web/web-xsd-validating-xml-response-wrapping-middleware-integration-test.xml", "web.xml");
-
-        return war;
     }
 
     @Deployment(name = "XsdValidationError", testable = false)
     @SuppressWarnings("ArquillianTooManyDeployment")
     public static WebArchive createXsdValidatingErrorDeployment() {
-        final WebArchive war = ShrinkWrap.create(WebArchive.class, "test-xsd-validation-error.war")
+        return ShrinkWrap.create(WebArchive.class, "test-xsd-validation-error.war")
                 .addClasses(AlpineBitsServlet.class)
                 .addClasses(XsdValidatingXmlResponseMappingMiddleware.class)
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsManifestResource("web/context.xml", "context.xml")
                 .addAsWebInfResource("web/web-xsd-validating-error-xml-response-wrapping-middleware-integration-test.xml", "web.xml");
-
-        return war;
     }
 
     @Test
@@ -110,6 +102,7 @@ public class XmlResponseMappingMiddlewareIT extends Arquillian {
                 .post(this.base + "AlpineBits")
                 .then()
                 .statusCode(HttpServletResponse.SC_OK)
+                .header(ContentTypeHintMiddleware.RESPONSE_CONTENT_TYPE_HEADER, HttpContentTypeHeaderValues.TEXT_XML)
                 .content(
                         containsString("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"),
                         containsString("Success"));
@@ -126,6 +119,7 @@ public class XmlResponseMappingMiddlewareIT extends Arquillian {
                 .post(this.base + "AlpineBits")
                 .then()
                 .statusCode(HttpServletResponse.SC_INTERNAL_SERVER_ERROR)
+                .header(ContentTypeHintMiddleware.RESPONSE_CONTENT_TYPE_HEADER, HttpContentTypeHeaderValues.TEXT_PLAIN)
                 .content(containsString("ERROR:"));
     }
 
@@ -140,6 +134,7 @@ public class XmlResponseMappingMiddlewareIT extends Arquillian {
                 .post(this.base + "AlpineBits")
                 .then()
                 .statusCode(HttpServletResponse.SC_OK)
+                .header(ContentTypeHintMiddleware.RESPONSE_CONTENT_TYPE_HEADER, HttpContentTypeHeaderValues.TEXT_XML)
                 .content(
                         containsString("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"),
                         containsString("Success"));
@@ -156,6 +151,7 @@ public class XmlResponseMappingMiddlewareIT extends Arquillian {
                 .post(this.base + "AlpineBits")
                 .then()
                 .statusCode(HttpServletResponse.SC_INTERNAL_SERVER_ERROR)
+                .header(ContentTypeHintMiddleware.RESPONSE_CONTENT_TYPE_HEADER, HttpContentTypeHeaderValues.TEXT_PLAIN)
                 .content(containsString("ERROR:"));
     }
 
@@ -170,6 +166,7 @@ public class XmlResponseMappingMiddlewareIT extends Arquillian {
                 .post(this.base + "AlpineBits")
                 .then()
                 .statusCode(HttpServletResponse.SC_OK)
+                .header(ContentTypeHintMiddleware.RESPONSE_CONTENT_TYPE_HEADER, HttpContentTypeHeaderValues.TEXT_XML)
                 .content(
                         containsString("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"),
                         containsString("Success"));

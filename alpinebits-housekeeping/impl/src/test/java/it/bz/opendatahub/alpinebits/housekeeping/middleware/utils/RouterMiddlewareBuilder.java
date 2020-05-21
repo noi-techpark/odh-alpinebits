@@ -20,6 +20,7 @@ import it.bz.opendatahub.alpinebits.routing.constants.ActionName;
 import it.bz.opendatahub.alpinebits.routing.constants.ActionRequestParam;
 import it.bz.opendatahub.alpinebits.routing.middleware.RoutingMiddleware;
 import it.bz.opendatahub.alpinebits.servlet.middleware.AlpineBitsClientProtocolMiddleware;
+import it.bz.opendatahub.alpinebits.servlet.middleware.ContentTypeHintMiddleware;
 import it.bz.opendatahub.alpinebits.servlet.middleware.MultipartFormDataParserMiddleware;
 
 import java.util.Arrays;
@@ -157,10 +158,11 @@ public class RouterMiddlewareBuilder {
 
         Middleware routingMiddleware = new RoutingMiddleware(builder.buildRouter());
 
-        return ComposingMiddlewareBuilder.compose(Arrays.asList(
+        return ComposingMiddlewareBuilder.compose(
+                new ContentTypeHintMiddleware(),
                 new AlpineBitsClientProtocolMiddleware(),
                 new MultipartFormDataParserMiddleware(),
                 routingMiddleware
-        ));
+        );
     }
 }

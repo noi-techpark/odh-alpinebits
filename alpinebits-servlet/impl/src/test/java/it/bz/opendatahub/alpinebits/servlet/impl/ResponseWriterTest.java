@@ -6,6 +6,7 @@
 
 package it.bz.opendatahub.alpinebits.servlet.impl;
 
+import it.bz.opendatahub.alpinebits.common.constants.HttpContentTypeHeaderValues;
 import it.bz.opendatahub.alpinebits.servlet.impl.utils.ServletOutputStreamBuilder;
 import org.testng.annotations.Test;
 
@@ -43,6 +44,7 @@ public class ResponseWriterTest {
 
         ResponseWriter.writeError(response, 500, requestId, message);
         verify(response).setStatus(500);
+        verify(response, times(1)).setHeader(ResponseWriter.RESPONSE_CONTENT_TYPE_HEADER, HttpContentTypeHeaderValues.TEXT_PLAIN);
         assertEquals(stringWriter.toString(), errorMessage);
     }
 

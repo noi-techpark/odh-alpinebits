@@ -6,6 +6,7 @@
 
 package it.bz.opendatahub.alpinebits.housekeeping.middleware;
 
+import it.bz.opendatahub.alpinebits.common.constants.HttpContentTypeHeaderValues;
 import it.bz.opendatahub.alpinebits.common.context.RequestContextKey;
 import it.bz.opendatahub.alpinebits.common.context.ResponseContextKeys;
 import it.bz.opendatahub.alpinebits.housekeeping.middleware.utils.RouterBuilder;
@@ -32,6 +33,7 @@ public class HousekeepingGetVersionMiddlewareTest {
 
         Middleware middleware = new HousekeepingGetVersionMiddleware();
         middleware.handleContext(ctx, null);
+        assertEquals(ctx.getOrThrow(ResponseContextKeys.RESPONSE_CONTENT_TYPE_HINT), HttpContentTypeHeaderValues.TEXT_PLAIN);
     }
 
     @Test(expectedExceptions = RequiredContextKeyMissingException.class)
@@ -41,6 +43,7 @@ public class HousekeepingGetVersionMiddlewareTest {
 
         Middleware middleware = new HousekeepingGetVersionMiddleware();
         middleware.handleContext(ctx, null);
+        assertEquals(ctx.getOrThrow(ResponseContextKeys.RESPONSE_CONTENT_TYPE_HINT), HttpContentTypeHeaderValues.TEXT_PLAIN);
     }
 
     @Test
@@ -59,6 +62,7 @@ public class HousekeepingGetVersionMiddlewareTest {
         String resultVersion = responseStream.toString(StandardCharsets.UTF_8.name()).substring(3);
 
         assertEquals(resultVersion, version);
+        assertEquals(ctx.getOrThrow(ResponseContextKeys.RESPONSE_CONTENT_TYPE_HINT), HttpContentTypeHeaderValues.TEXT_PLAIN);
     }
 
     @Test
@@ -78,5 +82,6 @@ public class HousekeepingGetVersionMiddlewareTest {
         String resultVersion = responseStream.toString(StandardCharsets.UTF_8.name()).substring(3);
 
         assertEquals(resultVersion, version);
+        assertEquals(ctx.getOrThrow(ResponseContextKeys.RESPONSE_CONTENT_TYPE_HINT), HttpContentTypeHeaderValues.TEXT_PLAIN);
     }
 }

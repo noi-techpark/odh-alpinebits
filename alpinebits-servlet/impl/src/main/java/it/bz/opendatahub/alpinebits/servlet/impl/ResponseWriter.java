@@ -6,6 +6,8 @@
 
 package it.bz.opendatahub.alpinebits.servlet.impl;
 
+import it.bz.opendatahub.alpinebits.common.constants.HttpContentTypeHeaderValues;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -14,6 +16,8 @@ import java.io.IOException;
  * results to the servlet response and its output stream.
  */
 public final class ResponseWriter {
+
+    public static final String RESPONSE_CONTENT_TYPE_HEADER = "Content-Type";
 
     private ResponseWriter() {
         // Empty
@@ -27,6 +31,7 @@ public final class ResponseWriter {
         String errorMessage = ResponseWriter.buildErrorMessage(message, requestId);
         ResponseWriter.writeMessage(response, errorMessage);
         response.setStatus(httpStatus);
+        response.setHeader(RESPONSE_CONTENT_TYPE_HEADER, HttpContentTypeHeaderValues.TEXT_PLAIN);
     }
 
     public static String buildErrorMessage(String message, String requestId) {

@@ -6,6 +6,7 @@
 
 package it.bz.opendatahub.alpinebits.xml.middleware;
 
+import it.bz.opendatahub.alpinebits.common.constants.HttpContentTypeHeaderValues;
 import it.bz.opendatahub.alpinebits.common.context.ResponseContextKeys;
 import it.bz.opendatahub.alpinebits.middleware.Context;
 import it.bz.opendatahub.alpinebits.middleware.Key;
@@ -53,6 +54,7 @@ public class XmlResponseMappingMiddleware<T> implements Middleware {
         OutputStream os = ctx.getOrThrow(ResponseContextKeys.RESPONSE_CONTENT_STREAM);
 
         this.converter.toXml(responseData, os);
+        ctx.put(ResponseContextKeys.RESPONSE_CONTENT_TYPE_HINT, HttpContentTypeHeaderValues.TEXT_XML);
     }
 
 }

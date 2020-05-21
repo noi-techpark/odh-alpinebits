@@ -11,6 +11,7 @@ import it.bz.opendatahub.alpinebits.middleware.Context;
 import it.bz.opendatahub.alpinebits.middleware.Key;
 import it.bz.opendatahub.alpinebits.middleware.Middleware;
 import it.bz.opendatahub.alpinebits.middleware.MiddlewareChain;
+import it.bz.opendatahub.alpinebits.servlet.middleware.ContentTypeHintMiddleware;
 import it.bz.opendatahub.alpinebits.servlet.middleware.MultipartFormDataParserMiddleware;
 import it.bz.opendatahub.alpinebits.xml.JAXBObjectToXmlConverter;
 import it.bz.opendatahub.alpinebits.xml.JAXBXmlToObjectConverter;
@@ -23,7 +24,6 @@ import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAResRetrieveRS;
 import javax.xml.bind.JAXBException;
 import javax.xml.validation.Schema;
 import java.io.InputStream;
-import java.util.Arrays;
 
 /**
  * This helper class for XmlRequestMappingMiddleware configures the middleware
@@ -37,10 +37,11 @@ public class NotValidatingXmlResponseMappingMiddleware implements Middleware {
 
     public NotValidatingXmlResponseMappingMiddleware() {
         try {
-            this.middleware = ComposingMiddlewareBuilder.compose(Arrays.asList(
+            this.middleware = ComposingMiddlewareBuilder.compose(
+                    new ContentTypeHintMiddleware(),
                     new MultipartFormDataParserMiddleware(),
                     this.notValidatingMiddleware()
-            ));
+            );
         } catch (JAXBException e) {
             throw new RuntimeException(e);
         }

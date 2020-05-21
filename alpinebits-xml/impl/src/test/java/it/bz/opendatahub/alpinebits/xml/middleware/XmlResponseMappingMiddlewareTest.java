@@ -6,6 +6,7 @@
 
 package it.bz.opendatahub.alpinebits.xml.middleware;
 
+import it.bz.opendatahub.alpinebits.common.constants.HttpContentTypeHeaderValues;
 import it.bz.opendatahub.alpinebits.common.context.ResponseContextKeys;
 import it.bz.opendatahub.alpinebits.middleware.Context;
 import it.bz.opendatahub.alpinebits.middleware.Key;
@@ -27,6 +28,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
 /**
@@ -74,6 +76,7 @@ public class XmlResponseMappingMiddlewareTest {
 
         OTAResRetrieveRS businessData = ctx.getOrThrow(DEFAULT_CTX_KEY);
         assertNotNull(businessData);
+        assertEquals(ctx.getOrThrow(ResponseContextKeys.RESPONSE_CONTENT_TYPE_HINT), HttpContentTypeHeaderValues.TEXT_XML);
     }
 
     @Test(expectedExceptions = XmlConversionException.class)
@@ -84,6 +87,7 @@ public class XmlResponseMappingMiddlewareTest {
         Middleware middleware = this.validatingMiddleware(XmlValidationSchemaProvider.buildRngSchemaForAlpineBitsVersion("2017-10"));
         middleware.handleContext(ctx, () -> {
         });
+        assertEquals(ctx.getOrThrow(ResponseContextKeys.RESPONSE_CONTENT_TYPE_HINT), HttpContentTypeHeaderValues.TEXT_XML);
     }
 
     @Test
@@ -93,6 +97,7 @@ public class XmlResponseMappingMiddlewareTest {
         Middleware middleware = this.validatingMiddleware(XmlValidationSchemaProvider.buildRngSchemaForAlpineBitsVersion("2017-10"));
         middleware.handleContext(ctx, () -> {
         });
+        assertEquals(ctx.getOrThrow(ResponseContextKeys.RESPONSE_CONTENT_TYPE_HINT), HttpContentTypeHeaderValues.TEXT_XML);
     }
 
     @Test(expectedExceptions = XmlConversionException.class)
@@ -103,6 +108,7 @@ public class XmlResponseMappingMiddlewareTest {
         Middleware middleware = this.validatingMiddleware(XmlValidationSchemaProvider.buildXsdSchemaForAlpineBitsVersion("2017-10"));
         middleware.handleContext(ctx, () -> {
         });
+        assertEquals(ctx.getOrThrow(ResponseContextKeys.RESPONSE_CONTENT_TYPE_HINT), HttpContentTypeHeaderValues.TEXT_XML);
     }
 
     @Test
@@ -112,6 +118,7 @@ public class XmlResponseMappingMiddlewareTest {
         Middleware middleware = this.validatingMiddleware(XmlValidationSchemaProvider.buildXsdSchemaForAlpineBitsVersion("2017-10"));
         middleware.handleContext(ctx, () -> {
         });
+        assertEquals(ctx.getOrThrow(ResponseContextKeys.RESPONSE_CONTENT_TYPE_HINT), HttpContentTypeHeaderValues.TEXT_XML);
     }
 
     private Context getDefaultCtx() throws JAXBException {
