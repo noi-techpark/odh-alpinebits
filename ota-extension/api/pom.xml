@@ -5,12 +5,20 @@
     <parent>
         <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>ota-extension</artifactId>
+<<<<<<< HEAD
         <version>1.0.2</version>
+=======
+        <version>1.0.3-SNAPSHOT</version>
+>>>>>>> development
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>ota-extension-api</artifactId>
+<<<<<<< HEAD
     <version>1.0.2</version>
+=======
+    <version>1.0.3-SNAPSHOT</version>
+>>>>>>> development
 
     <name>OTA extension API</name>
 
