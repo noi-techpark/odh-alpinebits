@@ -45,6 +45,51 @@
                 <version>${jaxb2-maven.version}</version>
                 <executions>
                     <execution>
+                        <id>ota-2015a</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <xjbSources>
+                                <xjbSource>src/main/resources/global-ota-2015a.xjb</xjbSource>
+                            </xjbSources>
+                            <sources>
+                                <!-- Handshaking -->
+                                <source>src/main/resources/ota2015a/OTA_PingRQ.xsd</source>
+                                <source>src/main/resources/ota2015a/OTA_PingRS.xsd</source>
+                                <!-- FreeRooms until 2020-20 -->
+                                <source>src/main/resources/ota2015a/OTA_HotelAvailNotifRQ.xsd</source>
+                                <source>src/main/resources/ota2015a/OTA_HotelAvailNotifRS.xsd</source>
+                                <!-- FreeRooms from 2020-20 -->
+                                <source>src/main/resources/ota2015a/OTA_HotelInvCountNotifRQ.xsd</source>
+                                <source>src/main/resources/ota2015a/OTA_HotelInvCountNotifRS.xsd</source>
+                                <!-- GuestRequests -->
+                                <source>src/main/resources/ota2015a/OTA_ReadRQ.xsd</source>
+                                <source>src/main/resources/ota2015a/OTA_ResRetrieveRS.xsd</source>
+                                <!-- GuestRequests (push) -->
+                                <source>src/main/resources/ota2015a/OTA_HotelResNotifRQ.xsd</source>
+                                <source>src/main/resources/ota2015a/OTA_HotelResNotifRS.xsd</source>
+                                <!-- GuestRequests/Acknowledgements (push) -->
+                                <source>src/main/resources/ota2015a/OTA_NotifReportRQ.xsd</source>
+                                <source>src/main/resources/ota2015a/OTA_NotifReportRS.xsd</source>
+                                <!-- Inventory/Basic (push) + Inventory/HotelInfo (push) -->
+                                <source>src/main/resources/ota2015a/OTA_HotelDescriptiveContentNotifRQ.xsd</source>
+                                <source>src/main/resources/ota2015a/OTA_HotelDescriptiveContentNotifRS.xsd</source>
+                                <!-- Inventory/Basic (pull) + Inventory/HotelInfo (pull) -->
+                                <source>src/main/resources/ota2015a/OTA_HotelDescriptiveInfoRQ.xsd</source>
+                                <source>src/main/resources/ota2015a/OTA_HotelDescriptiveInfoRS.xsd</source>
+                                <!-- RatePlans -->
+                                <source>src/main/resources/ota2015a/OTA_HotelRatePlanNotifRQ.xsd</source>
+                                <source>src/main/resources/ota2015a/OTA_HotelRatePlanNotifRS.xsd</source>
+                                <!-- BaseRates -->
+                                <source>src/main/resources/ota2015a/OTA_HotelRatePlanRQ.xsd</source>
+                                <source>src/main/resources/ota2015a/OTA_HotelRatePlanRS.xsd</source>
+                            </sources>
+                            <packageName>it.bz.opendatahub.alpinebits.xml.schema.ota</packageName>
+                            <clearOutputDir>true</clearOutputDir>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>alpinebits-2018-10</id>
                         <goals>
                             <goal>xjc</goal>
