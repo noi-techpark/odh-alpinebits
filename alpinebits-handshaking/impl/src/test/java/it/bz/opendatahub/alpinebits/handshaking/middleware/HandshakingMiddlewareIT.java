@@ -11,8 +11,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.ValidatableResponse;
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsAction;
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsCapability;
+import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsVersion;
 import it.bz.opendatahub.alpinebits.handshaking.dto.HandshakingData;
 import it.bz.opendatahub.alpinebits.handshaking.dto.SupportedAction;
+import it.bz.opendatahub.alpinebits.handshaking.utils.OTAPingRSExtractor;
 import it.bz.opendatahub.alpinebits.handshaking.utils.RouterMiddlewareBuilder;
 import it.bz.opendatahub.alpinebits.routing.constants.Action;
 import it.bz.opendatahub.alpinebits.servlet.impl.AlpineBitsServlet;
@@ -20,7 +22,8 @@ import it.bz.opendatahub.alpinebits.servlet.middleware.AlpineBitsClientProtocolM
 import it.bz.opendatahub.alpinebits.servlet.middleware.MultipartFormDataParserMiddleware;
 import it.bz.opendatahub.alpinebits.xml.JAXBXmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlToObjectConverter;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAPingRS;
+import it.bz.opendatahub.alpinebits.xml.XmlValidationSchemaProvider;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAPingRS;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -35,12 +38,14 @@ import javax.xml.bind.JAXBException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.Set;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 import static org.testng.AssertJUnit.assertNull;
 
 /**
@@ -53,15 +58,13 @@ public class HandshakingMiddlewareIT extends Arquillian {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        final WebArchive war = ShrinkWrap.create(WebArchive.class, "test.war")
+        return ShrinkWrap.create(WebArchive.class, "test.war")
                 .addClasses(AlpineBitsServlet.class)
                 .addClasses(AlpineBitsClientProtocolMiddleware.class)
                 .addClasses(MultipartFormDataParserMiddleware.class)
                 .addClasses(IntegrationTestingMiddleware.class)
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsWebInfResource("web-handshaking-middleware-integration-test.xml", "web.xml");
-
-        return war;
     }
 
     @Test
@@ -100,11 +103,17 @@ public class HandshakingMiddlewareIT extends Arquillian {
                 .then()
                 .statusCode(HttpServletResponse.SC_OK);
 
-        XmlToObjectConverter<OTAPingRS> converter = new JAXBXmlToObjectConverter.Builder<>(OTAPingRS.class).build();
+        XmlToObjectConverter<OTAPingRS> converter = new JAXBXmlToObjectConverter.Builder<>(OTAPingRS.class)
+                .schema(XmlValidationSchemaProvider.buildXsdSchemaForAlpineBitsVersion(AlpineBitsVersion.V_2018_10))
+                .build();
         OTAPingRS otaPingRS = converter.toObject(response.extract().body().asInputStream());
 
         ObjectMapper om = new ObjectMapper();
-        HandshakingData handshakingData = om.readValue(otaPingRS.getWarnings().getWarning().getContent(), HandshakingData.class);
+        Optional<String> warningData = OTAPingRSExtractor.extractWarning(otaPingRS);
+
+        assertTrue(warningData.isPresent());
+
+        HandshakingData handshakingData = om.readValue(warningData.get(), HandshakingData.class);
 
         assertEquals(handshakingData.getVersions().size(), 1);
         handshakingData.getVersions().forEach(version -> {
@@ -116,7 +125,7 @@ public class HandshakingMiddlewareIT extends Arquillian {
                 if (action.getAction().equals(Action.HANDSHAKING.getName().getValue())) {
                     Set<String> capabilities = action.getSupports();
                     assertNull(capabilities);
-                } else if (action.getAction().equals(Action.BASE_RATES_HOTEL_RATE_PLAN_BASE_RATES.getName().getValue())){
+                } else if (action.getAction().equals(Action.BASE_RATES_HOTEL_RATE_PLAN_BASE_RATES.getName().getValue())) {
                     Set<String> capabilities = action.getSupports();
                     capabilities.forEach(capability -> assertEquals(capability, AlpineBitsCapability.BASE_RATES_HOTEL_RATE_PLAN_BASE_RATES_DELTAS));
                 } else {

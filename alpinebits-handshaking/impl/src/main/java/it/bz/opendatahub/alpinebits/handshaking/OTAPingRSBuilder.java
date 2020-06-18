@@ -6,7 +6,12 @@
 
 package it.bz.opendatahub.alpinebits.handshaking;
 
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAPingRS;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAPingRS;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.SuccessType;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.WarningType;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.WarningsType;
+
+import java.math.BigDecimal;
 
 /**
  * Builder to help creating Handshaking responses.
@@ -15,7 +20,7 @@ public final class OTAPingRSBuilder {
 
     public static final String TYPE_11 = "11";
     public static final String ALPINEBITS_HANDSHAKE = "ALPINEBITS_HANDSHAKE";
-    public static final String VERSION = "8.000";
+    public static final BigDecimal VERSION = BigDecimal.valueOf(8);
 
     private OTAPingRSBuilder() {
         // Empty
@@ -36,22 +41,24 @@ public final class OTAPingRSBuilder {
      *
      * @param echoData    The data to include in the  <code>EchoData</code> element.
      * @param warningData data to include in the  <code>Warning</code> element.
-     * @return
+     * @return An instance of {@link OTAPingRS} containing the given echo and
+     * warning data.
      */
     public static OTAPingRS build(String echoData, String warningData) {
-        OTAPingRS.Warnings.Warning warning = new OTAPingRS.Warnings.Warning();
-        warning.setType(TYPE_11);
-        warning.setStatus(ALPINEBITS_HANDSHAKE);
-        warning.setContent(warningData);
+        WarningType warningType = new WarningType();
+        warningType.setType(TYPE_11);
+        warningType.setStatus(ALPINEBITS_HANDSHAKE);
+        warningType.setValue(warningData);
 
-        OTAPingRS.Warnings warnings = new OTAPingRS.Warnings();
-        warnings.setWarning(warning);
+        WarningsType warningsType = new WarningsType();
+        warningsType.getWarnings().add(warningType);
 
         OTAPingRS otaPingRS = new OTAPingRS();
         otaPingRS.setVersion(VERSION);
-        otaPingRS.setEchoData(echoData);
-        otaPingRS.setSuccess("");
-        otaPingRS.setWarnings(warnings);
+
+        otaPingRS.getSuccessesAndEchoDatasAndWarnings().add(new SuccessType());
+        otaPingRS.getSuccessesAndEchoDatasAndWarnings().add(warningsType);
+        otaPingRS.getSuccessesAndEchoDatasAndWarnings().add(echoData);
         return otaPingRS;
     }
 }

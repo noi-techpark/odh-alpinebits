@@ -20,11 +20,15 @@ import it.bz.opendatahub.alpinebits.middleware.RequiredContextKeyMissingExceptio
 import it.bz.opendatahub.alpinebits.middleware.impl.SimpleContext;
 import it.bz.opendatahub.alpinebits.routing.Router;
 import it.bz.opendatahub.alpinebits.routing.RouterContextKey;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAPingRQ;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAPingRS;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAPingRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAPingRS;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.WarningsType;
 import org.testng.annotations.Test;
 
+import java.util.Optional;
+
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 /**
  * Test cases for {@link HandshakingMiddleware} class.
@@ -78,8 +82,9 @@ public class HandshakingMiddlewareTest {
 
         OTAPingRS otaPingRs = ctx.getOrThrow(ConfigurableContextSerializer.OTA_PING_RS_KEY);
 
-        assertEquals(otaPingRs.getEchoData(), echoData);
-        assertEquals(otaPingRs.getWarnings().getWarning().getContent(), "{}");
+        checkOtaPingRsEchoData(otaPingRs, echoData);
+
+        checkOtaPingRsWarning(otaPingRs, "{}");
     }
 
     @Test
@@ -98,8 +103,9 @@ public class HandshakingMiddlewareTest {
 
         OTAPingRS otaPingRs = ctx.getOrThrow(ConfigurableContextSerializer.OTA_PING_RS_KEY);
 
-        assertEquals(otaPingRs.getEchoData(), echoData);
-        assertEquals(otaPingRs.getWarnings().getWarning().getContent(), echoData);
+        checkOtaPingRsEchoData(otaPingRs, echoData);
+
+        checkOtaPingRsWarning(otaPingRs, echoData);
     }
 
     private Context getDefaultContext() {
@@ -110,6 +116,33 @@ public class HandshakingMiddlewareTest {
         Context ctx = new SimpleContext();
         ctx.put(RouterContextKey.ALPINEBITS_ROUTER, router);
         return ctx;
+    }
+
+    private void checkOtaPingRsEchoData(OTAPingRS otaPingRs, String echoData) {
+        // Extract echo data from otaPingRs
+        Optional<String> otaPingRsEchoData = otaPingRs.getSuccessesAndEchoDatasAndWarnings().stream()
+                .filter(o -> o instanceof String)
+                .map(o -> Optional.of((String) o))
+                .findAny()
+                .orElseThrow(() -> new RuntimeException("Echo data expected but no No echo data found"));
+
+        assertTrue(otaPingRsEchoData.isPresent());
+        assertEquals(otaPingRsEchoData.get(), echoData);
+    }
+
+    private void checkOtaPingRsWarning(OTAPingRS otaPingRs, String warningContent) {
+        // Extract warning from otaPingRs
+        Optional<WarningsType> otaPingRsWarnings = otaPingRs.getSuccessesAndEchoDatasAndWarnings().stream()
+                .filter(o -> o instanceof WarningsType)
+                .map(o -> Optional.of((WarningsType) o))
+                .findAny()
+                .orElseThrow(() -> new RuntimeException("Warning expected but no warning found"));
+
+        assertTrue(otaPingRsWarnings.isPresent());
+
+        WarningsType wt = otaPingRsWarnings.get();
+        assertEquals(wt.getWarnings().size(), 1);
+        assertEquals(wt.getWarnings().get(0).getValue(), warningContent);
     }
 
 }

@@ -86,7 +86,7 @@
                                 <source>src/main/resources/ota2015a/OTA_HotelRatePlanRS.xsd</source>
                             </sources>
                             <packageName>it.bz.opendatahub.alpinebits.xml.schema.ota</packageName>
-                            <clearOutputDir>true</clearOutputDir>
+                            <clearOutputDir>false</clearOutputDir>
                         </configuration>
                     </execution>
                     <execution>
