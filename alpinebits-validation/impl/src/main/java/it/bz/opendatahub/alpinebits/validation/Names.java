@@ -25,6 +25,7 @@ public final class Names {
     public static final String BOOKING_THRESHOLD = "BookingThreshold";
     public static final String CATEGORY = "Category";
     public static final String CODE = "Code";
+    public static final String COMPANY_NAME = "CompanyName";
     public static final String CONTACT_INFOS = "ContactInfos";
     public static final String CONTEXT = "Context";
     public static final String DESCRIPTION = "Description";
@@ -35,6 +36,7 @@ public final class Names {
     public static final String GUEST_ROOM = "GuestRoom";
     public static final String GUEST_ROOMS = "GuestRooms";
     public static final String IMAGE_FORMAT = "ImageFormat";
+    public static final String ID_CONTEXT = "ID_Context";
     public static final String HOTEL_CODE = "HotelCode";
     public static final String HOTEL_DESCRIPTIVE_CONTENT = "HotelDescriptiveContent";
     public static final String HOTEL_DESCRIPTIVE_CONTENTS = "HotelDescriptiveContents";
@@ -69,6 +71,7 @@ public final class Names {
     public static final String TEXT_FORMAT = "TextFormat";
     public static final String TEXT_ITEM = "TextItem";
     public static final String TEXT_ITEMS = "TextItems";
+    public static final String TPA_EXTENSIONS = "TPA_Extensions";
     public static final String TYPE = "Type";
     public static final String TYPE_ROOM = "TypeRoom";
     public static final String UNIQUE_ID = "UniqueID";

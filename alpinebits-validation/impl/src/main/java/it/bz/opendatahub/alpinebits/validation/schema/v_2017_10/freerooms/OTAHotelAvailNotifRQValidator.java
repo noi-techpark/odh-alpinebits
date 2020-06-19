@@ -14,11 +14,13 @@ import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
 import it.bz.opendatahub.alpinebits.validation.context.freerooms.AvailStatusMessagesContext;
 import it.bz.opendatahub.alpinebits.validation.context.freerooms.FreeRoomsContext;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelAvailNotifRQ;
 
 /**
- * Use this validator to validate {@link OTAHotelAvailNotifRQ}
- * objects (AlpineBits 2017-10).
+ * Use this validator to validate the OTAHotelAvailNotifRQ in AlpineBits 2017
+ * FreeRooms documents.
+ *
+ * @see OTAHotelAvailNotifRQ
  */
 public class OTAHotelAvailNotifRQValidator implements Validator<OTAHotelAvailNotifRQ, FreeRoomsContext> {
 

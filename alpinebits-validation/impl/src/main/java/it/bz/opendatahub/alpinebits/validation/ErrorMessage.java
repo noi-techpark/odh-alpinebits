@@ -43,6 +43,8 @@ public final class ErrorMessage {
             DefaultErrorMessage.expectNotNullErrorMessage(Names.CATEGORY);
     public static final String EXPECT_CODE_TO_BE_NOT_NULL =
             DefaultErrorMessage.expectNotNullErrorMessage(Names.CODE);
+    public static final String EXPECT_COMPANY_NAME_TO_BE_NULL =
+            DefaultErrorMessage.expectNullErrorMessage(Names.COMPANY_NAME);
     public static final String EXPECT_CONTACT_INFOS_TO_BE_NULL =
             DefaultErrorMessage.expectNullErrorMessage(Names.CONTACT_INFOS);
     public static final String EXPECT_CONTEXT_TO_BE_NOT_NULL =
@@ -73,6 +75,8 @@ public final class ErrorMessage {
             DefaultErrorMessage.expectNotNullErrorMessage(Names.HOTEL_DESCRIPTIVE_CONTENTS);
     public static final String EXPECT_HOTEL_INFO_TO_BE_NULL =
             DefaultErrorMessage.expectNullErrorMessage(Names.HOTEL_INFO);
+    public static final String EXPECT_ID_CONTEXT_TO_BE_NULL =
+            DefaultErrorMessage.expectNullErrorMessage(Names.ID_CONTEXT);
     public static final String EXPECT_ID_TO_BE_NOT_NULL =
             DefaultErrorMessage.expectNotNullErrorMessage(Names.ID);
     public static final String EXPECT_ID_TO_BE_NULL =
@@ -173,6 +177,8 @@ public final class ErrorMessage {
             DefaultErrorMessage.expectNotNullErrorMessage(Names.TEXT_ITEMS);
     public static final String EXPECT_TEXT_ITEMS_TO_BE_NULL =
             DefaultErrorMessage.expectNullErrorMessage(Names.TEXT_ITEMS);
+    public static final String EXPECT_TPA_EXTENSIONS_TO_BE_NULL =
+            DefaultErrorMessage.expectNullErrorMessage(Names.TPA_EXTENSIONS);
     public static final String EXPECT_TYPE_ROOM_TO_BE_NOT_NULL =
             DefaultErrorMessage.expectNotNullErrorMessage(Names.TYPE_ROOM);
     public static final String EXPECT_TYPE_ROOM_TO_BE_NULL =
@@ -186,6 +192,8 @@ public final class ErrorMessage {
                     " UniqueID element required.";
     public static final String EXPECT_URL_TO_BE_NOT_NULL =
             DefaultErrorMessage.expectNotNullErrorMessage(Names.URL);
+    public static final String EXPECT_URL_TO_BE_NULL =
+            DefaultErrorMessage.expectNullErrorMessage(Names.URL);
     public static final String EXPECT_ZERO_TO_BE_LESSER_OR_EQUAL_THAN_BOOKING_THRESHOLD =
             DefaultErrorMessage.expectArg0LesserOrEqualThanArg1ErrorMessage(Names.ZERO, Names.BOOKING_THRESHOLD);
     public static final String EXPECT_ZERO_TO_BE_LESSER_OR_EQUAL_THAN_MAX_CHILD_OCCUPANCY =

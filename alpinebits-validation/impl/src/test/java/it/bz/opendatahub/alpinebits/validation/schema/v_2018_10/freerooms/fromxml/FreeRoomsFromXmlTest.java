@@ -7,12 +7,12 @@
 package it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.freerooms.fromxml;
 
 import it.bz.opendatahub.alpinebits.validation.XmlSchemaType;
-import it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.freerooms.OTAHotelAvailNotifRQValidator;
 import it.bz.opendatahub.alpinebits.validation.context.freerooms.FreeRoomsContext;
+import it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.freerooms.OTAHotelAvailNotifRQValidator;
 import it.bz.opendatahub.alpinebits.xml.JAXBXmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlValidationSchemaProvider;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelAvailNotifRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelAvailNotifRQ;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 

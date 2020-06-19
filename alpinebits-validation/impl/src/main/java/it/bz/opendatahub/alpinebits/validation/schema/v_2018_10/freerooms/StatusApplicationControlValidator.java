@@ -6,42 +6,28 @@
 
 package it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.freerooms;
 
-import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
-import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelAvailNotifRQ.AvailStatusMessages.AvailStatusMessage.StatusApplicationControl;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelAvailNotifRQ.UniqueID;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.StatusApplicationControlType;
 
 /**
- * Use this validator to validate {@link UniqueID}
- * objects (AlpineBits 2018-10).
+ * Use this validator to validate the StatusApplicationControlType in AlpineBits 2018
+ * FreeRooms documents.
+ *
+ * @see StatusApplicationControlType
  */
-public class StatusApplicationControlValidator implements Validator<StatusApplicationControl, Void> {
+public class StatusApplicationControlValidator implements Validator<StatusApplicationControlType, Void> {
 
     public static final String ELEMENT_NAME = Names.STATUS_APPLICATION_CONTROL;
 
-    private static final ValidationHelper VALIDATOR = ValidationHelper.withClientDataError();
+    private static final Validator<StatusApplicationControlType, Void> VALIDATION_DELEGATE =
+            new it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.freerooms.StatusApplicationControlValidator();
 
     @Override
-    public void validate(StatusApplicationControl statusApplicationControl, Void ctx, ValidationPath path) {
-        VALIDATOR.expectNotNull(statusApplicationControl, ErrorMessage.EXPECT_STATUS_APPLICATION_CONTROL_TO_BE_NOT_NULL, path);
-
-        VALIDATOR.expectNotNull(
-                statusApplicationControl.getStart(),
-                ErrorMessage.EXPECT_START_TO_BE_NOT_NULL,
-                path.withAttribute(Names.START)
-        );
-        VALIDATOR.expectNotNull(
-                statusApplicationControl.getEnd(),
-                ErrorMessage.EXPECT_END_TO_BE_NOT_NULL,
-                path.withAttribute(Names.END)
-        );
-        VALIDATOR.expectNotNull(
-                statusApplicationControl.getInvTypeCode(),
-                ErrorMessage.EXPECT_INV_TYPE_CODE_TO_BE_NOT_NULL,
-                path.withAttribute(Names.INV_TYPE_CODE)
-        );
+    public void validate(StatusApplicationControlType statusApplicationControl, Void ctx, ValidationPath path) {
+        // Delegate validation to AlpineBits 2017 implementation,
+        // since the validation remains the same
+        VALIDATION_DELEGATE.validate(statusApplicationControl, ctx, path);
     }
 }

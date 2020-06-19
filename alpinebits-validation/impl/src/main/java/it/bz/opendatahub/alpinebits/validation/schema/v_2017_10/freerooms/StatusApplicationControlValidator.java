@@ -11,21 +11,22 @@ import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRQ.AvailStatusMessages.AvailStatusMessage.StatusApplicationControl;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRQ.UniqueID;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.StatusApplicationControlType;
 
 /**
- * Use this validator to validate {@link UniqueID}
- * objects (AlpineBits 2017-10).
+ * Use this validator to validate the StatusApplicationControlType in AlpineBits 2017
+ * FreeRooms documents.
+ *
+ * @see StatusApplicationControlType
  */
-public class StatusApplicationControlValidator implements Validator<StatusApplicationControl, Void> {
+public class StatusApplicationControlValidator implements Validator<StatusApplicationControlType, Void> {
 
     public static final String ELEMENT_NAME = Names.STATUS_APPLICATION_CONTROL;
 
     private static final ValidationHelper VALIDATOR = ValidationHelper.withClientDataError();
 
     @Override
-    public void validate(StatusApplicationControl statusApplicationControl, Void ctx, ValidationPath path) {
+    public void validate(StatusApplicationControlType statusApplicationControl, Void ctx, ValidationPath path) {
         VALIDATOR.expectNotNull(statusApplicationControl, ErrorMessage.EXPECT_STATUS_APPLICATION_CONTROL_TO_BE_NOT_NULL, path);
 
         VALIDATOR.expectNotNull(

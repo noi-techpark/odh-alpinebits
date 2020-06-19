@@ -11,13 +11,15 @@ import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRQ.UniqueID;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.UniqueIDType;
 
 /**
- * Use this validator to validate {@link UniqueID}
- * objects (AlpineBits 2017-10).
+ * Use this validator to validate the UniqueID in AlpineBits 2017
+ * FreeRooms documents.
+ *
+ * @see UniqueIDType
  */
-public class UniqueIDValidator implements Validator<UniqueID, Boolean> {
+public class UniqueIDValidator implements Validator<UniqueIDType, Boolean> {
 
     public static final String ELEMENT_NAME = Names.UNIQUE_ID;
     public static final String COMPLETE_SET = "CompleteSet";
@@ -27,7 +29,7 @@ public class UniqueIDValidator implements Validator<UniqueID, Boolean> {
     private static final ValidationHelper VALIDATOR = ValidationHelper.withClientDataError();
 
     @Override
-    public void validate(UniqueID uniqueID, Boolean supportsDeltas, ValidationPath path) {
+    public void validate(UniqueIDType uniqueID, Boolean supportsDeltas, ValidationPath path) {
         VALIDATOR.expectNotNull(supportsDeltas, ErrorMessage.EXPECT_CONTEXT_TO_BE_NOT_NULL, path);
 
         // If the server supports deltas (capability
@@ -35,21 +37,21 @@ public class UniqueIDValidator implements Validator<UniqueID, Boolean> {
         // the element UniqueID is optional. If UniqueID
         // exists (= complete information is send), it
         // needs to be validated.
-        if (supportsDeltas && uniqueID != null) {
+        if (Boolean.TRUE.equals(supportsDeltas) && uniqueID != null) {
             this.validateUniqueId(uniqueID, path);
         }
 
         // If the server doesn't support deltas, the element
         // UniqueID is required (the existence of UniqueID
         // means that complete information is send).
-        if (!supportsDeltas) {
+        if (Boolean.FALSE.equals(supportsDeltas)) {
             VALIDATOR.expectNotNull(uniqueID, ErrorMessage.EXPECT_UNIQUE_ID_TO_BE_NOT_NULL, path);
 
             this.validateUniqueId(uniqueID, path);
         }
     }
 
-    private void validateUniqueId(UniqueID uniqueID, ValidationPath path) {
+    private void validateUniqueId(UniqueIDType uniqueID, ValidationPath path) {
         this.validateType(uniqueID.getType(), path);
         this.validateID(uniqueID.getID(), path);
         this.validateInstance(uniqueID.getInstance(), path);

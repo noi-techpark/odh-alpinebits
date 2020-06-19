@@ -6,14 +6,9 @@
 
 package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.freerooms;
 
-import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
-import it.bz.opendatahub.alpinebits.validation.Names;
-import it.bz.opendatahub.alpinebits.validation.NullValidationException;
-import it.bz.opendatahub.alpinebits.validation.SimpleValidationPath;
 import it.bz.opendatahub.alpinebits.validation.ValidationException;
-import it.bz.opendatahub.alpinebits.validation.ValidationPath;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRQ;
-import org.testng.annotations.Test;
+import it.bz.opendatahub.alpinebits.validation.schema.common.freerooms.AbstractOTAHotelAvailNotifRQValidatorTest;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelAvailNotifRQ;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.expectThrows;
@@ -21,22 +16,9 @@ import static org.testng.Assert.expectThrows;
 /**
  * Tests for {@link OTAHotelAvailNotifRQValidator}.
  */
-public class OTAHotelAvailNotifRQValidatorTest {
+public class OTAHotelAvailNotifRQValidatorTest extends AbstractOTAHotelAvailNotifRQValidatorTest {
 
-    private static final ValidationPath VALIDATION_PATH = SimpleValidationPath.fromPath(Names.OTA_HOTEL_AVAIL_NOTIF_RQ);
-
-    @Test
-    public void testValidate_ShouldThrow_WhenOTAHotelAvailNotifRQIsNull() {
-        this.validateAndAssert(null, NullValidationException.class, ErrorMessage.EXPECT_HOTEL_AVAIL_NOTIF_RQ_TO_BE_NOT_NULL);
-    }
-
-    @Test
-    public void testValidate_ShouldThrow_WhenContextIsNull() {
-        OTAHotelAvailNotifRQ rq = new OTAHotelAvailNotifRQ();
-        this.validateAndAssert(rq, NullValidationException.class, ErrorMessage.EXPECT_CONTEXT_TO_BE_NOT_NULL);
-    }
-
-    private void validateAndAssert(
+    protected void validateAndAssert(
             OTAHotelAvailNotifRQ data,
             Class<? extends ValidationException> exceptionClass,
             String errorMessage
