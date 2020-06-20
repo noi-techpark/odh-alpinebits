@@ -12,12 +12,13 @@ import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.Amenities;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.FacilityInfoType.GuestRooms.GuestRoom.Amenities;
 
 /**
- * Validate OTAHotelDescriptiveContentNotifRQ-&gt;HotelDescriptiveContents
- * -&gt;HotelDescriptiveContent-&gt;FacilityInfo-&gt;GuestRooms-&gt;GuestRoom-&gt;Amenities
- * elements.
+ * Use this validator to validate the Amenities in AlpineBits 2017
+ * Inventory documents.
+ *
+ * @see Amenities
  */
 public class AmenitiesValidator implements Validator<Amenities, Void> {
 
@@ -43,11 +44,11 @@ public class AmenitiesValidator implements Validator<Amenities, Void> {
                     indexedPath.withAttribute(Names.ROOM_AMENITY_CODE)
             );
 
-            this.validateRoomAmenityTypeCode(amenity.getRoomAmenityCode().intValue(), indexedPath);
+            this.validateRoomAmenityTypeCode(amenity.getRoomAmenityCode(), indexedPath);
         }
     }
 
-    private void validateRoomAmenityTypeCode(int code, ValidationPath path) {
+    private void validateRoomAmenityTypeCode(String code, ValidationPath path) {
         if (!OTACodeRoomAmenityType.isCodeDefined(code)) {
             String message = String.format(ErrorMessage.EXPECT_ROOM_AMENITY_CODE_TO_BE_DEFINED, code);
             VALIDATOR.throwValidationException(message, path.withAttribute(Names.ROOM_AMENITY_CODE));

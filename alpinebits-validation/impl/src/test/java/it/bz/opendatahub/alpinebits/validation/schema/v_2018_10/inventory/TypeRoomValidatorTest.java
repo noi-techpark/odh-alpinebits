@@ -6,17 +6,9 @@
 
 package it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.inventory;
 
-import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
-import it.bz.opendatahub.alpinebits.validation.NotNullValidationException;
-import it.bz.opendatahub.alpinebits.validation.NullValidationException;
-import it.bz.opendatahub.alpinebits.validation.SimpleValidationPath;
 import it.bz.opendatahub.alpinebits.validation.ValidationException;
-import it.bz.opendatahub.alpinebits.validation.ValidationPath;
-import it.bz.opendatahub.alpinebits.validation.Names;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.TypeRoom;
-import org.testng.annotations.Test;
-
-import java.math.BigInteger;
+import it.bz.opendatahub.alpinebits.validation.schema.common.inventory.AbstractTypeRoomValidatorTest;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.FacilityInfoType.GuestRooms.GuestRoom.TypeRoom;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.expectThrows;
@@ -24,148 +16,9 @@ import static org.testng.Assert.expectThrows;
 /**
  * Tests for {@link TypeRoomValidator}.
  */
-public class TypeRoomValidatorTest {
+public class TypeRoomValidatorTest extends AbstractTypeRoomValidatorTest {
 
-    private static final String DEFAULT_ROOM_ID = "XYZ";
-
-    private static final ValidationPath VALIDATION_PATH = SimpleValidationPath.fromPath(Names.TYPE_ROOM);
-
-    @Test
-    public void testValidate_ShouldThrow_WhenTypeRoomIsNull() {
-        this.validateAndAssert(
-                null,
-                null,
-                NullValidationException.class,
-                ErrorMessage.EXPECT_TYPE_ROOM_TO_BE_NOT_NULL
-        );
-    }
-
-    @Test
-    public void testValidate_ShouldThrow_WhenContextIsNull() {
-        TypeRoomValidator validator = new TypeRoomValidator();
-        TypeRoom typeRoom = new TypeRoom();
-
-        this.validateAndAssert(
-                typeRoom,
-                null,
-                NullValidationException.class,
-                ErrorMessage.EXPECT_CONTEXT_TO_BE_NOT_NULL
-        );
-    }
-
-    @Test
-    public void testValidate_GivenHeadingGuestRoom_ShouldThrow_WhenStandardOccupancyIsNull() {
-        TypeRoom typeRoom = new TypeRoom();
-
-        this.validateAndAssert(
-                typeRoom,
-                true,
-                NullValidationException.class,
-                ErrorMessage.EXPECT_STANDARD_OCCUPANCY_TO_BE_NOT_NULL
-        );
-    }
-
-    @Test
-    public void testValidate_GivenHeadingGuestRoom_ShouldThrow_WhenRoomClassificationCodeIsNull() {
-        TypeRoom typeRoom = new TypeRoom();
-        typeRoom.setStandardOccupancy(BigInteger.ONE);
-
-        this.validateAndAssert(
-                typeRoom,
-                true,
-                NullValidationException.class,
-                ErrorMessage.EXPECT_ROOM_CLASSIFICATION_CODE_TO_BE_NOT_NULL
-        );
-    }
-
-    @Test
-    public void testValidate_GivenHeadingGuestRoom_ShouldThrow_WhenRoomClassificationCodeIsLesserThanOne() {
-        BigInteger code = BigInteger.ZERO;
-
-        TypeRoom typeRoom = new TypeRoom();
-        typeRoom.setStandardOccupancy(BigInteger.ONE);
-        typeRoom.setRoomClassificationCode(code);
-
-        String errorMessage = String.format(ErrorMessage.EXPECT_INFO_CODE_TO_BE_DEFINED, code);
-        this.validateAndAssert(
-                typeRoom,
-                true,
-                ValidationException.class,
-                errorMessage
-        );
-    }
-
-    @Test
-    public void testValidate_GivenHeadingGuestRoom_ShouldThrow_WhenRoomClassificationCodeIsLesserGreaterThanGreatestGRI() {
-        BigInteger code = BigInteger.valueOf(84);
-        TypeRoom typeRoom = new TypeRoom();
-        typeRoom.setStandardOccupancy(BigInteger.ONE);
-        typeRoom.setRoomClassificationCode(code);
-
-        String errorMessage = String.format(ErrorMessage.EXPECT_INFO_CODE_TO_BE_DEFINED, code);
-        this.validateAndAssert(
-                typeRoom,
-                true,
-                ValidationException.class,
-                errorMessage
-        );
-    }
-
-    @Test
-    public void testValidate_GivenFollowingGuestRoom_ShouldThrow_WhenRoomIdIsNull() {
-        TypeRoom typeRoom = new TypeRoom();
-
-        this.validateAndAssert(
-                typeRoom,
-                false,
-                NullValidationException.class,
-                ErrorMessage.EXPECT_ROOM_ID_TO_BE_NOT_NULL
-        );
-    }
-
-    @Test
-    public void testValidate_GivenFollowingGuestRoom_ShouldThrow_WhenRoomClassificationCodeIsNotNull() {
-        TypeRoom typeRoom = new TypeRoom();
-        typeRoom.setRoomID(DEFAULT_ROOM_ID);
-        typeRoom.setRoomClassificationCode(BigInteger.ONE);
-
-        this.validateAndAssert(
-                typeRoom,
-                false,
-                NotNullValidationException.class,
-                ErrorMessage.EXPECT_ROOM_CLASSIFICATION_CODE_TO_BE_NULL
-        );
-    }
-
-    @Test
-    public void testValidate_GivenFollowingGuestRoom_ShouldThrow_WhenSizeIsNotNull() {
-        TypeRoom typeRoom = new TypeRoom();
-        typeRoom.setRoomID(DEFAULT_ROOM_ID);
-        typeRoom.setSize(BigInteger.ONE);
-
-        this.validateAndAssert(
-                typeRoom,
-                false,
-                NotNullValidationException.class,
-                ErrorMessage.EXPECT_SIZE_TO_BE_NULL
-        );
-    }
-
-    @Test
-    public void testValidate_GivenFollowingGuestRoom_ShouldThrow_WhenStandardOccupancyIsNotNull() {
-        TypeRoom typeRoom = new TypeRoom();
-        typeRoom.setRoomID(DEFAULT_ROOM_ID);
-        typeRoom.setStandardOccupancy(BigInteger.ONE);
-
-        this.validateAndAssert(
-                typeRoom,
-                false,
-                NotNullValidationException.class,
-                ErrorMessage.EXPECT_STANDARD_OCCUPANCY_TO_BE_NULL
-        );
-    }
-
-    private void validateAndAssert(
+    protected void validateAndAssert(
             TypeRoom data,
             Boolean ctx,
             Class<? extends ValidationException> exceptionClass,

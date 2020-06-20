@@ -12,12 +12,13 @@ import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.TypeRoom;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.FacilityInfoType.GuestRooms.GuestRoom.TypeRoom;
 
 /**
- * Validate OTAHotelDescriptiveContentNotifRQ-&gt;HotelDescriptiveContents
- * -&gt;HotelDescriptiveContent-&gt;FacilityInfo-&gt;GuestRooms-&gt;GuestRoom-&gt;TypeRoom
- * elements.
+ * Use this validator to validate the TextItem in AlpineBits 2017
+ * Inventory documents.
+ *
+ * @see TypeRoom
  */
 public class TypeRoomValidator implements Validator<TypeRoom, Boolean> {
 
@@ -30,7 +31,7 @@ public class TypeRoomValidator implements Validator<TypeRoom, Boolean> {
         VALIDATOR.expectNotNull(typeRoom, ErrorMessage.EXPECT_TYPE_ROOM_TO_BE_NOT_NULL, path);
         VALIDATOR.expectNotNull(isHeadingGuestRoom, ErrorMessage.EXPECT_CONTEXT_TO_BE_NOT_NULL);
 
-        if (isHeadingGuestRoom) {
+        if (Boolean.TRUE.equals(isHeadingGuestRoom)) {
             VALIDATOR.expectNotNull(
                     typeRoom.getStandardOccupancy(),
                     ErrorMessage.EXPECT_STANDARD_OCCUPANCY_TO_BE_NOT_NULL,
@@ -41,7 +42,7 @@ public class TypeRoomValidator implements Validator<TypeRoom, Boolean> {
                     ErrorMessage.EXPECT_ROOM_CLASSIFICATION_CODE_TO_BE_NOT_NULL,
                     path.withAttribute(Names.ROOM_CLASSIFICATION_CODE)
             );
-            this.validateGuestRoomInfoCode(typeRoom.getRoomClassificationCode().intValue(), path);
+            this.validateGuestRoomInfoCode(typeRoom.getRoomClassificationCode(), path);
         } else {
             VALIDATOR.expectNotNull(
                     typeRoom.getRoomID(),
@@ -66,7 +67,7 @@ public class TypeRoomValidator implements Validator<TypeRoom, Boolean> {
         }
     }
 
-    private void validateGuestRoomInfoCode(int code, ValidationPath path) {
+    private void validateGuestRoomInfoCode(String code, ValidationPath path) {
         if (!OTACodeGuestRoomInfo.isCodeDefined(code)) {
             String message = String.format(ErrorMessage.EXPECT_INFO_CODE_TO_BE_DEFINED, code);
             VALIDATOR.throwValidationException(message, path.withAttribute(Names.ROOM_CLASSIFICATION_CODE));

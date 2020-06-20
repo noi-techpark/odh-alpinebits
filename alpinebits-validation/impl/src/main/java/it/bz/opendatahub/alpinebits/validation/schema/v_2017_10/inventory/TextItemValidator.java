@@ -13,14 +13,15 @@ import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
 import it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory.common.Description;
 import it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory.common.DescriptionsValidator;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.MultimediaDescriptions.MultimediaDescription.TextItems.TextItem;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.TextItemsType.TextItem;
 
 import java.util.List;
 
 /**
- * Validate OTAHotelDescriptiveContentNotifRQ-&gt;HotelDescriptiveContents
- * -&gt;HotelDescriptiveContent-&gt;FacilityInfo-&gt;GuestRooms-&gt;GuestRoom
- * -&gt;MultimediaDescriptions-&gt;MultimediaDescription-&gt;TextItems-&gt;TextItem elements.
+ * Use this validator to validate the TextItem in AlpineBits 2017
+ * Inventory documents.
+ *
+ * @see TextItem
  */
 public class TextItemValidator implements Validator<TextItem, Void> {
 

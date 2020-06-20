@@ -6,8 +6,10 @@
 
 package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory.common;
 
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.MultimediaDescriptions.MultimediaDescription.ImageItems.ImageItem;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.MultimediaDescriptions.MultimediaDescription.TextItems.TextItem;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.ImageDescriptionType;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.ImageItemsType.ImageItem;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.TextDescriptionType;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.TextItemsType.TextItem;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,21 +32,21 @@ public class Description {
         this.language = language;
     }
 
-    public static Description fromImageItemDescription(ImageItem.Description iid) {
+    public static Description fromImageItemDescription(ImageDescriptionType.Description iid) {
         return new Description(iid.getValue(), iid.getTextFormat(), iid.getLanguage());
     }
 
-    public static List<Description> fromImageItemDescriptions(List<ImageItem.Description> descriptions) {
+    public static List<Description> fromImageItemDescriptions(List<ImageDescriptionType.Description> descriptions) {
         return descriptions.stream()
                 .map(Description::fromImageItemDescription)
                 .collect(Collectors.toList());
     }
 
-    public static Description fromTextItemDescription(TextItem.Description iid) {
+    public static Description fromTextItemDescription(TextDescriptionType.Description iid) {
         return new Description(iid.getValue(), iid.getTextFormat(), iid.getLanguage());
     }
 
-    public static List<Description> fromTextItemDescriptions(List<TextItem.Description> descriptions) {
+    public static List<Description> fromTextItemDescriptions(List<TextDescriptionType.Description> descriptions) {
         return descriptions.stream()
                 .map(Description::fromTextItemDescription)
                 .collect(Collectors.toList());

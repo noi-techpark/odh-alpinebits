@@ -11,19 +11,19 @@ import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.MultimediaDescriptions;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.MultimediaDescriptions.MultimediaDescription;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.MultimediaDescriptions.MultimediaDescription.ImageItems.ImageItem;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.ImageItemsType.ImageItem;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.MultimediaDescriptionType;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.MultimediaDescriptionsType;
 
 import java.util.List;
 
 /**
- * Validate Inventory/HotelInfo OTAHotelDescriptiveContentNotifRQ
- * -&gt;HotelDescriptiveContents-&gt;HotelDescriptiveContent
- * -&gt;FacilityInfo-&gt;GuestRooms-&gt;GuestRoom-&gt;MultimediaDescriptions
- * elements.
+ * Use this validator to validate the MultimediaDescriptionsType in AlpineBits 2017
+ * Inventory documents.
+ *
+ * @see MultimediaDescriptionsType
  */
-public class MultimediaDescriptionsHotelInfoValidator implements Validator<MultimediaDescriptions, Void> {
+public class MultimediaDescriptionsHotelInfoValidator implements Validator<MultimediaDescriptionsType, Void> {
 
     public static final String ELEMENT_NAME = Names.MULTIMEDIA_DESCRIPTIONS;
 
@@ -32,17 +32,17 @@ public class MultimediaDescriptionsHotelInfoValidator implements Validator<Multi
     private final ImageItemValidator imageItemValidator = new ImageItemValidator();
 
     @Override
-    public void validate(MultimediaDescriptions multimediaDescriptions, Void ctx, ValidationPath path) {
+    public void validate(MultimediaDescriptionsType multimediaDescriptions, Void ctx, ValidationPath path) {
         if (multimediaDescriptions == null
                 || multimediaDescriptions.getMultimediaDescriptions() == null
                 || multimediaDescriptions.getMultimediaDescriptions().isEmpty()) {
             return;
         }
 
-        List<MultimediaDescription> descriptions = multimediaDescriptions.getMultimediaDescriptions();
+        List<MultimediaDescriptionType> descriptions = multimediaDescriptions.getMultimediaDescriptions();
 
         for (int i = 0; i < descriptions.size(); i++) {
-            MultimediaDescription description = descriptions.get(i);
+            MultimediaDescriptionType description = descriptions.get(i);
 
             ValidationPath indexedPath = path.withElement(Names.MULTIMEDIA_DESCRIPTION).withIndex(i);
 
@@ -61,7 +61,7 @@ public class MultimediaDescriptionsHotelInfoValidator implements Validator<Multi
         }
     }
 
-    private void validateImageItems(MultimediaDescription description, ValidationPath path) {
+    private void validateImageItems(MultimediaDescriptionType description, ValidationPath path) {
         // Note: this condition is also checked by XSD/RNG
         VALIDATOR.expectNotNull(
                 description.getImageItems(),

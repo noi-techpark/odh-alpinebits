@@ -8,8 +8,8 @@ package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory.commo
 
 import it.bz.opendatahub.alpinebits.common.constants.Iso6391;
 import it.bz.opendatahub.alpinebits.validation.Names;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.MultimediaDescriptions.MultimediaDescription.ImageItems.ImageItem;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.MultimediaDescriptions.MultimediaDescription.TextItems.TextItem;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.ImageItemsType.ImageItem;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.TextItemsType.TextItem;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;

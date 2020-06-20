@@ -6,27 +6,25 @@
 
 package it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.inventory;
 
-import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
-import it.bz.opendatahub.alpinebits.validation.SimpleValidationPath;
-import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
 import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelDescriptiveContentNotifRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelDescriptiveContentNotifRQ;
 
 /**
- * Use this validator to validate {@link OTAHotelDescriptiveContentNotifRQ}
- * objects (AlpineBits 2018-10).
+ * Use this validator to validate the OTAHotelDescriptiveContentNotifRQ in AlpineBits 2018
+ * Inventory documents.
+ *
+ * @see OTAHotelDescriptiveContentNotifRQ
  */
 public class OTAHotelDescriptiveContentNotifRQValidator
         implements Validator<OTAHotelDescriptiveContentNotifRQ, InventoryContext> {
 
     public static final String ELEMENT_NAME = Names.OTA_HOTEL_DESCRIPTIVE_CONTENT_NOTIF_RQ;
 
-    private static final ValidationHelper VALIDATOR = ValidationHelper.withClientDataError();
-
-    private final HotelDescriptiveContentsValidator hotelDescriptiveContentsValidator = new HotelDescriptiveContentsValidator();
+    private static final Validator<OTAHotelDescriptiveContentNotifRQ, InventoryContext> VALIDATION_DELEGATE =
+            new it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory.OTAHotelDescriptiveContentNotifRQValidator();
 
     @Override
     public void validate(
@@ -34,21 +32,9 @@ public class OTAHotelDescriptiveContentNotifRQValidator
             InventoryContext ctx,
             ValidationPath unused
     ) {
-        // Initialize validation path
-        ValidationPath path = SimpleValidationPath.fromPath(ELEMENT_NAME);
-
-        VALIDATOR.expectNotNull(
-                hotelDescriptiveContentNotifRQ,
-                ErrorMessage.EXPECT_HOTEL_DESCRIPTIVE_CONTENT_NOTIF_RQ_TO_BE_NOT_NULL,
-                path
-        );
-        VALIDATOR.expectNotNull(ctx, ErrorMessage.EXPECT_CONTEXT_TO_BE_NOT_NULL);
-
-        this.hotelDescriptiveContentsValidator.validate(
-                hotelDescriptiveContentNotifRQ.getHotelDescriptiveContents(),
-                ctx,
-                path.withElement(HotelDescriptiveContentsValidator.ELEMENT_NAME)
-        );
+        // Delegate validation to AlpineBits 2017 implementation,
+        // since the validation remains the same
+        VALIDATION_DELEGATE.validate(hotelDescriptiveContentNotifRQ, ctx, unused);
     }
 
 }

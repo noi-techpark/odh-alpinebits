@@ -11,11 +11,14 @@ import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom;
+import it.bz.opendatahub.alpinebits.validation.utils.ListUtil;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.FacilityInfoType.GuestRooms.GuestRoom;
 
 /**
- * This class provides a {@link Validator} for Inventory/HotelInfo
- * {@link GuestRoom}s.
+ * Use this validator to validate the GuestRoom in AlpineBits 2017
+ * Inventory documents.
+ *
+ * @see GuestRoom
  */
 public class GuestRoomHotelInfoValidator implements Validator<GuestRoom, Void> {
 
@@ -62,7 +65,7 @@ public class GuestRoomHotelInfoValidator implements Validator<GuestRoom, Void> {
                 path.withElement(Names.AMENITIES)
         );
         VALIDATOR.expectNull(
-                guestRoom.getTypeRoom(),
+                ListUtil.extractFirst(guestRoom.getTypeRooms()),
                 ErrorMessage.EXPECT_TYPE_ROOM_TO_BE_NULL,
                 path.withElement(Names.TYPE_ROOM)
         );

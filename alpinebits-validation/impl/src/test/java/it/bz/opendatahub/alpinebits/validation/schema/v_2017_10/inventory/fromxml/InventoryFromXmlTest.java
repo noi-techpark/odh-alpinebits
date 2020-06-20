@@ -12,7 +12,7 @@ import it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory.OTAHot
 import it.bz.opendatahub.alpinebits.xml.JAXBXmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlValidationSchemaProvider;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelDescriptiveContentNotifRQ;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
