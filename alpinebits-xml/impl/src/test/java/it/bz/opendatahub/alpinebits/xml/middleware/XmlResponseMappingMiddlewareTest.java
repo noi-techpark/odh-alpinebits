@@ -19,7 +19,7 @@ import it.bz.opendatahub.alpinebits.xml.ObjectToXmlConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlConversionException;
 import it.bz.opendatahub.alpinebits.xml.XmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlValidationSchemaProvider;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAResRetrieveRS;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAResRetrieveRS;
 import org.testng.annotations.Test;
 
 import javax.xml.bind.JAXBException;

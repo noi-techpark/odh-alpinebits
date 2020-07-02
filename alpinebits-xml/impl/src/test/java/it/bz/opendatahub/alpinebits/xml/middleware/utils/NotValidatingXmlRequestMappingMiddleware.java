@@ -16,7 +16,7 @@ import it.bz.opendatahub.alpinebits.servlet.middleware.MultipartFormDataParserMi
 import it.bz.opendatahub.alpinebits.xml.JAXBXmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.middleware.XmlRequestMappingMiddleware;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAReadRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAReadRQ;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
