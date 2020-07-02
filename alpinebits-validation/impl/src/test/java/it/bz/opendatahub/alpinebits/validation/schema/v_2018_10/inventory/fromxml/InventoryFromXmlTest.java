@@ -6,8 +6,8 @@
 
 package it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.inventory.fromxml;
 
-import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
 import it.bz.opendatahub.alpinebits.validation.XmlSchemaType;
+import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
 import it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.inventory.OTAHotelDescriptiveContentNotifRQValidator;
 import it.bz.opendatahub.alpinebits.xml.JAXBXmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlToObjectConverter;
@@ -16,7 +16,6 @@ import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelDescriptiveContentNot
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import javax.xml.bind.JAXBException;
 import javax.xml.validation.Schema;
 import java.io.InputStream;
 
@@ -34,7 +33,7 @@ public class InventoryFromXmlTest {
     private XmlToObjectConverter<OTAHotelDescriptiveContentNotifRQ> withRngSchema;
 
     @BeforeClass
-    public void beforeClass() throws JAXBException {
+    public void beforeClass() {
         this.withXsdSchema = new JAXBXmlToObjectConverter.Builder<>(OTAHotelDescriptiveContentNotifRQ.class).schema(xsdSchema).build();
         this.withRngSchema = new JAXBXmlToObjectConverter.Builder<>(OTAHotelDescriptiveContentNotifRQ.class).schema(rngSchema).build();
     }

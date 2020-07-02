@@ -22,7 +22,6 @@ import it.bz.opendatahub.alpinebits.xml.XmlValidationSchemaProvider;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAResRetrieveRS;
 import org.testng.annotations.Test;
 
-import javax.xml.bind.JAXBException;
 import javax.xml.validation.Schema;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -44,13 +43,13 @@ public class XmlResponseMappingMiddlewareTest {
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testConstructor_BusinessContextKeyIsNull() throws Exception {
-        ObjectToXmlConverter<Object> converter = this.notValidatingConverter(Object.class);
+    public void testConstructor_BusinessContextKeyIsNull() {
+        ObjectToXmlConverter converter = this.notValidatingConverter();
         new XmlResponseMappingMiddleware<>(converter, null);
     }
 
     @Test(expectedExceptions = RequiredContextKeyMissingException.class)
-    public void testHandleContext_ResponseDataIsNull() throws Exception {
+    public void testHandleContext_ResponseDataIsNull() {
         Middleware middleware = this.notValidatingMiddleware();
         Context ctx = new SimpleContext();
         middleware.handleContext(ctx, () -> {
@@ -58,7 +57,7 @@ public class XmlResponseMappingMiddlewareTest {
     }
 
     @Test(expectedExceptions = RequiredContextKeyMissingException.class)
-    public void testHandleContext_ResponseContentStreamIsNull() throws Exception {
+    public void testHandleContext_ResponseContentStreamIsNull() {
         Middleware middleware = this.notValidatingMiddleware();
         Context ctx = new SimpleContext();
         ctx.put(DEFAULT_CTX_KEY, new OTAResRetrieveRS());
@@ -67,7 +66,7 @@ public class XmlResponseMappingMiddlewareTest {
     }
 
     @Test
-    public void testHandleContext_NoValidation() throws Exception {
+    public void testHandleContext_NoValidation() {
         Context ctx = this.getDefaultCtx();
 
         Middleware middleware = this.notValidatingMiddleware();
@@ -80,7 +79,7 @@ public class XmlResponseMappingMiddlewareTest {
     }
 
     @Test(expectedExceptions = XmlConversionException.class)
-    public void testHandleContext_RngValidationError() throws Exception {
+    public void testHandleContext_RngValidationError() {
         Context ctx = this.getDefaultCtx();
 
         ctx.getOrThrow(DEFAULT_CTX_KEY).setVersion(null);
@@ -91,7 +90,7 @@ public class XmlResponseMappingMiddlewareTest {
     }
 
     @Test
-    public void testHandleContext_RngValidationOk() throws Exception {
+    public void testHandleContext_RngValidationOk() {
         Context ctx = this.getDefaultCtx();
 
         Middleware middleware = this.validatingMiddleware(XmlValidationSchemaProvider.buildRngSchemaForAlpineBitsVersion("2017-10"));
@@ -101,7 +100,7 @@ public class XmlResponseMappingMiddlewareTest {
     }
 
     @Test(expectedExceptions = XmlConversionException.class)
-    public void testHandleContext_XsdValidationError() throws Exception {
+    public void testHandleContext_XsdValidationError() {
         Context ctx = this.getDefaultCtx();
 
         ctx.getOrThrow(DEFAULT_CTX_KEY).setVersion(null);
@@ -112,7 +111,7 @@ public class XmlResponseMappingMiddlewareTest {
     }
 
     @Test
-    public void testHandleContext_XsdValidationOk() throws Exception {
+    public void testHandleContext_XsdValidationOk() {
         Context ctx = this.getDefaultCtx();
 
         Middleware middleware = this.validatingMiddleware(XmlValidationSchemaProvider.buildXsdSchemaForAlpineBitsVersion("2017-10"));
@@ -121,7 +120,7 @@ public class XmlResponseMappingMiddlewareTest {
         assertEquals(ctx.getOrThrow(ResponseContextKeys.RESPONSE_CONTENT_TYPE_HINT), HttpContentTypeHeaderValues.TEXT_XML);
     }
 
-    private Context getDefaultCtx() throws JAXBException {
+    private Context getDefaultCtx() {
         Context ctx = new SimpleContext();
         OutputStream os = new ByteArrayOutputStream();
         ctx.put(ResponseContextKeys.RESPONSE_CONTENT_STREAM, os);
@@ -134,22 +133,22 @@ public class XmlResponseMappingMiddlewareTest {
         return ctx;
     }
 
-    private XmlResponseMappingMiddleware<OTAResRetrieveRS> notValidatingMiddleware() throws JAXBException {
-        ObjectToXmlConverter<OTAResRetrieveRS> converter = this.notValidatingConverter(OTAResRetrieveRS.class);
+    private XmlResponseMappingMiddleware<OTAResRetrieveRS> notValidatingMiddleware() {
+        ObjectToXmlConverter converter = this.notValidatingConverter();
         return new XmlResponseMappingMiddleware<>(converter, DEFAULT_CTX_KEY);
     }
 
-    private XmlResponseMappingMiddleware<OTAResRetrieveRS> validatingMiddleware(Schema schema) throws JAXBException {
-        ObjectToXmlConverter<OTAResRetrieveRS> converter = this.validatingConverter(OTAResRetrieveRS.class, schema);
+    private XmlResponseMappingMiddleware<OTAResRetrieveRS> validatingMiddleware(Schema schema) {
+        ObjectToXmlConverter converter = this.validatingConverter(schema);
         return new XmlResponseMappingMiddleware<>(converter, DEFAULT_CTX_KEY);
     }
 
-    private <T> ObjectToXmlConverter<T> notValidatingConverter(Class<T> classToBeBound) throws JAXBException {
-        return new JAXBObjectToXmlConverter.Builder<>(classToBeBound).build();
+    private ObjectToXmlConverter notValidatingConverter() {
+        return new JAXBObjectToXmlConverter.Builder().build();
     }
 
-    private <T> ObjectToXmlConverter<T> validatingConverter(Class<T> classToBeBound, Schema schema) throws JAXBException {
-        return new JAXBObjectToXmlConverter.Builder<>(classToBeBound).schema(schema).build();
+    private ObjectToXmlConverter validatingConverter(Schema schema) {
+        return new JAXBObjectToXmlConverter.Builder().schema(schema).build();
     }
 
 }

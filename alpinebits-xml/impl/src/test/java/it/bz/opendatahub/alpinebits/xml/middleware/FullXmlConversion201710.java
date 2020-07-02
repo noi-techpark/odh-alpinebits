@@ -35,7 +35,6 @@ import org.testng.annotations.Test;
 import org.xmlunit.builder.DiffBuilder;
 import org.xmlunit.diff.Diff;
 
-import javax.xml.bind.JAXBException;
 import javax.xml.validation.Schema;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -102,7 +101,7 @@ public class FullXmlConversion201710 {
         });
 
         // Object to XML
-        XmlResponseMappingMiddleware<T> objectToXmlMiddleware = this.validatingObjectToXmlMiddleware(key, classToBeBound, schema);
+        XmlResponseMappingMiddleware<T> objectToXmlMiddleware = this.validatingObjectToXmlMiddleware(key, schema);
         objectToXmlMiddleware.handleContext(ctx, () -> {
         });
 
@@ -137,21 +136,21 @@ public class FullXmlConversion201710 {
         return ctx;
     }
 
-    private <T> XmlRequestMappingMiddleware<T> validatingXmlToObjectMiddleware(Key<T> key, Class<T> classToBeBound, Schema schema) throws JAXBException {
+    private <T> XmlRequestMappingMiddleware<T> validatingXmlToObjectMiddleware(Key<T> key, Class<T> classToBeBound, Schema schema) {
         XmlToObjectConverter<T> converter = this.validatingXmlToObjectConverter(classToBeBound, schema);
         return new XmlRequestMappingMiddleware<>(converter, key);
     }
 
-    private <T> XmlToObjectConverter<T> validatingXmlToObjectConverter(Class<T> classToBeBound, Schema schema) throws JAXBException {
+    private <T> XmlToObjectConverter<T> validatingXmlToObjectConverter(Class<T> classToBeBound, Schema schema) {
         return new JAXBXmlToObjectConverter.Builder<>(classToBeBound).schema(schema).build();
     }
 
-    private <T> XmlResponseMappingMiddleware<T> validatingObjectToXmlMiddleware(Key<T> key, Class<T> classToBeBound, Schema schema) throws JAXBException {
-        ObjectToXmlConverter<T> converter = this.validatingObjectToXmlConverter(classToBeBound, schema);
+    private <T> XmlResponseMappingMiddleware<T> validatingObjectToXmlMiddleware(Key<T> key, Schema schema) {
+        ObjectToXmlConverter converter = this.validatingObjectToXmlConverter(schema);
         return new XmlResponseMappingMiddleware<>(converter, key);
     }
 
-    private <T> ObjectToXmlConverter<T> validatingObjectToXmlConverter(Class<T> classToBeBound, Schema schema) throws JAXBException {
-        return new JAXBObjectToXmlConverter.Builder<>(classToBeBound).schema(schema).prettyPrint(true).build();
+    private ObjectToXmlConverter validatingObjectToXmlConverter(Schema schema) {
+        return new JAXBObjectToXmlConverter.Builder().schema(schema).prettyPrint(true).build();
     }
 }

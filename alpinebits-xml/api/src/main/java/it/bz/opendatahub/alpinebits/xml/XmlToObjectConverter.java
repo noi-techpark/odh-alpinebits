@@ -25,7 +25,8 @@ public interface XmlToObjectConverter<T> {
      *           of type <code>T</code>
      * @return an instance of type <code>T</code> as a result of
      * XML-to-object conversion
-     * @throws XmlConversionException if the conversion was not successful
+     * @throws ExceptionInInitializerError if the underlying JAXBContext could not be created.
+     * @throws XmlConversionException if the conversion was not successful.
      */
     T toObject(InputStream is);
 

@@ -34,7 +34,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.testng.annotations.Test;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.JAXBException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -88,7 +87,7 @@ public class HandshakingMiddlewareIT extends Arquillian {
 
     @Test
     @RunAsClient
-    public void testHandleContext_InvokeHandshakingWithVersionMatch() throws JAXBException, JsonProcessingException {
+    public void testHandleContext_InvokeHandshakingWithVersionMatch() throws JsonProcessingException {
         String inputXml = fromResource("Handshake-OTA_PingRQ.xml");
 
         ValidatableResponse response = given()

@@ -16,7 +16,6 @@ import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelAvailNotifRQ;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import javax.xml.bind.JAXBException;
 import javax.xml.validation.Schema;
 import java.io.InputStream;
 
@@ -34,7 +33,7 @@ public class FreeRoomsFromXmlTest {
     private XmlToObjectConverter<OTAHotelAvailNotifRQ> withRngSchema;
 
     @BeforeClass
-    public void beforeClass() throws JAXBException {
+    public void beforeClass() {
         this.withXsdSchema = new JAXBXmlToObjectConverter.Builder<>(OTAHotelAvailNotifRQ.class).schema(xsdSchema).build();
         this.withRngSchema = new JAXBXmlToObjectConverter.Builder<>(OTAHotelAvailNotifRQ.class).schema(rngSchema).build();
     }

@@ -6,7 +6,6 @@
 
 package it.bz.opendatahub.alpinebits.handshaking;
 
-import it.bz.opendatahub.alpinebits.common.exception.AlpineBitsException;
 import it.bz.opendatahub.alpinebits.middleware.Context;
 import it.bz.opendatahub.alpinebits.middleware.Key;
 import it.bz.opendatahub.alpinebits.xml.JAXBObjectToXmlConverter;
@@ -19,7 +18,6 @@ import it.bz.opendatahub.alpinebits.xml.middleware.XmlResponseMappingMiddleware;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAPingRQ;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAPingRS;
 
-import javax.xml.bind.JAXBException;
 import javax.xml.validation.Schema;
 
 /**
@@ -44,19 +42,15 @@ public final class DefaultContextSerializer implements ContextSerializer {
     }
 
     public DefaultContextSerializer(Schema schema) {
-        try {
-            XmlToObjectConverter<OTAPingRQ> xmlToObjectConverter = new JAXBXmlToObjectConverter.Builder<>(OTAPingRQ.class)
-                    .schema(schema)
-                    .build();
-            this.xmlRequestMappingMiddleware = new XmlRequestMappingMiddleware<>(xmlToObjectConverter, OTA_PING_RQ_KEY);
+        XmlToObjectConverter<OTAPingRQ> xmlToObjectConverter = new JAXBXmlToObjectConverter.Builder<>(OTAPingRQ.class)
+                .schema(schema)
+                .build();
+        this.xmlRequestMappingMiddleware = new XmlRequestMappingMiddleware<>(xmlToObjectConverter, OTA_PING_RQ_KEY);
 
-            ObjectToXmlConverter<OTAPingRS> objectToXmlConverter = new JAXBObjectToXmlConverter.Builder<>(OTAPingRS.class)
-                    .schema(schema)
-                    .build();
-            this.xmlResponseMappingMiddleware = new XmlResponseMappingMiddleware<>(objectToXmlConverter, OTA_PING_RS_KEY);
-        } catch (JAXBException e) {
-            throw new AlpineBitsException("DefaultXmlMapper could not be created", 500, e);
-        }
+        ObjectToXmlConverter objectToXmlConverter = new JAXBObjectToXmlConverter.Builder()
+                .schema(schema)
+                .build();
+        this.xmlResponseMappingMiddleware = new XmlResponseMappingMiddleware<>(objectToXmlConverter, OTA_PING_RS_KEY);
     }
 
     /**

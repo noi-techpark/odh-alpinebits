@@ -19,7 +19,6 @@ import it.bz.opendatahub.alpinebits.xml.XmlValidationSchemaProvider;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAReadRQ;
 import org.testng.annotations.Test;
 
-import javax.xml.bind.JAXBException;
 import javax.xml.validation.Schema;
 import java.io.InputStream;
 
@@ -124,21 +123,21 @@ public class XmlRequestMappingMiddlewareTest {
         return ctx;
     }
 
-    private XmlRequestMappingMiddleware<OTAReadRQ> notValidatingMiddleware() throws JAXBException {
+    private XmlRequestMappingMiddleware<OTAReadRQ> notValidatingMiddleware() {
         XmlToObjectConverter<OTAReadRQ> converter = this.notValidatingConverter(OTAReadRQ.class);
         return new XmlRequestMappingMiddleware<>(converter, DEFAULT_CTX_KEY);
     }
 
-    private XmlRequestMappingMiddleware<OTAReadRQ> validatingMiddleware(Schema schema) throws JAXBException {
+    private XmlRequestMappingMiddleware<OTAReadRQ> validatingMiddleware(Schema schema) {
         XmlToObjectConverter<OTAReadRQ> converter = this.validatingConverter(OTAReadRQ.class, schema);
         return new XmlRequestMappingMiddleware<>(converter, DEFAULT_CTX_KEY);
     }
 
-    private <T> XmlToObjectConverter<T> notValidatingConverter(Class<T> classToBeBound) throws JAXBException {
+    private <T> XmlToObjectConverter<T> notValidatingConverter(Class<T> classToBeBound) {
         return new JAXBXmlToObjectConverter.Builder<>(classToBeBound).build();
     }
 
-    private <T> XmlToObjectConverter<T> validatingConverter(Class<T> classToBeBound, Schema schema) throws JAXBException {
+    private <T> XmlToObjectConverter<T> validatingConverter(Class<T> classToBeBound, Schema schema) {
         return new JAXBXmlToObjectConverter.Builder<>(classToBeBound).schema(schema).build();
     }
 
