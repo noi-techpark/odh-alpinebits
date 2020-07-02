@@ -27,7 +27,11 @@ import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelRatePlanNotifRQ;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelRatePlanNotifRS;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelRatePlanRQ;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelRatePlanRS;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelResNotifRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelResNotifRS;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.OTANotifReportRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAPingRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAPingRS;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAReadRQ;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAResRetrieveRS;
 import org.testng.annotations.DataProvider;
@@ -49,7 +53,7 @@ import static org.testng.Assert.assertFalse;
  * asserts that the original XML and the result XML
  * are similar.
  */
-public class FullXmlConversion201710 {
+public class FullXmlConversion201810Test {
 
     @DataProvider(name = "xmlValid")
     public static Object[][] badBasicAuthentication() {
@@ -62,15 +66,22 @@ public class FullXmlConversion201710 {
                 {"FreeRooms-OTA_HotelAvailNotifRS-error.xml", OTAHotelAvailNotifRS.class},
                 {"FreeRooms-OTA_HotelAvailNotifRS-success.xml", OTAHotelAvailNotifRS.class},
                 {"FreeRooms-OTA_HotelAvailNotifRS-warning.xml", OTAHotelAvailNotifRS.class},
+                {"GuestRequests-OTA_HotelResNotifRQ-reservation-push.xml", OTAHotelResNotifRQ.class},
+                {"GuestRequests-OTA_HotelResNotifRS-reservation-push.xml", OTAHotelResNotifRS.class},
                 {"GuestRequests-OTA_ReadRQ.xml", OTAReadRQ.class},
                 {"GuestRequests-OTA_ReadRQ-ack.xml", OTANotifReportRQ.class},
                 {"GuestRequests-OTA_ResRetrieveRS-cancellation.xml", OTAResRetrieveRS.class},
                 {"GuestRequests-OTA_ResRetrieveRS-error.xml", OTAResRetrieveRS.class},
+                {"GuestRequests-OTA_ResRetrieveRS-request-with-roomtype.xml", OTAResRetrieveRS.class},
                 {"GuestRequests-OTA_ResRetrieveRS-reservation.xml", OTAResRetrieveRS.class},
                 {"GuestRequests-OTA_ResRetrieveRS-reservation-empty.xml", OTAResRetrieveRS.class},
+                {"Handshake-OTA_PingRQ.xml", OTAPingRQ.class},
+                {"Handshake-OTA_PingRS.xml", OTAPingRS.class},
                 {"Inventory-OTA_HotelDescriptiveContentNotifRQ.xml", OTAHotelDescriptiveContentNotifRQ.class},
                 {"Inventory-OTA_HotelDescriptiveContentNotifRQ-delete-all.xml", OTAHotelDescriptiveContentNotifRQ.class},
                 {"Inventory-OTA_HotelDescriptiveContentNotifRQ-hotelinfo.xml", OTAHotelDescriptiveContentNotifRQ.class},
+                {"Inventory-OTA_HotelDescriptiveContentNotifRQ-hotelinfo-with-contact-infos.xml", OTAHotelDescriptiveContentNotifRQ.class},
+                {"Inventory-OTA_HotelDescriptiveContentNotifRQ-with-roomtype.xml", OTAHotelDescriptiveContentNotifRQ.class},
                 {"Inventory-OTA_HotelDescriptiveContentNotifRS-advisory.xml", OTAHotelDescriptiveContentNotifRS.class},
                 {"Inventory-OTA_HotelDescriptiveContentNotifRS-error.xml", OTAHotelDescriptiveContentNotifRS.class},
                 {"Inventory-OTA_HotelDescriptiveContentNotifRS-success.xml", OTAHotelDescriptiveContentNotifRS.class},
@@ -89,11 +100,11 @@ public class FullXmlConversion201710 {
 
     @Test(dataProvider = "xmlValid")
     public <T> void fullConversion(String xmlFile, Class<T> classToBeBound) throws Exception {
-        String filename = "examples/v_2017_10/" + xmlFile;
+        String filename = "examples/v_2018_10/" + xmlFile;
         Context ctx = this.prepareCtx(filename);
 
         Key<T> key = Key.key("data key", classToBeBound);
-        Schema schema = XmlValidationSchemaProvider.buildRngSchemaForAlpineBitsVersion("2017-10");
+        Schema schema = XmlValidationSchemaProvider.buildRngSchemaForAlpineBitsVersion("2018-10");
 
         // XML to object
         XmlRequestMappingMiddleware<T> xmlToObjectMiddleware = this.validatingXmlToObjectMiddleware(key, classToBeBound, schema);
