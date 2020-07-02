@@ -7,6 +7,10 @@
 package it.bz.opendatahub.alpinebits.xml;
 
 import it.bz.opendatahub.alpinebits.xml.entity.TestEntity;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.MessageAcknowledgementType;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelAvailNotifRS;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.ObjectFactory;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.SuccessType;
 import org.testng.annotations.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -47,6 +51,21 @@ public class JAXBObjectToXmlConverterTest {
 
         ObjectToXmlConverter<TestEntity> converter = new JAXBObjectToXmlConverter.Builder<>(TestEntity.class).prettyPrint(true).build();
         converter.toXml(testEntity, os);
+
+        assertTrue(os.size() > 0);
+    }
+
+    @Test
+    public void testToXml_ShouldUseGenericType_WhenClassToBeBoundExtendsJAXBElement() throws Exception {
+        MessageAcknowledgementType mat = new MessageAcknowledgementType();
+        mat.setSuccess(new SuccessType());
+        ObjectFactory of = new ObjectFactory();
+        OTAHotelAvailNotifRS data = of.createOTAHotelAvailNotifRS(mat);
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+
+        ObjectToXmlConverter<OTAHotelAvailNotifRS> converter = new JAXBObjectToXmlConverter.Builder<>(OTAHotelAvailNotifRS.class).prettyPrint(true).build();
+        converter.toXml(data, os);
 
         assertTrue(os.size() > 0);
     }

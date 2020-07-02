@@ -7,10 +7,13 @@
 package it.bz.opendatahub.alpinebits.xml;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.validation.Schema;
 import java.io.OutputStream;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 /**
  * This class provides methods to convert Java objects to XML.
@@ -94,8 +97,23 @@ public final class JAXBObjectToXmlConverter<T> implements ObjectToXmlConverter<T
          *                       the creation of the {@link JAXBObjectToXmlConverter} instance
          */
         public ObjectToXmlConverter<T> build() throws JAXBException {
-            JAXBContext jaxbContext = JAXBContext.newInstance(classToBeBound);
+            Class<T> classToRegister = classToBeBound;
+
+            // Some OTA-2015A elements (OTANotifReportRS, OTANotifReportRS and OTAHotelDescriptiveContentNotifRS)
+            // extend JAXBElement in a way that needs special treatment. In those cases, it is necessary
+            // to register the generic class of the JAXBElement instead of the classToBeBound
+            if (JAXBElement.class.isAssignableFrom(classToBeBound)) {
+                classToRegister = extractGenericClass();
+            }
+            JAXBContext jaxbContext = JAXBContext.newInstance(classToRegister);
             return new JAXBObjectToXmlConverter<>(jaxbContext, this.schema, this.doPrettyPrintXml);
+        }
+
+        @SuppressWarnings("unchecked")
+        private Class<T> extractGenericClass() {
+            ParameterizedType parameterizedType = (ParameterizedType) classToBeBound.getGenericSuperclass();
+            Type type = parameterizedType.getActualTypeArguments()[0];
+            return (Class<T>) type;
         }
     }
 }
