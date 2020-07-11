@@ -23,15 +23,13 @@
         <module>alpinebits-db</module>
         <module>alpinebits-handshaking</module>
         <module>alpinebits-housekeeping</module>
-        <module>alpinebits-mapping</module>
         <module>alpinebits-middleware</module>
         <module>alpinebits-routing</module>
         <module>alpinebits-servlet</module>
         <module>alpinebits-validation</module>
         <module>alpinebits-xml</module>
         <module>build-tools</module>
-        <module>examples</module>
-        <module>ota-extension</module>
+<!--        <module>examples</module>-->
     </modules>
 
     <properties>
