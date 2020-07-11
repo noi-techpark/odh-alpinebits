@@ -7,16 +7,16 @@
 package it.bz.opendatahub.alpinebits.examples.inventory.middleware;
 
 import it.bz.opendatahub.alpinebits.common.exception.AlpineBitsException;
-import it.bz.opendatahub.alpinebits.examples.inventory.entity.HotelDescriptiveContentEntity;
-import it.bz.opendatahub.alpinebits.examples.inventory.mapper.HotelDescriptiveContentEntityMapperInstances;
-import it.bz.opendatahub.alpinebits.mapping.entity.inventory.HotelDescriptiveContent;
-import it.bz.opendatahub.alpinebits.mapping.entity.inventory.HotelDescriptiveInfoRequest;
-import it.bz.opendatahub.alpinebits.mapping.entity.inventory.HotelDescriptiveInfoResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import it.bz.opendatahub.alpinebits.xml.JAXBXmlToObjectConverter;
+import it.bz.opendatahub.alpinebits.xml.XmlToObjectConverter;
+import it.bz.opendatahub.alpinebits.xml.XmlValidationSchemaProvider;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelDescriptiveInfoRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelDescriptiveInfoRQ.HotelDescriptiveInfos.HotelDescriptiveInfo;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelDescriptiveInfoRS;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelDescriptiveInfoRS.HotelDescriptiveContents.HotelDescriptiveContent;
 
-import javax.persistence.EntityManager;
-import java.util.List;
+import javax.xml.validation.Schema;
+import java.io.InputStream;
 
 /**
  * This service handles the DB persistence for
@@ -24,62 +24,53 @@ import java.util.List;
  */
 public class InventoryPullService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(InventoryPullService.class);
+    private final XmlToObjectConverter<OTAHotelDescriptiveInfoRS> converter;
 
-    private final EntityManager em;
-
-    public InventoryPullService(EntityManager em) {
-        this.em = em;
+    public InventoryPullService() {
+        Schema schema = XmlValidationSchemaProvider.buildRngSchemaForAlpineBitsVersion("2017-10");
+        converter = new JAXBXmlToObjectConverter.Builder<>(OTAHotelDescriptiveInfoRS.class).schema(schema).build();
     }
 
-    public HotelDescriptiveInfoResponse readBasic(HotelDescriptiveInfoRequest hotelDescriptiveInfoRequest) {
-        HotelDescriptiveInfoResponse response = new HotelDescriptiveInfoResponse();
-        response.setSuccess("");
+    /**
+     * Read a Inventory/Basic pull response and return it.
+     *
+     * @param otaHotelDescriptiveInfoRQ Read the response for this request.
+     * @return A {@link OTAHotelDescriptiveInfoRS} instance as response.
+     */
+    public OTAHotelDescriptiveInfoRS readInventoryBasic(OTAHotelDescriptiveInfoRQ otaHotelDescriptiveInfoRQ) {
+        return buildResult(otaHotelDescriptiveInfoRQ, "inventory-basic-pull-sample.xml");
+    }
 
-        String hotelCode = hotelDescriptiveInfoRequest.getHotelCode();
-        String hotelName = hotelDescriptiveInfoRequest.getHotelName();
-        HotelDescriptiveContentEntity hotelDescriptiveContentEntity
-                = this.findHotelDescriptiveContentEntities(hotelCode, hotelName);
+    /**
+     * Read a Inventory/HotelInfo pull response and return it.
+     *
+     * @param otaHotelDescriptiveInfoRQ Read the response for this request.
+     * @return A {@link OTAHotelDescriptiveInfoRS} instance as response.
+     */
+    public OTAHotelDescriptiveInfoRS readInventoryHotelInfo(OTAHotelDescriptiveInfoRQ otaHotelDescriptiveInfoRQ) {
+        return buildResult(otaHotelDescriptiveInfoRQ, "inventory-hotelinfo-pull-sample.xml");
+    }
 
-        if (hotelDescriptiveContentEntity != null) {
-            HotelDescriptiveContent hotelDescriptiveContent = HotelDescriptiveContentEntityMapperInstances
-                    .HOTEL_DESCRIPTIVE_CONTENT_MAPPER
-                    .toHotelDescriptiveContent(hotelDescriptiveContentEntity);
-            response.setHotelDescriptiveContent(hotelDescriptiveContent);
-        } else {
-            HotelDescriptiveContent hotelDescriptiveContent = new HotelDescriptiveContent();
-            hotelDescriptiveContent.setHotelCode(hotelCode);
+    @SuppressWarnings("checkstyle:IllegalCatch")
+    private OTAHotelDescriptiveInfoRS buildResult(OTAHotelDescriptiveInfoRQ otaHotelDescriptiveInfoRQ, String resource) {
+        try {
+            // Convert from XML
+            InputStream is = InventoryPullService.class.getClassLoader().getResourceAsStream(resource);
+            OTAHotelDescriptiveInfoRS otaHotelDescriptiveInfoRS = converter.toObject(is);
+
+            // Fix HotelCode/HotelName values
+            HotelDescriptiveInfo hotelDescriptiveInfo = otaHotelDescriptiveInfoRQ.getHotelDescriptiveInfos().getHotelDescriptiveInfos().get(0);
+            String hotelName = hotelDescriptiveInfo.getHotelName();
+            String hotelCode = hotelDescriptiveInfo.getHotelCode();
+
+            HotelDescriptiveContent hotelDescriptiveContent = otaHotelDescriptiveInfoRS.getHotelDescriptiveContents().getHotelDescriptiveContents().get(0);
             hotelDescriptiveContent.setHotelName(hotelName);
-            response.setHotelDescriptiveContent(hotelDescriptiveContent);
+            hotelDescriptiveContent.setHotelCode(hotelCode);
+
+            // Return success
+            return otaHotelDescriptiveInfoRS;
+        } catch (Exception e) {
+            throw new AlpineBitsException(e.getMessage(), 500);
         }
-
-        return response;
     }
-
-    public HotelDescriptiveInfoResponse readHotelInfo(HotelDescriptiveInfoRequest hotelDescriptiveInfoRequest) {
-        return this.readBasic(hotelDescriptiveInfoRequest);
-    }
-
-    private HotelDescriptiveContentEntity findHotelDescriptiveContentEntities(String hotelCode, String hotelName) {
-        List<HotelDescriptiveContentEntity> entities = em.createQuery(
-                "select h from HotelDescriptiveContentEntity h " +
-                        "where h.hotelCode like :hotelCode " +
-                        "and h.hotelName like :hotelName",
-                HotelDescriptiveContentEntity.class
-        )
-                .setParameter("hotelCode", hotelCode)
-                .setParameter("hotelName", hotelName)
-                .getResultList();
-
-        // If more than one entry was found, something is wrong
-        if (entities.size() > 1) {
-            throw new AlpineBitsException(
-                    "More than one entries found for hotelCode " + hotelCode + " and hotelName " + hotelName,
-                    500
-            );
-        }
-
-        return entities.isEmpty() ? null : entities.get(0);
-    }
-
 }

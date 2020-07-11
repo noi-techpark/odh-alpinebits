@@ -24,7 +24,6 @@ import it.bz.opendatahub.alpinebits.servlet.middleware.BasicAuthenticationMiddle
 import it.bz.opendatahub.alpinebits.servlet.middleware.GzipUnsupportedMiddleware;
 import it.bz.opendatahub.alpinebits.servlet.middleware.MultipartFormDataParserMiddleware;
 
-import javax.xml.bind.JAXBException;
 import java.util.Arrays;
 
 /**
@@ -43,7 +42,7 @@ public class ConfiguringMiddleware implements Middleware {
 
     private final Middleware middleware;
 
-    public ConfiguringMiddleware() throws JAXBException {
+    public ConfiguringMiddleware() {
         this.middleware = ComposingMiddlewareBuilder.compose(Arrays.asList(
                 new AlpineBitsClientProtocolMiddleware(),
                 new BasicAuthenticationMiddleware(),
@@ -58,7 +57,7 @@ public class ConfiguringMiddleware implements Middleware {
         this.middleware.handleContext(ctx, chain);
     }
 
-    private Middleware buildRoutingMiddleware() throws JAXBException {
+    private Middleware buildRoutingMiddleware() {
         Router router = new DefaultRouter.Builder()
                 .version(AlpineBitsVersion.V_2017_10)
                 .supportsAction(Action.GET_VERSION)

@@ -29,7 +29,7 @@
         <module>alpinebits-validation</module>
         <module>alpinebits-xml</module>
         <module>build-tools</module>
-<!--        <module>examples</module>-->
+        <module>examples</module>
     </modules>
 
     <properties>
