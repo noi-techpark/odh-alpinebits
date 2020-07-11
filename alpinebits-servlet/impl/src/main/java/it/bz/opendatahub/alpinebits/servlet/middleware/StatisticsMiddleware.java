@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  * This middleware writes statistics about the
  * current request to the log.
  * <p>
- * The log is written in the upstreams phase,
+ * The log is written in the response-phase,
  * i.e. this middleware first invokes the next
  * middleware in the chain. When that call returns,
  * it the log is written.
