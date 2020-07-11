@@ -82,6 +82,11 @@ public class AlpineBitsVersionCheckerTest {
     }
 
     @Test
+    public void testIsLegacyVersion_ShouldReturnFalseForAlpineBitsV_2020_10() {
+        assertFalse(AlpineBitsVersionChecker.isLegacyVersion(AlpineBitsVersion.V_2020_10));
+    }
+
+    @Test
     public void testIsLegacyVersion_ShouldReturnFalseForUnknownVersion() {
         assertFalse(AlpineBitsVersionChecker.isLegacyVersion("some version"));
     }

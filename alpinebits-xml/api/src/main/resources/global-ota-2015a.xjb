@@ -28,6 +28,11 @@
             <jaxb:class name="OTANotifReportRS" />
         </jaxb:bindings>
     </jaxb:bindings>
+    <jaxb:bindings schemaLocation="./ota2015a/OTA_HotelPostEventNotifRS.xsd" node="/xs:schema">
+        <jaxb:bindings node="//xs:element[@name = 'OTA_HotelPostEventNotifRS']">
+            <jaxb:class name="OTAHotelPostEventNotifRS" />
+        </jaxb:bindings>
+    </jaxb:bindings>
 
     <jaxb:bindings schemaLocation="./ota2015a/OTA_CommonTypes.xsd">
         <!-- Rename the value element -->

@@ -84,6 +84,9 @@
                                 <!-- BaseRates -->
                                 <source>src/main/resources/ota2015a/OTA_HotelRatePlanRQ.xsd</source>
                                 <source>src/main/resources/ota2015a/OTA_HotelRatePlanRS.xsd</source>
+                                <!-- Activities -->
+                                <source>src/main/resources/ota2015a/OTA_HotelPostEventNotifRQ.xsd</source>
+                                <source>src/main/resources/ota2015a/OTA_HotelPostEventNotifRS.xsd</source>
                             </sources>
                             <packageName>it.bz.opendatahub.alpinebits.xml.schema.ota</packageName>
                             <clearOutputDir>false</clearOutputDir>
