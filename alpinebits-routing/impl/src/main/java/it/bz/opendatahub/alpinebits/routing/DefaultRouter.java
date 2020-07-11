@@ -8,8 +8,6 @@ package it.bz.opendatahub.alpinebits.routing;
 
 import it.bz.opendatahub.alpinebits.middleware.Middleware;
 import it.bz.opendatahub.alpinebits.routing.constants.Action;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionName;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionRequestParam;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,7 +40,7 @@ public final class DefaultRouter implements Router {
     }
 
     @Override
-    public Optional<Middleware> findMiddleware(String version, ActionRequestParam actionRequestParam) {
+    public Optional<Middleware> findMiddleware(String version, String actionRequestParam) {
         if (version == null) {
             throw new IllegalArgumentException(VERSION_NULL_ERROR_MESSAGE);
         }
@@ -104,7 +102,7 @@ public final class DefaultRouter implements Router {
     }
 
     @Override
-    public Optional<Set<String>> getCapabilitiesForVersionAndActionName(String version, ActionName actionName) {
+    public Optional<Set<String>> getCapabilitiesForVersionAndActionName(String version, String actionName) {
         if (version == null) {
             throw new IllegalArgumentException(VERSION_NULL_ERROR_MESSAGE);
         }
@@ -173,8 +171,8 @@ public final class DefaultRouter implements Router {
         private Supplier<Router> routerBuilder = () -> {
             List<String> versions = new ArrayList<>(this.versionConfigurations.keySet());
             Collections.sort(versions);
-            String highestSupportedVersion = versions.get(versions.size() - 1);
-            return new DefaultRouter(this.versionConfigurations, highestSupportedVersion);
+            String highestVersion = versions.get(versions.size() - 1);
+            return new DefaultRouter(this.versionConfigurations, highestVersion);
         };
 
         /**

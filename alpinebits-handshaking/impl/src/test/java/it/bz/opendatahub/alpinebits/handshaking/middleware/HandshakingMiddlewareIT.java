@@ -121,10 +121,10 @@ public class HandshakingMiddlewareIT extends Arquillian {
             Set<SupportedAction> actions = version.getActions();
             assertEquals(actions.size(), 2);
             actions.forEach(action -> {
-                if (action.getAction().equals(Action.HANDSHAKING.getName().getValue())) {
+                if (action.getAction().equals(Action.HANDSHAKING.getName())) {
                     Set<String> capabilities = action.getSupports();
                     assertNull(capabilities);
-                } else if (action.getAction().equals(Action.BASE_RATES_HOTEL_RATE_PLAN_BASE_RATES.getName().getValue())) {
+                } else if (action.getAction().equals(Action.BASE_RATES_HOTEL_RATE_PLAN_BASE_RATES.getName())) {
                     Set<String> capabilities = action.getSupports();
                     capabilities.forEach(capability -> assertEquals(capability, AlpineBitsCapability.BASE_RATES_HOTEL_RATE_PLAN_BASE_RATES_DELTAS));
                 } else {

@@ -54,7 +54,7 @@ public final class HandshakingDataExtractor {
                         Set<SupportedAction> supportedActions = actions.stream()
                                 .map(action -> {
                                     SupportedAction supportedAction = new SupportedAction();
-                                    supportedAction.setAction(action.getName().getValue());
+                                    supportedAction.setAction(action.getName());
 
                                     router.getCapabilitiesForVersionAndActionName(version, action.getName())
                                             .ifPresent(supportedAction::setSupports);

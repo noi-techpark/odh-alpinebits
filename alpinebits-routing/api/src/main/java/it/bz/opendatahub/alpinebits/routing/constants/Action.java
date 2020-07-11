@@ -7,6 +7,9 @@
 package it.bz.opendatahub.alpinebits.routing.constants;
 
 
+import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsAction;
+import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsCapability;
+
 import java.util.Objects;
 
 /**
@@ -21,89 +24,89 @@ public final class Action {
 
     // Handshaking
     public static final Action HANDSHAKING = of(
-            ActionRequestParam.HANDSHAKING,
-            ActionName.HANDSHAKING
+            AlpineBitsAction.HANDSHAKING,
+            AlpineBitsCapability.HANDSHAKING
     );
 
     // Housekeeping
     public static final Action GET_VERSION = of(
-            ActionRequestParam.GET_VERSION,
-            ActionName.GET_VERSION
+            AlpineBitsAction.GET_VERSION,
+            AlpineBitsCapability.GET_VERSION
     );
     public static final Action GET_CAPABILITIES = of(
-            ActionRequestParam.GET_CAPABILITIES,
-            ActionName.GET_CAPABILITIES
+            AlpineBitsAction.GET_CAPABILITIES,
+            AlpineBitsCapability.GET_CAPABILITIES
     );
 
     // FreeRooms
     public static final Action FREE_ROOMS_HOTEL_AVAIL_NOTIF_FREE_ROOMS = of(
-            ActionRequestParam.FREE_ROOMS_HOTEL_AVAIL_NOTIF_FREE_ROOMS,
-            ActionName.FREE_ROOMS_HOTEL_AVAIL_NOTIF
+            AlpineBitsAction.FREE_ROOMS_HOTEL_AVAIL_NOTIF_FREE_ROOMS,
+            AlpineBitsCapability.FREE_ROOMS_HOTEL_AVAIL_NOTIF
     );
 
     // GuestRequests
     public static final Action GUEST_REQUESTS_READ_GUEST_REQUESTS = of(
-            ActionRequestParam.GUEST_REQUESTS_READ_GUEST_REQUESTS,
-            ActionName.GUEST_REQUESTS_READ
+            AlpineBitsAction.GUEST_REQUESTS_READ_GUEST_REQUESTS,
+            AlpineBitsCapability.GUEST_REQUESTS_READ
     );
     public static final Action GUEST_REQUESTS_CONFIRM_GUEST_REQUESTS_READ = of(
-            ActionRequestParam.GUEST_REQUESTS_CONFIRM_GUEST_REQUESTS_READ,
-            ActionName.GUEST_REQUESTS_READ
+            AlpineBitsAction.GUEST_REQUESTS_NOTIF_REPORT_GUEST_REQUESTS,
+            AlpineBitsCapability.GUEST_REQUESTS_READ
     );
     public static final Action GUEST_REQUESTS_WRITE_GUEST_REQUESTS = of(
-            ActionRequestParam.GUEST_REQUESTS_WRITE_GUEST_REQUESTS,
-            ActionName.GUEST_REQUESTS_WRITE
+            AlpineBitsAction.GUEST_REQUESTS_WRITE_GUEST_REQUESTS,
+            AlpineBitsCapability.GUEST_REQUESTS_WRITE
     );
 
     // Inventory
     public static final Action INVENTORY_BASIC_PUSH = of(
-            ActionRequestParam.INVENTORY_BASIC_PUSH,
-            ActionName.INVENTORY_BASIC_PUSH
+            AlpineBitsAction.INVENTORY_BASIC_PUSH,
+            AlpineBitsCapability.INVENTORY_HOTEL_DESCRIPTIVE_CONTENT_NOTIF_INVENTORY
     );
     public static final Action INVENTORY_BASIC_PULL = of(
-            ActionRequestParam.INVENTORY_BASIC_PULL,
-            ActionName.INVENTORY_BASIC_PULL
+            AlpineBitsAction.INVENTORY_BASIC_PULL,
+            AlpineBitsCapability.INVENTORY_HOTEL_DESCRIPTIVE_INFO_INVENTORY
     );
     public static final Action INVENTORY_HOTEL_INFO_PUSH = of(
-            ActionRequestParam.INVENTORY_HOTEL_INFO_PUSH,
-            ActionName.INVENTORY_HOTEL_INFO_PUSH
+            AlpineBitsAction.INVENTORY_HOTEL_INFO_PUSH,
+            AlpineBitsCapability.INVENTORY_HOTEL_DESCRIPTIVE_CONTENT_NOTIF_INFO
     );
     public static final Action INVENTORY_HOTEL_INFO_PULL = of(
-            ActionRequestParam.INVENTORY_HOTEL_INFO_PULL,
-            ActionName.INVENTORY_HOTEL_INFO_PULL
+            AlpineBitsAction.INVENTORY_HOTEL_INFO_PULL,
+            AlpineBitsCapability.INVENTORY_HOTEL_DESCRIPTIVE_INFO_INFO
     );
 
     // RatePlans
     public static final Action RATE_PLANS_HOTEL_RATE_PLAN_NOTIF_RATE_PLANS = of(
-            ActionRequestParam.RATE_PLANS_HOTEL_RATE_PLAN_NOTIF_RATE_PLANS,
-            ActionName.RATE_PLANS_HOTEL_RATE_PLAN_NOTIF_RATE_PLANS
+            AlpineBitsAction.RATE_PLANS_HOTEL_RATE_PLAN_NOTIF_RATE_PLANS,
+            AlpineBitsCapability.RATE_PLANS_HOTEL_RATE_PLAN_NOTIF_RATE_PLANS
     );
 
     // BaseRates
     public static final Action BASE_RATES_HOTEL_RATE_PLAN_BASE_RATES = of(
-            ActionRequestParam.BASE_RATES_HOTEL_RATE_PLAN_BASE_RATES,
-            ActionName.BASE_RATES_HOTEL_RATE_PLAN_BASE_RATES
+            AlpineBitsAction.BASE_RATES_HOTEL_RATE_PLAN_BASE_RATES,
+            AlpineBitsCapability.BASE_RATES_HOTEL_RATE_PLAN_BASE_RATES
     );
 
-    private ActionRequestParam requestParameter;
-    private ActionName name;
+    private String requestParameter;
+    private String name;
 
     private Action() {
         // Empty
     }
 
-    public static Action of(ActionRequestParam requestParameter, ActionName name) {
+    public static Action of(String requestParameter, String name) {
         Action result = new Action();
         result.requestParameter = requestParameter;
         result.name = name;
         return result;
     }
 
-    public ActionRequestParam getRequestParameter() {
+    public String getRequestParameter() {
         return requestParameter;
     }
 
-    public ActionName getName() {
+    public String getName() {
         return name;
     }
 

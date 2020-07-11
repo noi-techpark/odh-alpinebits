@@ -13,7 +13,6 @@ import it.bz.opendatahub.alpinebits.middleware.MiddlewareChain;
 import it.bz.opendatahub.alpinebits.routing.Router;
 import it.bz.opendatahub.alpinebits.routing.RouterContextKey;
 import it.bz.opendatahub.alpinebits.routing.UndefinedRouteException;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionRequestParam;
 
 import java.util.Optional;
 
@@ -50,7 +49,7 @@ public class RoutingMiddleware implements Middleware {
         String action = ctx.getOrThrow(RequestContextKey.REQUEST_ACTION);
 
         // Try to find a middleware for the given AlpineBits version and action
-        Middleware middleware = this.findMiddleware(version, ActionRequestParam.of(action));
+        Middleware middleware = this.findMiddleware(version, action);
 
         // Add router to context, such that other middlewares may use its information
         ctx.put(RouterContextKey.ALPINEBITS_ROUTER, this.router);
@@ -60,7 +59,7 @@ public class RoutingMiddleware implements Middleware {
         });
     }
 
-    private Middleware findMiddleware(String version, ActionRequestParam actionRequestParam) {
+    private Middleware findMiddleware(String version, String actionRequestParam) {
         Optional<Middleware> optional = this.router.findMiddleware(version, actionRequestParam);
 
         if (!optional.isPresent()) {

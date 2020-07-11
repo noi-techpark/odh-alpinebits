@@ -6,12 +6,12 @@
 
 package it.bz.opendatahub.alpinebits.housekeeping.middleware.utils;
 
+import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsAction;
+import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsCapability;
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsVersion;
 import it.bz.opendatahub.alpinebits.routing.DefaultRouter;
 import it.bz.opendatahub.alpinebits.routing.Router;
 import it.bz.opendatahub.alpinebits.routing.constants.Action;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionName;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionRequestParam;
 
 /**
  * This class provides methods to build a {@link Router}.
@@ -27,9 +27,10 @@ public class RouterBuilder {
     public static Router buildRouterForVersion(String version) {
         return new DefaultRouter.Builder()
                 .version(version)
-                .supportsAction(Action.of(ActionRequestParam.GET_CAPABILITIES, ActionName.GET_CAPABILITIES))
+                .supportsAction(Action.of(AlpineBitsAction.GET_CAPABILITIES, AlpineBitsCapability.GET_CAPABILITIES))
                 .withCapabilities()
-                .using((ctx, chain) -> {})
+                .using((ctx, chain) -> {
+                })
                 .versionComplete()
                 .buildRouter();
     }

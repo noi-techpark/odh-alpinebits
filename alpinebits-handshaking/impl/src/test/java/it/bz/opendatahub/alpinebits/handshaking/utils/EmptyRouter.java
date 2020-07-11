@@ -9,8 +9,6 @@ package it.bz.opendatahub.alpinebits.handshaking.utils;
 import it.bz.opendatahub.alpinebits.middleware.Middleware;
 import it.bz.opendatahub.alpinebits.routing.Router;
 import it.bz.opendatahub.alpinebits.routing.constants.Action;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionName;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionRequestParam;
 
 import java.util.Optional;
 import java.util.Set;
@@ -21,7 +19,7 @@ import java.util.Set;
  */
 public class EmptyRouter implements Router {
     @Override
-    public Optional<Middleware> findMiddleware(String version, ActionRequestParam action) {
+    public Optional<Middleware> findMiddleware(String version, String action) {
         return Optional.empty();
     }
 
@@ -46,7 +44,7 @@ public class EmptyRouter implements Router {
     }
 
     @Override
-    public Optional<Set<String>> getCapabilitiesForVersionAndActionName(String version, ActionName actionName) {
+    public Optional<Set<String>> getCapabilitiesForVersionAndActionName(String version, String actionName) {
         return Optional.empty();
     }
 
