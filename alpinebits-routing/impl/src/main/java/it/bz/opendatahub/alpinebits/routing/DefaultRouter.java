@@ -122,9 +122,10 @@ public final class DefaultRouter implements Router {
             return Optional.empty();
         }
 
-        for (Action action : actionConfigurations.keySet()) {
+        for (Map.Entry<Action, ActionConfiguration> entry : actionConfigurations.entrySet()) {
+            Action action = entry.getKey();
             if (action.getName() != null && action.getName().equals(actionName)) {
-                ActionConfiguration actionConfiguration = actionConfigurations.get(action);
+                ActionConfiguration actionConfiguration = entry.getValue();
                 return Optional.ofNullable(actionConfiguration.getCapabilitites());
             }
         }
