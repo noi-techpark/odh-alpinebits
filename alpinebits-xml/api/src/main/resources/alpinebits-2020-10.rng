@@ -8,7 +8,9 @@
 
      changelog:
 
-    v. 2020-10  1.0    FreeRooms: change definition of FreeRooms, since that action has completely been rewritten
+    v. 2020-10  1.0    add (optional) daily rates support: HotelReservation > RoomStays > RoomStay > RoomRates
+
+                       FreeRooms: change definition of FreeRooms, since that action has completely been rewritten
 
                        Inventory/* push: add attribute "AreaID" to OTA_HotelDescriptiveContentNotifRQ -> HotelDescriptiveContents -> HotelDescriptiveContent
 
@@ -1398,6 +1400,17 @@
                         </rng:oneOrMore>
 
                       </rng:element>
+
+                      <rng:optional>
+                        <rng:attribute name="RoomTypeCode">
+                          <rng:ref name="def_nonempty_string"/>
+                        </rng:attribute>
+                      </rng:optional>
+                      <rng:optional>
+                        <rng:attribute name="RatePlanCode">
+                          <rng:ref name="def_nonempty_string"/>
+                        </rng:attribute>
+                      </rng:optional>
 
                     </rng:element>
 
