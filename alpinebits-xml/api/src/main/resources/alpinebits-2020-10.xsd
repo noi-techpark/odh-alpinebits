@@ -10,6 +10,9 @@
 
     v. 2020-10  1.0    add (optional) daily rates support: HotelReservation > RoomStays > RoomStay > RoomRates
 
+                       FreeRooms: change definition of FreeRooms, since that action has completely been rewritten
+
+
     v. 2018-10  1.3    more things changed related to the new section "Responses with a request for complete sets of data":
 
                        - added "11" as allowed value for the attribute Type of the Error elements
@@ -293,9 +296,9 @@
   <!-- * FreeRooms                                                                     -->
   <!-- ******************************************************************************* -->
 
-  <!-- FreeRooms: OTA_HotelAvailNotifRQ -->
+  <!-- FreeRooms: OTA_HotelInvCountNotifRQ -->
 
-  <xs:element name="OTA_HotelAvailNotifRQ">
+  <xs:element name="OTA_HotelInvCountNotifRQ">
     <xs:complexType>
       <xs:sequence>
 
@@ -322,64 +325,73 @@
           </xs:complexType>
         </xs:element>
 
-        <!-- AvailStatusMessages {1} -->
+        <!-- Inventories {1} -->
 
-        <xs:element name="AvailStatusMessages">
+        <xs:element name="Inventories">
           <xs:complexType>
             <xs:sequence>
 
-              <!-- AvailStatusMessages > AvailStatusMessage (1,} -->
+              <!-- Inventories > Inventory (1,} -->
 
-              <xs:element name="AvailStatusMessage" maxOccurs="unbounded">
+              <xs:element name="Inventory" maxOccurs="unbounded">
                 <xs:complexType>
+
+                  <!-- Inventories > Inventory > StatusApplicationControl {0,1} -->
+
                   <xs:sequence>
-
-                    <!-- AvailStatusMessages > AvailStatusMessage > StatusApplicationControl {0,1} -->
-
                     <xs:element name="StatusApplicationControl" minOccurs="0">
                       <xs:complexType>
                         <xs:attribute name="Start"        use="required" type="def_date"/>
                         <xs:attribute name="End"          use="required" type="def_date"/>
                         <xs:attribute name="InvTypeCode"                 type="def_invTypeCode_string"/>
                         <xs:attribute name="InvCode"                     type="def_nonempty_string"/>
+                        <xs:attribute name="AllInvCode"                  type="def_bool"/>
                       </xs:complexType>
                     </xs:element>
 
+                    <xs:element name="InvCounts" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="InvCount" maxOccurs="3">
+                            <xs:complexType>
+                              <xs:attribute name="CountType" use="required">
+                                <xs:simpleType>
+                                  <xs:restriction base="xs:string">
+                                    <xs:enumeration value="2"/>
+                                    <xs:enumeration value="6"/>
+                                    <xs:enumeration value="9"/>
+                                  </xs:restriction>
+                                </xs:simpleType>
+                              </xs:attribute>
+
+                              <xs:attribute name="Count" use="required" type="def_int_ge0" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
                   </xs:sequence>
-                  <xs:attribute name="BookingLimitMessageType">
-                    <xs:simpleType>
-                      <xs:restriction base="xs:string">
-                        <xs:enumeration value="SetLimit"/>
-                      </xs:restriction>
-                    </xs:simpleType>
-                  </xs:attribute>
-                  <xs:attribute name="BookingLimit" type="def_int_ge0"/>
-                  <xs:attribute name="BookingThreshold" type="def_int_ge0"/>
                 </xs:complexType>
               </xs:element>
-
             </xs:sequence>
             <xs:attribute name="HotelCode" type="def_nonempty_string"/>
             <xs:attribute name="HotelName" type="def_nonempty_string"/>
           </xs:complexType>
         </xs:element>
-
       </xs:sequence>
-      <xs:attribute name="Version" use="required"/>
-      <xs:attribute name="TimeStamp"/>
+      <xs:attribute name="Version" use="required" />
     </xs:complexType>
   </xs:element>
 
-  <!-- FreeRooms: OTA_HotelAvailNotifRS -->
+  <!-- FreeRooms: OTA_HotelInvCountNotifRS -->
 
-  <xs:element name="OTA_HotelAvailNotifRS">
+  <xs:element name="OTA_HotelInvCountNotifRS">
     <xs:complexType>
       <xs:group   ref="def_generic_response"/>
       <xs:attribute name="Version" use="required"/>
       <xs:attribute name="TimeStamp"/>
     </xs:complexType>
   </xs:element>
-
 
   <!-- ******************************************************************************* -->
   <!-- * GuestRequests                                                                 -->

@@ -8,6 +8,9 @@
 
      changelog:
 
+    v. 2020-10  1.0    FreeRooms: change definition of FreeRooms, since that action has completely been rewritten
+
+
     v. 2018-10  1.3    more things changed related to the new section "Responses with a request for complete sets of data":
 
                        - added "11" as allowed value for the attribute Type of the Error elements
@@ -251,9 +254,9 @@
       <!-- * FreeRooms                                                                     -->
       <!-- ******************************************************************************* -->
 
-      <!-- FreeRooms: OTA_HotelAvailNotifRQ -->
+      <!-- FreeRooms: OTA_HotelInvCountNotifRQ -->
 
-      <rng:element name="OTA_HotelAvailNotifRQ">
+      <rng:element name="OTA_HotelInvCountNotifRQ">
 
         <!-- UniqueID {0,1} -->
 
@@ -274,9 +277,9 @@
           </rng:element>
         </rng:optional>
 
-        <!-- AvailStatusMessages {1} -->
+        <!-- Inventories {1} -->
 
-        <rng:element name="AvailStatusMessages">
+        <rng:element name="Inventories">
 
           <rng:oneOrMore>
             <rng:choice>
@@ -289,48 +292,54 @@
             </rng:choice>
           </rng:oneOrMore>
 
-          <!-- AvailStatusMessages > AvailStatusMessage (1,} -->
+          <!-- Inventories > Inventory (1,} -->
 
           <rng:oneOrMore>
-            <rng:element name="AvailStatusMessage">
+            <rng:element name="Inventory">
 
-              <!-- AvailStatusMessage is either empty or has
-                 attributes BookingLimit, BookingLimitMessageType, BookingThreshold (optional)
-                 and contains one StatusApplicationControl element -->
+              <!-- Inventory is either empty or contains one StatusApplicationControl element -->
 
               <rng:optional>
-
                 <rng:element name="StatusApplicationControl">
-
                   <rng:attribute name="Start">
                     <rng:ref name="def_date"/>
                   </rng:attribute>
                   <rng:attribute name="End">
                     <rng:ref name="def_date"/>
                   </rng:attribute>
-                  <rng:attribute name="InvTypeCode">
-                    <rng:ref name="def_invTypeCode_string"/>
-                  </rng:attribute>
+                  <rng:optional>
+                    <rng:attribute name="InvTypeCode">
+                      <rng:ref name="def_invTypeCode_string"/>
+                    </rng:attribute>
+                  </rng:optional>
                   <rng:optional>
                     <rng:attribute name="InvCode">
                       <rng:ref name="def_nonempty_string"/>
                     </rng:attribute>
                   </rng:optional>
-
+                  <rng:optional>
+                    <rng:attribute name="AllInvCode">
+                      <rng:ref name="def_bool"/>
+                    </rng:attribute>
+                  </rng:optional>
                 </rng:element>
+              </rng:optional>
 
-                <rng:attribute name="BookingLimit">
-                  <rng:ref name="def_int_ge0"/>
-                </rng:attribute>
-                <rng:optional>
-                  <rng:attribute name="BookingThreshold">
-                    <rng:ref name="def_int_ge0"/>
-                  </rng:attribute>
-                </rng:optional>
-                <rng:attribute name="BookingLimitMessageType">
-                  <rng:value type="string">SetLimit</rng:value>
-                </rng:attribute>
-
+              <rng:optional>
+                <rng:element name="InvCounts">
+                  <rng:element name="InvCount">
+                    <rng:attribute name="CountType">
+                      <rng:choice>
+                        <rng:value>2</rng:value>
+                        <rng:value>6</rng:value>
+                        <rng:value>9</rng:value>
+                      </rng:choice>
+                    </rng:attribute>
+                    <rng:attribute name="Count">
+                      <rng:ref name="def_int_ge0"/>
+                    </rng:attribute>
+                  </rng:element>
+                </rng:element>
               </rng:optional>
 
             </rng:element>
@@ -340,17 +349,14 @@
 
         <rng:attribute name="Version"/>
         <rng:optional>
-          <rng:attribute name="TimeStamp"/>
-        </rng:optional>
-        <rng:optional>
           <rng:attribute name="xsi:schemaLocation"/>
         </rng:optional>
 
       </rng:element>
 
-      <!-- FreeRooms: OTA_HotelAvailNotifRQ -->
+      <!-- FreeRooms: OTA_HotelInvCountNotifRS -->
 
-      <rng:element name="OTA_HotelAvailNotifRS">
+      <rng:element name="OTA_HotelInvCountNotifRS">
 
         <rng:ref name="def_generic_response"/>
 
