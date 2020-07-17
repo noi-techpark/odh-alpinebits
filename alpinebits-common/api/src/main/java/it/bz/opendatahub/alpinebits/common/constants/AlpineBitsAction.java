@@ -35,7 +35,7 @@ public final class AlpineBitsAction {
     // FreeRooms
 
     /**
-     * Value for "FreeRooms" action request parameter until and including AlpineBits 2020-18.
+     * Value for "FreeRooms" action request parameter up to AlpineBits 2018-10.
      *
      * A client​ sends​ room availability​ notifications to a server.
      */
