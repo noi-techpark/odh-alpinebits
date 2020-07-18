@@ -15,12 +15,12 @@ import it.bz.opendatahub.alpinebits.validation.context.ValidationContextProvider
 
 /**
  * Implementation of {@link ValidationContextProvider} that
- * produces a {@link FreeRoomsContext}.
+ * produces a {@link HotelAvailNotifContext}.
  */
-public class FreeRoomsContextProvider implements ValidationContextProvider<FreeRoomsContext> {
+public class HotelAvailNotifContextProvider implements ValidationContextProvider<HotelAvailNotifContext> {
 
     @Override
-    public FreeRoomsContext buildContext(Context ctx) {
+    public HotelAvailNotifContext buildContext(Context ctx) {
         if (ctx == null) {
             throw new IllegalArgumentException("Context is required");
         }
@@ -28,7 +28,7 @@ public class FreeRoomsContextProvider implements ValidationContextProvider<FreeR
         String version = ctx.getOrThrow(RequestContextKey.REQUEST_VERSION);
         Router router = ctx.getOrThrow(RouterContextKey.ALPINEBITS_ROUTER);
 
-        FreeRoomsContext.Builder builder = new FreeRoomsContext.Builder();
+        HotelAvailNotifContext.Builder builder = new HotelAvailNotifContext.Builder();
         if (router.isCapabilityDefined(version, AlpineBitsCapability.FREE_ROOMS_HOTEL_AVAIL_NOTIF_ACCEPT_DELTAS)) {
             builder.withDeltaSupport();
         }

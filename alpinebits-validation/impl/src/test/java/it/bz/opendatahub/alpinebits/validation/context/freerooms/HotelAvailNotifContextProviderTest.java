@@ -21,28 +21,28 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertTrue;
 
 /**
- * Tests for {@link FreeRoomsContextProvider}.
+ * Tests for {@link HotelAvailNotifContextProvider}.
  */
-public class FreeRoomsContextProviderTest {
+public class HotelAvailNotifContextProviderTest {
 
     private static final String ALPINEBITS_VERSION = AlpineBitsVersion.V_2017_10;
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void testBuildContext_ShouldThrow_WhenContextIsNull() {
-        new FreeRoomsContextProvider().buildContext(null);
+        new HotelAvailNotifContextProvider().buildContext(null);
     }
 
     @Test(expectedExceptions = RequiredContextKeyMissingException.class)
     public void testBuildContext_ShouldThrow_WhenVersionIsUndefined() {
         Context ctx = new SimpleContext();
-        new FreeRoomsContextProvider().buildContext(ctx);
+        new HotelAvailNotifContextProvider().buildContext(ctx);
     }
 
     @Test(expectedExceptions = RequiredContextKeyMissingException.class)
     public void testBuildContext_ShouldThrow_WhenRouterIsUndefined() {
         Context ctx = new SimpleContext();
         ctx.put(RequestContextKey.REQUEST_VERSION, AlpineBitsVersion.V_2017_10);
-        new FreeRoomsContextProvider().buildContext(ctx);
+        new HotelAvailNotifContextProvider().buildContext(ctx);
     }
 
     @Test
@@ -53,8 +53,8 @@ public class FreeRoomsContextProviderTest {
                 RouterContextKey.ALPINEBITS_ROUTER,
                 this.buildRouter(AlpineBitsCapability.FREE_ROOMS_HOTEL_AVAIL_NOTIF_ACCEPT_DELTAS)
         );
-        FreeRoomsContext freeRoomsContext = new FreeRoomsContextProvider().buildContext(ctx);
-        assertTrue(freeRoomsContext.isDeltaSupported());
+        HotelAvailNotifContext hotelAvailNotifContext = new HotelAvailNotifContextProvider().buildContext(ctx);
+        assertTrue(hotelAvailNotifContext.isDeltaSupported());
     }
 
     @Test
@@ -65,8 +65,8 @@ public class FreeRoomsContextProviderTest {
                 RouterContextKey.ALPINEBITS_ROUTER,
                 this.buildRouter(AlpineBitsCapability.FREE_ROOMS_HOTEL_AVAIL_NOTIF_ACCEPT_BOOKING_THRESHOLD)
         );
-        FreeRoomsContext freeRoomsContext = new FreeRoomsContextProvider().buildContext(ctx);
-        assertTrue(freeRoomsContext.isFreeButNotBookableSupported());
+        HotelAvailNotifContext hotelAvailNotifContext = new HotelAvailNotifContextProvider().buildContext(ctx);
+        assertTrue(hotelAvailNotifContext.isFreeButNotBookableSupported());
     }
 
     @Test
@@ -77,8 +77,8 @@ public class FreeRoomsContextProviderTest {
                 RouterContextKey.ALPINEBITS_ROUTER,
                 this.buildRouter(AlpineBitsCapability.FREE_ROOMS_HOTEL_AVAIL_NOTIF_ACCEPT_CATEGORIES)
         );
-        FreeRoomsContext freeRoomsContext = new FreeRoomsContextProvider().buildContext(ctx);
-        assertTrue(freeRoomsContext.isRoomCategoriesSupported());
+        HotelAvailNotifContext hotelAvailNotifContext = new HotelAvailNotifContextProvider().buildContext(ctx);
+        assertTrue(hotelAvailNotifContext.isRoomCategoriesSupported());
     }
 
     @Test
@@ -89,8 +89,8 @@ public class FreeRoomsContextProviderTest {
                 RouterContextKey.ALPINEBITS_ROUTER,
                 this.buildRouter(AlpineBitsCapability.FREE_ROOMS_HOTEL_AVAIL_NOTIF_ACCEPT_ROOMS)
         );
-        FreeRoomsContext freeRoomsContext = new FreeRoomsContextProvider().buildContext(ctx);
-        assertTrue(freeRoomsContext.isDistinctRoomsSupported());
+        HotelAvailNotifContext hotelAvailNotifContext = new HotelAvailNotifContextProvider().buildContext(ctx);
+        assertTrue(hotelAvailNotifContext.isDistinctRoomsSupported());
     }
 
     private Router buildRouter(String... capabilities) {

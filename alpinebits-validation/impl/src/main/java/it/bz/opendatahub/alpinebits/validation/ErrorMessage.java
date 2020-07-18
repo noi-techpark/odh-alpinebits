@@ -41,6 +41,10 @@ public final class ErrorMessage {
             DefaultErrorMessage.expectNullErrorMessage(Names.BOOKING_THRESHOLD);
     public static final String EXPECT_CATEGORY_TO_BE_NOT_NULL =
             DefaultErrorMessage.expectNotNullErrorMessage(Names.CATEGORY);
+    public static final String EXPECT_CLOSING_SEASON_TO_BE_ON_TOP_OF_LIST =
+            "All closing-seasons Inventory elements must be on top of the Inventories list";
+    public static final String EXPECT_CLOSING_SEASON_TO_HAVE_ALL_INV_CODE_SET_TO_TRUE =
+            "A closing-seasons StatusApplicationControl element's AllInvCode must be set to true";
     public static final String EXPECT_CODE_TO_BE_NOT_NULL =
             DefaultErrorMessage.expectNotNullErrorMessage(Names.CODE);
     public static final String EXPECT_COMPANY_NAME_TO_BE_NULL =
@@ -75,6 +79,21 @@ public final class ErrorMessage {
             DefaultErrorMessage.expectNotNullErrorMessage(Names.HOTEL_DESCRIPTIVE_CONTENTS);
     public static final String EXPECT_HOTEL_INFO_TO_BE_NULL =
             DefaultErrorMessage.expectNullErrorMessage(Names.HOTEL_INFO);
+    public static final String EXPECT_HOTEL_INV_COUNT_NOTIF_RQ_TO_BE_NOT_NULL =
+            DefaultErrorMessage.expectNotNullErrorMessage(Names.OTA_HOTEL_INV_COUNT_NOTIF_RQ);
+    public static final String EXPECT_HOTEL_INV_COUNT_NOTIF_SUPPORT_FOR_CATEGORIES =
+            "The server doesn't support room categories (OTA_HotelInvCountNotif_accept_categories capability not set)";
+    public static final String EXPECT_HOTEL_INV_COUNT_NOTIF_SUPPORT_FOR_CLOSING_SEASONS =
+            "The server doesn't support closing seasons (OTA_HotelInvCountNotif_accept_closing_seasons capability not set)";
+    public static final String EXPECT_HOTEL_INV_COUNT_NOTIF_SUPPORT_FOR_DELTAS =
+            "The server doesn't support delta updates (OTA_HotelInvCountNotif_accept_deltas capability not set)." +
+                    " UniqueID element required.";
+    public static final String EXPECT_HOTEL_INV_COUNT_NOTIF_SUPPORT_FOR_OUT_OF_MARKET =
+            "The server doesn't support out-of-market rooms (OTA_HotelInvCountNotif_accept_out_of_market capability not set)";
+    public static final String EXPECT_HOTEL_INV_COUNT_NOTIF_SUPPORT_FOR_OUT_OF_ORDER =
+            "The server doesn't support out-of-order rooms (OTA_HotelInvCountNotif_accept_out_of_order capability not set)";
+    public static final String EXPECT_HOTEL_INV_COUNT_NOTIF_SUPPORT_FOR_ROOMS =
+            "The server doesn't support distinct rooms (OTA_HotelInvCountNotif_accept_rooms capability not set)";
     public static final String EXPECT_ID_CONTEXT_TO_BE_NULL =
             DefaultErrorMessage.expectNullErrorMessage(Names.ID_CONTEXT);
     public static final String EXPECT_ID_TO_BE_NOT_NULL =
@@ -105,6 +124,16 @@ public final class ErrorMessage {
             "Instance attribute must have the value 'CompleteSet'";
     public static final String EXPECT_INSTANCE_TO_BE_NOT_NULL =
             DefaultErrorMessage.expectNotNullErrorMessage(Names.INSTANCE);
+    public static final String EXPECT_INVENTORIES_TO_BE_NOT_NULL =
+            DefaultErrorMessage.expectNotNullErrorMessage(Names.INVENTORIES);
+    public static final String EXPECT_INVENTORIES_LIST_TO_BE_NOT_EMPTY =
+            "The list of Inventories elements is expected to contain elements";
+    public static final String EXPECT_COUNT_TYPE_TO_BE_ONE_OF_2_6_9 =
+            "The CountType attribute is expected to have a value of \"2\", \"6\" or \"9\"";
+    public static final String EXPECT_INV_COUNTS_TO_HAVE_BETWEEN_ONE_AND_THREE_ELEMENTS =
+            "The list of InvCount elements is expected to have between one and three elements, but %s elements found";
+    public static final String EXPECT_INV_COUNTS_TO_BE_NULL =
+            DefaultErrorMessage.expectNullErrorMessage(Names.INV_COUNTS);
     public static final String EXPECT_INV_TYPE_CODE_TO_BE_NOT_NULL =
             DefaultErrorMessage.expectNotNullErrorMessage(Names.INV_TYPE_CODE);
     public static final String EXPECT_LANGUAGE_ISO639_1_CODE_TO_BE_DEFINED =
@@ -129,6 +158,8 @@ public final class ErrorMessage {
             DefaultErrorMessage.expectNullErrorMessage(Names.MULTIMEDIA_DESCRIPTIONS);
     public static final String EXPECT_MULTIMEDIA_DESCRIPTIONS_TO_HAVE_AT_MOST_THREE_ELEMENTS
             = "At most 3 MultimediaDescription elements are allowed per GuestRoom";
+    public static final String EXPECT_NO_DUPLICATE_COUNT_TYPE
+            = "More than one InvCount element with CountType '%s' found";
     public static final String EXPECT_NO_DUPLICATE_INFO_CODE
             = "More than one MultimediaDescription elements with InfoCode '%s' found";
     public static final String EXPECT_NO_DUPLICATE_LANGUAGE_AND_TEXT_FORMAT =

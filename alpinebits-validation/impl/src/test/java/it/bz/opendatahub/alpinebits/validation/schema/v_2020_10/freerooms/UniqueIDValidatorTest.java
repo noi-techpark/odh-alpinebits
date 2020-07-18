@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.freerooms;
+package it.bz.opendatahub.alpinebits.validation.schema.v_2020_10.freerooms;
 
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.NullValidationException;
@@ -23,7 +23,7 @@ public class UniqueIDValidatorTest extends AbstractUniqueIDValidatorTest {
 
     @Test
     public void testValidate_ShouldThrow_WhenDeltasNotSupportedAndUniqueIDIsNull() {
-        this.validateAndAssert(null, false, NullValidationException.class, ErrorMessage.EXPECT_UNIQUE_ID_TO_BE_NOT_NULL);
+        this.validateAndAssert(null, false, NullValidationException.class, ErrorMessage.EXPECT_HOTEL_INV_COUNT_NOTIF_SUPPORT_FOR_DELTAS);
     }
 
     protected void validateAndAssert(
@@ -32,7 +32,7 @@ public class UniqueIDValidatorTest extends AbstractUniqueIDValidatorTest {
             Class<? extends ValidationException> exceptionClass,
             String errorMessage
     ) {
-        UniqueIDValidator validator = new UniqueIDValidator(ErrorMessage.EXPECT_UNIQUE_ID_TO_BE_NOT_NULL);
+        UniqueIDValidator validator = new UniqueIDValidator();
 
         // CHECKSTYLE:OFF
         Exception e = expectThrows(

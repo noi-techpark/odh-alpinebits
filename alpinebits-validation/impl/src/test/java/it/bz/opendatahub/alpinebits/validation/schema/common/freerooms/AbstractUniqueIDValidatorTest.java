@@ -36,11 +36,6 @@ public abstract class AbstractUniqueIDValidatorTest {
     }
 
     @Test
-    public void testValidate_ShouldThrow_WhenDeltasNotSupportedAndUniqueIDIsNull() {
-        this.validateAndAssert(null, false, NullValidationException.class, ErrorMessage.EXPECT_UNIQUE_ID_TO_BE_NOT_NULL);
-    }
-
-    @Test
     public void testValidate_ShouldThrow_WhenTypeIsNull() {
         UniqueIDType uniqueID = this.buildValidUniqueID();
         uniqueID.setType(null);

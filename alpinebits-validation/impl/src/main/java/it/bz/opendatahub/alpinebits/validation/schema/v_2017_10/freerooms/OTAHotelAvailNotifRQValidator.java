@@ -13,7 +13,7 @@ import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
 import it.bz.opendatahub.alpinebits.validation.context.freerooms.AvailStatusMessagesContext;
-import it.bz.opendatahub.alpinebits.validation.context.freerooms.FreeRoomsContext;
+import it.bz.opendatahub.alpinebits.validation.context.freerooms.HotelAvailNotifContext;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelAvailNotifRQ;
 
 /**
@@ -22,18 +22,18 @@ import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelAvailNotifRQ;
  *
  * @see OTAHotelAvailNotifRQ
  */
-public class OTAHotelAvailNotifRQValidator implements Validator<OTAHotelAvailNotifRQ, FreeRoomsContext> {
+public class OTAHotelAvailNotifRQValidator implements Validator<OTAHotelAvailNotifRQ, HotelAvailNotifContext> {
 
     public static final String ELEMENT_NAME = Names.OTA_HOTEL_AVAIL_NOTIF_RQ;
     public static final String COMPLETE_SET = "CompleteSet";
 
     private static final ValidationHelper VALIDATOR = ValidationHelper.withClientDataError();
 
-    private final UniqueIDValidator uniqueIDValidator = new UniqueIDValidator();
+    private final UniqueIDValidator uniqueIDValidator = new UniqueIDValidator(ErrorMessage.EXPECT_UNIQUE_ID_TO_BE_NOT_NULL);
     private final AvailStatusMessagesValidator availStatusMessagesValidator = new AvailStatusMessagesValidator();
 
     @Override
-    public void validate(OTAHotelAvailNotifRQ hotelAvailNotifRQ, FreeRoomsContext ctx, ValidationPath unused) {
+    public void validate(OTAHotelAvailNotifRQ hotelAvailNotifRQ, HotelAvailNotifContext ctx, ValidationPath unused) {
         // Initialize validation path
         ValidationPath path = SimpleValidationPath.fromPath(ELEMENT_NAME);
 
@@ -58,11 +58,11 @@ public class OTAHotelAvailNotifRQValidator implements Validator<OTAHotelAvailNot
         );
     }
 
-    private AvailStatusMessagesContext buildAvailStatusContext(OTAHotelAvailNotifRQ hotelAvailNotifRQ, FreeRoomsContext ctx) {
+    private AvailStatusMessagesContext buildAvailStatusContext(OTAHotelAvailNotifRQ hotelAvailNotifRQ, HotelAvailNotifContext ctx) {
         String instance = hotelAvailNotifRQ.getUniqueID() != null
                 ? hotelAvailNotifRQ.getUniqueID().getInstance()
                 : null;
-        return AvailStatusMessagesContext.fromFreeRoomsContext(instance, ctx);
+        return AvailStatusMessagesContext.fromHotelAvailNotifContext(instance, ctx);
     }
 
 }

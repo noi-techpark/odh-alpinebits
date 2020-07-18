@@ -6,9 +6,12 @@
 
 package it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.freerooms;
 
+import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
+import it.bz.opendatahub.alpinebits.validation.NullValidationException;
 import it.bz.opendatahub.alpinebits.validation.ValidationException;
 import it.bz.opendatahub.alpinebits.validation.schema.common.freerooms.AbstractUniqueIDValidatorTest;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.UniqueIDType;
+import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.expectThrows;
@@ -17,6 +20,11 @@ import static org.testng.Assert.expectThrows;
  * Tests for {@link UniqueIDValidator}.
  */
 public class UniqueIDValidatorTest extends AbstractUniqueIDValidatorTest {
+
+    @Test
+    public void testValidate_ShouldThrow_WhenDeltasNotSupportedAndUniqueIDIsNull() {
+        this.validateAndAssert(null, false, NullValidationException.class, ErrorMessage.EXPECT_UNIQUE_ID_TO_BE_NOT_NULL);
+    }
 
     protected void validateAndAssert(
             UniqueIDType data,

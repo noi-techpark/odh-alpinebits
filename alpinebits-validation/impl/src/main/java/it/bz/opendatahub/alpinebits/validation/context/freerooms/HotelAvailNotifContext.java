@@ -7,16 +7,17 @@
 package it.bz.opendatahub.alpinebits.validation.context.freerooms;
 
 /**
- * This context contains information about FreeRooms capabilities.
+ * This context contains information about FreeRooms capabilities
+ * for AlpineBits versions up to 2018-10.
  */
-public final class FreeRoomsContext {
+public final class HotelAvailNotifContext {
 
     private final boolean roomCategoriesSupported;
     private final boolean distinctRoomsSupported;
     private final boolean deltaSupported;
     private final boolean freeButNotBookableSupported;
 
-    private FreeRoomsContext(
+    private HotelAvailNotifContext(
             boolean roomCategoriesSupported,
             boolean distinctRoomsSupported,
             boolean deltaSupported,
@@ -55,7 +56,7 @@ public final class FreeRoomsContext {
     }
 
     /**
-     * Builder for {@link FreeRoomsContext}.
+     * Builder for {@link HotelAvailNotifContext}.
      */
     public static class Builder {
         private boolean roomCategoriesSupported;
@@ -63,8 +64,8 @@ public final class FreeRoomsContext {
         private boolean deltaSupported;
         private boolean freeButNotBookableSupported;
 
-        public FreeRoomsContext build() {
-            return new FreeRoomsContext(
+        public HotelAvailNotifContext build() {
+            return new HotelAvailNotifContext(
                     this.roomCategoriesSupported,
                     this.distinctRoomsSupported,
                     this.deltaSupported,

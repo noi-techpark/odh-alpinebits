@@ -4,15 +4,15 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.freerooms.fromxml;
+package it.bz.opendatahub.alpinebits.validation.schema.v_2020_10.freerooms.fromxml;
 
 import it.bz.opendatahub.alpinebits.validation.XmlSchemaType;
-import it.bz.opendatahub.alpinebits.validation.context.freerooms.HotelAvailNotifContext;
-import it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.freerooms.OTAHotelAvailNotifRQValidator;
+import it.bz.opendatahub.alpinebits.validation.context.freerooms.HotelInvCountNotifContext;
+import it.bz.opendatahub.alpinebits.validation.schema.v_2020_10.freerooms.OTAHotelInvCountNotifRQValidator;
 import it.bz.opendatahub.alpinebits.xml.JAXBXmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlValidationSchemaProvider;
-import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelAvailNotifRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelInvCountNotifRQ;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -22,35 +22,38 @@ import java.io.InputStream;
 import static org.testng.Assert.expectThrows;
 
 /**
- * Tests with OTAHotelAvailNotifRQ XML documents.
+ * Tests with OTAHotelInvCountNotifRQ XML documents.
  */
 public class FreeRoomsFromXmlTest {
 
-    private final Schema xsdSchema = XmlValidationSchemaProvider.buildXsdSchemaForAlpineBitsVersion("2018-10");
-    private final Schema rngSchema = XmlValidationSchemaProvider.buildRngSchemaForAlpineBitsVersion("2018-10");
+    private final Schema xsdSchema = XmlValidationSchemaProvider.buildXsdSchemaForAlpineBitsVersion("2020-10");
+    private final Schema rngSchema = XmlValidationSchemaProvider.buildRngSchemaForAlpineBitsVersion("2020-10");
 
-    private XmlToObjectConverter<OTAHotelAvailNotifRQ> withXsdSchema;
-    private XmlToObjectConverter<OTAHotelAvailNotifRQ> withRngSchema;
+    private XmlToObjectConverter<OTAHotelInvCountNotifRQ> withXsdSchema;
+    private XmlToObjectConverter<OTAHotelInvCountNotifRQ> withRngSchema;
 
     @BeforeClass
     public void beforeClass() {
-        this.withXsdSchema = new JAXBXmlToObjectConverter.Builder<>(OTAHotelAvailNotifRQ.class).schema(xsdSchema).build();
-        this.withRngSchema = new JAXBXmlToObjectConverter.Builder<>(OTAHotelAvailNotifRQ.class).schema(rngSchema).build();
+        this.withXsdSchema = new JAXBXmlToObjectConverter.Builder<>(OTAHotelInvCountNotifRQ.class).schema(xsdSchema).build();
+        this.withRngSchema = new JAXBXmlToObjectConverter.Builder<>(OTAHotelInvCountNotifRQ.class).schema(rngSchema).build();
     }
 
     @Test(dataProvider = "xml", dataProviderClass = XmlDataProvider.class)
-    public void testXml(String xmlFile, HotelAvailNotifContext ctx, XmlSchemaType xmlSchemaType, Class<Exception> exceptionClass) {
-        String filename = "examples/v_2018_10/freerooms/" + xmlFile;
+    public void testXml(String xmlFile, HotelInvCountNotifContext ctx, XmlSchemaType xmlSchemaType, Class<Exception> exceptionClass) {
+        String filename = "examples/v_2020_10/freerooms/" + xmlFile;
         InputStream is = this.getClass().getClassLoader().getResourceAsStream(filename);
 
-        XmlToObjectConverter<OTAHotelAvailNotifRQ> xmlConverter = this.getConverter(xmlSchemaType);
+        XmlToObjectConverter<OTAHotelInvCountNotifRQ> xmlConverter = this.getConverter(xmlSchemaType);
 
-        OTAHotelAvailNotifRQValidator validator = new OTAHotelAvailNotifRQValidator();
+        OTAHotelInvCountNotifRQValidator validator = new OTAHotelInvCountNotifRQValidator();
+
+//        OTAHotelInvCountNotifRQ rq = xmlConverter.toObject(is);
+//        validator.validate(rq, ctx, null);
 
         if (exceptionClass == null) {
             // Expect no exception
 
-            OTAHotelAvailNotifRQ rq = xmlConverter.toObject(is);
+            OTAHotelInvCountNotifRQ rq = xmlConverter.toObject(is);
             validator.validate(rq, ctx, null);
         } else {
             // Expect exception
@@ -64,7 +67,7 @@ public class FreeRoomsFromXmlTest {
                     exceptionClass,
                     // CHECKSTYLE:OFF
                     () -> {
-                        OTAHotelAvailNotifRQ rq = xmlConverter.toObject(is);
+                        OTAHotelInvCountNotifRQ rq = xmlConverter.toObject(is);
                         validator.validate(rq, ctx, null);
                     }
                     // CHECKSTYLE:ON
@@ -72,7 +75,7 @@ public class FreeRoomsFromXmlTest {
         }
     }
 
-    private XmlToObjectConverter<OTAHotelAvailNotifRQ> getConverter(XmlSchemaType xmlSchemaType) {
+    private XmlToObjectConverter<OTAHotelInvCountNotifRQ> getConverter(XmlSchemaType xmlSchemaType) {
         if (XmlSchemaType.XSD_SCHEMA.equals(xmlSchemaType)) {
             return this.withXsdSchema;
         }

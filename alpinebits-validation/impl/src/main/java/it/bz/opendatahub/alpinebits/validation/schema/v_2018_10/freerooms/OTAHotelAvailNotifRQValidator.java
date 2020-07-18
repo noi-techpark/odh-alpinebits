@@ -9,7 +9,7 @@ package it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.freerooms;
 import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
-import it.bz.opendatahub.alpinebits.validation.context.freerooms.FreeRoomsContext;
+import it.bz.opendatahub.alpinebits.validation.context.freerooms.HotelAvailNotifContext;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelAvailNotifRQ;
 
 /**
@@ -18,15 +18,15 @@ import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelAvailNotifRQ;
  *
  * @see OTAHotelAvailNotifRQ
  */
-public class OTAHotelAvailNotifRQValidator implements Validator<OTAHotelAvailNotifRQ, FreeRoomsContext> {
+public class OTAHotelAvailNotifRQValidator implements Validator<OTAHotelAvailNotifRQ, HotelAvailNotifContext> {
 
     public static final String ELEMENT_NAME = Names.OTA_HOTEL_AVAIL_NOTIF_RQ;
 
-    private static final Validator<OTAHotelAvailNotifRQ, FreeRoomsContext> VALIDATION_DELEGATE =
+    private static final Validator<OTAHotelAvailNotifRQ, HotelAvailNotifContext> VALIDATION_DELEGATE =
             new it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.freerooms.OTAHotelAvailNotifRQValidator();
 
     @Override
-    public void validate(OTAHotelAvailNotifRQ hotelAvailNotifRQ, FreeRoomsContext ctx, ValidationPath unused) {
+    public void validate(OTAHotelAvailNotifRQ hotelAvailNotifRQ, HotelAvailNotifContext ctx, ValidationPath unused) {
         // Delegate validation to AlpineBits 2017 implementation,
         // since the validation remains the same
         VALIDATION_DELEGATE.validate(hotelAvailNotifRQ, ctx, unused);

@@ -15,6 +15,7 @@ package it.bz.opendatahub.alpinebits.validation;
 public final class Names {
 
     public static final String AFFILIATION_INFO = "AffiliationInfo";
+    public static final String ALL_INV_CODE = "AllInvCode";
     public static final String AMENITIES = "Amenities";
     public static final String AMENITY = "Amenity";
     public static final String AVAIL_STATUS_MESSAGES = "AvailStatusMessages";
@@ -28,6 +29,7 @@ public final class Names {
     public static final String COMPANY_NAME = "CompanyName";
     public static final String CONTACT_INFOS = "ContactInfos";
     public static final String CONTEXT = "Context";
+    public static final String COUNT_TYPE = "CountType";
     public static final String DESCRIPTION = "Description";
     public static final String DESCRIPTION_LIST = "Description[]";
     public static final String DESCRIPTIONS = "Descriptions";
@@ -49,6 +51,11 @@ public final class Names {
     public static final String IMAGE_ITEMS = "ImageItems";
     public static final String INFO_CODE = "InfoCode";
     public static final String INSTANCE = "Instance";
+    public static final String INVENTORIES = "Inventories";
+    public static final String INVENTORIES_LIST = "Inventories[]";
+    public static final String INVENTORY = "Inventory";
+    public static final String INV_COUNT = "InvCount";
+    public static final String INV_COUNTS = "InvCounts";
     public static final String INV_TYPE_CODE = "InvTypeCode";
     public static final String LANGUAGE = "Language";
     public static final String MAX_OCCUPANCY = "MaxOccupancy";
@@ -59,6 +66,7 @@ public final class Names {
     public static final String MULTIMEDIA_DESCRIPTIONS = "MultimediaDescriptions";
     public static final String OTA_HOTEL_AVAIL_NOTIF_RQ = "OTA_HotelAvailNotifRQ";
     public static final String OTA_HOTEL_DESCRIPTIVE_CONTENT_NOTIF_RQ = "OTA_HotelDescriptiveContentNotifRQ";
+    public static final String OTA_HOTEL_INV_COUNT_NOTIF_RQ = "OTA_HotelInvCountNotifRQ";
     public static final String PLAIN_TEXT = "PlainText";
     public static final String POLICIES = "Policies";
     public static final String ROOM_AMENITY_CODE = "RoomAmenityCode";

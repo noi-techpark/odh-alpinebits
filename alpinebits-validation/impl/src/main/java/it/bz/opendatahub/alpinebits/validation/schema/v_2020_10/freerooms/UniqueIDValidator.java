@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.freerooms;
+package it.bz.opendatahub.alpinebits.validation.schema.v_2020_10.freerooms;
 
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
@@ -13,7 +13,7 @@ import it.bz.opendatahub.alpinebits.validation.Validator;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.UniqueIDType;
 
 /**
- * Use this validator to validate the UniqueID in AlpineBits 2018
+ * Use this validator to validate the UniqueID in AlpineBits 2020
  * FreeRooms documents.
  *
  * @see UniqueIDType
@@ -24,7 +24,7 @@ public class UniqueIDValidator implements Validator<UniqueIDType, Boolean> {
 
     private static final Validator<UniqueIDType, Boolean> VALIDATION_DELEGATE =
             new it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.freerooms.UniqueIDValidator(
-                    ErrorMessage.EXPECT_UNIQUE_ID_TO_BE_NOT_NULL
+                    ErrorMessage.EXPECT_HOTEL_INV_COUNT_NOTIF_SUPPORT_FOR_DELTAS
             );
 
     @Override

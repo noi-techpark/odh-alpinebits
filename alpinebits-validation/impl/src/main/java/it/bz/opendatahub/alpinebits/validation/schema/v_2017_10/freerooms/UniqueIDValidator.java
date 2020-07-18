@@ -28,6 +28,12 @@ public class UniqueIDValidator implements Validator<UniqueIDType, Boolean> {
 
     private static final ValidationHelper VALIDATOR = ValidationHelper.withClientDataError();
 
+    private final String noDeltaUpdateSupportErrorMessage;
+
+    public UniqueIDValidator(String noDeltaUpdateSupportErrorMessage) {
+        this.noDeltaUpdateSupportErrorMessage = noDeltaUpdateSupportErrorMessage;
+    }
+
     @Override
     public void validate(UniqueIDType uniqueID, Boolean supportsDeltas, ValidationPath path) {
         VALIDATOR.expectNotNull(supportsDeltas, ErrorMessage.EXPECT_CONTEXT_TO_BE_NOT_NULL, path);
@@ -45,7 +51,7 @@ public class UniqueIDValidator implements Validator<UniqueIDType, Boolean> {
         // UniqueID is required (the existence of UniqueID
         // means that complete information is send).
         if (Boolean.FALSE.equals(supportsDeltas)) {
-            VALIDATOR.expectNotNull(uniqueID, ErrorMessage.EXPECT_UNIQUE_ID_TO_BE_NOT_NULL, path);
+            VALIDATOR.expectNotNull(uniqueID, noDeltaUpdateSupportErrorMessage, path);
 
             this.validateUniqueId(uniqueID, path);
         }
