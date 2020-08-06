@@ -6,10 +6,12 @@
 
 package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory.common;
 
+import it.bz.opendatahub.alpinebits.xml.schema.ota.FormattedTextTextType;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.ImageDescriptionType;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.ImageItemsType.ImageItem;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.TextDescriptionType;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.TextItemsType.TextItem;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.VideoDescriptionType;
 
 import java.util.List;
 import java.util.Objects;
@@ -42,6 +44,16 @@ public class Description {
                 .collect(Collectors.toList());
     }
 
+    public static Description fromFormattedTextTextType(FormattedTextTextType fttt) {
+        return new Description(fttt.getValue(), fttt.getTextFormat(), fttt.getLanguage());
+    }
+
+    public static List<Description> fromFormattedTextTextTypes(List<FormattedTextTextType> descriptions) {
+        return descriptions.stream()
+                .map(Description::fromFormattedTextTextType)
+                .collect(Collectors.toList());
+    }
+
     public static Description fromTextItemDescription(TextDescriptionType.Description iid) {
         return new Description(iid.getValue(), iid.getTextFormat(), iid.getLanguage());
     }
@@ -51,6 +63,18 @@ public class Description {
                 .map(Description::fromTextItemDescription)
                 .collect(Collectors.toList());
     }
+
+    public static Description fromVideoItemDescription(VideoDescriptionType.Description iid) {
+        return new Description(iid.getValue(), iid.getTextFormat(), iid.getLanguage());
+    }
+
+    public static List<Description> fromVideoItemDescriptions(List<VideoDescriptionType.Description> descriptions) {
+        return descriptions.stream()
+                .map(Description::fromVideoItemDescription)
+                .collect(Collectors.toList());
+    }
+
+
 
     public String getValue() {
         return value;

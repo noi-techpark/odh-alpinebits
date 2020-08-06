@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory;
+package it.bz.opendatahub.alpinebits.validation.schema.v_2020_10.inventory;
 
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsAction;
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
@@ -13,10 +13,11 @@ import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
 import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
+import it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory.FacilityInfoValidator;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent;
 
 /**
- * Use this validator to validate the HotelDescriptiveContent in AlpineBits 2017
+ * Use this validator to validate the HotelDescriptiveContent in AlpineBits 2020
  * Inventory documents.
  *
  * @see HotelDescriptiveContent
@@ -27,7 +28,13 @@ public class HotelDescriptiveContentValidator implements Validator<HotelDescript
 
     private static final ValidationHelper VALIDATOR = ValidationHelper.withClientDataError();
 
-    private final FacilityInfoValidator facilityInfoValidator = new FacilityInfoValidator();
+    private final it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory.FacilityInfoValidator facilityInfoValidator
+            = new it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory.FacilityInfoValidator();
+
+    private final HotelInfoValidator hotelInfoValidator = new HotelInfoValidator();
+    private final PoliciesValidator policiesValidator = new PoliciesValidator();
+    private final AffiliationInfoValidator affiliationInfoValidator = new AffiliationInfoValidator();
+    private final ContactInfosValidator contactInfosValidator = new ContactInfosValidator();
 
     @Override
     public void validate(HotelDescriptiveContent hotelDescriptiveContent, InventoryContext ctx, ValidationPath path) {
@@ -41,14 +48,13 @@ public class HotelDescriptiveContentValidator implements Validator<HotelDescript
                 path.withAttribute(String.format("%s/%s", Names.HOTEL_CODE, Names.HOTEL_NAME))
         );
 
-        // Check, that the following elements are not present in
-        // an Inventory/Basic push document (although they are optional
-        // in an Inventory/HotelInfo push document):
-        // - HotelInfo
-        // - Policies
-        // - AffilitationInfo
-        // - ContactInfos
         if (isInventoryBasicAction(ctx)) {
+            // In Inventory/Basic, the following elements must not be present
+            // - HotelInfo
+            // - Policies
+            // - AffilitationInfo
+            // - ContactInfos
+
             VALIDATOR.expectNull(
                     hotelDescriptiveContent.getHotelInfo(),
                     ErrorMessage.EXPECT_HOTEL_INFO_TO_BE_NULL,
@@ -69,16 +75,46 @@ public class HotelDescriptiveContentValidator implements Validator<HotelDescript
                     ErrorMessage.EXPECT_CONTACT_INFOS_TO_BE_NULL,
                     path.withElement(Names.POLICIES)
             );
-        }
 
-        this.facilityInfoValidator.validate(
-                hotelDescriptiveContent.getFacilityInfo(),
-                ctx,
-                path.withElement(FacilityInfoValidator.ELEMENT_NAME)
-        );
+            // Validate FacilityInfo
+            this.facilityInfoValidator.validate(
+                    hotelDescriptiveContent.getFacilityInfo(),
+                    ctx,
+                    path.withElement(FacilityInfoValidator.ELEMENT_NAME)
+            );
+        } else {
+            // In Inventory/HotelInfo, the following elements must not be present
+
+            VALIDATOR.expectNull(
+                    hotelDescriptiveContent.getFacilityInfo(),
+                    ErrorMessage.EXPECT_FACILITY_INFO_TO_BE_NULL,
+                    path.withElement(Names.FACILITY_INFO)
+            );
+
+            // HotelInfo is optional
+            if (hotelDescriptiveContent.getHotelInfo() != null) {
+                this.hotelInfoValidator.validate(hotelDescriptiveContent.getHotelInfo(), null, path.withElement(Names.HOTEL_INFO));
+            }
+
+            // Policies is optional
+            if (hotelDescriptiveContent.getPolicies() != null) {
+                this.policiesValidator.validate(hotelDescriptiveContent.getPolicies(), ctx, path.withElement(Names.POLICIES));
+            }
+
+            // AffiliationInfo is optional
+            if (hotelDescriptiveContent.getAffiliationInfo() != null) {
+                this.affiliationInfoValidator.validate(hotelDescriptiveContent.getAffiliationInfo(), ctx, path.withElement(Names.AFFILIATION_INFO));
+            }
+
+            // ContactInfos is optional
+            if (hotelDescriptiveContent.getContactInfos() != null) {
+                this.contactInfosValidator.validate(hotelDescriptiveContent.getContactInfos(), ctx, path.withElement(Names.CONTACT_INFOS));
+            }
+        }
     }
 
     private boolean isInventoryBasicAction(InventoryContext ctx) {
         return AlpineBitsAction.INVENTORY_BASIC_PUSH.equals(ctx.getAction());
     }
+
 }

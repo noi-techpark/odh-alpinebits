@@ -1795,7 +1795,7 @@
                                                           </xs:sequence>
                                                           <xs:attribute name="Title" type="def_nonempty_string" />
                                                           <xs:attribute name="CopyrightNotice" type="def_nonempty_string" />
-                                                          <xs:attribute name="SourceID" type="def_nonempty_string" use="required" />
+                                                          <xs:attribute name="SourceID" type="def_nonempty_string" />
                                                           <xs:attribute name="ApplicableStart">
                                                             <xs:simpleType>
                                                               <xs:restriction base="def_nonempty_string">

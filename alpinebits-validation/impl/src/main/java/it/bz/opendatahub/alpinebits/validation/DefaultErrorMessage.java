@@ -11,6 +11,7 @@ package it.bz.opendatahub.alpinebits.validation;
  */
 public final class DefaultErrorMessage {
 
+    public static final String EXPECT_AT_LEAST_ONE_SUB_ELEMENT = "Expecting at least one of the following sub elements (none found): '%s'";
     public static final String EXPECT_NOT_NULL = "Expecting not-null value but the validated object '%s' is null";
     public static final String EXPECT_NULL = "Expecting null value but the validated object '%s' is not null";
     public static final String EXPECT_EQUAL = "Expecting the validated objects '%s' and '%s' to be equal, but they are not";

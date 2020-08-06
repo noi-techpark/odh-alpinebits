@@ -106,7 +106,7 @@ public abstract class AbstractHotelDescriptiveContentValidatorTest {
                 content,
                 ctx,
                 NotNullValidationException.class,
-                ErrorMessage.EXPECT_AFFILITATION_INFO_TO_BE_NULL
+                ErrorMessage.EXPECT_AFFILIATION_INFO_TO_BE_NULL
         );
     }
 
