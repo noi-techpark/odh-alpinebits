@@ -62,7 +62,7 @@ public final class ValidationHelper {
         }
     }
 
-    public void expectNonEmptyCollection(Collection collection, String message, ValidationPath path) {
+    public void expectNonEmptyCollection(Collection<?> collection, String message, ValidationPath path) {
         if (collection.isEmpty()) {
             throw new EmptyCollectionValidationException(message + this.getPathMessage(path), errorCode);
         }
