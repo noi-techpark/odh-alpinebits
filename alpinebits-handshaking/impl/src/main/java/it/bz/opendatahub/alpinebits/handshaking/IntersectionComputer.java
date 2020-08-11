@@ -6,6 +6,7 @@
 
 package it.bz.opendatahub.alpinebits.handshaking;
 
+import it.bz.opendatahub.alpinebits.common.AlpineBitsVersionChecker;
 import it.bz.opendatahub.alpinebits.handshaking.dto.HandshakingData;
 import it.bz.opendatahub.alpinebits.handshaking.dto.SupportedAction;
 import it.bz.opendatahub.alpinebits.handshaking.dto.SupportedVersion;
@@ -33,8 +34,8 @@ public final class IntersectionComputer {
      * <p>
      * The result contains also information about AlpineBits legacy versions, as
      * defined in the AlpineBits 2018-10 standard, i.e. the result contains version
-     * information for legacy versions without the actions. See {@link LegacyVersions}
-     * for a list of all legacy versions.
+     * information for legacy versions without the actions. See
+     * {@link AlpineBitsVersionChecker} for a list of all legacy versions.
      * <p>
      * Please note, that the implemented algorithm returns empty sets instead of
      * null values, e.g. for the version-set when no versions match. This is best
@@ -93,7 +94,7 @@ public final class IntersectionComputer {
                     result.setVersion(version);
 
                     // Compute actions intersection for non-legacy AlpineBits versions (2018-10 going on)
-                    if (!LegacyVersions.isLegacy(version)) {
+                    if (!AlpineBitsVersionChecker.isLegacyVersion(version)) {
                         Set<SupportedAction> actionsIntersection = intersectActions(h1Version.getActions(), h2Version.getActions());
                         result.setActions(actionsIntersection);
                     }

@@ -42,19 +42,19 @@ public class ValidationMiddlewareTest {
 
     @Test(expectedExceptions = RequiredContextKeyMissingException.class)
     public void testHandleContext_ShouldThrow_WhenDataKeyIsNotFoundInContext() {
-        Middleware middleware = this.buildValidationDownstreamMiddleware();
+        Middleware middleware = this.buildRequestPhaseValidationMiddleware();
         Context ctx = new SimpleContext();
         middleware.handleContext(ctx, null);
     }
 
     @Test(expectedExceptions = RequiredContextKeyMissingException.class)
     public void testHandleContext_ShouldThrow_WhenValidationContextKeyIsNotFoundInContext() {
-        Middleware middleware = this.buildValidationDownstreamMiddleware();
+        Middleware middleware = this.buildRequestPhaseValidationMiddleware();
         Context ctx = new SimpleContext();
         middleware.handleContext(ctx, null);
     }
 
-    private Middleware buildValidationDownstreamMiddleware() {
+    private Middleware buildRequestPhaseValidationMiddleware() {
         return new ValidationMiddleware<>(
                 DEFAULT_DATA_KEY,
                 DEFAULT_VALIDATOR,

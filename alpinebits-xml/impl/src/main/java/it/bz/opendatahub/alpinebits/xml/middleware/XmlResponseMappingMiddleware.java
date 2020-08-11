@@ -28,11 +28,11 @@ import java.io.OutputStream;
  */
 public class XmlResponseMappingMiddleware<T> implements Middleware {
 
-    private final ObjectToXmlConverter<T> converter;
+    private final ObjectToXmlConverter converter;
     private final Key<T> responseDataCtxKey;
 
     public XmlResponseMappingMiddleware(
-            ObjectToXmlConverter<T> converter,
+            ObjectToXmlConverter converter,
             Key<T> responseDataCtxKey
     ) {
         if (converter == null) {

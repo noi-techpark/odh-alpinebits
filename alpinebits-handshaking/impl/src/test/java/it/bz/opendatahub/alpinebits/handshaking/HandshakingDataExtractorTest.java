@@ -15,8 +15,6 @@ import it.bz.opendatahub.alpinebits.handshaking.utils.RouterBuilder;
 import it.bz.opendatahub.alpinebits.handshaking.utils.RouterWithVersionsAndActions;
 import it.bz.opendatahub.alpinebits.routing.Router;
 import it.bz.opendatahub.alpinebits.routing.constants.Action;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionName;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionRequestParam;
 import org.testng.annotations.Test;
 
 import java.util.Collections;
@@ -33,8 +31,7 @@ import static org.testng.Assert.assertTrue;
 public class HandshakingDataExtractorTest {
 
     private static final String DEFAULT_VERSION = AlpineBitsVersion.V_2018_10;
-    private static final Action DEFAULT_ACTION =
-            Action.of(ActionRequestParam.of("action request param"), ActionName.of("action name"));
+    private static final Action DEFAULT_ACTION = Action.of("action request param", "action name");
     private static final String DEFAULT_CAPABILITY = "some capability";
     private static final Router DEFAULT_ROUTER = RouterBuilder.buildRouter(
             DEFAULT_VERSION,
@@ -83,7 +80,7 @@ public class HandshakingDataExtractorTest {
             Set<SupportedAction> actions = version.getActions();
             assertEquals(actions.size(), 1);
             actions.forEach(action -> {
-                assertEquals(action.getAction(), DEFAULT_ACTION.getName().getValue());
+                assertEquals(action.getAction(), DEFAULT_ACTION.getName());
 
                 Set<String> capabilities = action.getSupports();
                 assertTrue(capabilities.isEmpty());
@@ -103,7 +100,7 @@ public class HandshakingDataExtractorTest {
             Set<SupportedAction> actions = version.getActions();
             assertEquals(actions.size(), 1);
             actions.forEach(action -> {
-                assertEquals(action.getAction(), DEFAULT_ACTION.getName().getValue());
+                assertEquals(action.getAction(), DEFAULT_ACTION.getName());
 
                 Set<String> capabilities = action.getSupports();
                 assertEquals(capabilities, Collections.singleton(DEFAULT_CAPABILITY));

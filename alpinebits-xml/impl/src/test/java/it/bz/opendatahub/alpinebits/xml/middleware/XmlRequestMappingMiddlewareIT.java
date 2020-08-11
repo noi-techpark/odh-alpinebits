@@ -10,7 +10,7 @@ import it.bz.opendatahub.alpinebits.servlet.impl.AlpineBitsServlet;
 import it.bz.opendatahub.alpinebits.xml.middleware.utils.NotValidatingXmlRequestMappingMiddleware;
 import it.bz.opendatahub.alpinebits.xml.middleware.utils.RngValidatingXmlRequestMappingMiddleware;
 import it.bz.opendatahub.alpinebits.xml.middleware.utils.XsdValidatingXmlRequestMappingMiddleware;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAReadRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAReadRQ;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OperateOnDeployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;

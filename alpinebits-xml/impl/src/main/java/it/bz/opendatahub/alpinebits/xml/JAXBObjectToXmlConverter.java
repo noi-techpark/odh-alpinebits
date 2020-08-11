@@ -6,33 +6,33 @@
 
 package it.bz.opendatahub.alpinebits.xml;
 
-import javax.xml.bind.JAXBContext;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.ObjectFactory;
+
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.validation.Schema;
 import java.io.OutputStream;
 
 /**
- * This class provides methods to convert Java objects to XML.
- *
- * @param <T> object type
+ * This class provides methods to convert OTA-2015A objects to XML.
+ * <p>
+ * Please note, that this class can only be used with OTA-2015A objects
+ * declared in the {@link ObjectFactory}, since those are the only
  */
-public final class JAXBObjectToXmlConverter<T> implements ObjectToXmlConverter<T> {
+public final class JAXBObjectToXmlConverter implements ObjectToXmlConverter {
 
-    private final JAXBContext jaxbContext;
     private final Schema schema;
     private final boolean doPrettyPrintXml;
 
-    private JAXBObjectToXmlConverter(JAXBContext jaxbContext, Schema schema, boolean doPrettyPrintXml) {
-        this.jaxbContext = jaxbContext;
+    private JAXBObjectToXmlConverter(Schema schema, boolean doPrettyPrintXml) {
         this.schema = schema;
         this.doPrettyPrintXml = doPrettyPrintXml;
     }
 
     @Override
-    public void toXml(T objectToConvert, OutputStream os) {
+    public void toXml(Object objectToConvert, OutputStream os) {
         try {
-            Marshaller marshaller = jaxbContext.createMarshaller();
+            Marshaller marshaller = JAXBContextSingleton.getInstance().createMarshaller();
             marshaller.setSchema(this.schema);
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, this.doPrettyPrintXml);
             marshaller.marshal(objectToConvert, os);
@@ -44,19 +44,11 @@ public final class JAXBObjectToXmlConverter<T> implements ObjectToXmlConverter<T
 
     /**
      * Builder to create instances of {@link JAXBObjectToXmlConverter}.
-     *
-     * @param <T> target type when converting XML to object
      */
-    public static class Builder<T> {
-
-        private final Class<T> classToBeBound;
+    public static class Builder {
 
         private Schema schema;
         private boolean doPrettyPrintXml;
-
-        public Builder(Class<T> classToBeBound) {
-            this.classToBeBound = classToBeBound;
-        }
 
         /**
          * The {@link Schema} is used for XML validation.
@@ -67,7 +59,7 @@ public final class JAXBObjectToXmlConverter<T> implements ObjectToXmlConverter<T
          * @param schema the {@link Schema} used for XML validation
          * @return the current Builder
          */
-        public Builder<T> schema(Schema schema) {
+        public Builder schema(Schema schema) {
             this.schema = schema;
             return this;
         }
@@ -80,7 +72,7 @@ public final class JAXBObjectToXmlConverter<T> implements ObjectToXmlConverter<T
          *                         XML will be pretty printed
          * @return the current Builder
          */
-        public Builder<T> prettyPrint(boolean doPrettyPrintXml) {
+        public Builder prettyPrint(boolean doPrettyPrintXml) {
             this.doPrettyPrintXml = doPrettyPrintXml;
             return this;
         }
@@ -90,12 +82,9 @@ public final class JAXBObjectToXmlConverter<T> implements ObjectToXmlConverter<T
          * the current configuration.
          *
          * @return instance of {@link JAXBObjectToXmlConverter}
-         * @throws JAXBException if there went something wrong during
-         *                       the creation of the {@link JAXBObjectToXmlConverter} instance
          */
-        public ObjectToXmlConverter<T> build() throws JAXBException {
-            JAXBContext jaxbContext = JAXBContext.newInstance(classToBeBound);
-            return new JAXBObjectToXmlConverter<>(jaxbContext, this.schema, this.doPrettyPrintXml);
+        public ObjectToXmlConverter build() {
+            return new JAXBObjectToXmlConverter(this.schema, this.doPrettyPrintXml);
         }
     }
 }

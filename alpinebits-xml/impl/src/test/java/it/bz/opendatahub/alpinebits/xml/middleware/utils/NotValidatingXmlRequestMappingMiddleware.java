@@ -16,9 +16,8 @@ import it.bz.opendatahub.alpinebits.servlet.middleware.MultipartFormDataParserMi
 import it.bz.opendatahub.alpinebits.xml.JAXBXmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.middleware.XmlRequestMappingMiddleware;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAReadRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAReadRQ;
 
-import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
@@ -35,14 +34,10 @@ public class NotValidatingXmlRequestMappingMiddleware implements Middleware {
     private final Middleware middleware;
 
     public NotValidatingXmlRequestMappingMiddleware() {
-        try {
-            this.middleware = ComposingMiddlewareBuilder.compose(Arrays.asList(
-                    new MultipartFormDataParserMiddleware(),
-                    this.notValidatingMiddleware()
-            ));
-        } catch (JAXBException e) {
-            throw new RuntimeException(e);
-        }
+        this.middleware = ComposingMiddlewareBuilder.compose(Arrays.asList(
+                new MultipartFormDataParserMiddleware(),
+                this.notValidatingMiddleware()
+        ));
     }
 
     @Override
@@ -60,12 +55,12 @@ public class NotValidatingXmlRequestMappingMiddleware implements Middleware {
         }
     }
 
-    private XmlRequestMappingMiddleware<OTAReadRQ> notValidatingMiddleware() throws JAXBException {
+    private XmlRequestMappingMiddleware<OTAReadRQ> notValidatingMiddleware() {
         XmlToObjectConverter<OTAReadRQ> converter = this.notValidatingConverter(OTAReadRQ.class);
         return new XmlRequestMappingMiddleware<>(converter, DEFAULT_CTX_KEY);
     }
 
-    private <T> XmlToObjectConverter<T> notValidatingConverter(Class<T> classToBeBound) throws JAXBException {
+    private <T> XmlToObjectConverter<T> notValidatingConverter(Class<T> classToBeBound) {
         return new JAXBXmlToObjectConverter.Builder<>(classToBeBound).build();
     }
 }

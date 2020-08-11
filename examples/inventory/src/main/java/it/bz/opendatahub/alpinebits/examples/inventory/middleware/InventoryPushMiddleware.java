@@ -9,15 +9,12 @@ package it.bz.opendatahub.alpinebits.examples.inventory.middleware;
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsAction;
 import it.bz.opendatahub.alpinebits.common.context.RequestContextKey;
 import it.bz.opendatahub.alpinebits.common.exception.AlpineBitsException;
-import it.bz.opendatahub.alpinebits.db.PersistenceContextKey;
-import it.bz.opendatahub.alpinebits.mapping.entity.GenericResponse;
-import it.bz.opendatahub.alpinebits.mapping.entity.inventory.HotelDescriptiveContentNotifRequest;
 import it.bz.opendatahub.alpinebits.middleware.Context;
 import it.bz.opendatahub.alpinebits.middleware.Key;
 import it.bz.opendatahub.alpinebits.middleware.Middleware;
 import it.bz.opendatahub.alpinebits.middleware.MiddlewareChain;
-
-import javax.persistence.EntityManager;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelDescriptiveContentNotifRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelDescriptiveContentNotifRS;
 
 /**
  * A simple {@link Middleware} to handle Inventory push
@@ -25,38 +22,31 @@ import javax.persistence.EntityManager;
  */
 public class InventoryPushMiddleware implements Middleware {
 
-    private final Key<HotelDescriptiveContentNotifRequest> requestKey;
-    private final Key<GenericResponse> responseKey;
-
-    public InventoryPushMiddleware(
-            Key<HotelDescriptiveContentNotifRequest> requestKey,
-            Key<GenericResponse> responseKey
-    ) {
-        this.requestKey = requestKey;
-        this.responseKey = responseKey;
-    }
+    public static final Key<OTAHotelDescriptiveContentNotifRQ> OTA_INVENTORY_PUSH_REQUEST
+            = Key.key("inventory push request", OTAHotelDescriptiveContentNotifRQ.class);
+    public static final Key<OTAHotelDescriptiveContentNotifRS> OTA_INVENTORY_PUSH_RESPONSE
+            = Key.key("inventory push response", OTAHotelDescriptiveContentNotifRS.class);
 
     @Override
     public void handleContext(Context ctx, MiddlewareChain chain) {
         // Call service for persistence
-        GenericResponse response = this.invokeService(ctx);
+        OTAHotelDescriptiveContentNotifRS response = this.invokeService(ctx);
 
         // Put result back into middleware context
-        ctx.put(this.responseKey, response);
+        ctx.put(OTA_INVENTORY_PUSH_RESPONSE, response);
     }
 
-    private GenericResponse invokeService(Context ctx) {
+    private OTAHotelDescriptiveContentNotifRS invokeService(Context ctx) {
         // Get necessary objects from middleware context
         String action = ctx.getOrThrow(RequestContextKey.REQUEST_ACTION);
-        HotelDescriptiveContentNotifRequest hotelDescriptiveContentNotifRequest = ctx.getOrThrow(this.requestKey);
-        EntityManager em = ctx.getOrThrow(PersistenceContextKey.ENTITY_MANAGER);
+        OTAHotelDescriptiveContentNotifRQ otaHotelDescriptiveContentNotifRQ = ctx.getOrThrow(OTA_INVENTORY_PUSH_REQUEST);
 
         // Call service for persistence
-        InventoryPushService service = new InventoryPushService(em);
+        InventoryPushService service = new InventoryPushService();
         if (AlpineBitsAction.INVENTORY_BASIC_PUSH.equals(action)) {
-            return service.writeBasic(hotelDescriptiveContentNotifRequest);
+            return service.logInventoryBasic(otaHotelDescriptiveContentNotifRQ);
         } else if (AlpineBitsAction.INVENTORY_HOTEL_INFO_PUSH.equals(action)) {
-            return service.writeHotelInfo(hotelDescriptiveContentNotifRequest);
+            return service.logInventoryHotelInfo(otaHotelDescriptiveContentNotifRQ);
         }
 
         throw new AlpineBitsException("No implementation for action found", 500);

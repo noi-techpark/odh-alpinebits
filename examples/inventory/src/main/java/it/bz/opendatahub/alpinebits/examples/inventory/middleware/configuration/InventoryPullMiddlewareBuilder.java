@@ -7,17 +7,8 @@
 package it.bz.opendatahub.alpinebits.examples.inventory.middleware.configuration;
 
 import it.bz.opendatahub.alpinebits.common.utils.middleware.ComposingMiddlewareBuilder;
-import it.bz.opendatahub.alpinebits.db.middleware.EntityManagerProvidingMiddleware;
 import it.bz.opendatahub.alpinebits.examples.inventory.middleware.InventoryPullMiddleware;
-import it.bz.opendatahub.alpinebits.mapping.entity.inventory.HotelDescriptiveInfoRequest;
-import it.bz.opendatahub.alpinebits.mapping.entity.inventory.HotelDescriptiveInfoResponse;
-import it.bz.opendatahub.alpinebits.mapping.mapper.v_2017_10.InventoryMapperInstances;
-import it.bz.opendatahub.alpinebits.mapping.middleware.RequestMappingMiddleware;
-import it.bz.opendatahub.alpinebits.mapping.middleware.ResponseMappingMiddleware;
-import it.bz.opendatahub.alpinebits.middleware.Key;
 import it.bz.opendatahub.alpinebits.middleware.Middleware;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveInfoRQ;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveInfoRS;
 
 import javax.xml.bind.JAXBException;
 import java.util.Arrays;
@@ -27,47 +18,15 @@ import java.util.Arrays;
  */
 public final class InventoryPullMiddlewareBuilder {
 
-    private static final Key<OTAHotelDescriptiveInfoRQ> OTA_INVENTORY_PULL_REQUEST
-            = Key.key("inventory pull request", OTAHotelDescriptiveInfoRQ.class);
-    private static final Key<OTAHotelDescriptiveInfoRS> OTA_INVENTORY_PULL_RESPONSE
-            = Key.key("inventory pull response", OTAHotelDescriptiveInfoRS.class);
-
-    private static final Key<HotelDescriptiveInfoRequest> HOTEL_DESCRIPTIVE_INFO_REQUEST_KEY =
-            Key.key("mapped inventory pull request", HotelDescriptiveInfoRequest.class);
-    private static final Key<HotelDescriptiveInfoResponse> HOTEL_DESCRIPTIVE_INFO_RESPONSE_KEY =
-            Key.key("mapped inventory pull response", HotelDescriptiveInfoResponse.class);
-
     private InventoryPullMiddlewareBuilder() {
         // Empty
     }
 
     public static Middleware buildInventoryPullMiddleware() throws JAXBException {
         return ComposingMiddlewareBuilder.compose(Arrays.asList(
-                XmlMiddlewareBuilder.buildXmlToObjectConvertingMiddleware(OTA_INVENTORY_PULL_REQUEST),
-                XmlMiddlewareBuilder.buildObjectToXmlConvertingMiddleware(OTA_INVENTORY_PULL_RESPONSE),
-                InventoryPullMiddlewareBuilder.buildInventoryPullRequestMappingMiddleware(),
-                InventoryPullMiddlewareBuilder.buildInventoryPullResponseMappingMiddleware(),
-                new EntityManagerProvidingMiddleware(),
-                new InventoryPullMiddleware(
-                        HOTEL_DESCRIPTIVE_INFO_REQUEST_KEY,
-                        HOTEL_DESCRIPTIVE_INFO_RESPONSE_KEY
-                )
+                XmlMiddlewareBuilder.buildXmlToObjectConvertingMiddleware(InventoryPullMiddleware.OTA_INVENTORY_PULL_REQUEST),
+                XmlMiddlewareBuilder.buildObjectToXmlConvertingMiddleware(InventoryPullMiddleware.OTA_INVENTORY_PULL_RESPONSE),
+                new InventoryPullMiddleware()
         ));
-    }
-
-    private static Middleware buildInventoryPullRequestMappingMiddleware() {
-        return new RequestMappingMiddleware<>(
-                OTA_INVENTORY_PULL_REQUEST,
-                HOTEL_DESCRIPTIVE_INFO_REQUEST_KEY,
-                InventoryMapperInstances.HOTEL_DESCRIPTIVE_INFO_REQUEST_MAPPER::toHotelDescriptiveInfoRequest
-        );
-    }
-
-    private static Middleware buildInventoryPullResponseMappingMiddleware() {
-        return new ResponseMappingMiddleware<>(
-                HOTEL_DESCRIPTIVE_INFO_RESPONSE_KEY,
-                OTA_INVENTORY_PULL_RESPONSE,
-                InventoryMapperInstances.HOTEL_DESCRIPTIVE_INFO_RESPONSE_MAPPER::toOTAHotelDescriptiveInfoRS
-        );
     }
 }

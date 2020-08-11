@@ -7,8 +7,7 @@
 package it.bz.opendatahub.alpinebits.validation.context.freerooms;
 
 /**
- * This class contains context information for
- * {@link it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.freerooms.AvailStatusMessagesValidator}.
+ * This class contains context information for AvailStatusMessagesValidators.
  */
 public final class AvailStatusMessagesContext {
 
@@ -29,7 +28,7 @@ public final class AvailStatusMessagesContext {
         this.freeButNotBookableSupported = freeButNotBookableSupported;
     }
 
-    public static AvailStatusMessagesContext fromFreeRoomsContext(String instance, FreeRoomsContext ctx) {
+    public static AvailStatusMessagesContext fromHotelAvailNotifContext(String instance, HotelAvailNotifContext ctx) {
         return new AvailStatusMessagesContext(
                 instance,
                 ctx.isRoomCategoriesSupported(),

@@ -9,15 +9,12 @@ package it.bz.opendatahub.alpinebits.examples.inventory.middleware;
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsAction;
 import it.bz.opendatahub.alpinebits.common.context.RequestContextKey;
 import it.bz.opendatahub.alpinebits.common.exception.AlpineBitsException;
-import it.bz.opendatahub.alpinebits.db.PersistenceContextKey;
-import it.bz.opendatahub.alpinebits.mapping.entity.inventory.HotelDescriptiveInfoRequest;
-import it.bz.opendatahub.alpinebits.mapping.entity.inventory.HotelDescriptiveInfoResponse;
 import it.bz.opendatahub.alpinebits.middleware.Context;
 import it.bz.opendatahub.alpinebits.middleware.Key;
 import it.bz.opendatahub.alpinebits.middleware.Middleware;
 import it.bz.opendatahub.alpinebits.middleware.MiddlewareChain;
-
-import javax.persistence.EntityManager;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelDescriptiveInfoRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelDescriptiveInfoRS;
 
 /**
  * A simple {@link Middleware} to handle Inventory pull
@@ -25,38 +22,31 @@ import javax.persistence.EntityManager;
  */
 public class InventoryPullMiddleware implements Middleware {
 
-    private final Key<HotelDescriptiveInfoRequest> requestKey;
-    private final Key<HotelDescriptiveInfoResponse> responseKey;
-
-    public InventoryPullMiddleware(
-            Key<HotelDescriptiveInfoRequest> requestKey,
-            Key<HotelDescriptiveInfoResponse> responseKey
-    ) {
-        this.requestKey = requestKey;
-        this.responseKey = responseKey;
-    }
+    public static final Key<OTAHotelDescriptiveInfoRQ> OTA_INVENTORY_PULL_REQUEST
+            = Key.key("inventory pull request", OTAHotelDescriptiveInfoRQ.class);
+    public static final Key<OTAHotelDescriptiveInfoRS> OTA_INVENTORY_PULL_RESPONSE
+            = Key.key("inventory pull response", OTAHotelDescriptiveInfoRS.class);
 
     @Override
     public void handleContext(Context ctx, MiddlewareChain chain) {
         // Call service for persistence
-        HotelDescriptiveInfoResponse response = this.invokeService(ctx);
+        OTAHotelDescriptiveInfoRS response = this.invokeService(ctx);
 
         // Put result back into middleware context
-        ctx.put(this.responseKey, response);
+        ctx.put(OTA_INVENTORY_PULL_RESPONSE, response);
     }
 
-    private HotelDescriptiveInfoResponse invokeService(Context ctx) {
+    private OTAHotelDescriptiveInfoRS invokeService(Context ctx) {
         // Get necessary objects from middleware context
         String action = ctx.getOrThrow(RequestContextKey.REQUEST_ACTION);
-        HotelDescriptiveInfoRequest hotelDescriptiveInfoRequest = ctx.getOrThrow(this.requestKey);
-        EntityManager em = ctx.getOrThrow(PersistenceContextKey.ENTITY_MANAGER);
+        OTAHotelDescriptiveInfoRQ otaHotelDescriptiveInfoRQ = ctx.getOrThrow(OTA_INVENTORY_PULL_REQUEST);
 
         // Call service for persistence
-        InventoryPullService service = new InventoryPullService(em);
+        InventoryPullService service = new InventoryPullService();
         if (AlpineBitsAction.INVENTORY_BASIC_PULL.equals(action)) {
-            return service.readBasic(hotelDescriptiveInfoRequest);
+            return service.readInventoryBasic(otaHotelDescriptiveInfoRQ);
         } else if (AlpineBitsAction.INVENTORY_HOTEL_INFO_PULL.equals(action)) {
-            return service.readHotelInfo(hotelDescriptiveInfoRequest);
+            return service.readInventoryHotelInfo(otaHotelDescriptiveInfoRQ);
         }
 
         throw new AlpineBitsException("No implementation for action found", 500);

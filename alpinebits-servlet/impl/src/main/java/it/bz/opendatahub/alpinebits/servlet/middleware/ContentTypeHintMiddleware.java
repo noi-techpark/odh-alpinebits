@@ -19,7 +19,7 @@ import java.util.Optional;
 
 /**
  * <p>
- * This upstream middleware checks if the {@link Context} contains a
+ * This response-phase middleware checks if the {@link Context} contains a
  * {@link ResponseContextKeys#RESPONSE_CONTENT_TYPE_HINT} key and sets
  * the HTTP response "Content-Type" header accordingly.
  * <p>
@@ -34,7 +34,7 @@ public class ContentTypeHintMiddleware  implements Middleware {
 
     @Override
     public void handleContext(Context ctx, MiddlewareChain chain) {
-        // Invoke downstream middlewares
+        // Invoke next request-phase middlewares
         chain.next();
 
         HttpServletResponse response = ctx.getOrThrow(ServletContextKey.SERVLET_RESPONSE);

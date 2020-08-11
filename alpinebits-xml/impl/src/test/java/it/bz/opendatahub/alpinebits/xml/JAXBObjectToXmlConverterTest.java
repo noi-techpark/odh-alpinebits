@@ -6,7 +6,11 @@
 
 package it.bz.opendatahub.alpinebits.xml;
 
-import it.bz.opendatahub.alpinebits.xml.entity.TestEntity;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.MessageAcknowledgementType;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelAvailNotifRS;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAPingRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.ObjectFactory;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.SuccessType;
 import org.testng.annotations.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -22,9 +26,8 @@ public class JAXBObjectToXmlConverterTest {
 
     @Test(expectedExceptions = XmlConversionException.class)
     public void testToXml_Error() throws Exception {
-        TestEntity testEntity = new TestEntity();
-        testEntity.setName("John Doe");
-        testEntity.setAge(23);
+        OTAPingRQ pingRQ = new OTAPingRQ();
+        pingRQ.setEchoData("Some echo data");
 
         OutputStream os = new OutputStream() {
             @Override
@@ -33,20 +36,34 @@ public class JAXBObjectToXmlConverterTest {
             }
         };
 
-        ObjectToXmlConverter<TestEntity> converter = new JAXBObjectToXmlConverter.Builder<>(TestEntity.class).prettyPrint(true).build();
-        converter.toXml(testEntity, os);
+        ObjectToXmlConverter converter = new JAXBObjectToXmlConverter.Builder().prettyPrint(true).build();
+        converter.toXml(pingRQ, os);
     }
 
     @Test
     public void testToXml_Ok() throws Exception {
-        TestEntity testEntity = new TestEntity();
-        testEntity.setName("John Doe");
-        testEntity.setAge(23);
+        OTAPingRQ pingRQ = new OTAPingRQ();
+        pingRQ.setEchoData("Some echo data");
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
 
-        ObjectToXmlConverter<TestEntity> converter = new JAXBObjectToXmlConverter.Builder<>(TestEntity.class).prettyPrint(true).build();
-        converter.toXml(testEntity, os);
+        ObjectToXmlConverter converter = new JAXBObjectToXmlConverter.Builder().prettyPrint(true).build();
+        converter.toXml(pingRQ, os);
+
+        assertTrue(os.size() > 0);
+    }
+
+    @Test
+    public void testToXml_ShouldUseGenericType_WhenClassToBeBoundExtendsJAXBElement() throws Exception {
+        MessageAcknowledgementType mat = new MessageAcknowledgementType();
+        mat.setSuccess(new SuccessType());
+        ObjectFactory of = new ObjectFactory();
+        OTAHotelAvailNotifRS data = of.createOTAHotelAvailNotifRS(mat);
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+
+        ObjectToXmlConverter converter = new JAXBObjectToXmlConverter.Builder().prettyPrint(true).build();
+        converter.toXml(data, os);
 
         assertTrue(os.size() > 0);
     }

@@ -11,7 +11,7 @@ import it.bz.opendatahub.alpinebits.validation.NotNullValidationException;
 import it.bz.opendatahub.alpinebits.validation.NullValidationException;
 import it.bz.opendatahub.alpinebits.validation.ValidationException;
 import it.bz.opendatahub.alpinebits.validation.XmlSchemaType;
-import it.bz.opendatahub.alpinebits.validation.context.freerooms.FreeRoomsContext;
+import it.bz.opendatahub.alpinebits.validation.context.freerooms.HotelAvailNotifContext;
 import it.bz.opendatahub.alpinebits.xml.XmlConversionException;
 import org.testng.annotations.DataProvider;
 
@@ -20,14 +20,14 @@ import org.testng.annotations.DataProvider;
  */
 public class XmlDataProvider {
 
-    private static final FreeRoomsContext DEFAULT_CTX = new FreeRoomsContext.Builder().build();
-    private static final FreeRoomsContext CTX_WITH_DELTA_SUPPORT = new FreeRoomsContext.Builder()
+    private static final HotelAvailNotifContext DEFAULT_CTX = new HotelAvailNotifContext.Builder().build();
+    private static final HotelAvailNotifContext CTX_WITH_DELTA_SUPPORT = new HotelAvailNotifContext.Builder()
             .withDeltaSupport().build();
-    private static final FreeRoomsContext CTX_WITH_DISTINCT_ROOMS_SUPPORT = new FreeRoomsContext.Builder()
+    private static final HotelAvailNotifContext CTX_WITH_DISTINCT_ROOMS_SUPPORT = new HotelAvailNotifContext.Builder()
             .withDistinctRoomsSupport().build();
-    private static final FreeRoomsContext CTX_WITH_ROOM_CATEGORIES_AND_DISTINCT_ROOM_SUPPORT = new FreeRoomsContext.Builder()
+    private static final HotelAvailNotifContext CTX_WITH_ROOM_CATEGORIES_AND_DISTINCT_ROOM_SUPPORT = new HotelAvailNotifContext.Builder()
             .withRoomCategoriesSupport().withDistinctRoomsSupport().build();
-    private static final FreeRoomsContext CTX_WITH_FREE_BUT_NOT_BOOKABLE_SUPPORT = new FreeRoomsContext.Builder()
+    private static final HotelAvailNotifContext CTX_WITH_FREE_BUT_NOT_BOOKABLE_SUPPORT = new HotelAvailNotifContext.Builder()
             .withFreeButNotBookableSupport().build();
 
     @DataProvider(name = "xml")

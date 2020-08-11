@@ -6,18 +6,20 @@
 
 package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory;
 
-import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.SimpleValidationPath;
 import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ;
+import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelDescriptiveContentNotifRQ;
 
 /**
- * Use this validator to validate {@link OTAHotelDescriptiveContentNotifRQ}
- * objects (AlpineBits 2017-10).
+ * Use this validator to validate the OTAHotelDescriptiveContentNotifRQ in AlpineBits 2017
+ * Inventory documents.
+ *
+ * @see OTAHotelDescriptiveContentNotifRQ
  */
 public class OTAHotelDescriptiveContentNotifRQValidator
         implements Validator<OTAHotelDescriptiveContentNotifRQ, InventoryContext> {

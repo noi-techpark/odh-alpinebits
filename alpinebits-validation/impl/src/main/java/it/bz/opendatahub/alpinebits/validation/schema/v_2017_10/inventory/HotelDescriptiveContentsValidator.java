@@ -6,17 +6,20 @@
 
 package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory;
 
-import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents;
+import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
+import it.bz.opendatahub.alpinebits.validation.utils.ListUtil;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents;
 
 /**
- * Validate OTAHotelDescriptiveContentNotifRQ-&gt;HotelDescriptiveContents
- * elements.
+ * Use this validator to validate the HotelDescriptiveContents in AlpineBits 2017
+ * Inventory documents.
+ *
+ * @see HotelDescriptiveContents
  */
 public class HotelDescriptiveContentsValidator implements Validator<HotelDescriptiveContents, InventoryContext> {
 
@@ -32,10 +35,9 @@ public class HotelDescriptiveContentsValidator implements Validator<HotelDescrip
         VALIDATOR.expectNotNull(ctx, ErrorMessage.EXPECT_CONTEXT_TO_BE_NOT_NULL);
 
         this.hotelDescriptiveContentValidator.validate(
-                hotelDescriptiveContents.getHotelDescriptiveContent(),
+                ListUtil.extractFirst(hotelDescriptiveContents.getHotelDescriptiveContents()),
                 ctx,
                 path.withElement(HotelDescriptiveContentValidator.ELEMENT_NAME)
         );
     }
-
 }

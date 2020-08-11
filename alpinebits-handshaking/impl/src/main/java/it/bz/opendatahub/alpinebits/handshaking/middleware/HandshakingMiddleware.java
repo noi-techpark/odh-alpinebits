@@ -17,8 +17,8 @@ import it.bz.opendatahub.alpinebits.middleware.Middleware;
 import it.bz.opendatahub.alpinebits.middleware.MiddlewareChain;
 import it.bz.opendatahub.alpinebits.routing.Router;
 import it.bz.opendatahub.alpinebits.routing.RouterContextKey;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAPingRQ;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAPingRS;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAPingRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAPingRS;
 
 /**
  * This {@link Middleware} handles the AlpineBits handshake action, based

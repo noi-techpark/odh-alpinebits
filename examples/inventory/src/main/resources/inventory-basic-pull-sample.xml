@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OTA_HotelDescriptiveInfoRS xmlns="http://www.opentravel.org/OTA/2003/05" Version="8.000">
+    <Success></Success>
+    <HotelDescriptiveContents>
+        <HotelDescriptiveContent HotelCode="64FD5627B6FD441099D9F9418C147A97">
+            <FacilityInfo>
+                <GuestRooms>
+                    <GuestRoom Code="CO-2017" MaxOccupancy="2" MinOccupancy="1">
+                        <TypeRoom StandardOccupancy="2" RoomClassificationCode="42"/>
+                        <Amenities>
+                            <Amenity RoomAmenityCode="10"/>
+                            <Amenity RoomAmenityCode="13"/>
+                            <Amenity RoomAmenityCode="15"/>
+                            <Amenity RoomAmenityCode="16"/>
+                            <Amenity RoomAmenityCode="18"/>
+                            <Amenity RoomAmenityCode="33"/>
+                            <Amenity RoomAmenityCode="50"/>
+                            <Amenity RoomAmenityCode="92"/>
+                            <Amenity RoomAmenityCode="123"/>
+                            <Amenity RoomAmenityCode="142"/>
+                            <Amenity RoomAmenityCode="210"/>
+                            <Amenity RoomAmenityCode="251"/>
+                            <Amenity RoomAmenityCode="276"/>
+                        </Amenities>
+                        <MultimediaDescriptions>
+                            <MultimediaDescription InfoCode="25">
+                                <TextItems>
+                                    <TextItem>
+                                        <Description TextFormat="PlainText" Language="de">DZ Comfort 4 Sterne</Description>
+                                        <Description TextFormat="PlainText" Language="en">Double room Comfort 4 stars</Description>
+                                        <Description TextFormat="PlainText" Language="it">Camera Comfort 4 stelle</Description>
+                                    </TextItem>
+                                </TextItems>
+                            </MultimediaDescription>
+                            <MultimediaDescription InfoCode="1">
+                                <TextItems>
+                                    <TextItem>
+                                        <Description TextFormat="PlainText" Language="de">Zimmer mit 32 m² für 2 Personen
+                                            Komfortables Doppelzimmer im heimeligen Tiroler Stil mit Sitzecke, SAT-TV, 26” LEDTV, Wi-Fi, Telefon, Kühlschrank, Safe und Balkon. Das verarbeitete Naturholz verleiht dem Zimmer sein warmes Ambiente und macht Entspannen</Description>
+                                        <Description TextFormat="PlainText" Language="en">room with 32 m² for 2-3 persons
+                                            Comfortable double room in cosy Tyrolean style with a seating area, satellite TV, 26" LED-TV, Wi-Fi, telephone, fridge, safe and balcony. The reworked natural wood gives the room a warm atmosphere, making relaxing very ...</Description>
+                                        <Description TextFormat="PlainText" Language="it">camera con 32m² per 2-3 persone
+                                            Camera matrimoniale molto confortevole in accogliente stile tirolese con angolo soggiorno, TV satellitare, TV a LED 26”, Wi-Fi, telefono, frigorifero, cassetta di sicurezza, balcone. Il legno naturale lavorato regala all</Description>
+                                    </TextItem>
+                                </TextItems>
+                            </MultimediaDescription>
+                        </MultimediaDescriptions>
+                    </GuestRoom>
+                    <GuestRoom Code="CO-2017">
+                        <TypeRoom RoomID="109"/>
+                    </GuestRoom>
+                    <GuestRoom Code="CO-2017">
+                        <TypeRoom RoomID="110"/>
+                    </GuestRoom>
+                    <GuestRoom Code="CO-2017">
+                        <TypeRoom RoomID="111"/>
+                    </GuestRoom>
+                    <GuestRoom Code="CO-2017">
+                        <TypeRoom RoomID="112"/>
+                    </GuestRoom>
+                    <GuestRoom Code="CO-2017">
+                        <TypeRoom RoomID="113"/>
+                    </GuestRoom>
+                    <GuestRoom Code="CO-2017">
+                        <TypeRoom RoomID="114"/>
+                    </GuestRoom>
+                    <GuestRoom Code="FA" MaxOccupancy="5" MinOccupancy="2">
+                        <TypeRoom StandardOccupancy="2" RoomClassificationCode="42"/>
+                        <Amenities>
+                            <Amenity RoomAmenityCode="13"/>
+                            <Amenity RoomAmenityCode="15"/>
+                            <Amenity RoomAmenityCode="16"/>
+                            <Amenity RoomAmenityCode="18"/>
+                            <Amenity RoomAmenityCode="33"/>
+                            <Amenity RoomAmenityCode="50"/>
+                            <Amenity RoomAmenityCode="92"/>
+                            <Amenity RoomAmenityCode="123"/>
+                            <Amenity RoomAmenityCode="142"/>
+                            <Amenity RoomAmenityCode="210"/>
+                            <Amenity RoomAmenityCode="251"/>
+                            <Amenity RoomAmenityCode="276"/>
+                        </Amenities>
+                        <MultimediaDescriptions>
+                            <MultimediaDescription InfoCode="25">
+                                <TextItems>
+                                    <TextItem>
+                                        <Description TextFormat="PlainText" Language="de">Family Zimmer 4 Sterne</Description>
+                                        <Description TextFormat="PlainText" Language="en">Family room 4 stars</Description>
+                                        <Description TextFormat="PlainText" Language="it">Camera family 4 stelle</Description>
+                                    </TextItem>
+                                </TextItems>
+                            </MultimediaDescription>
+                            <MultimediaDescription InfoCode="1">
+                                <TextItems>
+                                    <TextItem>
+                                        <Description TextFormat="PlainText" Language="de">Zimmer 52 m² für 2-4 Personen
+                                            Familienzimmer im Landhaus-Stil in Naturholz auf 2 Etagen (ein Doppelbettzimmer und ein Zimmer mit 2 getrennten Betten). SAT-TV, 32'' LED-TV, WIFI, Telefon, Safe, Kühlschrank gehören ebenso wie das Bad mit Dusche, WC Föhn ...</Description>
+                                        <Description TextFormat="PlainText" Language="en">Room with 52 m² for 2-4 persons
+                                            A country style family room in natural wood on 2 floors (one double room and one room with 2 separate beds). Satellite TV, 32'' LED TV, WIFI, telephone, safe, and refrigerator are all included as well as a bathroom with ...</Description>
+                                        <Description TextFormat="PlainText" Language="it">Camera con 52m² per 2-4 persone
+                                            Camera per famiglie su due piani in stile rustico in legno naturale (con letto matrimoniale e 2 letti separati). La camera è dotata di TV satellitare, TV a LED 32”, telefono, cassetta di sicurezza, frigorifero e bagno ...</Description>
+                                    </TextItem>
+                                </TextItems>
+                            </MultimediaDescription>
+                        </MultimediaDescriptions>
+                    </GuestRoom>
+                    <GuestRoom Code="FA">
+                        <TypeRoom RoomID="209"/>
+                    </GuestRoom>
+                    <GuestRoom Code="FA">
+                        <TypeRoom RoomID="210"/>
+                    </GuestRoom>
+                    <GuestRoom Code="FA">
+                        <TypeRoom RoomID="211"/>
+                    </GuestRoom>
+                    <GuestRoom Code="FA">
+                        <TypeRoom RoomID="212"/>
+                    </GuestRoom>
+                    <GuestRoom Code="SSC" MaxOccupancy="4" MinOccupancy="2">
+                        <TypeRoom StandardOccupancy="2" RoomClassificationCode="42"/>
+                        <Amenities>
+                            <Amenity RoomAmenityCode="10"/>
+                            <Amenity RoomAmenityCode="13"/>
+                            <Amenity RoomAmenityCode="15"/>
+                            <Amenity RoomAmenityCode="16"/>
+                            <Amenity RoomAmenityCode="18"/>
+                            <Amenity RoomAmenityCode="33"/>
+                            <Amenity RoomAmenityCode="50"/>
+                            <Amenity RoomAmenityCode="51"/>
+                            <Amenity RoomAmenityCode="54"/>
+                            <Amenity RoomAmenityCode="91"/>
+                            <Amenity RoomAmenityCode="92"/>
+                            <Amenity RoomAmenityCode="123"/>
+                            <Amenity RoomAmenityCode="142"/>
+                            <Amenity RoomAmenityCode="207"/>
+                            <Amenity RoomAmenityCode="210"/>
+                            <Amenity RoomAmenityCode="225"/>
+                            <Amenity RoomAmenityCode="251"/>
+                            <Amenity RoomAmenityCode="276"/>
+                        </Amenities>
+                        <MultimediaDescriptions>
+                            <MultimediaDescription InfoCode="25">
+                                <TextItems>
+                                    <TextItem>
+                                        <Description TextFormat="PlainText" Language="de">Schlern Suite</Description>
+                                        <Description TextFormat="PlainText" Language="en">Sciliar Suite</Description>
+                                        <Description TextFormat="PlainText" Language="it">Sciliar Suite</Description>
+                                    </TextItem>
+                                </TextItems>
+                            </MultimediaDescription>
+                            <MultimediaDescription InfoCode="1">
+                                <TextItems>
+                                    <TextItem>
+                                        <Description TextFormat="PlainText" Language="de">54 m² großes Appartement mit 2 getrennten Schlafzimmern und Wohnzimmer für 2-4 Personen. Die Schlern Suite verfügen über SAT-TV, Wi-fi, Telefon, Safe, Kühlschrank und Balkon sowie ein Badezimmer mit Dusche, WC, Föhn und Bidet. Ideal für Familien! Badem</Description>
+                                        <Description TextFormat="PlainText" Language="en">54 m² large apartment with 2 separate bedrooms and living room for 2-4 persons. The Schlern Suite has SAT-TV, Wi-fi, telephone, safe, fridge and balcony as well as a bathroom with shower, toilet, hair dryer and bidet. Ideal for families! Bathrobes, tow</Description>
+                                        <Description TextFormat="PlainText" Language="it">Appartamento di 52m² con 2 camere da letto separate e soggiorno per 2 a 4 persone. La Schlern Suite è dotata di TV satellitare, telefono, WiFi gratuito, cassetta di sicurezza e frigorifero. Il bagno con doccia, WC separato, asciugacapelli e bidet. Idea</Description>
+                                    </TextItem>
+                                </TextItems>
+                            </MultimediaDescription>
+                        </MultimediaDescriptions>
+                    </GuestRoom>
+                    <GuestRoom Code="SSC">
+                        <TypeRoom RoomID="423"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE" MaxOccupancy="4" MinOccupancy="2">
+                        <TypeRoom StandardOccupancy="2" RoomClassificationCode="42"/>
+                        <Amenities>
+                            <Amenity RoomAmenityCode="13"/>
+                            <Amenity RoomAmenityCode="15"/>
+                            <Amenity RoomAmenityCode="16"/>
+                            <Amenity RoomAmenityCode="18"/>
+                            <Amenity RoomAmenityCode="33"/>
+                            <Amenity RoomAmenityCode="50"/>
+                            <Amenity RoomAmenityCode="91"/>
+                            <Amenity RoomAmenityCode="92"/>
+                            <Amenity RoomAmenityCode="102"/>
+                            <Amenity RoomAmenityCode="123"/>
+                            <Amenity RoomAmenityCode="142"/>
+                            <Amenity RoomAmenityCode="161"/>
+                            <Amenity RoomAmenityCode="210"/>
+                            <Amenity RoomAmenityCode="251"/>
+                            <Amenity RoomAmenityCode="271"/>
+                            <Amenity RoomAmenityCode="276"/>
+                        </Amenities>
+                        <MultimediaDescriptions>
+                            <MultimediaDescription InfoCode="25">
+                                <TextItems>
+                                    <TextItem>
+                                        <Description TextFormat="PlainText" Language="de">DZ Deluxe 4 Sterne</Description>
+                                        <Description TextFormat="PlainText" Language="en">Double room Deluxe 4 stars</Description>
+                                        <Description TextFormat="PlainText" Language="it">Camera Deluxe 4 stelle</Description>
+                                    </TextItem>
+                                </TextItems>
+                            </MultimediaDescription>
+                            <MultimediaDescription InfoCode="1">
+                                <TextItems>
+                                    <TextItem>
+                                        <Description TextFormat="PlainText" Language="de">Zimmer mit 42m² für 2-4 Personen
+                                            Sehr geräumiges Doppelzimmer aus edlem Kirschholz in elegantem Design mit Kingsize-Bett. Ideal zum Ausspannen und Erholen nach einem aktiven Tag in den Bergen! Komfort in allen Bereichen wird Ihnen gewährt durch die ein</Description>
+                                        <Description TextFormat="PlainText" Language="en">room with 42 m² for 2-4 persons
+                                            A very spacious as well as elegantly designed cherry wood double room with a king-size bed. Ideal to relax and unwind after a day of brisk walking in the mountains! An inviting living area, satellite TV, 32” LED TV, Wi-F</Description>
+                                        <Description TextFormat="PlainText" Language="it">camera con 42 m² per 2-4 persone
+                                            Camera matrimoniale molto spaziosa in pregiato legno di ciliegio e dal design molto elegante, con letto king-size. Ideale per rilassarsi e rigenerarsi dopo una giornata di attività in montagna! Il comfort si percepisce ...</Description>
+                                    </TextItem>
+                                </TextItems>
+                            </MultimediaDescription>
+                        </MultimediaDescriptions>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="100"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="101"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="102"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="103"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="104"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="105"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="106"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="107"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="200"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="201"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="202"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="203"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="204"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="205"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="206"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="207"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="300"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="301"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="302"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="303"/>
+                    </GuestRoom>
+                    <GuestRoom Code="DE">
+                        <TypeRoom RoomID="304"/>
+                    </GuestRoom>
+                    <GuestRoom Code="SSA" MaxOccupancy="4" MinOccupancy="2">
+                        <TypeRoom StandardOccupancy="2" RoomClassificationCode="42"/>
+                        <Amenities>
+                            <Amenity RoomAmenityCode="10"/>
+                            <Amenity RoomAmenityCode="13"/>
+                            <Amenity RoomAmenityCode="15"/>
+                            <Amenity RoomAmenityCode="16"/>
+                            <Amenity RoomAmenityCode="18"/>
+                            <Amenity RoomAmenityCode="33"/>
+                            <Amenity RoomAmenityCode="50"/>
+                            <Amenity RoomAmenityCode="51"/>
+                            <Amenity RoomAmenityCode="54"/>
+                            <Amenity RoomAmenityCode="92"/>
+                            <Amenity RoomAmenityCode="123"/>
+                            <Amenity RoomAmenityCode="142"/>
+                            <Amenity RoomAmenityCode="203"/>
+                            <Amenity RoomAmenityCode="207"/>
+                            <Amenity RoomAmenityCode="210"/>
+                            <Amenity RoomAmenityCode="225"/>
+                            <Amenity RoomAmenityCode="251"/>
+                            <Amenity RoomAmenityCode="276"/>
+                        </Amenities>
+                        <MultimediaDescriptions>
+                            <MultimediaDescription InfoCode="25">
+                                <TextItems>
+                                    <TextItem>
+                                        <Description TextFormat="PlainText" Language="de">Santner Suite (2017-10 Test)</Description>
+                                        <Description TextFormat="PlainText" Language="en">Santner Suite</Description>
+                                        <Description TextFormat="PlainText" Language="it">Santner Suite</Description>
+                                    </TextItem>
+                                </TextItems>
+                            </MultimediaDescription>
+                            <MultimediaDescription InfoCode="1">
+                                <TextItems>
+                                    <TextItem>
+                                        <Description TextFormat="PlainText" Language="de">50 m² großen Appartement mit 2 getrennten Schlafzimmern für 2 bis 3 Personen. Die Santner Suite verfügen über SAT-TV und Kühlschrank in beiden Schlafzimmer, Wi-fi, Telefon, Safe und Balkon sowie ein Badezimmer mit Dusche, WC, Föhn und Bidet. Ideal für ...</Description>
+                                        <Description TextFormat="PlainText" Language="en">50 m² large apartment with 2 separate bedrooms for 2 to 3 people. The Santner Suite has satellite TV and fridge in both bedrooms, Wi-fi, telephone, safe and balcony, as well as a bathroom with shower, WC, hair dryer and bidet. Ideal for families! Bathr</Description>
+                                        <Description TextFormat="PlainText" Language="it">Appartamento di 50m² con 2 camere da letto separate per 2 a 3 persone. La Santner Suite è dotata di TV satellitare e frigo in entrambe le camere, telefono, WiFi gratuito e cassetta di sicurezza. Il bagno con doccia, WC separato, asciugacapelli e bidet.</Description>
+                                    </TextItem>
+                                </TextItems>
+                            </MultimediaDescription>
+                        </MultimediaDescriptions>
+                    </GuestRoom>
+                    <GuestRoom Code="SSA">
+                        <TypeRoom RoomID="4222"/>
+                    </GuestRoom>
+                </GuestRooms>
+            </FacilityInfo>
+        </HotelDescriptiveContent>
+    </HotelDescriptiveContents>
+</OTA_HotelDescriptiveInfoRS>

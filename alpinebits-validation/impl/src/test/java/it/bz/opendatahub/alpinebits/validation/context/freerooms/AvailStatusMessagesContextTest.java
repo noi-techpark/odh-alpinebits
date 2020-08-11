@@ -19,12 +19,12 @@ public class AvailStatusMessagesContextTest {
 
     @Test
     public void testFromFreeRoomsContext() {
-        FreeRoomsContext freeRoomsContext = new FreeRoomsContext.Builder()
+        HotelAvailNotifContext hotelAvailNotifContext = new HotelAvailNotifContext.Builder()
                 .withFreeButNotBookableSupport()
                 .withRoomCategoriesSupport()
                 .withDistinctRoomsSupport()
                 .build();
-        AvailStatusMessagesContext ctx = AvailStatusMessagesContext.fromFreeRoomsContext(INSTANCE, freeRoomsContext);
+        AvailStatusMessagesContext ctx = AvailStatusMessagesContext.fromHotelAvailNotifContext(INSTANCE, hotelAvailNotifContext);
         assertEquals(ctx.getInstance(), INSTANCE);
         assertTrue(ctx.isFreeButNotBookableSupported());
         assertTrue(ctx.isRoomCategoriesSupported());

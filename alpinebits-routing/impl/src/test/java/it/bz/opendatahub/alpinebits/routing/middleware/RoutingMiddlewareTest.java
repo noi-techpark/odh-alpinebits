@@ -17,8 +17,6 @@ import it.bz.opendatahub.alpinebits.routing.DefaultRouter;
 import it.bz.opendatahub.alpinebits.routing.Router;
 import it.bz.opendatahub.alpinebits.routing.UndefinedRouteException;
 import it.bz.opendatahub.alpinebits.routing.constants.Action;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionName;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionRequestParam;
 import org.testng.annotations.Test;
 
 import java.util.Optional;
@@ -32,8 +30,8 @@ import static org.testng.Assert.assertFalse;
 public class RoutingMiddlewareTest {
 
     private static final String DEFAULT_VERSION = AlpineBitsVersion.V_2017_10;
-    private static final ActionRequestParam DEFAULT_ACTION_REQUEST_PARAM = ActionRequestParam.of("action request param");
-    private static final ActionName DEFAULT_ACTION_NAME = ActionName.of("action name");
+    private static final String DEFAULT_ACTION_REQUEST_PARAM = "action request param";
+    private static final String DEFAULT_ACTION_NAME = "action name";
     private static final Action DEFAULT_ACTION = Action.of(DEFAULT_ACTION_REQUEST_PARAM, DEFAULT_ACTION_NAME);
     private static final String DEFAULT_CAPABILITY = "some capability";
     private static final String DEFAULT_KEY_IDENTIFIER = "test.key";
@@ -81,7 +79,7 @@ public class RoutingMiddlewareTest {
         Key<String> testKey = this.getTestCtxKey(DEFAULT_KEY_IDENTIFIER);
         String testValue = "some value";
 
-        Action otherAction = Action.of(ActionRequestParam.of("some other"), ActionName.of("name"));
+        Action otherAction = Action.of("some other", "name");
 
         Router router = new DefaultRouter.Builder()
                 .version(DEFAULT_VERSION)
@@ -149,7 +147,7 @@ public class RoutingMiddlewareTest {
         Middleware middleware = new RoutingMiddleware(router);
         Context ctx = new SimpleContext();
         ctx.put(RequestContextKey.REQUEST_VERSION, DEFAULT_VERSION);
-        ctx.put(RequestContextKey.REQUEST_ACTION, DEFAULT_ACTION.getRequestParameter().getValue());
+        ctx.put(RequestContextKey.REQUEST_ACTION, DEFAULT_ACTION.getRequestParameter());
 
         // The router calls the middleware, specified with
         // HttpContextKey.ALPINE_BITS_CLIENT_PROTOCOL_VERSION
@@ -189,7 +187,7 @@ public class RoutingMiddlewareTest {
     private Context getValidContext() {
         Context ctx = new SimpleContext();
         ctx.put(RequestContextKey.REQUEST_VERSION, DEFAULT_VERSION);
-        ctx.put(RequestContextKey.REQUEST_ACTION, DEFAULT_ACTION.getRequestParameter().getValue());
+        ctx.put(RequestContextKey.REQUEST_ACTION, DEFAULT_ACTION.getRequestParameter());
         return ctx;
     }
 

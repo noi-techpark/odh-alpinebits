@@ -25,7 +25,7 @@ import javax.persistence.Persistence;
  * A new EntityManager will be created on each invocation of the
  * {@link Middleware#handleContext(Context, MiddlewareChain)}
  * method. This EntityManager will be closed (if it is not already
- * closed) after the invocation of the downstream middlewares
+ * closed) after the invocation of the request-phase middlewares
  * returns. At this point, any open transaction will be rolled
  * back.
  */
@@ -45,7 +45,7 @@ public class EntityManagerProvidingMiddleware implements Middleware {
         ctx.put(PersistenceContextKey.ENTITY_MANAGER, em);
 
         // Wrap execution into a try-finally block to ensure the current
-        // EntityManager is closed after all downstream middlewares
+        // EntityManager is closed after all request-phase middlewares
         // were invoked
         try {
             chain.next();

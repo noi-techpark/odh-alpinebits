@@ -6,40 +6,28 @@
 
 package it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.inventory;
 
-import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
-import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
-import it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.inventory.common.Description;
-import it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.inventory.common.DescriptionsValidator;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.MultimediaDescriptions.MultimediaDescription.TextItems.TextItem;
-
-import java.util.List;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.TextItemsType.TextItem;
 
 /**
- * Validate OTAHotelDescriptiveContentNotifRQ-&gt;HotelDescriptiveContents
- * -&gt;HotelDescriptiveContent-&gt;FacilityInfo-&gt;GuestRooms-&gt;GuestRoom
- * -&gt;MultimediaDescriptions-&gt;MultimediaDescription-&gt;TextItems-&gt;TextItem elements.
+ * Use this validator to validate the TextItem in AlpineBits 2018
+ * Inventory documents.
+ *
+ * @see TextItem
  */
 public class TextItemValidator implements Validator<TextItem, Void> {
 
     public static final String ELEMENT_NAME = Names.TEXT_ITEM;
 
-    private static final ValidationHelper VALIDATOR = ValidationHelper.withClientDataError();
-
-    private final DescriptionsValidator descriptionsValidator = new DescriptionsValidator();
+    private static final Validator<TextItem, Void> VALIDATION_DELEGATE =
+            new it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory.TextItemValidator();
 
     @Override
     public void validate(TextItem textItem, Void ctx, ValidationPath path) {
-        VALIDATOR.expectNotNull(textItem, ErrorMessage.EXPECT_TEXT_ITEM_TO_BE_NOT_NULL, path);
-        VALIDATOR.expectNonEmptyCollection(
-                textItem.getDescriptions(),
-                ErrorMessage.EXPECT_DESCRIPTION_LIST_TO_BE_NOT_EMPTY,
-                path
-        );
-
-        List<Description> descriptions = Description.fromTextItemDescriptions(textItem.getDescriptions());
-        this.descriptionsValidator.validate(descriptions, null, path.withElement(Names.DESCRIPTION_LIST));
+        // Delegate validation to AlpineBits 2017 implementation,
+        // since the validation remains the same
+        VALIDATION_DELEGATE.validate(textItem, ctx, path);
     }
 }

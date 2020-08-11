@@ -7,17 +7,17 @@
 package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory;
 
 import it.bz.opendatahub.alpinebits.common.constants.OTACodeInformationType;
-import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.MultimediaDescriptions;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.MultimediaDescriptions.MultimediaDescription;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.MultimediaDescriptions.MultimediaDescription.ImageItems.ImageItem;
+import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
+import it.bz.opendatahub.alpinebits.validation.utils.ListUtil;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.ImageItemsType.ImageItem;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.MultimediaDescriptionType;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.MultimediaDescriptionsType;
 
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -25,12 +25,12 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Validate Inventory/Basic OTAHotelDescriptiveContentNotifRQ
- * -&gt;HotelDescriptiveContents-&gt;HotelDescriptiveContent
- * -&gt;FacilityInfo-&gt;GuestRooms-&gt;GuestRoom-&gt;MultimediaDescriptions
- * elements.
+ * Use this validator to validate the MultimediaDescriptionsType in AlpineBits 2017
+ * Inventory documents.
+ *
+ * @see MultimediaDescriptionsType
  */
-public class MultimediaDescriptionsBasicValidator implements Validator<MultimediaDescriptions, InventoryContext> {
+public class MultimediaDescriptionsBasicValidator implements Validator<MultimediaDescriptionsType, InventoryContext> {
 
     public static final String ELEMENT_NAME = Names.MULTIMEDIA_DESCRIPTIONS;
 
@@ -40,11 +40,11 @@ public class MultimediaDescriptionsBasicValidator implements Validator<Multimedi
     private final TextItemValidator textItemValidator = new TextItemValidator();
 
     @Override
-    public void validate(MultimediaDescriptions multimediaDescriptions, InventoryContext ctx, ValidationPath path) {
+    public void validate(MultimediaDescriptionsType multimediaDescriptions, InventoryContext ctx, ValidationPath path) {
         VALIDATOR.expectNotNull(multimediaDescriptions, ErrorMessage.EXPECT_MULTIMEDIA_DESCRIPTIONS_TO_BE_NOT_NULL);
         VALIDATOR.expectNotNull(ctx, ErrorMessage.EXPECT_CONTEXT_TO_BE_NOT_NULL);
 
-        List<MultimediaDescription> descriptions = multimediaDescriptions.getMultimediaDescriptions();
+        List<MultimediaDescriptionType> descriptions = multimediaDescriptions.getMultimediaDescriptions();
 
         ValidationPath multimediaDescriptionPath = path.withElement(Names.MULTIMEDIA_DESCRIPTION_LIST);
 
@@ -70,15 +70,15 @@ public class MultimediaDescriptionsBasicValidator implements Validator<Multimedi
         this.validateMultimediaDescriptions(descriptions, path);
     }
 
-    private void validateInfoCodes(List<MultimediaDescription> descriptions, ValidationPath path) {
-        Set<BigInteger> codes = new HashSet<>();
+    private void validateInfoCodes(List<MultimediaDescriptionType> descriptions, ValidationPath path) {
+        Set<String> codes = new HashSet<>();
 
         for (int i = 0; i < descriptions.size(); i++) {
-            MultimediaDescription md = descriptions.get(i);
+            MultimediaDescriptionType md = descriptions.get(i);
 
             ValidationPath indexedPath = path.withElement(Names.MULTIMEDIA_DESCRIPTION).withIndex(i);
 
-            BigInteger infoCode = md.getInfoCode();
+            String infoCode = md.getInfoCode();
 
             // InfoCode is required
             VALIDATOR.expectNotNull(
@@ -89,7 +89,7 @@ public class MultimediaDescriptionsBasicValidator implements Validator<Multimedi
 
             // The value of InfoCode must be well defined
             // Note: this condition is also checked by XSD/RNG
-            if (!OTACodeInformationType.isCodeDefined(infoCode.intValue())) {
+            if (!OTACodeInformationType.isCodeDefined(infoCode)) {
                 VALIDATOR.throwValidationException(
                         String.format(ErrorMessage.EXPECT_INFORMATION_TYPE_CODE_TO_BE_DEFINED, infoCode),
                         indexedPath.withAttribute(Names.INFO_CODE)
@@ -105,17 +105,17 @@ public class MultimediaDescriptionsBasicValidator implements Validator<Multimedi
         }
     }
 
-    private void validateMultimediaDescriptions(List<MultimediaDescription> descriptions, ValidationPath path) {
-        Map<BigInteger, MultimediaDescriptionWithIndex> index = new HashMap<>();
+    private void validateMultimediaDescriptions(List<MultimediaDescriptionType> descriptions, ValidationPath path) {
+        Map<String, MultimediaDescriptionWithIndex> index = new HashMap<>();
         for (int i = 0; i < descriptions.size(); i++) {
-            MultimediaDescription mm = descriptions.get(i);
+            MultimediaDescriptionType mm = descriptions.get(i);
             MultimediaDescriptionWithIndex mmwi = new MultimediaDescriptionWithIndex(mm, i);
             index.put(mm.getInfoCode(), mmwi);
         }
 
-        this.validateInfoCode25MultimediaDescription(index.get(BigInteger.valueOf(25)), path);
-        this.validateInfoCode1MultimediaDescription(index.get(BigInteger.valueOf(1)), path);
-        this.validateInfoCode23MultimediaDescription(index.get(BigInteger.valueOf(23)), path);
+        this.validateInfoCode25MultimediaDescription(index.get("25"), path);
+        this.validateInfoCode1MultimediaDescription(index.get("1"), path);
+        this.validateInfoCode23MultimediaDescription(index.get("23"), path);
     }
 
     private void validateInfoCode25MultimediaDescription(
@@ -129,7 +129,7 @@ public class MultimediaDescriptionsBasicValidator implements Validator<Multimedi
                 path.withElement(Names.MULTIMEDIA_DESCRIPTION_LIST)
         );
 
-        MultimediaDescription description = descriptionWithIndex.getMultimediaDescription();
+        MultimediaDescriptionType description = descriptionWithIndex.getMultimediaDescription();
         int index = descriptionWithIndex.getIndex();
         ValidationPath indexedPath = path.withElement(Names.MULTIMEDIA_DESCRIPTION).withIndex(index);
 
@@ -147,7 +147,7 @@ public class MultimediaDescriptionsBasicValidator implements Validator<Multimedi
         );
 
         this.textItemValidator.validate(
-                description.getTextItems().getTextItem(),
+                ListUtil.extractFirst(description.getTextItems().getTextItems()),
                 null,
                 indexedPath.withElement(Names.TEXT_ITEMS).withElement(TextItemValidator.ELEMENT_NAME)
         );
@@ -159,7 +159,7 @@ public class MultimediaDescriptionsBasicValidator implements Validator<Multimedi
     ) {
         // A MultimediaDescription with InfoCode 1 (Description) is optional
         if (descriptionWithIndex != null) {
-            MultimediaDescription description = descriptionWithIndex.getMultimediaDescription();
+            MultimediaDescriptionType description = descriptionWithIndex.getMultimediaDescription();
             int index = descriptionWithIndex.getIndex();
             ValidationPath indexedPath = path.withElement(Names.MULTIMEDIA_DESCRIPTION).withIndex(index);
 
@@ -177,7 +177,7 @@ public class MultimediaDescriptionsBasicValidator implements Validator<Multimedi
             );
 
             this.textItemValidator.validate(
-                    description.getTextItems().getTextItem(),
+                    ListUtil.extractFirst(description.getTextItems().getTextItems()),
                     null,
                     indexedPath.withElement(Names.TEXT_ITEMS).withElement(TextItemValidator.ELEMENT_NAME)
             );
@@ -190,7 +190,7 @@ public class MultimediaDescriptionsBasicValidator implements Validator<Multimedi
     ) {
         // A MultimediaDescription with InfoCode 23 (Pictures) is optional
         if (descriptionWithIndex != null) {
-            MultimediaDescription description = descriptionWithIndex.getMultimediaDescription();
+            MultimediaDescriptionType description = descriptionWithIndex.getMultimediaDescription();
             int index = descriptionWithIndex.getIndex();
             ValidationPath indexedPath = path.withElement(Names.MULTIMEDIA_DESCRIPTION).withIndex(index);
 
@@ -226,19 +226,19 @@ public class MultimediaDescriptionsBasicValidator implements Validator<Multimedi
     /**
      * This helper class is used to provide better error outputs.
      * <p>
-     * It contains a {@link MultimediaDescription} and its index.
+     * It contains a {@link MultimediaDescriptionType} and its index.
      */
-    private class MultimediaDescriptionWithIndex {
+    private static class MultimediaDescriptionWithIndex {
 
-        private final MultimediaDescription multimediaDescription;
+        private final MultimediaDescriptionType multimediaDescription;
         private final int index;
 
-        MultimediaDescriptionWithIndex(MultimediaDescription multimediaDescription, int index) {
+        MultimediaDescriptionWithIndex(MultimediaDescriptionType multimediaDescription, int index) {
             this.multimediaDescription = multimediaDescription;
             this.index = index;
         }
 
-        MultimediaDescription getMultimediaDescription() {
+        MultimediaDescriptionType getMultimediaDescription() {
             return multimediaDescription;
         }
 

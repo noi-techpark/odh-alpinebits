@@ -7,8 +7,8 @@
 package it.bz.opendatahub.alpinebits.handshaking;
 
 import it.bz.opendatahub.alpinebits.middleware.Context;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAPingRQ;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAPingRS;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAPingRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAPingRS;
 
 /**
  * Serialize {@link OTAPingRQ} and {@link OTAPingRS} objects
