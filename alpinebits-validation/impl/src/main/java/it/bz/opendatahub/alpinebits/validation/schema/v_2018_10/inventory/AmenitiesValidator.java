@@ -6,52 +6,28 @@
 
 package it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.inventory;
 
-import it.bz.opendatahub.alpinebits.common.constants.OTACodeRoomAmenityType;
-import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
-import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.Amenities;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.FacilityInfoType.GuestRooms.GuestRoom.Amenities;
 
 /**
- * Validate OTAHotelDescriptiveContentNotifRQ-&gt;HotelDescriptiveContents
- * -&gt;HotelDescriptiveContent-&gt;FacilityInfo-&gt;GuestRooms-&gt;GuestRoom-&gt;Amenities
- * elements.
+ * Use this validator to validate the Amenities in AlpineBits 2018
+ * Inventory documents.
+ *
+ * @see Amenities
  */
 public class AmenitiesValidator implements Validator<Amenities, Void> {
 
     public static final String ELEMENT_NAME = Names.AMENITIES;
 
-    private static final ValidationHelper VALIDATOR = ValidationHelper.withClientDataError();
+    private static final Validator<Amenities, Void> VALIDATION_DELEGATE =
+            new it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory.AmenitiesValidator();
 
     @Override
     public void validate(Amenities amenities, Void ctx, ValidationPath path) {
-        // Amenities are optional
-        if (amenities == null || amenities.getAmenities() == null) {
-            return;
-        }
-
-        for (int i = 0; i < amenities.getAmenities().size(); i++) {
-            Amenities.Amenity amenity = amenities.getAmenities().get(i);
-
-            ValidationPath indexedPath = path.withElement(Names.AMENITY).withIndex(i);
-
-            VALIDATOR.expectNotNull(
-                    amenity.getRoomAmenityCode(),
-                    ErrorMessage.EXPECT_ROOM_AMENITY_CODE_TO_BE_NOT_NULL,
-                    indexedPath.withAttribute(Names.ROOM_AMENITY_CODE)
-            );
-
-            this.validateRoomAmenityTypeCode(amenity.getRoomAmenityCode().intValue(), indexedPath);
-        }
+        // Delegate validation to AlpineBits 2017 implementation,
+        // since the validation remains the same
+        VALIDATION_DELEGATE.validate(amenities, ctx, path);
     }
-
-    private void validateRoomAmenityTypeCode(int code, ValidationPath path) {
-        if (!OTACodeRoomAmenityType.isCodeDefined(code)) {
-            String message = String.format(ErrorMessage.EXPECT_ROOM_AMENITY_CODE_TO_BE_DEFINED, code);
-            VALIDATOR.throwValidationException(message, path.withAttribute(Names.ROOM_AMENITY_CODE));
-        }
-    }
-
 }

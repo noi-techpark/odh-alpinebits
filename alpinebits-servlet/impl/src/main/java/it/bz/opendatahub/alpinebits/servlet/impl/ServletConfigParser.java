@@ -46,7 +46,7 @@ public class ServletConfigParser {
 
         LOG.debug("Initializing configured request handler {}", middlewareClassname);
 
-        Class middlewareClass = Class.forName(middlewareClassname);
+        Class<?> middlewareClass = Class.forName(middlewareClassname);
         return (Middleware) middlewareClass.newInstance();
     }
 
@@ -79,7 +79,7 @@ public class ServletConfigParser {
 
         LOG.debug("Initializing configured request exception handler {}", requestExceptionHandlerClassname);
 
-        Class requestExceptionHandlerClass = Class.forName(requestExceptionHandlerClassname);
+        Class<?> requestExceptionHandlerClass = Class.forName(requestExceptionHandlerClassname);
         return (RequestExceptionHandler) requestExceptionHandlerClass.newInstance();
     }
 
@@ -112,7 +112,7 @@ public class ServletConfigParser {
 
         LOG.debug("Initializing configured context builder {}", contextBuilderClassname);
 
-        Class contextBuilderClass = Class.forName(contextBuilderClassname);
+        Class<?> contextBuilderClass = Class.forName(contextBuilderClassname);
         return (ContextBuilder) contextBuilderClass.newInstance();
     }
 }

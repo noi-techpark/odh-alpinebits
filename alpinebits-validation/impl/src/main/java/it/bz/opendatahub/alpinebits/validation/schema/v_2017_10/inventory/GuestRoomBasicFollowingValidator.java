@@ -11,7 +11,8 @@ import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom;
+import it.bz.opendatahub.alpinebits.validation.utils.ListUtil;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.FacilityInfoType.GuestRooms.GuestRoom;
 
 /**
  * This class provides a {@link Validator} for Inventory/Basic
@@ -80,7 +81,6 @@ public class GuestRoomBasicFollowingValidator implements Validator<GuestRoom, Vo
                 path.withElement(Names.MULTIMEDIA_DESCRIPTIONS)
         );
 
-        this.typeRoomValidator.validate(guestRoom.getTypeRoom(), false, path);
+        this.typeRoomValidator.validate(ListUtil.extractFirst(guestRoom.getTypeRooms()), false, path);
     }
-
 }

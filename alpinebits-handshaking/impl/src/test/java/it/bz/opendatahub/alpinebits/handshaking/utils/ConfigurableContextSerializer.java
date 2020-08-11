@@ -9,8 +9,8 @@ package it.bz.opendatahub.alpinebits.handshaking.utils;
 import it.bz.opendatahub.alpinebits.handshaking.ContextSerializer;
 import it.bz.opendatahub.alpinebits.middleware.Context;
 import it.bz.opendatahub.alpinebits.middleware.Key;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAPingRQ;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAPingRS;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAPingRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAPingRS;
 
 /**
  * This {@link ContextSerializer} implementation is configurable by its constructor

@@ -8,8 +8,9 @@ package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory.commo
 
 import it.bz.opendatahub.alpinebits.common.constants.Iso6391;
 import it.bz.opendatahub.alpinebits.validation.Names;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.MultimediaDescriptions.MultimediaDescription.ImageItems.ImageItem;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom.MultimediaDescriptions.MultimediaDescription.TextItems.TextItem;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.ImageItemsType.ImageItem;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.TextItemsType.TextItem;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.VideoItemsType.VideoItem;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -82,6 +83,34 @@ public class DescriptionTest {
     }
 
     @Test
+    public void testFromVideoItemDescription() {
+        VideoItem.Description videoItemDescription = buildVideoItemDescription();
+
+        Description description = Description.fromVideoItemDescription(videoItemDescription);
+
+        assertEquals(DEFAULT_LANGUAGE, description.getLanguage());
+        assertEquals(DEFAULT_TEXT_FORMAT, description.getTextFormat());
+        assertEquals(DEFAULT_VALUE, description.getValue());
+    }
+
+    @Test
+    public void testFromVideoItemDescriptions() {
+        VideoItem.Description videoItemDescription = buildVideoItemDescription();
+        List<VideoItem.Description> videoItemDescriptions = new ArrayList<>();
+        videoItemDescriptions.add(videoItemDescription);
+
+        List<Description> descriptions = Description.fromVideoItemDescriptions(videoItemDescriptions);
+
+        assertEquals(descriptions.size(), 1);
+
+        Description description = descriptions.get(0);
+        assertEquals(DEFAULT_LANGUAGE, description.getLanguage());
+        assertEquals(DEFAULT_TEXT_FORMAT, description.getTextFormat());
+        assertEquals(DEFAULT_VALUE, description.getValue());
+    }
+
+
+    @Test
     public void testTestEquals() {
         Description description1 = new Description(DEFAULT_VALUE, DEFAULT_TEXT_FORMAT, DEFAULT_LANGUAGE);
         Description description2 = new Description(DEFAULT_VALUE, DEFAULT_TEXT_FORMAT, DEFAULT_LANGUAGE);
@@ -107,6 +136,14 @@ public class DescriptionTest {
 
     private TextItem.Description buildTextItemDescription() {
         TextItem.Description description = new TextItem.Description();
+        description.setLanguage(DEFAULT_LANGUAGE);
+        description.setTextFormat(DEFAULT_TEXT_FORMAT);
+        description.setValue(DEFAULT_VALUE);
+        return description;
+    }
+
+    private VideoItem.Description buildVideoItemDescription() {
+        VideoItem.Description description = new VideoItem.Description();
         description.setLanguage(DEFAULT_LANGUAGE);
         description.setTextFormat(DEFAULT_TEXT_FORMAT);
         description.setValue(DEFAULT_VALUE);

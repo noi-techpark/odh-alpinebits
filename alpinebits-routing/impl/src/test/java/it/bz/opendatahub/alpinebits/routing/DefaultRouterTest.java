@@ -12,8 +12,6 @@ import it.bz.opendatahub.alpinebits.middleware.Key;
 import it.bz.opendatahub.alpinebits.middleware.Middleware;
 import it.bz.opendatahub.alpinebits.middleware.impl.SimpleContext;
 import it.bz.opendatahub.alpinebits.routing.constants.Action;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionName;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionRequestParam;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
@@ -30,12 +28,12 @@ import static org.testng.Assert.*;
 public class DefaultRouterTest {
 
     private static final String DEFAULT_VERSION = AlpineBitsVersion.V_2017_10;
-    private static final ActionRequestParam DEFAULT_ACTION_REQUEST_PARAM = ActionRequestParam.of("ACTION_REQUEST_PARAM");
-    private static final ActionName DEFAULT_ACTION_NAME = ActionName.of("ACTION_NAME");
+    private static final String DEFAULT_ACTION_REQUEST_PARAM = "ACTION_REQUEST_PARAM";
+    private static final String DEFAULT_ACTION_NAME = "ACTION_NAME";
     private static final Action DEFAULT_ACTION = Action.of(DEFAULT_ACTION_REQUEST_PARAM, DEFAULT_ACTION_NAME);
     private static final String DEFAULT_CAPABILITY = "DEFAULT_CAPABILITY";
     private static final String UNKNOWN_VERSION = "some_version";
-    private static final ActionRequestParam UNKNOWN_ACTION_REQUEST_PARAM = ActionRequestParam.of("some_action");
+    private static final String UNKNOWN_ACTION_REQUEST_PARAM = "some_action";
     private static final String UNKNOWN_CAPABILITY = "some_capability";
 
     @Test(expectedExceptions = IllegalArgumentException.class)
@@ -98,13 +96,15 @@ public class DefaultRouterTest {
                 .version(version1)
                 .supportsAction(Action.GET_CAPABILITIES)
                 .withCapabilities()
-                .using((ctx, chain) -> {})
+                .using((ctx, chain) -> {
+                })
                 .versionComplete()
                 .and()
                 .version(version2)
                 .supportsAction(Action.GET_VERSION)
                 .withCapabilities()
-                .using((ctx, chain) -> {})
+                .using((ctx, chain) -> {
+                })
                 .versionComplete()
                 .buildRouter();
         Collection<String> versions = router.getVersions();
@@ -182,7 +182,8 @@ public class DefaultRouterTest {
                 .version(DEFAULT_VERSION)
                 .supportsAction(DEFAULT_ACTION)
                 .withCapabilities(capability1, capability2)
-                .using((ctx, chain) -> {})
+                .using((ctx, chain) -> {
+                })
                 .versionComplete()
                 .buildRouter();
 
@@ -198,7 +199,8 @@ public class DefaultRouterTest {
                 .version(DEFAULT_VERSION)
                 .supportsAction(DEFAULT_ACTION)
                 .withCapabilities()
-                .using((ctx, chain) -> {})
+                .using((ctx, chain) -> {
+                })
                 .versionComplete()
                 .buildRouter();
 
@@ -239,7 +241,7 @@ public class DefaultRouterTest {
 
     @Test
     public void testGetCapabilitiesForVersionAndAction_ShouldReturnEmptyOptional_IfActionForVersionIsNotConfigured() {
-        ActionName otherActionName = ActionName.of(DEFAULT_ACTION_NAME.getValue() + 1);
+        String otherActionName = DEFAULT_ACTION_NAME + 1;
         Optional<Set<String>> result = this.getDefaultRouter()
                 .getCapabilitiesForVersionAndActionName(DEFAULT_VERSION, otherActionName);
         assertFalse(result.isPresent());
@@ -263,7 +265,8 @@ public class DefaultRouterTest {
                 .version(DEFAULT_VERSION)
                 .supportsAction(DEFAULT_ACTION)
                 .withCapabilities(capabilities)
-                .using((ctx, chain) -> {})
+                .using((ctx, chain) -> {
+                })
                 .versionComplete()
                 .buildRouter();
 
@@ -278,7 +281,8 @@ public class DefaultRouterTest {
                 .version(DEFAULT_VERSION)
                 .supportsAction(DEFAULT_ACTION)
                 .withCapabilities(DEFAULT_CAPABILITY)
-                .using((ctx, chain) -> {})
+                .using((ctx, chain) -> {
+                })
                 .versionComplete()
                 .buildRouter();
 

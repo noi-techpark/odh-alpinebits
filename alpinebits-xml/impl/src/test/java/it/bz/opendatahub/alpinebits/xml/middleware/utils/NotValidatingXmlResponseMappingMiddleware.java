@@ -19,9 +19,8 @@ import it.bz.opendatahub.alpinebits.xml.ObjectToXmlConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlValidationSchemaProvider;
 import it.bz.opendatahub.alpinebits.xml.middleware.XmlResponseMappingMiddleware;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAResRetrieveRS;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAResRetrieveRS;
 
-import javax.xml.bind.JAXBException;
 import javax.xml.validation.Schema;
 import java.io.InputStream;
 
@@ -36,38 +35,30 @@ public class NotValidatingXmlResponseMappingMiddleware implements Middleware {
     private final Middleware middleware;
 
     public NotValidatingXmlResponseMappingMiddleware() {
-        try {
-            this.middleware = ComposingMiddlewareBuilder.compose(
-                    new ContentTypeHintMiddleware(),
-                    new MultipartFormDataParserMiddleware(),
-                    this.notValidatingMiddleware()
-            );
-        } catch (JAXBException e) {
-            throw new RuntimeException(e);
-        }
+        this.middleware = ComposingMiddlewareBuilder.compose(
+                new ContentTypeHintMiddleware(),
+                new MultipartFormDataParserMiddleware(),
+                this.notValidatingMiddleware()
+        );
     }
 
     @Override
     public void handleContext(Context ctx, MiddlewareChain chain) {
-        try {
-            InputStream is = this.getClass().getClassLoader().getResourceAsStream("examples/v_2017_10/GuestRequests-OTA_ResRetrieveRS-reservation.xml");
-            Schema schema = XmlValidationSchemaProvider.buildRngSchemaForAlpineBitsVersion("2017-10");
-            XmlToObjectConverter<OTAResRetrieveRS> converter = new JAXBXmlToObjectConverter.Builder<>(OTAResRetrieveRS.class).schema(schema).build();
-            OTAResRetrieveRS responseData = converter.toObject(is);
-            ctx.put(DEFAULT_CTX_KEY, responseData);
+        InputStream is = this.getClass().getClassLoader().getResourceAsStream("examples/v_2017_10/GuestRequests-OTA_ResRetrieveRS-reservation.xml");
+        Schema schema = XmlValidationSchemaProvider.buildRngSchemaForAlpineBitsVersion("2017-10");
+        XmlToObjectConverter<OTAResRetrieveRS> converter = new JAXBXmlToObjectConverter.Builder<>(OTAResRetrieveRS.class).schema(schema).build();
+        OTAResRetrieveRS responseData = converter.toObject(is);
+        ctx.put(DEFAULT_CTX_KEY, responseData);
 
-            this.middleware.handleContext(ctx, chain);
-        } catch (JAXBException e) {
-            throw new RuntimeException(e);
-        }
+        this.middleware.handleContext(ctx, chain);
     }
 
-    private XmlResponseMappingMiddleware<OTAResRetrieveRS> notValidatingMiddleware() throws JAXBException {
-        ObjectToXmlConverter<OTAResRetrieveRS> converter = this.notValidatingConverter(OTAResRetrieveRS.class);
+    private XmlResponseMappingMiddleware<OTAResRetrieveRS> notValidatingMiddleware() {
+        ObjectToXmlConverter converter = this.notValidatingConverter();
         return new XmlResponseMappingMiddleware<>(converter, DEFAULT_CTX_KEY);
     }
 
-    private <T> ObjectToXmlConverter<T> notValidatingConverter(Class<T> classToBeBound) throws JAXBException {
-        return new JAXBObjectToXmlConverter.Builder<>(classToBeBound).prettyPrint(true).build();
+    private ObjectToXmlConverter notValidatingConverter() {
+        return new JAXBObjectToXmlConverter.Builder().prettyPrint(true).build();
     }
 }

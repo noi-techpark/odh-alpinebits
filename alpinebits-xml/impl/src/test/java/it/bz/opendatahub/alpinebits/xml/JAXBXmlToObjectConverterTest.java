@@ -7,7 +7,7 @@
 package it.bz.opendatahub.alpinebits.xml;
 
 import it.bz.opendatahub.alpinebits.xml.entity.TestEntity;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAReadRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAReadRQ;
 import org.testng.annotations.Test;
 
 import java.io.ByteArrayInputStream;

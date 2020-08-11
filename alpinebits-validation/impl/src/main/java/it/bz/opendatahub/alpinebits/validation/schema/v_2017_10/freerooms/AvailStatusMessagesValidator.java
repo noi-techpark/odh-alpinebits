@@ -12,17 +12,18 @@ import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
 import it.bz.opendatahub.alpinebits.validation.context.freerooms.AvailStatusMessagesContext;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRQ.AvailStatusMessages;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRQ.AvailStatusMessages.AvailStatusMessage;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRQ.AvailStatusMessages.AvailStatusMessage.StatusApplicationControl;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRQ.UniqueID;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.AvailStatusMessageType;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelAvailNotifRQ.AvailStatusMessages;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.StatusApplicationControlType;
 
 import java.math.BigInteger;
 import java.util.List;
 
 /**
- * Use this validator to validate {@link UniqueID}
- * objects (AlpineBits 2017-10).
+ * Use this validator to validate the AvailStatusMessages in AlpineBits 2017
+ * FreeRooms documents.
+ *
+ * @see AvailStatusMessages
  */
 public class AvailStatusMessagesValidator implements Validator<AvailStatusMessages, AvailStatusMessagesContext> {
 
@@ -50,7 +51,7 @@ public class AvailStatusMessagesValidator implements Validator<AvailStatusMessag
                 path.withElement(Names.AVAIL_STATUS_MESSAGE_LIST)
         );
 
-        List<AvailStatusMessage> messages = availStatusMessages.getAvailStatusMessages();
+        List<AvailStatusMessageType> messages = availStatusMessages.getAvailStatusMessages();
 
         if (this.isRoomReset(ctx.getInstance(), availStatusMessages.getAvailStatusMessages())) {
             // Room reset means, that there exists only one AvailStatusMessage
@@ -64,7 +65,7 @@ public class AvailStatusMessagesValidator implements Validator<AvailStatusMessag
         }
     }
 
-    private boolean isRoomReset(String instance, List<AvailStatusMessage> messages) {
+    private boolean isRoomReset(String instance, List<AvailStatusMessageType> messages) {
         // A criteria for FreeRooms reset is, that
         // there is only one AvailStatusMessage message
         if (messages.size() != 1) {
@@ -79,14 +80,14 @@ public class AvailStatusMessagesValidator implements Validator<AvailStatusMessag
 
         // A criteria for FreeRooms reset is, that
         // the single AvailStatusMessage has no child element and attributes
-        AvailStatusMessage message = messages.get(0);
+        AvailStatusMessageType message = messages.get(0);
         return message.getBookingLimit() == null
-            && message.getBookingThreshold() == null
-            && message.getBookingLimitMessageType() == null
-            && message.getStatusApplicationControl() == null;
+                && message.getBookingThreshold() == null
+                && message.getBookingLimitMessageType() == null
+                && message.getStatusApplicationControl() == null;
     }
 
-    private void validateRoomReset(AvailStatusMessage message, ValidationPath path) {
+    private void validateRoomReset(AvailStatusMessageType message, ValidationPath path) {
         VALIDATOR.expectNull(
                 message.getBookingLimit(),
                 ErrorMessage.EXPECT_BOOKING_LIMIT_TO_BE_NULL,
@@ -110,7 +111,7 @@ public class AvailStatusMessagesValidator implements Validator<AvailStatusMessag
     }
 
     private void validateAvailStatusMessages(
-            List<AvailStatusMessage> messages,
+            List<AvailStatusMessageType> messages,
             AvailStatusMessagesContext ctx,
             ValidationPath path
     ) {
@@ -118,7 +119,7 @@ public class AvailStatusMessagesValidator implements Validator<AvailStatusMessag
         boolean hasDistinctRoom = false;
 
         for (int i = 0; i < messages.size(); i++) {
-            AvailStatusMessage message = messages.get(i);
+            AvailStatusMessageType message = messages.get(i);
 
             ValidationPath indexedPath = path.withElement(Names.AVAIL_STATUS_MESSAGE).withIndex(i);
 
@@ -138,7 +139,7 @@ public class AvailStatusMessagesValidator implements Validator<AvailStatusMessag
             this.validateBookingThreshold(message, ctx.isFreeButNotBookableSupported(), indexedPath);
 
             // Validate StatusApplicationControl
-            StatusApplicationControl statusApplicationControl = message.getStatusApplicationControl();
+            StatusApplicationControlType statusApplicationControl = message.getStatusApplicationControl();
             this.statusApplicationControlValidator.validate(
                     statusApplicationControl,
                     null,
@@ -168,7 +169,7 @@ public class AvailStatusMessagesValidator implements Validator<AvailStatusMessag
         }
     }
 
-    private void validateBookingThreshold(AvailStatusMessage message, boolean supportsFreeButNotBookable, ValidationPath path) {
+    private void validateBookingThreshold(AvailStatusMessageType message, boolean supportsFreeButNotBookable, ValidationPath path) {
         // Check if Server has OTA_HotelAvailNotif_accept_BookingThreshold
         // capability
         if (supportsFreeButNotBookable) {
@@ -237,7 +238,7 @@ public class AvailStatusMessagesValidator implements Validator<AvailStatusMessag
         }
     }
 
-    private boolean isForRoomCategory(StatusApplicationControl statusApplicationControl) {
+    private boolean isForRoomCategory(StatusApplicationControlType statusApplicationControl) {
         return statusApplicationControl.getInvCode() == null;
     }
 }

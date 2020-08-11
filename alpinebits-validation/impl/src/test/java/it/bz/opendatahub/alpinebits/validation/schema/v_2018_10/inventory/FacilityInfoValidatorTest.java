@@ -8,10 +8,8 @@ package it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.inventory;
 
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.NullValidationException;
-import it.bz.opendatahub.alpinebits.validation.SimpleValidationPath;
-import it.bz.opendatahub.alpinebits.validation.ValidationPath;
-import it.bz.opendatahub.alpinebits.validation.Names;
-import org.testng.annotations.Test;
+import it.bz.opendatahub.alpinebits.validation.ValidationException;
+import it.bz.opendatahub.alpinebits.validation.schema.common.inventory.AbstractFacilityInfoValidatorTest;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.expectThrows;
@@ -19,12 +17,10 @@ import static org.testng.Assert.expectThrows;
 /**
  * Tests for {@link FacilityInfoValidator}.
  */
-public class FacilityInfoValidatorTest {
+public class FacilityInfoValidatorTest extends AbstractFacilityInfoValidatorTest {
 
-    private static final ValidationPath VALIDATION_PATH = SimpleValidationPath.fromPath(Names.FACILITY_INFO);
-
-    @Test
-    public void testValidate_ShouldThrow_WhenFacilityInfoIsNull() {
+    @Override
+    protected void validateAndAssert(Class<? extends ValidationException> exceptionClass, String errorMessage) {
         FacilityInfoValidator validator = new FacilityInfoValidator();
 
         // CHECKSTYLE:OFF

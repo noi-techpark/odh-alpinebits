@@ -68,7 +68,6 @@ public class JsonSerializerTest {
         this.mapper.fromJson("{\"prop:\":\"doesn't exist\"}");
     }
 
-    //TODO: linelength
     @Test
     public void testFromJson_ShouldMapValidJson() {
         this.mapper.fromJson("{\"versions\":[{\"version\":\"2018-10\",\"actions\":" +

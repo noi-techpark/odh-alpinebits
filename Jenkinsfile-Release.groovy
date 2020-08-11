@@ -49,12 +49,12 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'mvn -B -U clean verify -P it'
+                sh 'mvn -B -U clean verify -P it,sources'
             }
         }
         stage('Release') {
             steps {
-		        sh 'mvn -B -U clean deploy -P release'
+		        sh 'mvn -B -U clean deploy -P release,sources'
             }
         }
         stage('Tag') {

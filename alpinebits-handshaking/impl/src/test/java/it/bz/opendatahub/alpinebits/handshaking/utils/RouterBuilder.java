@@ -10,8 +10,6 @@ import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsVersion;
 import it.bz.opendatahub.alpinebits.routing.DefaultRouter;
 import it.bz.opendatahub.alpinebits.routing.Router;
 import it.bz.opendatahub.alpinebits.routing.constants.Action;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionName;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionRequestParam;
 
 /**
  * This class provides methods to build a {@link Router}, it is used for tests only.
@@ -19,8 +17,7 @@ import it.bz.opendatahub.alpinebits.routing.constants.ActionRequestParam;
 public class RouterBuilder {
 
     public static final String DEFAULT_VERSION = AlpineBitsVersion.V_2018_10;
-    public static final Action DEFAULT_ACTION =
-            Action.of(ActionRequestParam.of("action request param"), ActionName.of("some action"));
+    public static final Action DEFAULT_ACTION = Action.of("action request param", "some action");
     public static final String DEFAULT_CAPABILITY = "some capability";
     public static final Router DEFAULT_ROUTER = buildDefaultRouter();
 

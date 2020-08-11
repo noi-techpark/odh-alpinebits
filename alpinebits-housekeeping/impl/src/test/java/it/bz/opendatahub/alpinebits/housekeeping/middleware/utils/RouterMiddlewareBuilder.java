@@ -16,8 +16,6 @@ import it.bz.opendatahub.alpinebits.routing.DefaultRouter;
 import it.bz.opendatahub.alpinebits.routing.Router;
 import it.bz.opendatahub.alpinebits.routing.RoutingBuilder;
 import it.bz.opendatahub.alpinebits.routing.constants.Action;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionName;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionRequestParam;
 import it.bz.opendatahub.alpinebits.routing.middleware.RoutingMiddleware;
 import it.bz.opendatahub.alpinebits.servlet.middleware.AlpineBitsClientProtocolMiddleware;
 import it.bz.opendatahub.alpinebits.servlet.middleware.ContentTypeHintMiddleware;
@@ -126,7 +124,7 @@ public class RouterMiddlewareBuilder {
                 .withCapabilities(AlpineBitsCapability.GET_CAPABILITIES)
                 .using(new HousekeepingGetCapabilitiesMiddleware())
                 .and()
-                .supportsAction(Action.of(ActionRequestParam.of("some"), ActionName.GET_CAPABILITIES))
+                .supportsAction(Action.of("some", AlpineBitsCapability.GET_CAPABILITIES))
                 .withCapabilities(customCapability)
                 .using((ctx, chain) -> {
                 })

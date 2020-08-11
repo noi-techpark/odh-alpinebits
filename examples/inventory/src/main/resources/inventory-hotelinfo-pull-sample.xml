@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OTA_HotelDescriptiveInfoRS xmlns="http://www.opentravel.org/OTA/2003/05" Version="8.000">
+    <Success></Success>
+    <HotelDescriptiveContents>
+        <HotelDescriptiveContent HotelCode="64FD5627B6FD441099D9F9418C147A97" HotelName="Frangart Inn">
+            <FacilityInfo>
+                <GuestRooms>
+                    <GuestRoom Code="DZ">
+                        <MultimediaDescriptions>
+                            <MultimediaDescription>
+                                <ImageItems>
+                                    <ImageItem Category="6">
+                                        <ImageFormat CopyrightNotice="Image copyright">
+                                            <URL>https://..../HotelLogo.jpg</URL>
+                                        </ImageFormat>
+                                        <Description TextFormat="PlainText" Language="en">Image description (2017-10 Test)
+                                        </Description>
+                                    </ImageItem>
+                                </ImageItems>
+                            </MultimediaDescription>
+                        </MultimediaDescriptions>
+                    </GuestRoom>
+                </GuestRooms>
+            </FacilityInfo>
+        </HotelDescriptiveContent>
+    </HotelDescriptiveContents>
+</OTA_HotelDescriptiveInfoRS>

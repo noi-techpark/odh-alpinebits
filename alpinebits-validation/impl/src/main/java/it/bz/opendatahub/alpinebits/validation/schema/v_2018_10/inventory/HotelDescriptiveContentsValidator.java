@@ -6,36 +6,30 @@
 
 package it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.inventory;
 
-import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
-import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
 import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents;
 
 /**
- * Validate OTAHotelDescriptiveContentNotifRQ-&gt;HotelDescriptiveContents
- * elements.
+ * Use this validator to validate the HotelDescriptiveContents in AlpineBits 2018
+ * Inventory documents.
+ *
+ * @see HotelDescriptiveContents
  */
 public class HotelDescriptiveContentsValidator implements Validator<HotelDescriptiveContents, InventoryContext> {
 
     public static final String ELEMENT_NAME = Names.HOTEL_DESCRIPTIVE_CONTENTS;
 
-    private static final ValidationHelper VALIDATOR = ValidationHelper.withClientDataError();
-
-    private final HotelDescriptiveContentValidator hotelDescriptiveContentValidator = new HotelDescriptiveContentValidator();
+    private static final Validator<HotelDescriptiveContents, InventoryContext> VALIDATION_DELEGATE =
+            new it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory.HotelDescriptiveContentsValidator();
 
     @Override
     public void validate(HotelDescriptiveContents hotelDescriptiveContents, InventoryContext ctx, ValidationPath path) {
-        VALIDATOR.expectNotNull(hotelDescriptiveContents, ErrorMessage.EXPECT_HOTEL_DESCRIPTIVE_CONTENTS_TO_BE_NOT_NULL, path);
-        VALIDATOR.expectNotNull(ctx, ErrorMessage.EXPECT_CONTEXT_TO_BE_NOT_NULL);
-
-        this.hotelDescriptiveContentValidator.validate(
-                hotelDescriptiveContents.getHotelDescriptiveContent(),
-                ctx,
-                path.withElement(HotelDescriptiveContentValidator.ELEMENT_NAME)
-        );
+        // Delegate validation to AlpineBits 2017 implementation,
+        // since the validation remains the same
+        VALIDATION_DELEGATE.validate(hotelDescriptiveContents, ctx, path);
     }
 
 }

@@ -8,7 +8,6 @@ package it.bz.opendatahub.alpinebits.xml;
 
 import org.xml.sax.SAXParseException;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
@@ -21,12 +20,10 @@ import java.io.InputStream;
  */
 public final class JAXBXmlToObjectConverter<T> implements XmlToObjectConverter<T> {
 
-    private final JAXBContext jaxbContext;
     private final Schema schema;
     private final Class<T> classToBeBound;
 
-    private JAXBXmlToObjectConverter(JAXBContext jaxbContext, Schema schema, Class<T> classToBeBound) {
-        this.jaxbContext = jaxbContext;
+    private JAXBXmlToObjectConverter(Schema schema, Class<T> classToBeBound) {
         this.schema = schema;
         this.classToBeBound = classToBeBound;
     }
@@ -34,7 +31,7 @@ public final class JAXBXmlToObjectConverter<T> implements XmlToObjectConverter<T
     @Override
     public T toObject(InputStream is) {
         try {
-            Unmarshaller unmarshaller = this.jaxbContext.createUnmarshaller();
+            Unmarshaller unmarshaller = JAXBContextSingleton.getInstance().createUnmarshaller();
             unmarshaller.setSchema(this.schema);
             return this.classToBeBound.cast(unmarshaller.unmarshal(is));
         } catch (JAXBException e) {
@@ -91,12 +88,9 @@ public final class JAXBXmlToObjectConverter<T> implements XmlToObjectConverter<T
          * the current configuration.
          *
          * @return instance of {@link JAXBObjectToXmlConverter}
-         * @throws JAXBException if there went something wrong during
-         *                       the creation of the {@link JAXBObjectToXmlConverter} instance
          */
-        public XmlToObjectConverter<T> build() throws JAXBException {
-            JAXBContext jaxbContext = JAXBContext.newInstance(this.classToBeBound);
-            return new JAXBXmlToObjectConverter<>(jaxbContext, this.schema, this.classToBeBound);
+        public XmlToObjectConverter<T> build() {
+            return new JAXBXmlToObjectConverter<>(this.schema, this.classToBeBound);
         }
     }
 

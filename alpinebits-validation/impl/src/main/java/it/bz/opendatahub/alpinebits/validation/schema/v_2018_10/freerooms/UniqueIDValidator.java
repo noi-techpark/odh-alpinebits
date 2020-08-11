@@ -8,73 +8,29 @@ package it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.freerooms;
 
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
-import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelAvailNotifRQ.UniqueID;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.UniqueIDType;
 
 /**
- * Use this validator to validate {@link UniqueID}
- * objects (AlpineBits 2018-10).
+ * Use this validator to validate the UniqueID in AlpineBits 2018
+ * FreeRooms documents.
+ *
+ * @see UniqueIDType
  */
-public class UniqueIDValidator implements Validator<UniqueID, Boolean> {
+public class UniqueIDValidator implements Validator<UniqueIDType, Boolean> {
 
     public static final String ELEMENT_NAME = Names.UNIQUE_ID;
-    public static final String COMPLETE_SET = "CompleteSet";
-    public static final String VALID_TYPE_16 = "16";
-    public static final String VALID_TYPE_35 = "35";
 
-    private static final ValidationHelper VALIDATOR = ValidationHelper.withClientDataError();
+    private static final Validator<UniqueIDType, Boolean> VALIDATION_DELEGATE =
+            new it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.freerooms.UniqueIDValidator(
+                    ErrorMessage.EXPECT_UNIQUE_ID_TO_BE_NOT_NULL
+            );
 
     @Override
-    public void validate(UniqueID uniqueID, Boolean supportsDeltas, ValidationPath path) {
-        VALIDATOR.expectNotNull(supportsDeltas, ErrorMessage.EXPECT_CONTEXT_TO_BE_NOT_NULL, path);
-
-        // If the server supports deltas (capability
-        // OTA_HotelAvailNotif_accept_deltas is set),
-        // the element UniqueID is optional. If UniqueID
-        // exists (= complete information is send), it
-        // needs to be validated.
-        if (supportsDeltas && uniqueID != null) {
-            this.validateUniqueId(uniqueID, path);
-        }
-
-        // If the server doesn't support deltas, the element
-        // UniqueID is required (the existence of UniqueID
-        // means that complete information is send).
-        if (!supportsDeltas) {
-            VALIDATOR.expectNotNull(uniqueID, ErrorMessage.EXPECT_UNIQUE_ID_TO_BE_NOT_NULL, path);
-
-            this.validateUniqueId(uniqueID, path);
-        }
-    }
-
-    private void validateUniqueId(UniqueID uniqueID, ValidationPath path) {
-        this.validateType(uniqueID.getType(), path);
-        this.validateID(uniqueID.getID(), path);
-        this.validateInstance(uniqueID.getInstance(), path);
-    }
-
-    private void validateType(String type, ValidationPath path) {
-        VALIDATOR.expectNotNull(type, ErrorMessage.EXPECT_TYPE_TO_BE_NOT_NULL, path.withAttribute(Names.TYPE));
-
-        if (!VALID_TYPE_16.equals(type) && !VALID_TYPE_35.equals(type)) {
-            VALIDATOR.throwValidationException(ErrorMessage.EXPECT_TYPE_TO_BE_16_OR_35, path.withAttribute(Names.TYPE));
-        }
-    }
-
-    private void validateID(String id, ValidationPath path) {
-        VALIDATOR.expectNotNull(id, ErrorMessage.EXPECT_ID_TO_BE_NOT_NULL, path.withAttribute(Names.ID));
-    }
-
-    private void validateInstance(String instance, ValidationPath path) {
-        VALIDATOR.expectNotNull(instance, ErrorMessage.EXPECT_INSTANCE_TO_BE_NOT_NULL, path.withAttribute(Names.INSTANCE));
-
-        VALIDATOR.expectEquals(
-                instance,
-                COMPLETE_SET,
-                ErrorMessage.EXPECT_INSTANCE_TO_BE_COMPLETE_SET,
-                path.withAttribute(Names.INSTANCE)
-        );
+    public void validate(UniqueIDType uniqueID, Boolean supportsDeltas, ValidationPath path) {
+        // Delegate validation to AlpineBits 2017 implementation,
+        // since the validation remains the same
+        VALIDATION_DELEGATE.validate(uniqueID, supportsDeltas, path);
     }
 }

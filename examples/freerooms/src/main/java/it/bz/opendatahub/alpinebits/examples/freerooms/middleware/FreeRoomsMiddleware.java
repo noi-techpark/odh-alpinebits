@@ -6,15 +6,12 @@
 
 package it.bz.opendatahub.alpinebits.examples.freerooms.middleware;
 
-import it.bz.opendatahub.alpinebits.db.PersistenceContextKey;
-import it.bz.opendatahub.alpinebits.mapping.entity.GenericResponse;
-import it.bz.opendatahub.alpinebits.mapping.entity.freerooms.FreeRoomsRequest;
 import it.bz.opendatahub.alpinebits.middleware.Context;
 import it.bz.opendatahub.alpinebits.middleware.Key;
 import it.bz.opendatahub.alpinebits.middleware.Middleware;
 import it.bz.opendatahub.alpinebits.middleware.MiddlewareChain;
-
-import javax.persistence.EntityManager;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelAvailNotifRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelAvailNotifRS;
 
 /**
  * A simple {@link Middleware} to handle FreeRooms requests,
@@ -22,28 +19,23 @@ import javax.persistence.EntityManager;
  */
 public class FreeRoomsMiddleware implements Middleware {
 
-    private final Key<FreeRoomsRequest> requestKey;
-    private final Key<GenericResponse> responseKey;
+    public static final Key<OTAHotelAvailNotifRQ> OTA_FREE_ROOMS_REQUEST
+            = Key.key("free rooms request", OTAHotelAvailNotifRQ.class);
+    public static final Key<OTAHotelAvailNotifRS> OTA_FREE_ROOMS_RESPONSE
+            = Key.key("free rooms response", OTAHotelAvailNotifRS.class);
 
-    public FreeRoomsMiddleware(
-            Key<FreeRoomsRequest> requestKey,
-            Key<GenericResponse> responseKey
-    ) {
-        this.requestKey = requestKey;
-        this.responseKey = responseKey;
-    }
+    private final FreeRoomsService freeRoomsService = new FreeRoomsService();
 
     @Override
     public void handleContext(Context ctx, MiddlewareChain chain) {
         // Get necessary objects from middleware context
-        FreeRoomsRequest freeRoomsRequest = ctx.getOrThrow(this.requestKey);
-        EntityManager em = ctx.getOrThrow(PersistenceContextKey.ENTITY_MANAGER);
+        OTAHotelAvailNotifRQ otaHotelAvailNotifRQ = ctx.getOrThrow(OTA_FREE_ROOMS_REQUEST);
 
-        FreeRoomsService freeRoomsService = new FreeRoomsService(em);
-        GenericResponse freeRoomsResponse = freeRoomsService.persistFreeRooms(freeRoomsRequest);
+        // Use a service to invoke the business logic
+        OTAHotelAvailNotifRS otaHotelAvailNotifRS = freeRoomsService.logFreeRooms(otaHotelAvailNotifRQ);
 
         // Put result back into middleware context
-        ctx.put(this.responseKey, freeRoomsResponse);
+        ctx.put(OTA_FREE_ROOMS_RESPONSE, otaHotelAvailNotifRS);
     }
 
 }

@@ -8,8 +8,6 @@ package it.bz.opendatahub.alpinebits.routing;
 
 import it.bz.opendatahub.alpinebits.middleware.Middleware;
 import it.bz.opendatahub.alpinebits.routing.constants.Action;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionName;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionRequestParam;
 
 import java.util.Optional;
 import java.util.Set;
@@ -46,7 +44,7 @@ public interface Router {
      * @throws IllegalArgumentException if <code>version</code> or
      *                                  <code>actionRequestParam</code> is null
      */
-    Optional<Middleware> findMiddleware(String version, ActionRequestParam actionRequestParam);
+    Optional<Middleware> findMiddleware(String version, String actionRequestParam);
 
     /**
      * Return the server AlpineBits version, according to AlpineBits
@@ -174,7 +172,7 @@ public interface Router {
      * no such configuration.
      * @throws IllegalArgumentException if <code>version</code> is null
      */
-    Optional<Set<String>> getCapabilitiesForVersionAndActionName(String version, ActionName actionName);
+    Optional<Set<String>> getCapabilitiesForVersionAndActionName(String version, String actionName);
 
     /**
      * Check if the <code>capability</code> for the given

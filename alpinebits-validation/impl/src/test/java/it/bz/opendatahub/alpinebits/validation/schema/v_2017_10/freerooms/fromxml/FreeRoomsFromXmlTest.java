@@ -7,16 +7,15 @@
 package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.freerooms.fromxml;
 
 import it.bz.opendatahub.alpinebits.validation.XmlSchemaType;
+import it.bz.opendatahub.alpinebits.validation.context.freerooms.HotelAvailNotifContext;
 import it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.freerooms.OTAHotelAvailNotifRQValidator;
-import it.bz.opendatahub.alpinebits.validation.context.freerooms.FreeRoomsContext;
 import it.bz.opendatahub.alpinebits.xml.JAXBXmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlValidationSchemaProvider;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelAvailNotifRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelAvailNotifRQ;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import javax.xml.bind.JAXBException;
 import javax.xml.validation.Schema;
 import java.io.InputStream;
 
@@ -34,13 +33,13 @@ public class FreeRoomsFromXmlTest {
     private XmlToObjectConverter<OTAHotelAvailNotifRQ> withRngSchema;
 
     @BeforeClass
-    public void beforeClass() throws JAXBException {
+    public void beforeClass() {
         this.withXsdSchema = new JAXBXmlToObjectConverter.Builder<>(OTAHotelAvailNotifRQ.class).schema(xsdSchema).build();
         this.withRngSchema = new JAXBXmlToObjectConverter.Builder<>(OTAHotelAvailNotifRQ.class).schema(rngSchema).build();
     }
 
     @Test(dataProvider = "xml", dataProviderClass = XmlDataProvider.class)
-    public void testXml(String xmlFile, FreeRoomsContext ctx, XmlSchemaType xmlSchemaType, Class<Exception> exceptionClass) {
+    public void testXml(String xmlFile, HotelAvailNotifContext ctx, XmlSchemaType xmlSchemaType, Class<Exception> exceptionClass) {
         String filename = "examples/v_2017_10/freerooms/" + xmlFile;
         InputStream is = this.getClass().getClassLoader().getResourceAsStream(filename);
 

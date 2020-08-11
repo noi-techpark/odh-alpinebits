@@ -5,19 +5,18 @@
     <parent>
         <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-root</artifactId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>2.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>examples-root</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>2.0.0</version>
 
     <packaging>pom</packaging>
     <name>AlpineBits examples - root</name>
 
     <modules>
         <module>freerooms</module>
-        <module>guestrequests</module>
         <module>housekeeping</module>
         <module>inventory</module>
     </modules>
@@ -26,9 +25,7 @@
         <!-- Skip Sonar analysis for examples module -->
         <sonar.skip>true</sonar.skip>
 
-        <javax-persistence-api.version>2.2</javax-persistence-api.version>
-        <hibernate-core.version>5.3.7.Final</hibernate-core.version>
-        <h2.version>1.4.199</h2.version>
+        <jackson.version>2.11.1</jackson.version>
 
         <maven-war-plugin.version>3.2.2</maven-war-plugin.version>
         <cargo-maven2-plugin.version>1.6.11</cargo-maven2-plugin.version>
@@ -37,19 +34,9 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>javax.persistence</groupId>
-                <artifactId>javax.persistence-api</artifactId>
-                <version>${javax-persistence-api.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>${hibernate-core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>${h2.version}</version>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

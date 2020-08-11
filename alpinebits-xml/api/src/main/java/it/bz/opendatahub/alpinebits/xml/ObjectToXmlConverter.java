@@ -10,10 +10,8 @@ import java.io.OutputStream;
 
 /**
  * This interfaces defines methods for object-to-XML conversions.
- *
- * @param <T> the object type
  */
-public interface ObjectToXmlConverter<T> {
+public interface ObjectToXmlConverter {
 
     /**
      * Try to convert <code>objectToConvert</code> to an XML and write
@@ -22,9 +20,10 @@ public interface ObjectToXmlConverter<T> {
      * @param objectToConvert this object will be converted to XML
      * @param os              an {@link OutputStream} where the converted XML
      *                        will be written to
-     * @throws XmlConversionException if the conversion was not successful
+     * @throws ExceptionInInitializerError if the underlying JAXBContext could not be created.
+     * @throws XmlConversionException      if the conversion was not successful.
      */
 
-    void toXml(T objectToConvert, OutputStream os);
+    void toXml(Object objectToConvert, OutputStream os);
 
 }

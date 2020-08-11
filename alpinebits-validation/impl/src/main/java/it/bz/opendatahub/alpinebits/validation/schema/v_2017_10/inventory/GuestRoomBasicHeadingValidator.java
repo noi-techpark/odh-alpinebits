@@ -7,13 +7,14 @@
 package it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory;
 
 import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsAction;
-import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent.FacilityInfo.GuestRooms.GuestRoom;
+import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
+import it.bz.opendatahub.alpinebits.validation.utils.ListUtil;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.FacilityInfoType.GuestRooms.GuestRoom;
 
 import java.math.BigInteger;
 
@@ -53,7 +54,7 @@ public class GuestRoomBasicHeadingValidator implements Validator<GuestRoom, Inve
 
         this.validateOccupancy(guestRoom, path);
 
-        this.typeRoomValidator.validate(guestRoom.getTypeRoom(), true, path.withElement(TypeRoomValidator.ELEMENT_NAME));
+        this.typeRoomValidator.validate(ListUtil.extractFirst(guestRoom.getTypeRooms()), true, path.withElement(TypeRoomValidator.ELEMENT_NAME));
         this.amenitiesValidator.validate(guestRoom.getAmenities(), null, path.withElement(AmenitiesValidator.ELEMENT_NAME));
 
         if (AlpineBitsAction.INVENTORY_BASIC_PUSH.equals(ctx.getAction())) {

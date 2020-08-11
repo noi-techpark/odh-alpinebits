@@ -6,77 +6,29 @@
 
 package it.bz.opendatahub.alpinebits.validation.schema.v_2018_10.inventory;
 
-import it.bz.opendatahub.alpinebits.common.constants.AlpineBitsAction;
-import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
-import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
 import it.bz.opendatahub.alpinebits.validation.ValidationPath;
 import it.bz.opendatahub.alpinebits.validation.Validator;
 import it.bz.opendatahub.alpinebits.validation.context.inventory.InventoryContext;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2018_10.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAHotelDescriptiveContentNotifRQ.HotelDescriptiveContents.HotelDescriptiveContent;
 
 /**
- * Validate OTAHotelDescriptiveContentNotifRQ-&gt;HotelDescriptiveContents
- * -&gt;HotelDescriptiveContent elements.
+ * Use this validator to validate the HotelDescriptiveContent in AlpineBits 2018
+ * Inventory documents.
+ *
+ * @see HotelDescriptiveContent
  */
 public class HotelDescriptiveContentValidator implements Validator<HotelDescriptiveContent, InventoryContext> {
 
     public static final String ELEMENT_NAME = Names.HOTEL_DESCRIPTIVE_CONTENT;
 
-    private static final ValidationHelper VALIDATOR = ValidationHelper.withClientDataError();
-
-    private final FacilityInfoValidator facilityInfoValidator = new FacilityInfoValidator();
+    private static final Validator<HotelDescriptiveContent, InventoryContext> VALIDATION_DELEGATE =
+            new it.bz.opendatahub.alpinebits.validation.schema.v_2017_10.inventory.HotelDescriptiveContentValidator();
 
     @Override
     public void validate(HotelDescriptiveContent hotelDescriptiveContent, InventoryContext ctx, ValidationPath path) {
-        VALIDATOR.expectNotNull(hotelDescriptiveContent, ErrorMessage.EXPECT_HOTEL_DESCRIPTIVE_CONTENT_TO_BE_NOT_NULL, path);
-        VALIDATOR.expectNotNull(ctx, ErrorMessage.EXPECT_CONTEXT_TO_BE_NOT_NULL);
-
-        VALIDATOR.expectHotelCodeAndNameNotBothNull(
-                hotelDescriptiveContent.getHotelCode(),
-                hotelDescriptiveContent.getHotelName(),
-                ErrorMessage.EXPECT_HOTEL_CODE_AND_HOTEL_NAME_TO_BE_NOT_BOTH_NULL,
-                path.withAttribute(String.format("%s/%s", Names.HOTEL_CODE, Names.HOTEL_NAME))
-        );
-
-        // Check, that the following elements are not present in
-        // an Inventory/Basic push document (although they are optional
-        // in an Inventory/HotelInfo push document):
-        // - HotelInfo
-        // - Policies
-        // - AffilitationInfo
-        // - ContactInfos
-        if (isInventoryBasicAction(ctx)) {
-            VALIDATOR.expectNull(
-                    hotelDescriptiveContent.getHotelInfo(),
-                    ErrorMessage.EXPECT_HOTEL_INFO_TO_BE_NULL,
-                    path.withElement(Names.HOTEL_INFO)
-            );
-            VALIDATOR.expectNull(
-                    hotelDescriptiveContent.getPolicies(),
-                    ErrorMessage.EXPECT_POLICIES_TO_BE_NULL,
-                    path.withElement(Names.POLICIES)
-            );
-            VALIDATOR.expectNull(
-                    hotelDescriptiveContent.getAffiliationInfo(),
-                    ErrorMessage.EXPECT_AFFILITATION_INFO_TO_BE_NULL,
-                    path.withElement(Names.AFFILIATION_INFO)
-            );
-            VALIDATOR.expectNull(
-                    hotelDescriptiveContent.getContactInfos(),
-                    ErrorMessage.EXPECT_CONTACT_INFOS_TO_BE_NULL,
-                    path.withElement(Names.POLICIES)
-            );
-        }
-
-        this.facilityInfoValidator.validate(
-                hotelDescriptiveContent.getFacilityInfo(),
-                ctx,
-                path.withElement(FacilityInfoValidator.ELEMENT_NAME)
-        );
-    }
-
-    private boolean isInventoryBasicAction(InventoryContext ctx) {
-        return AlpineBitsAction.INVENTORY_BASIC_PUSH.equals(ctx.getAction());
+        // Delegate validation to AlpineBits 2017 implementation,
+        // since the validation remains the same
+        VALIDATION_DELEGATE.validate(hotelDescriptiveContent, ctx, path);
     }
 }

@@ -14,8 +14,6 @@ import it.bz.opendatahub.alpinebits.middleware.MiddlewareChain;
 import it.bz.opendatahub.alpinebits.routing.DefaultRouter;
 import it.bz.opendatahub.alpinebits.routing.Router;
 import it.bz.opendatahub.alpinebits.routing.constants.Action;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionName;
-import it.bz.opendatahub.alpinebits.routing.constants.ActionRequestParam;
 import it.bz.opendatahub.alpinebits.routing.middleware.RoutingMiddleware;
 import it.bz.opendatahub.alpinebits.servlet.middleware.AlpineBitsClientProtocolMiddleware;
 import it.bz.opendatahub.alpinebits.servlet.middleware.MultipartFormDataParserMiddleware;
@@ -35,7 +33,7 @@ public class DefaultRouterMiddleware implements Middleware {
     public DefaultRouterMiddleware() {
         Router router = new DefaultRouter.Builder()
                 .version(DEFAULT_VERSION)
-                .supportsAction(Action.of(ActionRequestParam.of(DEFAULT_ACTION), ActionName.of("name")))
+                .supportsAction(Action.of(DEFAULT_ACTION, "name"))
                 .withCapabilities()
                 .using((ctx, chain) -> {
                 })

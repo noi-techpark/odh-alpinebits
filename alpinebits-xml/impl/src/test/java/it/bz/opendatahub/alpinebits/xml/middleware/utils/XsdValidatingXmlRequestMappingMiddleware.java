@@ -17,9 +17,8 @@ import it.bz.opendatahub.alpinebits.xml.JAXBXmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlToObjectConverter;
 import it.bz.opendatahub.alpinebits.xml.XmlValidationSchemaProvider;
 import it.bz.opendatahub.alpinebits.xml.middleware.XmlRequestMappingMiddleware;
-import it.bz.opendatahub.alpinebits.xml.schema.v_2017_10.OTAReadRQ;
+import it.bz.opendatahub.alpinebits.xml.schema.ota.OTAReadRQ;
 
-import javax.xml.bind.JAXBException;
 import javax.xml.validation.Schema;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -37,14 +36,10 @@ public class XsdValidatingXmlRequestMappingMiddleware implements Middleware {
     private final Middleware middleware;
 
     public XsdValidatingXmlRequestMappingMiddleware() {
-        try {
-            this.middleware = ComposingMiddlewareBuilder.compose(Arrays.asList(
-                    new MultipartFormDataParserMiddleware(),
-                    this.validatingMiddleware()
-            ));
-        } catch (JAXBException e) {
-            throw new RuntimeException(e);
-        }
+        this.middleware = ComposingMiddlewareBuilder.compose(Arrays.asList(
+                new MultipartFormDataParserMiddleware(),
+                this.validatingMiddleware()
+        ));
     }
 
     @Override
@@ -62,13 +57,13 @@ public class XsdValidatingXmlRequestMappingMiddleware implements Middleware {
         }
     }
 
-    private XmlRequestMappingMiddleware<OTAReadRQ> validatingMiddleware() throws JAXBException {
+    private XmlRequestMappingMiddleware<OTAReadRQ> validatingMiddleware() {
         Schema schema = XmlValidationSchemaProvider.buildXsdSchemaForAlpineBitsVersion("2017-10");
         XmlToObjectConverter<OTAReadRQ> converter = this.validatingConverter(OTAReadRQ.class, schema);
         return new XmlRequestMappingMiddleware<>(converter, DEFAULT_CTX_KEY);
     }
 
-    private <T> XmlToObjectConverter<T> validatingConverter(Class<T> classToBeBound, Schema schema) throws JAXBException {
+    private <T> XmlToObjectConverter<T> validatingConverter(Class<T> classToBeBound, Schema schema) {
         return new JAXBXmlToObjectConverter.Builder<>(classToBeBound).schema(schema).build();
     }
 }
