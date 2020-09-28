@@ -93,41 +93,6 @@ The website provides a set of links and an output area. If you click on any of
 the links, the website will issue a request against the deployed AlpineBits
 server instance and display the results.
 
-#### Example: GuestRequest actions
-
-The `guestrequests` example provides an AlpineBits server instance supporting
-the so called GuestRequest actions. A [H2](http://www.h2database.com)
-instance is used for persistence (the database file is written with name
-`alpinebits_guestrequests` to current user's HOME folder).
-
-Change to the `guestrequests` directory (assuming you are in the projects root
-folder):
-
-```bash
-cd examples/guestrequests
-```
-
-Run the following maven command:
-
-```bash
-mvn clean install cargo:run
-```
-
-This command starts a local Tomcat 8 instance using
-[Cargo](https://codehaus-cargo.github.io/cargo/Maven2+plugin.html) and deploys
-the example war file, generated during the installation (see [Installing](#installing)).
-
-The deployment contains an AlpineBits server instance supporting the
-GuestRequest actions and a simple website to facilitate the communication with
-the server.
-
-After Tomcat started, Open the website at
-[http://localhost:8080/examples-guestrequests/index.html](http://localhost:8080/examples-guestrequests/index.html).
-
-The website provides a set of links and an output area. If you click on any of
-the links, the website will issue a request against the deployed AlpineBits
-server instance and display the results.
-
 #### Example: Inventory actions
 
 The `inventory` example provides an AlpineBits server instance supporting

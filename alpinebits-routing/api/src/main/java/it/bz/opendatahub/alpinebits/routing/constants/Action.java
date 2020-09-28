@@ -99,7 +99,7 @@ public final class Action {
      * The actor implements handling room availability notifications (FreeRooms from AlpineBits 2020-10 going on).
      */
     public static final Action FREE_ROOMS_HOTEL_INV_COUNT_NOTIF_FREE_ROOMS = of(
-            AlpineBitsAction.FREE_ROOMS_HOTEL_AVAIL_NOTIF_FREE_ROOMS,
+            AlpineBitsAction.FREE_ROOMS_HOTEL_INV_COUNT_NOTIF_FREE_ROOMS,
             AlpineBitsCapability.FREE_ROOMS_HOTEL_INV_COUNT_NOTIF
     );
 
