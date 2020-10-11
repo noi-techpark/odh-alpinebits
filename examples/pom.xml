@@ -17,6 +17,7 @@
 
     <modules>
         <module>freerooms</module>
+        <module>handshaking</module>
         <module>housekeeping</module>
         <module>inventory</module>
     </modules>
