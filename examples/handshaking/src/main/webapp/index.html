@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>AlpineBits example: Handshaking actions</title>
+    </head>
+<body>
+    <h1>AlpineBits Handshaking actions</h1>
+    <p>
+        <button onclick='callHandshaking()'>Click here to execute the AlpineBits Handshaking action</button>
+    </p>
+    <p>
+        When you click on the button above, an AlpineBits Handshake request (POST) is issued. The request
+    </p>
+    <p>
+        <textarea id="log" cols="80" rows="25" readonly style="background: #eee; margin-top: 20px;"></textarea>
+    </p>
+
+    <script>
+        var logArea = document.getElementById('log');
+
+        function callHandshaking() {
+            logAction('Invoking AlpineBits endpoint with OTA_Ping:Handshaking action...');
+            post('./AlpineBits', {action: 'OTA_Ping:Handshaking', request: buildHandshakingRequestXml()});
+        }
+
+        function post(path, params) {
+            var xhr = new XMLHttpRequest();
+            var formData = new FormData();
+            var start = null;
+
+            for (var key in params) {
+                formData.append(key, params[key]);
+            }
+
+            xhr.addEventListener('load', function (event) {
+                var end = new Date();
+                console.log(event);
+                logAction(xhr.responseText + ' (took ' + (end.getTime() - start.getTime()) + 'ms)');
+            });
+
+            xhr.addEventListener('error', function (event) {
+                console.log(event);
+                logAction('Oops! Something went wrong: ' + xhr.statusText);
+            });
+
+            xhr.open('POST', path, true);
+            xhr.setRequestHeader('X-AlpineBits-ClientProtocolVersion', '2020-10');
+            xhr.setRequestHeader('Authorization', 'Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==');
+
+            start = new Date()
+            xhr.send(formData);
+        }
+
+        function logAction(message) {
+            var now = new Date();
+            var hours = ('0' + now.getHours()).slice(-2);
+            var minutes = ('0' + now.getMinutes()).slice(-2);
+            var seconds = ('0' + now.getSeconds()).slice(-2);
+            var time = hours + ':' + minutes + ':' + seconds;
+            logArea.value += '[' + time + ']: ' + message + '\n';
+        }
+
+        function buildHandshakingRequestXml() {
+            return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<OTA_PingRQ xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
+                "            xmlns=\"http://www.opentravel.org/OTA/2003/05\"\n" +
+                "            xsi:schemaLocation=\"http://www.opentravel.org/OTA/2003/05 OTA_PingRQ.xsd\"\n" +
+                "            Version=\"8.000\">\n" +
+                "    <EchoData>\n" +
+                "    {\n" +
+                "      \"versions\": [{\n" +
+                "        \"version\": \"2017-10\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"version\": \"2018-10\",\n" +
+                "        \"actions\": [\n" +
+                "          {\n" +
+                "            \"action\": \"action_OTA_Ping\"\n" +
+                "          },{\n" +
+                "            \"action\": \"action_OTA_HotelDescriptiveInfo_Inventory\",\n" +
+                "            \"supports\": [\"OTA_HotelRatePlan_BaseRates_deltas\"]\n" +
+                "          },{\n" +
+                "            \"action\": \"action_OTA_HotelDescriptiveContentNotif_Inventory\",\n" +
+                "            \"supports\": [\"OTA_HotelDescriptiveContentNotif_Inventory_use_rooms\"]\n" +
+                "          },{\n" +
+                "            \"action\": \"action_OTA_HotelRatePlan_BaseRates\",\n" +
+                "            \"supports\": [\"OTA_HotelRatePlan_BaseRates_deltas\"]\n" +
+                "          },{\n" +
+                "            \"action\": \"action_OTA_HotelRatePlanNotif_RatePlans\",\n" +
+                "            \"supports\": [\n" +
+                "              \"OTA_HotelRatePlanNotif_accept_overlay\",\n" +
+                "              \"OTA_HotelRatePlanNotif_accept_Supplements\",\n" +
+                "              \"OTA_HotelRatePlanNotif_accept_RatePlan_BookingRule\",\n" +
+                "              \"OTA_HotelRatePlanNotif_accept_FreeNightsOffers\",\n" +
+                "              \"OTA_HotelRatePlanNotif_accept_FamilyOffers\"\n" +
+                "            ]\n" +
+                "          }\n" +
+                "        ]\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"version\": \"2020-10\",\n" +
+                "        \"actions\": [\n" +
+                "          {\n" +
+                "            \"action\": \"action_OTA_Ping\"\n" +
+                "          },\n" +
+                "          {\n" +
+                "            \"action\": \"action_OTA_HotelInvCountNotif\",\n" +
+                "            \"supports\": [\"OTA_HotelInvCountNotif_accept_rooms\",\"OTA_HotelInvCountNotif_accept_categories\"]\n" +
+                "          }\n" +
+                "        ]\n" +
+                "      }]\n" +
+                "    }\n" +
+                "    </EchoData>\n" +
+                "</OTA_PingRQ>\n"
+        }
+    </script>
+</body>
+</html>

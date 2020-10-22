@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
+<!-- 
      AlpineBits 2020-10
      http://www.alpinebits.org/
 
@@ -99,7 +99,7 @@
 								<!-- hotel Logo -->
                                 <ImageItem Category="15">
 									<!-- SourceID: Unique identifier for each image file -->
-                                    <ImageFormat Title="Title 64 chars length" CopyrightNotice="Image copyright" SourceID="56757e0211b70d379107707fb6f657fa">
+                                    <ImageFormat CopyrightNotice="Image copyright" SourceID="56757e0211b70d379107707fb6f657fa">
                                         <URL>https://..../HotelLogo.jpg</URL>
                                     </ImageFormat>
                                     <Description TextFormat="PlainText" Language="en">Logo Frangart Inn</Description>
@@ -109,7 +109,7 @@
 								
                                 <!-- example: exterior picture applicable from Sep 30 to Mar 30 for seasonal pictures -->
                                 <ImageItem Category="1">
-                                    <ImageFormat Title="Title 64 chars length" CopyrightNotice="Image copyright" SourceID="56757e0211440d37910f407fb6f657fb" 
+                                    <ImageFormat CopyrightNotice="Image copyright" SourceID="56757e0211440d37910f407fb6f657fb" 
 												 ApplicableStart="--09-30" ApplicableEnd="--03-30">
                                         <URL>https://..../HotelExteriorWinterView.jpg</URL>
                                     </ImageFormat>
@@ -127,7 +127,7 @@
 								<!-- one or more video -->
                                 <VideoItem Category="12">
 									<!-- SourceID: Unique identifier for each video file -->
-                                    <VideoFormat Title="Title 64 chars length" CopyrightNotice="Video copyright" SourceID="56757e0211b70887910f407fb6f657fa">
+                                    <VideoFormat CopyrightNotice="Video copyright" SourceID="56757e0211b70887910f407fb6f657fa">
                                         <URL>https://..../HotelVideo.mp4</URL>
                                     </VideoFormat>
                                     <Description TextFormat="PlainText" Language="en">Video Frangart Inn</Description>
@@ -338,7 +338,7 @@
                         <Email EmailType="5">info@alpinebits.org</Email>
                     </Emails>
                     <URLs>
-                        <URL>https://www.alpinebits.org/</URL>
+                        <URL ID="WEBSITE">https://www.alpinebits.org/</URL>
                         <URL ID="FACEBOOK">https://www.facebook.com/alpinebits/</URL>
                     </URLs>
                 </ContactInfo>

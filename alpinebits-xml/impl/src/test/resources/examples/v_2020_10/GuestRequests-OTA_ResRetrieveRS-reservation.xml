@@ -7,7 +7,6 @@
      sample message file
 
      changelog:
-     v. 2020-10 1.0 added RoomRates
      v. 2015-07 1.0 updated to 2015-07
      v. 2014-04 1.0
 -->
@@ -41,32 +40,6 @@
                             <MealsIncluded MealPlanIndicator="true" MealPlanCodes="1"/>
                         </RatePlan>
                     </RatePlans>
-
-                    <!-- RoomRates is only present if the according capability is supported -->
-                    <RoomRates>
-                        <RoomRate RoomTypeCode="bigsuite" RatePlanCode="123456-xyz">
-                            <Rates>
-                                <!-- EUR 30 per day from 2012-01-01 until 2012-01-10 -->
-                                <Rate RateTimeUnit="Day" EffectiveDate="2012-01-01" ExpireDate="2012-01-10">
-                                    <Base AmountAfterTax="30.00" CurrencyCode="EUR"/>
-                                </Rate>
-                                <!-- EUR 20 per day from 2012-01-10 until 2012-01-11 -->
-                                <Rate RateTimeUnit="Day" EffectiveDate="2012-01-10" ExpireDate="2012-01-11">
-                                    <Base AmountAfterTax="20.00" CurrencyCode="EUR"/>
-                                </Rate>
-                                <!-- Free night from 2012-01-11 until 2012-01-12 -->
-                                <Rate RateTimeUnit="Day" EffectiveDate="2012-01-11" ExpireDate="2012-01-12">
-                                    <Base AmountAfterTax="0.00" CurrencyCode="EUR"/>
-                                    <AdditionalCharges>
-                                        <AdditionalCharge>
-                                            <!-- Type="12" means it is charged 'per stay'. See Code List Charge Type (CHG) -->
-                                            <Amount AmountAfterTax="9.00" CurrencyCode="EUR" Type="12" />
-                                        </AdditionalCharge>
-                                    </AdditionalCharges>
-                                </Rate>
-                            </Rates>
-                        </RoomRate>
-                    </RoomRates>
 
                     <!-- 2 adults + 1 child + 1 child = 4 guests -->
                     <GuestCounts>

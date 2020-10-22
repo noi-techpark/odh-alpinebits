@@ -143,8 +143,8 @@ public class XmlDataProvider {
                 {"HotelDescriptiveContentNotifRQ_Basic-err-info-code-23-category-invalid.xml", BASIC, XmlSchemaType.XSD_SCHEMA, ValidationException.class},
                 {"HotelDescriptiveContentNotifRQ_Basic-err-info-code-23-category-invalid.xml", BASIC, XmlSchemaType.RNG_SCHEMA, ValidationException.class},
 
-                {"HotelDescriptiveContentNotifRQ_Basic-err-info-code-23-descriptions-empty.xml", BASIC, XmlSchemaType.XSD_SCHEMA, EmptyCollectionValidationException.class},
-                {"HotelDescriptiveContentNotifRQ_Basic-err-info-code-23-descriptions-empty.xml", BASIC, XmlSchemaType.RNG_SCHEMA, EmptyCollectionValidationException.class},
+                {"HotelDescriptiveContentNotifRQ_Basic-ok-info-code-23-descriptions-empty.xml", BASIC, XmlSchemaType.XSD_SCHEMA, null},
+                {"HotelDescriptiveContentNotifRQ_Basic-ok-info-code-23-descriptions-empty.xml", BASIC, XmlSchemaType.RNG_SCHEMA, null},
 
                 {"HotelDescriptiveContentNotifRQ_HotelInfo-err-min-occupancy-notnull.xml", HOTEL_INFO, XmlSchemaType.XSD_SCHEMA, NotNullValidationException.class},
                 // The following test throws a XmlConversionException for RNG Schema only, because

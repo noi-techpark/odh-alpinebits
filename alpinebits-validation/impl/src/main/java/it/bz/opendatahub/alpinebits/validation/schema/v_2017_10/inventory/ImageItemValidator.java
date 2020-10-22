@@ -55,7 +55,7 @@ public class ImageItemValidator implements Validator<ImageItem, Void> {
             VALIDATOR.throwValidationException(message, path.withAttribute(Names.CATEGORY));
         }
 
-        if (imageItem.getDescriptions() != null) {
+        if (!imageItem.getDescriptions().isEmpty()) {
             List<Description> descriptions = Description.fromImageItemDescriptions(imageItem.getDescriptions());
             this.descriptionsValidator.validate(descriptions, null, path.withElement(Names.DESCRIPTION_LIST));
         }

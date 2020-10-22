@@ -5,12 +5,12 @@
     <parent>
         <groupId>it.bz.opendatahub.alpinebits</groupId>
         <artifactId>alpinebits-handshaking</artifactId>
-        <version>2.0.1</version>
+        <version>2.0.2</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>alpinebits-handshaking-api</artifactId>
-    <version>2.0.1</version>
+    <version>2.0.2</version>
 
     <name>AlpineBits handshaking API</name>
 
