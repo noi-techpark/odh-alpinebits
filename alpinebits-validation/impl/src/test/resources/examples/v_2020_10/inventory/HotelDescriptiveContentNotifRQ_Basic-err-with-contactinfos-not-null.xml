@@ -13,7 +13,7 @@
             <ContactInfos>
                 <ContactInfo Location="6">
                     <URLs>
-                        <URL ID="ABC">https://www.abc.com/alpinebits/</URL>
+                        <URL ID="WEBSITE">https://www.abc.com/alpinebits/</URL>
                     </URLs>
                 </ContactInfo>
             </ContactInfos>
