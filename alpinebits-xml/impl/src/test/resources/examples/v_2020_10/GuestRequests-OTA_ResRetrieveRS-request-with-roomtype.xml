@@ -19,7 +19,7 @@
 
     <ReservationsList>
 
-        <HotelReservation CreateDateTime="2017-09-03T19:47:50" ResStatus="Requested">
+        <HotelReservation CreateDateTime="2017-09-03T19:47:50+02:00" ResStatus="Requested">
 
             <UniqueID Type="14" ID="6b34fe24ac2ff811"/>
 
