@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-  ~ This Source Code Form is subject to the terms of the Mozilla Public
-  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
-  ~ file, You can obtain one at http://mozilla.org/MPL/2.0/.
-  -->
-
-<!--
+<!-- 
      AlpineBits 2018-10
      http://www.alpinebits.org/
 
@@ -25,7 +19,7 @@
 
     <ReservationsList>
 
-        <HotelReservation CreateDateTime="2017-09-03T19:47:50+01:00" ResStatus="Requested">
+        <HotelReservation CreateDateTime="2017-09-03T19:47:50" ResStatus="Requested">
 
             <UniqueID Type="14" ID="6b34fe24ac2ff811"/>
 
