@@ -54,7 +54,7 @@ public class VideoItemValidator implements Validator<VideoItem, Void> {
             VALIDATOR.throwValidationException(message, path.withAttribute(Names.CATEGORY));
         }
 
-        if (videoItem.getDescriptions() != null) {
+        if (!videoItem.getDescriptions().isEmpty()) {
             List<Description> descriptions = Description.fromVideoItemDescriptions(videoItem.getDescriptions());
             this.descriptionsValidator.validate(descriptions, null, path.withElement(Names.DESCRIPTION_LIST));
         }

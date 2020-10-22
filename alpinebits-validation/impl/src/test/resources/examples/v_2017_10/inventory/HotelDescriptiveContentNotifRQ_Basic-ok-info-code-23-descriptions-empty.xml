@@ -23,8 +23,8 @@
                                         <ImageFormat>
                                             <URL>https://example.org</URL>
                                         </ImageFormat>
-                                        <!-- Err: Description required -->
                                     </ImageItem>
+                                    <!-- OK: Empty description allowed for images -->
                                 </ImageItems>
                             </MultimediaDescription>
                         </MultimediaDescriptions>
