@@ -60,7 +60,40 @@ instances, that are easy to get up and running. The main point of the examples
 is to demonstrate the usage of the library to create a functioning AlpineBits
 server.
 
-#### Example: Housekeeping actions
+#### Example: Handshaking action (since 2020-10)
+
+The `handshaking` example provides an AlpineBits server instance supporting
+the so called Handshaking action.
+
+Change to the `handshaking` directory (assuming you are in the projects root
+folder):
+
+```bash
+cd examples/handshaking
+```
+
+Run the following maven command:
+
+```bash
+mvn clean install cargo:run
+```
+
+This command starts a local Tomcat 8 instance using
+[Cargo](https://codehaus-cargo.github.io/cargo/Maven2+plugin.html) and deploys
+the example war file, generated during the installation (see [Installing](#installing)).
+
+The deployment contains an AlpineBits server instance supporting the
+Handshaking action and a simple website to facilitate the communication with
+the server.
+
+After Tomcat started, Open the website at
+[http://localhost:8080/examples-handshaking/index.html](http://localhost:8080/examples-handshaking/index.html).
+
+The website provides a set of links and an output area. If you click on any of
+the links, the website will issue a request against the deployed AlpineBits
+server instance and display the results.
+
+#### Example: Housekeeping action (until 2018-10)
 
 The `housekeeping` example provides an AlpineBits server instance supporting
 the so called Housekeeping actions.

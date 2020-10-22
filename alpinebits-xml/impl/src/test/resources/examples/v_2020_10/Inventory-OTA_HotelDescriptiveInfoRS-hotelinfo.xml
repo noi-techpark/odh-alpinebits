@@ -344,12 +344,7 @@
                         <URL>https://www.alpinebitsHotel.it</URL>
                         <URL ID="FACEBOOK">https://www.facebook.com/alpinebitsHotel</URL>
                     </URLs>
-
-                    <!--
-                    The element CompanyName is not specified in the AlpineBits 2020-10 standard.
-                    Therefor it is commented out.
-                    -->
-                    <!-- <CompanyName/> -->
+                    <CompanyName/>
                 </ContactInfo>
             </ContactInfos>
 
