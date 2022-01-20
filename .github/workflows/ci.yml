@@ -1,15 +1,15 @@
-name: CI odh-alpinebits
+name: ci odh-alpinebits
 
 on:
   push:
     branches: [ development, master ]
-    paths:
-      - "!README.md"
+    paths-ignore:
+      - "README.md"
 
   pull_request:
     branches: [ development, master ]
-    paths:
-      - "!README.md"
+    paths-ignore:
+      - "README.md"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
