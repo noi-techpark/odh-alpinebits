@@ -99,6 +99,8 @@ public final class ErrorMessage {
             DefaultErrorMessage.expectNotNullErrorMessage(Names.CONTACT_INFOS);
     public static final String EXPECT_CONTEXT_TO_BE_NOT_NULL =
             DefaultErrorMessage.expectNotNullErrorMessage(Names.CONTEXT);
+    public static final String EXPECT_CURRENCY_CODE_TO_BE_VALID =
+            "The currency code '%s' is not defined in ISO-4217 and is therefore rejected";
     public static final String EXPECT_CURRENCY_CODE_TO_EXIST_IF_AMOUNT_EXISTS =
             "The CurrencyCode element must be present if there is an Amount element";
     public static final String EXPECT_CURRENCY_CODE_TO_EXIST_IF_NON_REFUNDABLE_FEE_EXISTS =

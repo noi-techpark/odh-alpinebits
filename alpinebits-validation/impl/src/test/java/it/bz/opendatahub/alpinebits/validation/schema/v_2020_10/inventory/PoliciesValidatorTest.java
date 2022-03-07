@@ -181,6 +181,21 @@ public class PoliciesValidatorTest {
     }
 
     @Test
+    public void testValidate_ShouldThrow_WhenAmountIsSetButCurrencyCodeIsNotIso4217() {
+        String notIso4217 = "NOT_ISO_4217";
+
+        CheckoutCharge checkoutCharge = new CheckoutCharge();
+        checkoutCharge.setAmount(BigDecimal.ONE);
+
+        Policies policies = buildPoliciesWithCheckoutCharge(checkoutCharge);
+        policies.getPolicies().get(0).getCheckoutCharges().getCheckoutCharges().get(0).setCurrencyCode(notIso4217);
+
+        String message = String.format(ErrorMessage.EXPECT_CURRENCY_CODE_TO_BE_VALID, notIso4217);
+        this.validateAndAssert(policies, ValidationException.class, message);
+    }
+
+
+    @Test
     public void testValidate_ShouldThrow_WhenCheckoutChargeDescriptionCountIsLessThanOne() {
         Policies policies = buildPoliciesWithCheckoutCharge(new CheckoutCharge());
 
