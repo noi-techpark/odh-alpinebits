@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 
 import static org.testng.Assert.assertTrue;
 
@@ -43,6 +44,7 @@ public class JAXBObjectToXmlConverterTest {
     @Test
     public void testToXml_Ok() throws Exception {
         OTAPingRQ pingRQ = new OTAPingRQ();
+        pingRQ.setVersion(BigDecimal.ONE);
         pingRQ.setEchoData("Some echo data");
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -59,6 +61,7 @@ public class JAXBObjectToXmlConverterTest {
         mat.setSuccess(new SuccessType());
         ObjectFactory of = new ObjectFactory();
         OTAHotelAvailNotifRS data = of.createOTAHotelAvailNotifRS(mat);
+        data.getValue().setVersion(BigDecimal.ONE);
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
 

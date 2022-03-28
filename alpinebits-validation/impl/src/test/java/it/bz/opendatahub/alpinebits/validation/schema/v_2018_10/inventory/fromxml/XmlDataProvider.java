@@ -44,8 +44,8 @@ public class XmlDataProvider {
                 {"HotelDescriptiveContentNotifRQ_Basic-err-with-affiliationinfo.xml", BASIC, XmlSchemaType.XSD_SCHEMA, NotNullValidationException.class},
                 {"HotelDescriptiveContentNotifRQ_Basic-err-with-affiliationinfo.xml", BASIC, XmlSchemaType.RNG_SCHEMA, NotNullValidationException.class},
 
-                {"HotelDescriptiveContentNotifRQ_Basic-err-with-policies.xml", BASIC, XmlSchemaType.XSD_SCHEMA, NotNullValidationException.class},
-                {"HotelDescriptiveContentNotifRQ_Basic-err-with-policies.xml", BASIC, XmlSchemaType.RNG_SCHEMA, NotNullValidationException.class},
+                {"HotelDescriptiveContentNotifRQ_Basic-err-with-policies.xml", BASIC, XmlSchemaType.XSD_SCHEMA, XmlConversionException.class},
+                {"HotelDescriptiveContentNotifRQ_Basic-err-with-policies.xml", BASIC, XmlSchemaType.RNG_SCHEMA, XmlConversionException.class},
 
                 {"HotelDescriptiveContentNotifRQ_Basic-err-with-contactinfos-not-null.xml", BASIC, XmlSchemaType.XSD_SCHEMA, NotNullValidationException.class},
                 {"HotelDescriptiveContentNotifRQ_Basic-err-with-contactinfos-not-null.xml", BASIC, XmlSchemaType.RNG_SCHEMA, NotNullValidationException.class},

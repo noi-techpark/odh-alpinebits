@@ -9,7 +9,7 @@
                 <GuestRooms>
                     <GuestRoom Code="DZ" MinOccupancy="1" MaxOccupancy="2">
                         <!-- Err: heading GuestRoom RoomClassificationCode must be defined in OTA GuestRoom Info Codes (GRI) -->
-                        <TypeRoom StandardOccupancy="1" RoomClassificationCode="9999"></TypeRoom>
+                        <TypeRoom StandardOccupancy="1" RoomClassificationCode="999"></TypeRoom>
                     </GuestRoom>
                 </GuestRooms>
             </FacilityInfo>

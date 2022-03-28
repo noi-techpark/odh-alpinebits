@@ -7,11 +7,19 @@
 package it.bz.opendatahub.alpinebits.xml;
 
 import it.bz.opendatahub.alpinebits.xml.schema.ota.ObjectFactory;
+import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
+import javax.xml.validation.Validator;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
  * This class provides methods to convert OTA-2015A objects to XML.
@@ -23,10 +31,12 @@ public final class JAXBObjectToXmlConverter implements ObjectToXmlConverter {
 
     private final Schema schema;
     private final boolean doPrettyPrintXml;
+    private final Schema otaSchema;
 
     private JAXBObjectToXmlConverter(Schema schema, boolean doPrettyPrintXml) {
         this.schema = schema;
         this.doPrettyPrintXml = doPrettyPrintXml;
+        this.otaSchema = XmlValidationSchemaProvider.buildXsdSchema("ota2015a-min.xsd");
     }
 
     @Override
@@ -35,11 +45,26 @@ public final class JAXBObjectToXmlConverter implements ObjectToXmlConverter {
             Marshaller marshaller = JAXBContextSingleton.getInstance().createMarshaller();
             marshaller.setSchema(this.schema);
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, this.doPrettyPrintXml);
-            marshaller.marshal(objectToConvert, os);
-        } catch (JAXBException e) {
+
+            // Write XML to temporary string such that it can be reused for OTA 2015a XSD validation
+            ByteArrayOutputStream tmpStream = new ByteArrayOutputStream();
+            marshaller.marshal(objectToConvert, tmpStream);
+            String xml = tmpStream.toString();
+
+            // Validate against OTA 2015a XSD
+            Validator validator = this.otaSchema.newValidator();
+            validator.validate(toSource(xml));
+
+            // Write XML to output stream
+            os.write(xml.getBytes(StandardCharsets.UTF_8));
+        } catch (JAXBException | SAXException | IOException e) {
             String message = "Object-to-XML conversion error: " + (e.getMessage() == null ? e.toString() : e.getMessage());
             throw new XmlConversionException(message, e);
         }
+    }
+
+    private Source toSource(String xml) {
+        return new StreamSource(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
     }
 
     /**
