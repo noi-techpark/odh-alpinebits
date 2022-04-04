@@ -6,12 +6,19 @@
 
 package it.bz.opendatahub.alpinebits.xml;
 
+import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
+import javax.xml.validation.Validator;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
  * This class provides methods to convert XML to Java objects.
@@ -22,25 +29,43 @@ public final class JAXBXmlToObjectConverter<T> implements XmlToObjectConverter<T
 
     private final Schema schema;
     private final Class<T> classToBeBound;
+    private final Schema otaSchema;
 
     private JAXBXmlToObjectConverter(Schema schema, Class<T> classToBeBound) {
         this.schema = schema;
         this.classToBeBound = classToBeBound;
+        this.otaSchema = XmlValidationSchemaProvider.buildXsdSchema("ota2015a-min.xsd");
     }
 
     @Override
     public T toObject(InputStream is) {
         try {
+            // Write InputStream into string such that it can be reused for
+            // OTA 2015a XSD validation, AlpineBits XSD validation and XML-to-object unmarshalling.
+            String xml = StreamConverter.readToString(is);
+
+            // Validate against OTA 2015a XSD
+            Validator validator = this.otaSchema.newValidator();
+            validator.validate(toSource(xml));
+
+            // Build unmarshaller, that also validates against given AlpineBits schema
             Unmarshaller unmarshaller = JAXBContextSingleton.getInstance().createUnmarshaller();
             unmarshaller.setSchema(this.schema);
-            return this.classToBeBound.cast(unmarshaller.unmarshal(is));
-        } catch (JAXBException e) {
+            return this.classToBeBound.cast(unmarshaller.unmarshal(toSource(xml)));
+        } catch (JAXBException | SAXException e) {
             String message = buildErrorMessage(e);
             throw new XmlConversionException(message, 400, e);
+        } catch (IOException e) {
+            String message = buildErrorMessage(e);
+            throw new XmlConversionException(message, e);
         }
     }
 
-    private String buildErrorMessage(JAXBException e) {
+    private Source toSource(String xml) {
+        return new StreamSource(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
+    }
+
+    private String buildErrorMessage(Exception e) {
         String message = "XML-to-object conversion error";
 
         if (e.getCause() instanceof SAXParseException) {

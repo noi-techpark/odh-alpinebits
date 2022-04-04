@@ -11,7 +11,7 @@
                         <TypeRoom StandardOccupancy="1" RoomClassificationCode="1"></TypeRoom>
                         <Amenities>
                             <!-- Err: RoomAmenityCode must be defined in OTA Room Amenity Type Codes (RMA) -->
-                            <Amenity RoomAmenityCode="9999"></Amenity>
+                            <Amenity RoomAmenityCode="999"></Amenity>
                         </Amenities>
                         <MultimediaDescriptions>
                             <MultimediaDescription></MultimediaDescription>

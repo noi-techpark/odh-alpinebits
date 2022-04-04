@@ -99,6 +99,8 @@ public final class ErrorMessage {
             DefaultErrorMessage.expectNotNullErrorMessage(Names.CONTACT_INFOS);
     public static final String EXPECT_CONTEXT_TO_BE_NOT_NULL =
             DefaultErrorMessage.expectNotNullErrorMessage(Names.CONTEXT);
+    public static final String EXPECT_CURRENCY_CODE_TO_BE_VALID =
+            "The currency code '%s' is not defined in ISO-4217 and is therefore rejected";
     public static final String EXPECT_CURRENCY_CODE_TO_EXIST_IF_AMOUNT_EXISTS =
             "The CurrencyCode element must be present if there is an Amount element";
     public static final String EXPECT_CURRENCY_CODE_TO_EXIST_IF_NON_REFUNDABLE_FEE_EXISTS =
@@ -256,6 +258,8 @@ public final class ErrorMessage {
             = "More than one MultimediaDescription elements with InfoCode '%s' found";
     public static final String EXPECT_NO_DUPLICATE_LANGUAGE_AND_TEXT_FORMAT =
             "The combination Language '%s' and TextFormat '%s' appears more than once in the Description elements";
+    public static final String EXPECT_NO_OVERLAPPING_TIME_PERIODS =
+            "The closing season time periods '%s' and '%s' overlap";
     public static final String EXPECT_PENALTY_DESCRIPTION_LIST_TO_HAVE_EXACTLY_ONE_ELEMENT =
             "The list of PenaltyDescription elements is expected to contain exactly one element (%s found)";
     public static final String EXPECT_OFFSET_DROP_TIME_TO_NOT_BE_NULL =

@@ -207,6 +207,10 @@ public enum Iso6391 {
     }
 
     public static boolean isCodeDefined(String code) {
+        if (code == null) {
+            return false;
+        }
+
         for (Iso6391 value : values()) {
             if (value.code.equals(code)) {
                 return true;

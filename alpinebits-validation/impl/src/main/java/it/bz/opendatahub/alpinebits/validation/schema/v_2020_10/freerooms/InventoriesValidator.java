@@ -18,6 +18,7 @@ import it.bz.opendatahub.alpinebits.xml.schema.ota.BaseInvCountType.InvCounts.In
 import it.bz.opendatahub.alpinebits.xml.schema.ota.InvCountType;
 import it.bz.opendatahub.alpinebits.xml.schema.ota.StatusApplicationControlType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +36,7 @@ public class InventoriesValidator implements Validator<InvCountType, Inventories
     private final StatusApplicationControlValidator statusApplicationControlValidator = new StatusApplicationControlValidator();
     private final ClosingSeasonStatusApplicationControlValidator closingSeasonStatusApplicationControlValidator
             = new ClosingSeasonStatusApplicationControlValidator();
+    private final ClosingSeasonsOverlapValidator closingSeasonsOverlapValidator = new ClosingSeasonsOverlapValidator();
 
     @Override
     public void validate(InvCountType inventories, InventoriesContext ctx, ValidationPath path) {
@@ -113,6 +115,9 @@ public class InventoriesValidator implements Validator<InvCountType, Inventories
         boolean hasRoom = false;
         boolean hasCategory = false;
 
+        // Keep a list of closing-season-elements to check for overlapping time periods
+        List<BaseInvCountType> closingSeasonElements = new ArrayList<>();
+
         for (int i = 0; i < inventoryList.size(); i++) {
             ValidationPath indexedPath = path.withElement(Names.INVENTORY).withIndex(i);
 
@@ -124,6 +129,9 @@ public class InventoriesValidator implements Validator<InvCountType, Inventories
                 // Validate closing-seasons element
 
                 validateClosingSeasonsElement(inventory, nonClosingSeasonElementFound, ctx, indexedPath);
+
+                // Add inventory to list of closing-season-elements that is checked later on for overlapping time periods
+                closingSeasonElements.add(inventory);
             } else {
                 // Validate non closing-seasons element
 
@@ -161,6 +169,9 @@ public class InventoriesValidator implements Validator<InvCountType, Inventories
                 }
             }
         }
+
+        // Check that closing season don't overlap
+        this.closingSeasonsOverlapValidator.validate(closingSeasonElements, null, path);
     }
 
     private boolean isClosingSeasonElement(BaseInvCountType inventory, InventoriesContext ctx) {

@@ -67,6 +67,10 @@ public class XmlDataProvider {
                 {"HotelAvailNotifRQ_err_closing-seasons-not-on-top.xml", CTX_WITH_CLOSING_SEASONS_AND_CATEGORIES_SUPPORT, XmlSchemaType.XSD_SCHEMA, ValidationException.class},
                 {"HotelAvailNotifRQ_err_closing-seasons-not-on-top.xml", CTX_WITH_CLOSING_SEASONS_AND_CATEGORIES_SUPPORT, XmlSchemaType.RNG_SCHEMA, ValidationException.class},
 
+                // Closing seasons must not overlap
+                {"HotelAvailNotifRQ_err_closing-seasons-must-not-overlap.xml", CTX_WITH_CLOSING_SEASONS_AND_CATEGORIES_SUPPORT, XmlSchemaType.XSD_SCHEMA, ValidationException.class},
+                {"HotelAvailNotifRQ_err_closing-seasons-must-not-overlap.xml", CTX_WITH_CLOSING_SEASONS_AND_CATEGORIES_SUPPORT, XmlSchemaType.RNG_SCHEMA, ValidationException.class},
+
                 // At least one of HotelCode ort HotelName required
                 {"HotelAvailNotifRQ_err_no-hotelcode-and-hotelname.xml", DEFAULT_CTX, XmlSchemaType.XSD_SCHEMA, ValidationException.class},
                 {"HotelAvailNotifRQ_err_no-hotelcode-and-hotelname.xml", DEFAULT_CTX, XmlSchemaType.RNG_SCHEMA, XmlConversionException.class},
