@@ -6,6 +6,7 @@
 
 package it.bz.opendatahub.alpinebits.validation.schema.v_2020_10.inventory;
 
+import it.bz.opendatahub.alpinebits.common.constants.Iso4217;
 import it.bz.opendatahub.alpinebits.validation.ErrorMessage;
 import it.bz.opendatahub.alpinebits.validation.Names;
 import it.bz.opendatahub.alpinebits.validation.ValidationHelper;
@@ -158,9 +159,16 @@ public class PoliciesValidator implements Validator<Policies, InventoryContext> 
         CheckoutCharge checkoutCharge = checkoutCharges.getCheckoutCharges().get(0);
         ValidationPath checkoutChargePath = path.withElement(Names.CHECKOUT_CHARGE).withIndex(0);
 
-        // If the Amount element exists, the CurrencyCode element must be specified
-        if (checkoutCharge.getAmount() != null && checkoutCharge.getCurrencyCode() == null) {
-            VALIDATOR.throwValidationException(ErrorMessage.EXPECT_CURRENCY_CODE_TO_EXIST_IF_AMOUNT_EXISTS, checkoutChargePath);
+        // If the Amount element exists, the CurrencyCode element must be specified and its value
+        // must be one of ISO-4217 currency codes
+        if (checkoutCharge.getAmount() != null) {
+            String currencyCode = checkoutCharge.getCurrencyCode();
+            if (currencyCode == null) {
+                VALIDATOR.throwValidationException(ErrorMessage.EXPECT_CURRENCY_CODE_TO_EXIST_IF_AMOUNT_EXISTS, checkoutChargePath);
+            } else if (!Iso4217.isCodeDefined(currencyCode)) {
+                String message = String.format(ErrorMessage.EXPECT_CURRENCY_CODE_TO_BE_VALID, currencyCode);
+                VALIDATOR.throwValidationException(message, checkoutChargePath);
+            }
         }
 
         validateDescription(

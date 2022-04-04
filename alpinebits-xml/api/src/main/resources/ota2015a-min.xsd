@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    This file includes all XSD definitions for the documents defined by AlpineBits from 2017-10 to 2020-10.
+    If future AlpineBits versions specify new documents, those must be added to the inports in this file
+    in order for OTA 2015a XSD validation to work properly.
+-->
+
+<xs:schema xmlns="http://www.opentravel.org/OTA/2003/05" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.opentravel.org/OTA/2003/05" elementFormDefault="qualified" version="5.000" id="OTA2015A">
+    <xs:include schemaLocation="ota2015a/OTA_HotelAvailNotifRQ.xsd"/>
+    <xs:include schemaLocation="ota2015a/OTA_HotelAvailNotifRS.xsd"/>
+    <xs:include schemaLocation="ota2015a/OTA_HotelDescriptiveContentNotifRQ.xsd"/>
+    <xs:include schemaLocation="ota2015a/OTA_HotelDescriptiveContentNotifRS.xsd"/>
+    <xs:include schemaLocation="ota2015a/OTA_HotelDescriptiveInfoRQ.xsd"/>
+    <xs:include schemaLocation="ota2015a/OTA_HotelDescriptiveInfoRS.xsd"/>
+    <xs:include schemaLocation="ota2015a/OTA_HotelInvCountNotifRQ.xsd"/>
+    <xs:include schemaLocation="ota2015a/OTA_HotelInvCountNotifRS.xsd"/>
+    <xs:include schemaLocation="ota2015a/OTA_HotelRatePlanNotifRQ.xsd"/>
+    <xs:include schemaLocation="ota2015a/OTA_HotelRatePlanNotifRS.xsd"/>
+    <xs:include schemaLocation="ota2015a/OTA_HotelRatePlanRQ.xsd"/>
+    <xs:include schemaLocation="ota2015a/OTA_HotelRatePlanRS.xsd"/>
+    <xs:include schemaLocation="ota2015a/OTA_HotelResNotifRQ.xsd"/>
+    <xs:include schemaLocation="ota2015a/OTA_HotelResNotifRS.xsd"/>
+    <xs:include schemaLocation="ota2015a/OTA_NotifReportRQ.xsd"/>
+    <xs:include schemaLocation="ota2015a/OTA_NotifReportRS.xsd"/>
+    <xs:include schemaLocation="ota2015a/OTA_PingRQ.xsd"/>
+    <xs:include schemaLocation="ota2015a/OTA_PingRS.xsd"/>
+    <xs:include schemaLocation="ota2015a/OTA_ReadRQ.xsd"/>
+    <xs:include schemaLocation="ota2015a/OTA_ResRetrieveRS.xsd"/>
+</xs:schema>

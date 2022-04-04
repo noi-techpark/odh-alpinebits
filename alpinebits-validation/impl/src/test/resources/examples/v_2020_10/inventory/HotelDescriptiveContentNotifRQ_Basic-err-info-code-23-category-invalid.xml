@@ -20,7 +20,7 @@
                             <MultimediaDescription InfoCode="23">
                                 <ImageItems>
                                     <!-- Err: Category invalid -->
-                                    <ImageItem Category="9999">
+                                    <ImageItem Category="999">
                                         <ImageFormat>
                                             <URL>https://example.org</URL>
                                         </ImageFormat>
