@@ -19,7 +19,7 @@ pipeline {
     stages {
         stage('Configure') {
             steps {
-                sh "gpg --import ${ODH_OSSRH_GPG_KEY}"
+                sh 'gpg --import ${ODH_OSSRH_GPG_KEY}'
 
                 sh 'sed -i -e "s/<\\/settings>$//g\" ~/.m2/settings.xml'
                 sh 'echo "    <servers>" >> ~/.m2/settings.xml'
