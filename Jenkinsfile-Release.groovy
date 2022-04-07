@@ -13,14 +13,13 @@ pipeline {
     environment {
         ODH_OSSRH_USERNAME=credentials('odh-ossrh-username')
         ODH_OSSRH_PASSWORD=credentials('odh-ossrh-password')
-        ODH_OSSRH_GPG_KEY=credentials('odh-ossrh-gpg-key')
+        ODH_OSSRH_GPG_KEY=credentials('odh-ossrh-gpg-key-renewed')
     }
 
     stages {
         stage('Configure') {
             steps {
-                sh 'gpg --import ${ODH_OSSRH_GPG_KEY}'
-		sh 'gpg --show-keys'
+                sh 'gpg --import ${ODH_OSSRH_GPG_KEY}'		
 		    
                 sh 'sed -i -e "s/<\\/settings>$//g\" ~/.m2/settings.xml'
                 sh 'echo "    <servers>" >> ~/.m2/settings.xml'
