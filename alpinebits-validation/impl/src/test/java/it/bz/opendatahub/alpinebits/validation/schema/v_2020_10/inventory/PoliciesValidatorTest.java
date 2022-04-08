@@ -181,7 +181,7 @@ public class PoliciesValidatorTest {
     }
 
     @Test
-    public void testValidate_ShouldThrow_WhenAmountIsSetButCurrencyCodeIsNotIso4217() {
+    public void testValidate_ShouldThrow_WhenCheckoutChargesAmountIsSetButCurrencyCodeIsNotIso4217() {
         String notIso4217 = "NOT_ISO_4217";
 
         CheckoutCharge checkoutCharge = new CheckoutCharge();
@@ -193,7 +193,6 @@ public class PoliciesValidatorTest {
         String message = String.format(ErrorMessage.EXPECT_CURRENCY_CODE_TO_BE_VALID, notIso4217);
         this.validateAndAssert(policies, ValidationException.class, message);
     }
-
 
     @Test
     public void testValidate_ShouldThrow_WhenCheckoutChargeDescriptionCountIsLessThanOne() {
@@ -261,13 +260,27 @@ public class PoliciesValidatorTest {
     }
 
     @Test
-    public void testValidate_ShouldThrow_WhenNonRefundableFeeIsSetButCurrencyCodeIsNull() {
+    public void testValidate_ShouldThrow_WhenPetsPoliciesNonRefundableFeeIsSetButCurrencyCodeIsNull() {
         PetsPolicy petsPolicy = new PetsPolicy();
         petsPolicy.setNonRefundableFee(BigDecimal.ONE);
 
         Policies policies = buildPoliciesWithPetsPolicy(petsPolicy);
 
         this.validateAndAssert(policies, ValidationException.class, ErrorMessage.EXPECT_CURRENCY_CODE_TO_EXIST_IF_NON_REFUNDABLE_FEE_EXISTS);
+    }
+
+    @Test
+    public void testValidate_ShouldThrow_WhenPetsPoliciesAmountIsSetButCurrencyCodeIsNotIso4217() {
+        String notIso4217 = "NOT_ISO_4217";
+
+        PetsPolicy petsPolicy = new PetsPolicy();
+        petsPolicy.setNonRefundableFee(BigDecimal.ONE);
+
+        Policies policies = buildPoliciesWithPetsPolicy(petsPolicy);
+        policies.getPolicies().get(0).getPetsPolicies().getPetsPolicies().get(0).setCurrencyCode(notIso4217);
+
+        String message = String.format(ErrorMessage.EXPECT_CURRENCY_CODE_TO_BE_VALID, notIso4217);
+        this.validateAndAssert(policies, ValidationException.class, message);
     }
 
     @Test
@@ -375,6 +388,37 @@ public class PoliciesValidatorTest {
         Policies policies = buildPoliciesWithTaxPolicy(taxPolicy);
 
         this.validateAndAssert(policies, ValidationException.class, ErrorMessage.EXPECT_CHARGE_UNIT_TO_HAVE_A_VALUE_OF_21);
+    }
+
+    @Test
+    public void testValidate_ShouldThrow_WhenTaxPolicyAmountIsSetButCurrencyCodeIsNull() {
+        TaxPolicy taxPolicy = new TaxPolicy();
+        taxPolicy.setCode("3");
+        taxPolicy.setAmount(BigDecimal.ONE);
+        taxPolicy.setChargeFrequency("1");
+        taxPolicy.setChargeUnit("21");
+        taxPolicy.setCurrencyCode(null);
+
+        Policies policies = buildPoliciesWithTaxPolicy(taxPolicy);
+
+        this.validateAndAssert(policies, ValidationException.class, ErrorMessage.EXPECT_CURRENCY_CODE_TO_EXIST_IF_AMOUNT_EXISTS);
+    }
+
+    @Test
+    public void testValidate_ShouldThrow_WhenTaxPolicyAmountIsSetButCurrencyCodeIsNotIso4217() {
+        String notIso4217 = "NOT_ISO_4217";
+
+        TaxPolicy taxPolicy = new TaxPolicy();
+        taxPolicy.setCode("3");
+        taxPolicy.setAmount(BigDecimal.ONE);
+        taxPolicy.setChargeFrequency("1");
+        taxPolicy.setChargeUnit("21");
+        taxPolicy.setCurrencyCode(notIso4217);
+
+        Policies policies = buildPoliciesWithTaxPolicy(taxPolicy);
+
+        String message = String.format(ErrorMessage.EXPECT_CURRENCY_CODE_TO_BE_VALID, notIso4217);
+        this.validateAndAssert(policies, ValidationException.class, message);
     }
 
     @Test

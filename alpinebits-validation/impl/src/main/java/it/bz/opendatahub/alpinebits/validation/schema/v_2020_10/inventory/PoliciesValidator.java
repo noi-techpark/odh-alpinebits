@@ -190,12 +190,16 @@ public class PoliciesValidator implements Validator<Policies, InventoryContext> 
         PetsPolicy petsPolicy = petsPolicies.getPetsPolicies().get(0);
         ValidationPath petsPolicyPath = path.withElement(Names.PETS_POLICY).withIndex(0);
 
-        // If the NonRefundableFee element exists, the CurrencyCode element must be specified
-        if (petsPolicy.getNonRefundableFee() != null && petsPolicy.getCurrencyCode() == null) {
-            VALIDATOR.throwValidationException(
-                    ErrorMessage.EXPECT_CURRENCY_CODE_TO_EXIST_IF_NON_REFUNDABLE_FEE_EXISTS,
-                    petsPolicyPath
-            );
+        // If the NonRefundableFee element exists, the CurrencyCode element must be specified and its value
+        // must be one of ISO-4217 currency codes
+        if (petsPolicy.getNonRefundableFee() != null) {
+            String currencyCode = petsPolicy.getCurrencyCode();
+            if (currencyCode == null) {
+                VALIDATOR.throwValidationException(ErrorMessage.EXPECT_CURRENCY_CODE_TO_EXIST_IF_NON_REFUNDABLE_FEE_EXISTS, petsPolicyPath);
+            } else if (!Iso4217.isCodeDefined(currencyCode)) {
+                String message = String.format(ErrorMessage.EXPECT_CURRENCY_CODE_TO_BE_VALID, currencyCode);
+                VALIDATOR.throwValidationException(message, petsPolicyPath);
+            }
         }
 
         validateDescription(
@@ -235,9 +239,17 @@ public class PoliciesValidator implements Validator<Policies, InventoryContext> 
             if (!"21".equals(taxPolicy.getChargeUnit())) {
                 VALIDATOR.throwValidationException(ErrorMessage.EXPECT_CHARGE_UNIT_TO_HAVE_A_VALUE_OF_21, taxPolicyPath.withAttribute(Names.CHARGE_UNIT));
             }
+
+            String currencyCode = taxPolicy.getCurrencyCode();
+
             // The CurrencyCode element must not be null
-            if (taxPolicy.getCurrencyCode() == null) {
+            if (currencyCode == null) {
                 VALIDATOR.throwValidationException(ErrorMessage.EXPECT_CURRENCY_CODE_TO_EXIST_IF_AMOUNT_EXISTS, taxPolicyPath);
+            }
+            // The CurrencyCode element must be valid
+            if (!Iso4217.isCodeDefined(currencyCode)) {
+                String message = String.format(ErrorMessage.EXPECT_CURRENCY_CODE_TO_BE_VALID, currencyCode);
+                VALIDATOR.throwValidationException(message, taxPolicyPath);
             }
         }
 
