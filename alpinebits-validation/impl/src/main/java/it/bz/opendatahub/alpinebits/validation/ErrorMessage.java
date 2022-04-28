@@ -72,7 +72,7 @@ public final class ErrorMessage {
     public static final String EXPECT_CHARGE_FREQUENCY_TO_HAVE_A_VALUE_OF_1 =
             "The ChargeFrequency attribute is expected to have a value of \"1\"";
     public static final String EXPECT_CHARGE_UNIT_TO_HAVE_A_VALUE_OF_21 =
-            "The ChargeUnit attribute is expected to have a value of \"12\"";
+            "The ChargeUnit attribute is expected to have a value of \"21\"";
     public static final String EXPECT_CHECKOUT_CHARGE_LIST_TO_HAVE_EXACTLY_ONE_ELEMENT =
             "The list of CheckoutCharge elements is expected to contain exactly one element (%s found)";
     public static final String EXPECT_CLOSING_SEASON_TO_BE_ON_TOP_OF_LIST =
