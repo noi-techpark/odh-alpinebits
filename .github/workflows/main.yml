@@ -1,0 +1,70 @@
+name: CI/CD
+
+on:
+  push:
+  pull_request:
+
+env:
+  JAVA_VERSION: '8'
+
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: noi-techpark/github-actions/maven-test@v2
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          test-command: mvn -B -U clean verify -P it,sources
+
+  deploy:
+    runs-on: ubuntu-20.04
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: test
+    concurrency: deploy
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Import gpg key
+        run: echo ${{ secrets.ODH_OSSRH_USERNAME }}  | base64 --decode | gpg --import
+
+      - name: Create a settings.xml file
+        env:
+          SETTINGS_XML: |
+            <settings>
+                <servers>
+                    <server>
+                        <id>ossrh</id>
+                        <username>${{ secrets.ODH_OSSRH_USERNAME }}</username>
+                        <password>${{ secrets.ODH_OSSRH_PASSWORD }}</password>
+                    </server>
+                </servers>
+                <profiles>
+                    <profile>
+                        <id>ossrh</id>
+                        <activation>
+                            <activeByDefault>true</activeByDefault>
+                        </activation>
+                        <properties>
+                            <gpg.executable>gpg2</gpg.executable>
+                        </properties>
+                      </profile>
+                </profiles>
+            </settings>
+        run: echo "$SETTINGS_XML" > ~/.m2/settings.xml
+
+      - name: Release SDK
+        run: | 
+          mvn versions:set -DnewVersion=${{github.ref_name}}
+          mvn -B -U clean deploy -P release,sources
+
