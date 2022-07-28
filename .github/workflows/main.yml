@@ -29,6 +29,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: install ca certificates
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ca-certificates
+
       - name: Import gpg key
         run: | 
           echo ${{ env.ODH_OSSRH_GPG_KEY_BASE_64 }} | base64 --decode > gpg-key
