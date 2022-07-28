@@ -36,8 +36,9 @@ jobs:
           cache: 'maven'
 
       - name: Import gpg key
-        run: echo ${{ secrets.ODH_OSSRH_USERNAME }}  | base64 --decode | gpg --import
-
+        run: |
+          echo ${{ secrets.ODH_OSSRH_USERNAME }}  | base64 --decode > gpg-key
+          gpg --import gpg-key
       - name: Create a settings.xml file
         env:
           SETTINGS_XML: |
