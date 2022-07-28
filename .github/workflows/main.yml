@@ -65,6 +65,7 @@ jobs:
 
       - name: Release SDK
         run: | 
-          mvn versions:set -DnewVersion=${{github.ref_name}}
+          THIS_VERSION=${GITHUB_REF/refs\/tags\/v/}
+          mvn versions:set -DnewVersion="$THIS_VERSION"
           mvn -B -U clean deploy -P release,sources
 
