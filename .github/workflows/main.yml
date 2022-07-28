@@ -6,6 +6,7 @@ on:
 
 env:
   JAVA_VERSION: '8'
+  ODH_OSSRH_GPG_KEY_BASE_64: ${{ secrets.ODH_OSSRH_GPG_KEY_BASE_64 }}
 
 
 jobs:
@@ -28,17 +29,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Import gpg key
+        run: | 
+          echo ${{ env.ODH_OSSRH_GPG_KEY_BASE_64 }} | base64 --decode > gpg-key
+          gpg --import gpg-key
+
       - name: Set up Java
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: 'temurin'
           cache: 'maven'
-
-      - name: Import gpg key
-        run: | 
-          echo ${{ secrets.ODH_OSSRH_GPG_KEY }}  | base64 --decode > gpg-key
-          gpg --import gpg-key
 
       - name: Create a settings.xml file
         env:
