@@ -15,10 +15,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: noi-techpark/github-actions/maven-test@v2
-        with:
-          java-version: ${{ env.JAVA_VERSION }}
-          test-command: mvn -B -U clean verify -P it,sources
+      # - uses: noi-techpark/github-actions/maven-test@v2
+      #   with:
+      #     java-version: ${{ env.JAVA_VERSION }}
+      #     test-command: mvn -B -U clean verify -P it,sources
 
   deploy:
     runs-on: ubuntu-20.04
@@ -36,7 +36,9 @@ jobs:
           cache: 'maven'
 
       - name: Import gpg key
-        run: echo ${{ secrets.ODH_OSSRH_GPG_KEY }}  | base64 --decode | gpg --import
+        run: | 
+          echo ${{ secrets.ODH_OSSRH_GPG_KEY }}  | base64 --decode > gpg-key
+          gpg --import gpg-key
 
       - name: Create a settings.xml file
         env:
