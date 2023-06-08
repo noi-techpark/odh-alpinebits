@@ -15,6 +15,7 @@ This repository provides a library to implement AlpineBits server functionality.
 Use it to build your own standalone AlpineBits server, or integrate parts
 of it into your existing code base.
 
+![REUSE Compliance](https://github.com/noi-techpark/odh-alpinebits/actions/workflows/reuse.yml/badge.svg)
 [![CI](https://github.com/noi-techpark/odh-alpinebits/actions/workflows/ci.yml/badge.svg)](https://github.com/noi-techpark/odh-alpinebits/actions/workflows/ci.yml)
 
 ## Table of Contents
