@@ -3,6 +3,6 @@ Upstream-Name: odh-alpinebits
 Upstream-Contact: NOI Techpark <digital@noi.bz.it>
 Source: https://github.com/noi-techpark/odh-alpinebits
 
-Files: .github/* .gitignore docker/* alpine_bits_rgb.png */resources/*.json */resources/*.xsd */resources/*.rng */resources/*.xjb
+Files: .github/* .gitignore docker/* alpine_bits_rgb.png .pre-commit-config.yaml */resources/*.json */resources/*.xsd */resources/*.rng */resources/*.xjb
 Copyright: (c) NOI Techpark <digital@noi.bz.it>
 License: CC0-1.0
