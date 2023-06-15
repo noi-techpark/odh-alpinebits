@@ -64,7 +64,7 @@ pipeline {
         stage('Tag') {
             steps {
                 sshagent (credentials: ['jenkins_github_ssh_key']) {
-                    sh "git config --global user.email 'info@opendatahub.bz.it'"
+                    sh "git config --global user.email 'info@opendatahub.com'"
                     sh "git config --global user.name 'Jenkins'"
                     sh "git commit -a -m 'Version ${params.TAG}' --allow-empty"
                     sh "git tag -d ${params.TAG} || true"
